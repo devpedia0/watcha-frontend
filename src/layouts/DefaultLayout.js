@@ -11,17 +11,18 @@ const Layout = styled.div`
     min-height: calc(100vh - 0px);
     margin-top: 74px;
 
-    @media only screen and (min-width: 1100px) {
-        margin-top: 86px;
+    width: 100%;
+    @media only screen and (min-width: 600px) {
+        min-height: calc(100vh - 343px);
+        margin-top: 74px;
     }
 
     @media only screen and (min-width: 760px) {
         margin-top: 80px;
     }
 
-    @media only screen and (min-width: 600px) {
-        min-height: calc(100vh - 343px);
-        margin-top: 74px;
+    @media only screen and (min-width: 1100px) {
+        margin-top: 86px;
     }
 `;
 
