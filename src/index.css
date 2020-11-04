@@ -1,9 +1,12 @@
+* {
+    list-style: none;
+}
 body {
-  margin: 0;
-  font-family: Roboto, "Noto Sans KR", sans-serif;
+    margin: 0;
+    font-family: Roboto, "Noto Sans KR", sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
 }
