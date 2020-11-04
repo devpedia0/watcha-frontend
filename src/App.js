@@ -1,16 +1,19 @@
+import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
-import Body from "./component/Body";
+
+// pages
+import Home from "./pages/Home";
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Switch>
-                    <DefaultLayout path="/program" component={Body} />
-                    <DefaultLayout path="/book" component={Body} />
-                    <DefaultLayout path="/" exact component={Body} />
+                    <DefaultLayout path="/program" component={Home} />
+                    <DefaultLayout path="/book" component={Home} />
+                    <DefaultLayout path="/" exact component={Home} />
                     <Redirect to="/" />
                 </Switch>
             </Router>
