@@ -21,6 +21,7 @@ const Section1 = styled.div`
 `;
 
 const Span = styled.span`
+  text-align: center;
   color: #d1d1d2;
   font-size: 19px;
   font-weight: 500;
@@ -43,13 +44,12 @@ const List = styled.div`
   display: flex;
   max-width: 1320px;
 
-  @media only screen and (min-width: 760px) {
-    margin: 0 3.5%;
-  }
+  margin-right: auto;
+  margin-left: auto;
 
-  @media only screen and (min-width: 60px) {
-    margin-left: 20px;
-    margin-right: 20px;
+  @media only screen and (min-width: 1440px) {
+    margin-right: auto;
+    margin-left: auto;
   }
 `;
 
