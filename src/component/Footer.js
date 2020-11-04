@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Main = styled.div`
   display: none;
@@ -90,12 +91,6 @@ const Li = styled.li`
   }
 `;
 
-const Link = styled.a`
-  color: #a5a5a7;
-  text-decoration: none;
-  font-size: 13px;
-`;
-
 const Side = styled.div`
   display: block;
   width: 117px;
@@ -170,8 +165,20 @@ export default function Footer() {
           <Test>
             <Ul>
               <Li>서비스 이용약관</Li>
-              <Li>개인정보 처리방침</Li>
-              <Link href="/">회사 안내</Link>
+              <Li>
+                <Link
+                  to="/myPage"
+                  style={{ textDecoration: 'none', color: '#a5a5a7' }}>
+                  내 정보보기
+                </Link>
+              </Li>
+              <Li>
+                <Link
+                  to="/team"
+                  style={{ textDecoration: 'none', color: '#a5a5a7' }}>
+                  팀원 소개
+                </Link>
+              </Li>
             </Ul>
             <Ul>
               <Li>고객센터</Li>
