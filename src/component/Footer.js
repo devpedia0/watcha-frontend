@@ -47,7 +47,10 @@ const List = styled.div`
 
   margin-right: auto;
   margin-left: auto;
-
+  @media (min-width: 600px) {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
   @media only screen and (min-width: 1440px) {
     margin-right: auto;
     margin-left: auto;
