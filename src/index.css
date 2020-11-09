@@ -1,11 +1,28 @@
+* {
+    list-style: none;
+}
 body {
+
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: Roboto, "Noto Sans KR", sans-serif;
+
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+a:hover,
+a:active {
+    text-decoration: none;
+
+    background-color: #fff;
 }
