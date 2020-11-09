@@ -22,10 +22,10 @@ const Wrapper = styled.div`
 
 const Nav = styled.div`
     max-width: 1320px;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin-right: 0px;
+    margin-left: 0px;
     display: flex;
-
+    overflow: hidden;
     @media only screen and (min-width: 600px) {
         margin-right: 20px;
         margin-left: 20px;
@@ -168,14 +168,14 @@ const Search = styled.div`
         font-size: 14px;
         font-weight: 400;
         letter-spacing: -0.3px;
-        line-height: 27px;
+        line-height: 23px;
         width: 100%;
         padding: 0px 0px 1px;
         border: 0px;
         overflow: hidden;
         text-overflow: ellipsis;
         caret-color: rgb(53, 53, 53);
-        font-family: Roboto, "Noto Sans KR", sans-serif;
+        font-family: inherit;
     }
 
     @media only screen and (min-width: 860px) {
@@ -191,8 +191,9 @@ const Link = styled(NavLink)`
     margin: 0px;
     color: rgb(165, 165, 170);
     font-size: 27px;
-
+    font-weight: bold;
     letter-spacing: -0.3px;
+    font-family: inherit;
 
     &.${(props) => props.activeClassName} {
         color: rgb(53, 53, 53);
