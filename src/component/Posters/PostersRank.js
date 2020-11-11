@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-import RankListCard from "./RankListCard";
+import PosterCard from "../PosterCard";
 import img1 from "../../img/1.jpg";
 import img2 from "../../img/2.jpg";
 import img3 from "../../img/3.jpg";
@@ -165,7 +165,7 @@ const ArrowButton = styled.div`
     }
 `;
 
-const PostersRank = () => {
+const PostersRank = ({ size }) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
         posX: 0,
@@ -202,7 +202,8 @@ const PostersRank = () => {
                         }}
                     >
                         {[...new Array(28)].map((_, idx) => (
-                            <RankListCard
+                            <PosterCard
+                                size={size}
                                 key={idx}
                                 idx={idx}
                                 imgSrc={imgSrc[idx % 6]}
