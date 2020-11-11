@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import RankListCard from "./RankListCard";
 import img1 from "../../img/1.jpg";
 import img2 from "../../img/2.jpg";
@@ -82,16 +82,21 @@ const Content = styled.div`
     }
 `;
 
+const CardContainerNonVisible = styled.div`
+    overflow: hidden;
+`;
+
 const CardContainer = styled.div`
-    overflow-x: hidden;
-    overflow-y: hidden;
     transition: 500ms;
+    width: 100%;
 
     padding: 0px;
     white-space: nowrap;
     margin-top: 0px;
     margin-bottom: 0px;
     margin: 0px -4px;
+    transition: 500ms;
+
     @media only screen and (min-width: 719px) {
         margin-right: 28px;
         margin-left: 20px;
@@ -105,31 +110,45 @@ const CardContainer = styled.div`
 `;
 
 const ArrowButton = styled.div`
-    display: flex;
+    right: ${(props) => (props.right ? "-5px" : null)};
+    left: ${(props) => (props.left ? "-19px" : null)};
+    display: ${(props) => (props.show ? "flex" : "none")};
     position: absolute;
     top: 0px;
-    z-index: 2;
-    right: -9px;
+    z-index: 22;
+    overflow: visible;
     align-items: center;
     height: 100%;
     transition: all 300ms ease 0s;
     opacity: 0;
     align-items: flex-start;
 
-    div {
+    ::after {
+        content: "";
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: rgb(255, 255, 255);
         box-sizing: border-box;
         border: 1px solid rgb(249, 249, 249);
-        border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 0px;
+        border-radius: 50%;
         background-size: 12px;
         width: 34px;
         height: 34px;
         cursor: pointer;
         transition: opacity 300ms ease 0s;
+
+        ${(props) => {
+            const url = props.right
+                ? "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiMyOTJBMzIiIHN0cm9rZT0iIzI5MkEzMiIgc3Ryb2tlLXdpZHRoPSIuMzUiIGQ9Ik0zLjQyOSAxMy40MDlMNC4zNTQgMTQuMjU4IDEwLjY4IDguNDYgMTEuMTQzIDguMDM2IDQuMzU0IDEuODEzIDMuNDI5IDIuNjYyIDkuMjkxIDguMDM2eiIvPgogICAgPC9nPgo8L3N2Zz4K"
+                : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDYgOCkiLz4KICAgICAgICA8cGF0aCBmaWxsPSIjMjkyQTMyIiBzdHJva2U9IiMyOTJBMzIiIHN0cm9rZS13aWR0aD0iLjM1IiBkPSJNMy40MjkgMTMuNDA5TDQuMzU0IDE0LjI1OCAxMC42OCA4LjQ2IDExLjE0MyA4LjAzNiA0LjM1NCAxLjgxMyAzLjQyOSAyLjY2MiA5LjI5MSA4LjAzNnoiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA2IDgpIi8+CiAgICA8L2c+Cjwvc3ZnPgo=";
+            return css`
+                background: url(${url}) 12px center / 12px no-repeat
+                    rgb(255, 255, 255);
+            `;
+        }}
+
         @media only screen and (min-width: 760px) {
             margin-top: calc((100vw - 60px) * 108 / 157 / 4 - 17px);
         }
@@ -141,26 +160,32 @@ const ArrowButton = styled.div`
         }
     }
 
-    img {
-        opacity: 0.4;
-    }
-
     @media only screen and (min-width: 760px) {
         opacity: 1 !important;
     }
 `;
 
-const RankList = () => {
-    const [posX, setPosX] = useState(0);
+const PostersRank = () => {
     const slider = useRef();
+    const [buttonCtrl, setButtonCtrl] = useState({
+        posX: 0,
+        left: false,
+        right: true,
+    });
 
-    const handleClickRight = () => {
+    const handleClickButton = (type) => {
+        const childNum = slider.current.children.length;
+        const childWidth = slider.current.children[0].clientWidth;
+        const childTotalWidth = childNum * childWidth;
         const dist = slider.current.offsetWidth;
-        // slider.current.scrollLeft(`${dist * -1}px`);
-        // slider.current.scrollTo({ x: `-90px`, y: "20px" });
+        const newPosX =
+            type === "right" ? buttonCtrl.posX + dist : buttonCtrl.posX - dist;
 
-        slider.current.scrollTo(posX + dist, 0);
-        setPosX((state) => state + dist);
+        setButtonCtrl({
+            posX: newPosX,
+            left: newPosX > 0,
+            right: newPosX <= childTotalWidth - dist,
+        });
     };
 
     return (
@@ -169,29 +194,35 @@ const RankList = () => {
                 <p>박스오피스</p>
             </Title>
             <Content>
-                <CardContainer
-                    ref={slider}
-                    // style={{ transform: `translateX(${dist}px)` }}
-                >
-                    {[...new Array(30)].map((_, idx) => (
-                        <RankListCard
-                            key={idx}
-                            idx={idx}
-                            imgSrc={imgSrc[idx % 6]}
-                        />
-                    ))}
-                </CardContainer>
-                <ArrowButton onClick={handleClickRight}>
-                    <div>
-                        <img
-                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiMyOTJBMzIiIHN0cm9rZT0iIzI5MkEzMiIgc3Ryb2tlLXdpZHRoPSIuMzUiIGQ9Ik0zLjQyOSAxMy40MDlMNC4zNTQgMTQuMjU4IDEwLjY4IDguNDYgMTEuMTQzIDguMDM2IDQuMzU0IDEuODEzIDMuNDI5IDIuNjYyIDkuMjkxIDguMDM2eiIvPgogICAgPC9nPgo8L3N2Zz4K"
-                            alt="forward"
-                        ></img>
-                    </div>
-                </ArrowButton>
+                <CardContainerNonVisible>
+                    <CardContainer
+                        ref={slider}
+                        style={{
+                            transform: `translateX(-${buttonCtrl.posX}px)`,
+                        }}
+                    >
+                        {[...new Array(28)].map((_, idx) => (
+                            <RankListCard
+                                key={idx}
+                                idx={idx}
+                                imgSrc={imgSrc[idx % 6]}
+                            />
+                        ))}
+                    </CardContainer>
+                </CardContainerNonVisible>
+                <ArrowButton
+                    left
+                    show={buttonCtrl.left}
+                    onClick={() => handleClickButton("left")}
+                />
+                <ArrowButton
+                    right
+                    show={buttonCtrl.right}
+                    onClick={() => handleClickButton("right")}
+                />
             </Content>
         </Wrapper>
     );
 };
 
-export default RankList;
+export default PostersRank;

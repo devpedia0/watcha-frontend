@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import Recommend from "../component/Recommend";
+import PostersRank from "../component/Posters/PostersRank";
 import Collection from "../component/Collection";
-import RankList from "../component/RankList/RankList";
 
 const Wrapper = styled.div``;
 
 const Home = () => {
     return (
         <div>
-            <RankList />
-            <RankList />
-            <RankList />
+            <PostersRank />
+            <PostersRank />
+            <PostersRank />
             <Recommend />
             <Recommend />
             <Recommend />
