@@ -1,3 +1,4 @@
+
 import "./App.css";
 import Team from "./component/Team";
 import MyPage from "./component/MyPage";
@@ -26,6 +27,7 @@ function App() {
             </Router>
         </div>
     );
+
 }
 
 export default App;
