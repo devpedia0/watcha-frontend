@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import Login from '../pages/LoginSignUp/Login';
+import Login from '../pages/LoginSignUp/Login3';
 import SignUp from '../pages/LoginSignUp/SignUp';
+
+const API = 'https://localhost:3000/';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -23,7 +25,6 @@ const Wrapper = styled.div`
 `;
 
 const Nav = styled.div`
-
   max-width: 1320px;
   margin-right: 20px;
   margin-left: 20px;
@@ -37,7 +38,6 @@ const Nav = styled.div`
     margin: 0 3.5%;
     li:nth-child(1) {
       display: block;
-
     }
   }
 
@@ -174,7 +174,6 @@ const Search = styled.div`
   border: none;
   cursor: pointer;
 
-
   div {
     flex: 1 1 0%;
     height: 28px !important;
@@ -193,6 +192,7 @@ const Search = styled.div`
     caret-color: rgb(53, 53, 53);
     font-family: Roboto, 'Noto Sans KR', sans-serif;
   }
+
   @media only screen and (min-width: 860px) {
     margin: 12px 0;
     padding: 7px 10px 8px 36px;
@@ -202,14 +202,12 @@ const Search = styled.div`
 `;
 
 const Link = styled(NavLink)`
-
   padding: 0px;
   margin: 0px;
   color: rgb(165, 165, 170);
   font-size: 27px;
 
   letter-spacing: -0.3px;
-
 
   &.${(props) => props.activeClassName} {
     color: rgb(53, 53, 53);
@@ -227,15 +225,123 @@ const Header = (props) => {
   const [loginVisible, setLoginVisible] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [signUpVisible, setSignUpVisible] = useState(true);
-
+  const [active, setActive] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [profileImg, setProfileImg] = useState('');
+
+  const loginFetch = () => {
+    fetch(`${API}/signin`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.access_token) {
+          localStorage.setItem('access_token', res.access_token);
+          alert('Login Success');
+          props.history.push('/')({
+            isLogin: true,
+            email,
+            password,
+            loginVisible: !loginVisible,
+          });
+        } else {
+          alert('Login False');
+        }
+      });
+  };
 
   const loginModal = () => {
     setLoginVisible({ loginVisible: !loginVisible });
   };
 
+  const loginValidate = (type) => {
+    const validation = {
+      email: email.includes('@'),
+      password: password.length > 5,
+    };
+  };
+
+  const loginState = (type, value) => {
+    if (!value) return 'label';
+    return loginValidate(type) ? 'label' : 'labelWrong';
+  };
+
+  const loginEnter = (e) => {
+    const loginValidate = email.includes('@') && password.length > 5;
+    if (e.key === 'Enter' && loginValidate === true) {
+      loginFetch();
+    }
+  };
+
+  const signUpFetch = () => {
+    fetch(`${API}/signup`, {
+      method: 'POST',
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === 'SIGNUP_SUCCESS') {
+          alert('회원가입 성공');
+          props.history.push('/');
+          window.location.reload();
+        } else {
+          alert('회원가입 실패');
+        }
+      });
+  };
+
+  const signUpValidate = (type) => {
+    const validation = {
+      username: username.length > 1,
+      email: email.includes('@'),
+      password: password.length > 5,
+    };
+    return validation[type];
+  };
+
+  const signUpEnter = (e) => {
+    const signUpValidate =
+      username.length > 1 && email.includes('@') && password.length > 5;
+    if (e.key === 'Enter' && signUpValidate === true) {
+      signUpFetch();
+    }
+  };
+
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+
+  const onChangeUsername = (e) => {
+    const username = e.target.value;
+    setUsername(username);
+  };
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
   const signUpModal = () => {
     setSignUpVisible({ signUpVisible: !signUpVisible });
+  };
+
+  const toUserProfile = () => {
+    props.history.push('/myPage');
   };
 
   return (
@@ -298,7 +404,7 @@ const Header = (props) => {
           <li>
             {isLogin ? (
               <button className="profileBtn">
-                <img alt="" src={profileImg} />
+                <img alt="" src={profileImg} onClick={toUserProfile} />
               </button>
             ) : (
               <button
@@ -311,8 +417,26 @@ const Header = (props) => {
         </LiButton>
       </Nav>
       <>
-        <Login loginModal={loginModal} switchModal={loginVisible} />
-        <SignUp signUpModal={signUpModal} switchModal={signUpVisible} />
+        <Login
+          loginFetch={loginFetch}
+          loginEnter={loginEnter}
+          loginState={loginState}
+          loginValidate={loginValidate}
+          email={email}
+          password={password}
+          loginModal={loginModal}
+          switchModal={loginVisible}
+        />
+        <SignUp
+          signUpFetch={signUpFetch}
+          signUpEnter={signUpEnter}
+          signUpValidate={signUpValidate}
+          email={email}
+          username={username}
+          password={password}
+          signUpModal={signUpModal}
+          switchModal={signUpVisible}
+        />
       </>
     </Wrapper>
   );

@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Hong from '../images/hong.jpeg';
+import Ha from '../images/ha.jpeg';
+import Park from '../images/park.jpeg';
+import Jo from '../images/jo.JPG';
 
 const Header = styled.div`
   display: block;
@@ -115,7 +118,7 @@ const Profile = styled.div`
 
 const Person = styled.div`
   width: 150px;
-  height: 100%;
+  height: 150px;
   overflow: hidden;
   background-size: cover;
   object-fit: contain;
@@ -207,39 +210,52 @@ export default function Team() {
         </Skills>
 
         <Profile>
-          <Person>
-            <Img src={Hong} alt="Hong" />
-          </Person>
-          <div>
-            <h1>홍효석</h1>
-            <h2>010-9968-8236</h2>
-            <h3>https://github.com/hongcoder</h3>
+          <div className="card">
+            <Person>
+              <Img src={Hong} alt="Hong" />
+            </Person>
+            <div>
+              <h1>홍효석</h1>
+              <h2>010-9968-8236</h2>
+              <h3>https://github.com/hongcoder</h3>
+              <h3>honghs93@gmail.com</h3>
+            </div>
           </div>
-          <Person>
-            <Img src={Hong} alt="Hong" />
-          </Person>
-          <div>
-            <h1>홍효석</h1>
-            <h2>010-9968-8236</h2>
-            <h3>https://github.com/hongcoder</h3>
+
+          <div className="card">
+            <Person>
+              <Img src={Park} alt="Park" />
+            </Person>
+            <div>
+              <h1>박경덕</h1>
+              <h2>010-8782-2235</h2>
+              <h3>https://github.com/wert1229</h3>
+              <h3>wert1229@gmail.com</h3>
+            </div>
           </div>
         </Profile>
         <Profile>
-          <Person>
-            <Img src={Hong} alt="Hong" />
-          </Person>
-          <div>
-            <h1>홍효석</h1>
-            <h2>010-9968-8236</h2>
-            <h3>https://github.com/hongcoder</h3>
+          <div className="card">
+            <Person>
+              <Img src={Ha} alt="Ha" />
+            </Person>
+            <div>
+              <h1>하경윤</h1>
+              <h2>010-9206-6598</h2>
+              <h3>https://github.com/kyungyoonha</h3>
+              <h3>gkb10a@naver.com</h3>
+            </div>
           </div>
-          <Person>
-            <Img src={Hong} alt="Hong" />
-          </Person>
-          <div>
-            <h1>홍효석</h1>
-            <h2>010-9968-8236</h2>
-            <h3>https://github.com/hongcoder</h3>
+          <div className="card">
+            <Person>
+              <Img src={Jo} alt="Hong" />
+            </Person>
+            <div>
+              <h1>조정우</h1>
+              <h2>010-9968-8236</h2>
+              <h3>https://github.com/JJungwoo</h3>
+              <h3>jungwoo5759@gmail.com</h3>
+            </div>
           </div>
         </Profile>
       </Section>
