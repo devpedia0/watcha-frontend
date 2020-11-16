@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AuthService from '../../service/auth.service';
+import ReactFacebookLogin from '../../service/ReactFacebookLogin';
 
 const Outer = styled.div`
   display: block;
@@ -309,31 +310,31 @@ const Hr = styled.hr`
   }
 `;
 
-const Facebook = styled.button`
-  color: rgb(250, 250, 250);
-  text-align: center;
-  width: 100%;
-  height: 44px;
-  border-radius: 6px;
-  position: relative;
-  background: rgb(60, 90, 160);
-  font-size: 100%;
+// const Facebook = styled.button`
+//   color: rgb(250, 250, 250);
+//   text-align: center;
+//   width: 100%;
+//   height: 44px;
+//   border-radius: 6px;
+//   position: relative;
+//   background: rgb(60, 90, 160);
+//   font-size: 100%;
 
-  ::before {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 11px;
-    left: 14px;
-    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjMzMiA4LjJoLTIuMDE2cy0xLjI4NC4wNzctMS4yODQgMS42NDR2Mi4wMDhoMy4zbC0uNTUgMy4xMDdoLTIuNzV2OC4wNGgtMy4xMTR2LTguMDRoLTIuNzV2LTMuMTA3aDIuNzVWOS4xMTNzLS4xMDQtMy44MzQgMy44NDgtMy44MzRjMS44NDggMCAyLjU2Ni4xODQgMi41NjYuMTg0VjguMnptMC03LjJINC42NjhBMy42NjggMy42NjggMCAwIDAgMSA0LjY2NnYxNC42NjZBMy42NyAzLjY3IDAgMCAwIDQuNjY4IDIzaDE0LjY2NEEzLjY2OCAzLjY2OCAwIDAgMCAyMyAxOS4zMzJWNC42NjZBMy42NjYgMy42NjYgMCAwIDAgMTkuMzMyIDF6Ii8+Cjwvc3ZnPgo=')
-      center center no-repeat;
-    width: 22px;
-    height: 22px;
-  }
-`;
+//   ::before {
+//     content: '';
+//     display: inline-block;
+//     position: absolute;
+//     top: 11px;
+//     left: 14px;
+//     background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjMzMiA4LjJoLTIuMDE2cy0xLjI4NC4wNzctMS4yODQgMS42NDR2Mi4wMDhoMy4zbC0uNTUgMy4xMDdoLTIuNzV2OC4wNGgtMy4xMTR2LTguMDRoLTIuNzV2LTMuMTA3aDIuNzVWOS4xMTNzLS4xMDQtMy44MzQgMy44NDgtMy44MzRjMS44NDggMCAyLjU2Ni4xODQgMi41NjYuMTg0VjguMnptMC03LjJINC42NjhBMy42NjggMy42NjggMCAwIDAgMSA0LjY2NnYxNC42NjZBMy42NyAzLjY3IDAgMCAwIDQuNjY4IDIzaDE0LjY2NEEzLjY2OCAzLjY2OCAwIDAgMCAyMyAxOS4zMzJWNC42NjZBMy42NjYgMy42NjYgMCAwIDAgMTkuMzMyIDF6Ii8+Cjwvc3ZnPgo=')
+//       center center no-repeat;
+//     width: 22px;
+//     height: 22px;
+//   }
+// `;
 
 export default function SignUp(props) {
-  const [username, setUsername] = useState('');
+  const [name, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [successful, setSuccessful] = useState(false);
@@ -356,12 +357,11 @@ export default function SignUp(props) {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-
     setMessage('');
     setSuccessful(false);
 
-    if ((email.includes('@') && password.length > 5, username.length > 1)) {
-      AuthService.register(email, username, password).then(
+    if ((email.includes('@') && password.length > 5, name.length > 1)) {
+      AuthService.register(name, email, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -399,7 +399,7 @@ export default function SignUp(props) {
                         <Value>
                           <Input
                             onChange={onChangeUsername}
-                            value={username}
+                            value={name}
                             name="username"
                             label="이름"
                             placeholder="이름"
@@ -477,14 +477,12 @@ export default function SignUp(props) {
                     </Language>
                     <SignUpBtn>회원가입</SignUpBtn>
                   </form>
-
                   <AlReady>
                     이미 가입하셨나요?<Btn>로그인</Btn>
                   </AlReady>
-
                   <Hr />
-
-                  <Facebook>Facebook 으로 로그인</Facebook>
+                  {/* <Facebkook /> */}
+                  <ReactFacebookLogin />
                 </Content>
               </div>
             </div>

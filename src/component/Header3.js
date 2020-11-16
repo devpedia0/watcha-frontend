@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import Login from '../pages/LoginSignUp/Login';
+import Login from '../pages/LoginSignUp/Login3';
 import SignUp from '../pages/LoginSignUp/SignUp';
 
 const API = 'https://localhost:3000/';
