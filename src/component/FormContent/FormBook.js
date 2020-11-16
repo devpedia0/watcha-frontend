@@ -1,5 +1,5 @@
-import React from "react";
-import useInputs from "../../Hooks/useInputs";
+import React, { useEffect } from "react";
+import FormContainer from "../../styles/FormContainer";
 
 const initialValue = {
     subtitle: "",
@@ -8,19 +8,36 @@ const initialValue = {
     description2: "",
 };
 
-const FormBook = () => {
-    console.log("zz");
-    const { inputs, handleChangeInputs } = useInputs(initialValue);
+const FormBook = ({ data, setData }) => {
+    useEffect(() => {
+        setData((state) => ({
+            ...state,
+            Content: initialValue,
+        }));
+    }, [setData]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((state) => ({
+            ...state,
+            Content: {
+                ...state.Content,
+                [name]: value,
+            },
+        }));
+    };
+    console.log("Book");
+
     return (
-        <form>
-            <h2 className="mb-3">책(2/3)</h2>
+        <FormContainer>
+            <h2 className="mb-3">책</h2>
             <div className="form-group">
                 <label>부제목</label>
                 <input
                     className="form-control"
                     name="subtitle"
-                    value={inputs.subtitle}
-                    onChange={handleChangeInputs}
+                    value={data.subtitle || ""}
+                    onChange={handleChange}
                 />
             </div>
             <div className="form-group">
@@ -28,8 +45,8 @@ const FormBook = () => {
                 <input
                     className="form-control"
                     name="page"
-                    value={inputs.page}
-                    onChange={handleChangeInputs}
+                    value={data.page || ""}
+                    onChange={handleChange}
                 />
             </div>
             <div className="form-group">
@@ -37,8 +54,8 @@ const FormBook = () => {
                 <textarea
                     className="form-control"
                     name="contents"
-                    value={inputs.contents}
-                    onChange={handleChangeInputs}
+                    value={data.contents || ""}
+                    onChange={handleChange}
                     rows="3"
                 />
             </div>
@@ -47,17 +64,13 @@ const FormBook = () => {
                 <textarea
                     className="form-control"
                     name="description2"
-                    value={inputs.description2}
-                    onChange={handleChangeInputs}
+                    value={data.description2 || ""}
+                    onChange={handleChange}
                     rows="3"
                 />
             </div>
-
-            <button type="button" className="btn btn-primary">
-                Submit
-            </button>
-        </form>
+        </FormContainer>
     );
 };
 
-export default FormBook;
+export default React.memo(FormBook);

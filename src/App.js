@@ -19,8 +19,8 @@ function App() {
                 <Switch>
                     <DefaultLayout path="/program" component={Home} />
                     <DefaultLayout path="/book" component={Home} />
+                    <DefaultLayout path="/form" component={AdminForm} />
                     <DefaultLayout path="/" exact component={Home} />
-                    <Route path="/form" component={AdminForm} />
                     <Route path="/team" component={Team} />
                     <Route path="/myPage" component={MyPage} />
                     <Redirect to="/" />

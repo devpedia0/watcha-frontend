@@ -1,21 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
-const Wrapper = styled.ul`
-    margin-bottom: 30px;
-`;
+import FormContainer from "../../styles/FormContainer";
 
 const Link = styled(NavLink)`
     &.${(props) => props.activeClassName} {
-        color: #ff0558 !important;
+        color: white !important;
         font-weight: bold;
     }
 `;
 
 const FormNav = () => {
     return (
-        <Wrapper className="nav nav-tabs">
+        <FormContainer className="nav nav-pills">
             <li className="nav-item">
                 <Link
                     to="/form/content"
@@ -52,7 +49,7 @@ const FormNav = () => {
                     태그입력
                 </Link>
             </li>
-        </Wrapper>
+        </FormContainer>
     );
 };
 

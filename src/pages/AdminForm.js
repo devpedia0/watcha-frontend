@@ -6,51 +6,47 @@ import styled from "styled-components";
 import FormNav from "../component/Form/FormNav";
 import FormTag from "../component/Form/FormTag";
 import FormPeople from "../component/Form/FormPeople.js";
-import FormContent from "../component/Form/FormContent";
+// import FormContent from "../component/Form/FormContent";
 import FormCollection from "../component/Form/FormCollection";
-import FormMovie from "../component/Form/FormMovie";
-import FormBook from "../component/Form/FormBook";
-import FormTV from "../component/Form/FormTV";
-import FormRelative from "../component/Form/FormRelative";
+import FormContent from '../component/FormContent';
 
 const Wrapper = styled.div`
+    
     background: #f8f8f8;
     padding-top: 71px;
+    padding-bottom: 50px;
     width: 100%;
-    height: calc(100vh - 71px);
+
+    a {
+        padding: 15px 25px;
+    }
+
+    label {
+        margin: 10px 0;
+    }
+
+    h2{
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
 
     @media only screen and (min-width: 737px) {
         margin-top: 62px;
-        height: calc(100vh - 62px);
+        height: 100%;
     }
 `;
 
-const FormContainer = styled.div`
-    background: white;
-    margin: 0 auto;
-    padding: 30px 30px;
-    max-width: 900px;
-    border: 1px solid #ededed;
-`;
-console.log('zz')
 const AdminForm = () => {
     return (
         <Wrapper>
-            <FormContainer>
-                <FormNav />
-                <Switch>
-                    <Route path="/form/tag" exact component={FormTag} />
-                    <Route path="/form/people" exact component={FormPeople} />
-                    <Route path="/form/content" exact component={FormContent} />
-                    <Route path="/form/content/movie" component={FormMovie} />
-                    <Route path="/form/content/book" component={FormBook} />
-                    <Route path="/form/content/tv" component={FormTV} />
-                    <Route path="/form/content/relativepeople" component={FormRelative}/>
-                    <Route path="/form/collection" component={FormCollection} />
-
-                    <Redirect from="/form" to="form/tag" />
-                </Switch>
-            </FormContainer>
+            <FormNav />
+            <Switch>
+                <Route path="/form/tag" exact component={FormTag} />
+                <Route path="/form/people" exact component={FormPeople} />
+                <Route path="/form/content" exact component={FormContent} />
+                <Route path="/form/collection" component={FormCollection} />
+                <Redirect from="/form" to="form/tag" />
+            </Switch>
         </Wrapper>
     );
 };

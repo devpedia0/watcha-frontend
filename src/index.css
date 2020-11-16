@@ -3,16 +3,10 @@
 }
 
 body {
-
-
-
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: Roboto, "Noto Sans KR", sans-serif;
-
-
-
 }
 
 code {
@@ -20,10 +14,7 @@ code {
         monospace;
 }
 
-
-
 a {
-    color: #fff;
     text-decoration: none;
     outline: none;
 }
@@ -31,8 +22,6 @@ a {
 a:hover,
 a:active {
     text-decoration: none;
-
-    background-color: #fff;
 }
 
 html,
@@ -141,8 +130,6 @@ section {
     display: block;
 }
 
-
-
 ol,
 ul,
 li {
@@ -153,5 +140,3 @@ a,
 a:visited {
     text-decoration: none;
 }
-
-

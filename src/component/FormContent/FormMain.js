@@ -1,41 +1,21 @@
 import React from "react";
-import useInputs from "../../Hooks/useInputs";
-import history from "../../history";
+import FormContainer from "../../styles/FormContainer";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
-// import formAPI from "../../services/formAPI";
 registerLocale("ko", ko);
 
-const initialValue = {
-    poster_image_id: "",
-    main_title: "",
-    category: "",
-    production_year: new Date(),
-    description: "",
-    dtype: "movie",
-};
-
-const FormContent = () => {
-    const { inputs, handleChangeInputs } = useInputs(initialValue);
-
-    const handleClickSubmit = async () => {
-        try {
-            // TODO: validate
-            // const { isValid, errors } = validateAll(inputs);
-
-            // TODO: API
-            //const content_id = (await formAPI.submit("/content", inputs));
-            const content_id = 1;
-            const url = `/form/content/${inputs.dtype}?coantent_id=${content_id}`;
-            history.push(url);
-        } catch (e) {
-            console.log(e);
-        }
+const FormMain = ({ data, setData }) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((state) => ({
+            ...state,
+            [name]: value,
+        }));
     };
 
     return (
-        <form>
-            <h2 className="mb-3">컨텐츠(1/3)</h2>
+        <FormContainer>
+            <h2 className="mb-3">컨텐츠</h2>
             <div className="form-group">
                 <label>포스터 이미지</label>
                 <div className="custom-file">
@@ -57,16 +37,16 @@ const FormContent = () => {
                 <input
                     className="form-control"
                     name="main_title"
-                    value={inputs.main_title}
-                    onChange={handleChangeInputs}
+                    value={data.main_title || ""}
+                    onChange={handleChange}
                 />
             </div>
             <div className="form-group">
                 <label>카테고리</label>
                 <select
                     name="category"
-                    value={inputs.category}
-                    onChange={handleChangeInputs}
+                    value={data.category || ""}
+                    onChange={handleChange}
                     className="custom-select"
                 >
                     <option value="">카테고리 선택</option>
@@ -80,10 +60,10 @@ const FormContent = () => {
                 <label>제작연도</label>
                 <DatePicker
                     locale="ko"
-                    selected={inputs.production_year}
+                    selected={data.production_year || new Date()}
                     onChange={(date) => {
                         console.log(date);
-                        return handleChangeInputs({
+                        return handleChange({
                             target: {
                                 name: "production_year",
                                 value: date,
@@ -100,8 +80,8 @@ const FormContent = () => {
                 <textarea
                     className="form-control"
                     name="description"
-                    value={inputs.description}
-                    onChange={handleChangeInputs}
+                    value={data.description || ""}
+                    onChange={handleChange}
                     rows="3"
                 />
             </div>
@@ -109,25 +89,19 @@ const FormContent = () => {
                 <label>컨텐츠 종류</label>
                 <select
                     name="dtype"
-                    value={inputs.dtype}
-                    onChange={handleChangeInputs}
+                    value={data.dtype || ""}
+                    onChange={handleChange}
                     className="custom-select"
                 >
+                    <option value="">(선택)</option>
                     <option value="movie">영화</option>
                     <option value="book">책</option>
                     <option value="tv">TV 프로그램</option>
                 </select>
             </div>
-
-            <button
-                type="button"
-                className="btn btn-success"
-                onClick={handleClickSubmit}
-            >
-                Next
-            </button>
-        </form>
+            <br />
+        </FormContainer>
     );
 };
 
-export default FormContent;
+export default FormMain;

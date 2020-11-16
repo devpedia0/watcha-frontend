@@ -43,7 +43,7 @@ const FormRelative = () => {
 
     useEffect(() => {
         if (!content_id) {
-            history.goback();
+            history.goBack();
         }
 
         setInputs((state) => ({
