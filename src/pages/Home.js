@@ -1,27 +1,19 @@
-
-
-import React from 'react';
+import React from "react";
 // import styled from "styled-components";
-import Rank from '../component/Rank';
-import Recommend from '../component/Recommend';
-import Collection from '../component/Collection';
+import PostersRank from "../component/Posters/PostersRank";
 
 // const Wrapper = styled.div``;
 
-
 const Home = () => {
-  return (
-    <div>
-      <Rank />
-      <Rank />
-      <Rank />
-      <Recommend />
-      <Recommend />
-      <Recommend />
-      <Collection />
-    </div>
-  );
-
+    return (
+        <div>
+            <PostersRank />
+            <PostersRank />
+            <PostersRank />
+            <PostersRank size="medium" />
+            <PostersRank size="medium" />
+        </div>
+    );
 };
 
 export default Home;
