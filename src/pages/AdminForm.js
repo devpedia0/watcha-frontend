@@ -32,7 +32,7 @@ const FormContainer = styled.div`
     max-width: 900px;
     border: 1px solid #ededed;
 `;
-
+console.log('z')
 const AdminForm = () => {
     return (
         <Wrapper>

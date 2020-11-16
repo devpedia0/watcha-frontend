@@ -1,15 +1,11 @@
 import "./App.css";
 import Team from "./component/Team";
 import MyPage from "./component/MyPage";
+import history from "./history";
 
 import React from "react";
 import "./App.css";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect,
-} from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 
 // pages
@@ -18,7 +14,7 @@ import Home from "./pages/Home";
 function App() {
     return (
         <div className="App">
-            <Router>
+            <Router history={history}>
                 <Switch>
                     <DefaultLayout path="/program" component={Home} />
                     <DefaultLayout path="/book" component={Home} />
