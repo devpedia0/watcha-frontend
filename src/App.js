@@ -5,12 +5,13 @@ import Footer from "./component/Footer";
 import Team from "./component/Team";
 import MyPage from "./component/MyPage";
 import AdminForm from "./pages/AdminForm";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
+import history from "./history";
 import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
     return (
-        <Router>
+        <Router history={history}>
             <Header />
             <Route exact path="/">
                 <Footer />

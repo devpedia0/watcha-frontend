@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useInputs from "../../Hooks/useInputs";
+import queryString from "query-string";
+import history from "../../history";
 
 const initialValue = {
+    content_id: "",
     origin_title: "",
     country_code: "KO",
     running_time_minutes: "",
@@ -12,8 +15,34 @@ const initialValue = {
 };
 
 const FormMovie = () => {
-    const { inputs, handleChangeInputs } = useInputs(initialValue);
-    console.log("??");
+    const content_id = queryString.parse(window.location.search).content_id;
+    const { inputs, setInputs, handleChangeInputs } = useInputs(initialValue);
+
+    useEffect(() => {
+        if (!content_id) {
+            history.goback();
+        }
+
+        setInputs((state) => ({
+            ...state,
+            content_id,
+        }));
+    }, [content_id, setInputs]);
+
+    const handleClickSubmit = async () => {
+        try {
+            // TODO: validate
+            // const { isValid, errors } = validateAll(inputs);
+
+            // TODO: API
+            // await formAPI.submit("/content/movie", inputs)
+            const url = `/form/content/relativepeople?content_id=${content_id}`;
+            history.push(url);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     return (
         <form>
             <h2 className="mb-3">영화(2/3)</h2>
@@ -133,8 +162,12 @@ const FormMovie = () => {
                 />
             </div>
 
-            <button type="button" className="btn btn-primary">
-                Submit
+            <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleClickSubmit}
+            >
+                Next
             </button>
         </form>
     );

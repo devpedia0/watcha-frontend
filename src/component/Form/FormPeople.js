@@ -2,8 +2,7 @@ import React from "react";
 import useInputs from "../../Hooks/useInputs";
 
 const initialValue = {
-    main_title: "",
-    category: "",
+    name: "",
     profile_image_id: "",
     description: "",
 };

@@ -8,10 +8,10 @@ import FormTag from "../component/Form/FormTag";
 import FormPeople from "../component/Form/FormPeople.js";
 import FormContent from "../component/Form/FormContent";
 import FormCollection from "../component/Form/FormCollection";
-// delete
 import FormMovie from "../component/Form/FormMovie";
 import FormBook from "../component/Form/FormBook";
 import FormTV from "../component/Form/FormTV";
+import FormRelative from "../component/Form/FormRelative";
 
 const Wrapper = styled.div`
     background: #f8f8f8;
@@ -45,6 +45,7 @@ const AdminForm = () => {
                     <Route path="/form/content/movie" component={FormMovie} />
                     <Route path="/form/content/book" component={FormBook} />
                     <Route path="/form/content/tv" component={FormTV} />
+                    <Route path="/form/content/relativepeople" component={FormRelative}/>
                     <Route path="/form/collection" component={FormCollection} />
 
                     <Redirect from="/form" to="form/tag" />
