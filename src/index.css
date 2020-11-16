@@ -2,12 +2,10 @@
     list-style: none;
 }
 body {
-
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Roboto, "Noto Sans KR", sans-serif;
-
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, "Noto Sans KR", sans-serif;
 }
 
 code {
@@ -15,7 +13,30 @@ code {
         monospace;
 }
 
-a { color: #fff; text-decoration: none; outline: none; }
-a:hover, a:active { text-decoration: none; background-color: #fff; }
-button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; line-height: 1.15; margin: 0; }
-h1, h3, p, hr { margin: 0px; }
+a,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+}
+h1,
+h3,
+p,
+hr {
+    margin: 0px;
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}

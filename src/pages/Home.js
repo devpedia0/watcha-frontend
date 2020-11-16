@@ -1,8 +1,6 @@
 import React from "react";
 import PostersRank from "../component/Posters/PostersRank";
 
-//const Wrapper = styled.div``;
-
 const Home = () => {
     return (
         <div>
