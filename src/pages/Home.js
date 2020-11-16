@@ -1,19 +1,16 @@
 import React from "react";
-import styled from "styled-components";
-import Recommend from "../component/Recommend";
-import Collection from "../component/Collection";
-import RankList from "../component/RankList/RankList";
+import PostersRank from "../component/Posters/PostersRank";
 
 const Home = () => {
     return (
         <div>
-            <RankList />
-            <RankList />
-            <RankList />
-            <Recommend />
-            <Recommend />
-            <Recommend />
-            <Collection />
+            <PostersRank />
+            <PostersRank />
+            <PostersRank />
+
+            <PostersRank size="medium" />
+            <PostersRank size="medium" />
+            <PostersRank size="medium" />
         </div>
     );
 };

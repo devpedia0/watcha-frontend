@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Wrapper = styled.li`
     display: inline-block;
@@ -10,24 +10,40 @@ const Wrapper = styled.li`
     margin-bottom: 0px;
 
     @media only screen and (min-width: 600px) {
-        width: 33.3333%;
+        width: ${(props) => (props.size === "medium" ? "25%" : "33.3333%")};
     }
     @media only screen and (min-width: 760px) {
-        width: 25%;
-        padding-right: 6px;
-        padding-left: 6px;
+        ${(props) =>
+            props.size === "medium"
+                ? css`
+                      width: 20%;
+                      padding: 0 5px;
+                  `
+                : css`
+                      width: 25%;
+                      padding-right: 6px;
+                      padding-left: 6px;
+                  `}
     }
     @media only screen and (min-width: 1100px) {
-        width: 20%;
-        padding-right: 8px;
-        padding-left: 8px;
+        ${(props) =>
+            props.size === "medium"
+                ? css`
+                      width: 16.6667%;
+                      padding: 0 8px;
+                  `
+                : css`
+                      width: 20%;
+                      padding-right: 8px;
+                      padding-left: 8px;
+                  `}
     }
 `;
 
 const ContentImg = styled.div`
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 0;
     padding-bottom: 145.37037037037038%;
     overflow: hidden;
     border: 1px solid #eae9e8;
@@ -154,9 +170,9 @@ const ContentInfo = styled.div`
         margin-top: 5px;
     }
 `;
-const RankListCard = ({ idx, imgSrc }) => {
+const RankListCard = ({ size, idx, imgSrc }) => {
     return (
-        <Wrapper>
+        <Wrapper size={size}>
             <ContentImg>
                 <img src={imgSrc} alt="" />
                 <RankBlock>{idx + 1}</RankBlock>

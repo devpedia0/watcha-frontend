@@ -1,29 +1,34 @@
 import "./App.css";
-import Header from "./component/Header";
-
-import Footer from "./component/Footer";
 import Team from "./component/Team";
 import MyPage from "./component/MyPage";
-import AdminForm from "./pages/AdminForm";
-import { Router, Route } from "react-router-dom";
-import history from "./history";
-import "react-datepicker/dist/react-datepicker.css";
+
+import React from "react";
+import "./App.css";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+} from "react-router-dom";
+import DefaultLayout from "./layouts/DefaultLayout";
+
+// pages
+import Home from "./pages/Home";
 
 function App() {
     return (
-        <Router history={history}>
-            <Header />
-            <Route exact path="/">
-                <Footer />
-            </Route>
-            <Route path="/team">
-                <Team />
-            </Route>
-            <Route path="/myPage">
-                <MyPage />
-            </Route>
-            <Route path="/form" component={AdminForm} />
-        </Router>
+        <div className="App">
+            <Router>
+                <Switch>
+                    <DefaultLayout path="/program" component={Home} />
+                    <DefaultLayout path="/book" component={Home} />
+                    <DefaultLayout path="/" exact component={Home} />
+                    <Route path="/team" component={Team} />
+                    <Route path="/myPage" component={MyPage} />
+                    <Redirect to="/" />
+                </Switch>
+            </Router>
+        </div>
     );
 }
 
