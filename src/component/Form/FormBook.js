@@ -9,6 +9,7 @@ const initialValue = {
 };
 
 const FormBook = () => {
+    console.log("zz");
     const { inputs, handleChangeInputs } = useInputs(initialValue);
     return (
         <form>
