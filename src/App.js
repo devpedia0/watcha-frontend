@@ -1,36 +1,32 @@
 
-import './App.css';
-import Header from './component/Header';
-import Login from './pages/LoginSignUp/Login';
-import SignUp from './pages/LoginSignUp/SignUp';
-import Footer from './component/Footer';
-import Home from './pages/Home';
-import Team from './component/Team';
-import MyPage from './component/MyPage';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import "./App.css";
+import Team from "./component/Team";
+import MyPage from "./component/MyPage";
+import history from "./history";
+
+import React from "react";
+import "./App.css";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import DefaultLayout from "./layouts/DefaultLayout";
+
+// pages
+import Home from "./pages/Home";
 
 function App() {
-  return (
-    <Router>
-      <Header />
-      <Route path="/signin" component={Login}>
-        <Login />
-      </Route>
-      <Route path="/signup" component={SignUp}>
-        <SignUp />
-      </Route>
-      <Route exact path="/">
-        <Home />
-        <Footer />
-      </Route>
-      <Route path="/team" component={Team}>
-        <Team />
-      </Route>
-      <Route path="/myPage" component={MyPage}>
-        <MyPage />
-      </Route>
-    </Router>
-  );
+    return (
+        <div className="App">
+            <Router history={history}>
+                <Switch>
+                    <DefaultLayout path="/program" component={Home} />
+                    <DefaultLayout path="/book" component={Home} />
+                    <DefaultLayout path="/" exact component={Home} />
+                    <Route path="/team" component={Team} />
+                    <Route path="/myPage" component={MyPage} />
+                    <Redirect to="/" />
+                </Switch>
+            </Router>
+        </div>
+    );
 
 }
 

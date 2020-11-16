@@ -26,7 +26,7 @@ const FormContent = () => {
             // TODO: API
             //const content_id = (await formAPI.submit("/content", inputs));
             const content_id = 1;
-            const url = `/form/content/${inputs.dtype}?content_id=${content_id}`;
+            const url = `/form/content/${inputs.dtype}?coantent_id=${content_id}`;
             history.push(url);
         } catch (e) {
             console.log(e);
