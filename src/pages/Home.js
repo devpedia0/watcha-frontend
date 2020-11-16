@@ -9,7 +9,7 @@ const Home = () => {
             <PostersRank />
             <PostersRank />
             <PostersRank />
-            <PostersRank size="medium" />
+
             <PostersRank size="medium" />
             <PostersRank size="medium" />
             <PostersRank size="medium" />
