@@ -1,4 +1,5 @@
 .App {
+
   font-family: Roboto, "Noto Sans KR", sans-serif;
 
 }
@@ -94,6 +95,7 @@ button {
 
 * {
   box-sizing: border-box;
+
 }
 
 /* HTML5 display-role reset for older browsers */

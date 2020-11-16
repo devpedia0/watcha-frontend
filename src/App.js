@@ -1,3 +1,4 @@
+
 import './App.css';
 import Header from './component/Header';
 import Login from './pages/LoginSignUp/Login';
@@ -30,6 +31,7 @@ function App() {
       </Route>
     </Router>
   );
+
 }
 
 export default App;

@@ -1,3 +1,4 @@
+
 import React from 'react';
 // import styled from "styled-components";
 import Rank from '../component/Rank';
@@ -18,6 +19,7 @@ const Home = () => {
       <Collection />
     </div>
   );
+
 };
 
 export default Home;
