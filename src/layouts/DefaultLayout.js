@@ -13,7 +13,7 @@ const DefaultLayout = ({ component: Component, ...rest }) => {
             {...rest}
             render={(props) => (
                 <Layout>
-                    {/* <Header /> */}
+                    <Header />
                     <Component {...props} {...rest} />
                     <Footer />
                 </Layout>

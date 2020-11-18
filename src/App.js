@@ -10,7 +10,10 @@ import DefaultLayout from "./layouts/DefaultLayout";
 
 // pages
 import Home from "./pages/Home";
-import AdminForm from "./pages/AdminForm";
+import PageTag from './pages/Form/PageTag';
+import PagePeople from './pages/Form/PagePeople';
+import PageContent from "./pages/Form/PageContent";
+import PageCollection from './pages/Form/PageCollection';
 
 function App() {
     return (
@@ -19,7 +22,10 @@ function App() {
                 <Switch>
                     <DefaultLayout path="/program" component={Home} />
                     <DefaultLayout path="/book" component={Home} />
-                    <DefaultLayout path="/form" component={AdminForm} />
+                    <DefaultLayout path="/form/tag" component={PageTag} />
+                    <DefaultLayout path="/form/people" component={PagePeople} />
+                    <DefaultLayout path="/form/content" component={PageContent} />
+                    <DefaultLayout path="/form/collection" component={PageCollection} />
                     <DefaultLayout path="/" exact component={Home} />
                     <Route path="/team" component={Team} />
                     <Route path="/myPage" component={MyPage} />
