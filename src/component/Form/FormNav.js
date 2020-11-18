@@ -11,6 +11,7 @@ const Link = styled(NavLink)`
 `;
 
 const FormNav = () => {
+    console.log("FormNav");
     return (
         <FormContainer className="card">
             <div className="card-body">
@@ -57,4 +58,4 @@ const FormNav = () => {
     );
 };
 
-export default FormNav;
+export default React.memo(FormNav);

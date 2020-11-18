@@ -76,4 +76,4 @@ const FormPeople = () => {
     );
 };
 
-export default FormPeople;
+export default React.memo(FormPeople);

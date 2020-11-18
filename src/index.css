@@ -2,13 +2,6 @@
     list-style: none;
 }
 
-body {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Roboto, "Noto Sans KR", sans-serif;
-}
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
@@ -110,7 +103,7 @@ button {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
+    /* font: inherit; */
     vertical-align: baseline;
 }
 
@@ -139,4 +132,15 @@ li {
 a,
 a:visited {
     text-decoration: none;
+}
+
+.ReactModal__Body--open {
+    overflow-y: hidden;
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, "Noto Sans KR", sans-serif;
 }

@@ -1,58 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
+import useOpen from "../../Hooks/useOpen";
 
-import img1 from "../../images/ha.jpeg";
-import img2 from "../../images/hong.jpeg";
-import img3 from "../../images/park.jpeg";
+import useInputs from "../../Hooks/useInputs";
 import FormContainer from "../../styles/FormContainer";
 import { ImgContantainer } from "../../styles/ImgContainer";
+import ModalPeople from "../Modal/ModalPeople";
+import CardList from "../CardList/CardList";
 
 const initialValue = {
-    content_id: "",
-    origin_title: "",
-    country_code: "KO",
-    running_time_minutes: "",
-    watcha_yn: "n",
-    netflix_yn: "n",
-    book_rate: "",
-    accumulated_audience: "",
+    role: "",
+    act_name: "",
 };
 
-const dummy = [
-    {
-        name: "테스트",
-        image_url: img1,
-        description: "설명 설명 설명 설명 설명 ",
-    },
-    {
-        name: "테스트22",
-        image_url: img2,
-        description: "설명 설명 설명 설명 설명 ",
-    },
-    {
-        name: "테스트33",
-        image_url: img3,
-        description: "설명 설명 설명 설명 설명 ",
-    },
-];
-
 const FormRelative = ({ data, setData }) => {
-    const Wrapper = styled.div`
-        height: 100px;
+    const [isOpen, onClickOpen, onClickClose] = useOpen();
+    const { inputs, setInputs, handleChangeInputs } = useInputs(initialValue);
 
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    `;
-
-    const Card = ({ item }) => {
-        return (
-            <Wrapper>
-                <ImgContantainer width="100px" height="100px" />
-            </Wrapper>
-        );
+    const handleClickSave = () => {
+        setData((state) => ({
+            ...state,
+            People: [...state.People, inputs],
+        }));
+        setInputs(initialValue);
+        onClickClose();
     };
+
+    const handleClickRow = (item) => {
+        setInputs((state) => ({
+            ...state,
+            ...item,
+        }));
+    };
+
     return (
         <FormContainer className="card">
             <div className="card-header bg-white d-flex justify-content-between">
@@ -72,15 +52,32 @@ const FormRelative = ({ data, setData }) => {
                     </svg>
                     인물 추가
                 </h3>
-                <button type="button" className="btn btn-primary">
+                <ModalPeople
+                    isOpen={isOpen}
+                    onClickClose={onClickClose}
+                    inputs={inputs}
+                    onChange={handleChangeInputs}
+                    onClickSave={handleClickSave}
+                    onClickRow={handleClickRow}
+                />
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={onClickOpen}
+                >
                     추가하기
                 </button>
             </div>
             <div className="card-body">
-                <Card />
+                <ImgContantainer
+                    width="100px"
+                    height="100px"
+                    onClick={onClickOpen}
+                />
+                <CardList data={data} title={"추가 리스트"} />
             </div>
         </FormContainer>
     );
 };
 
-export default FormRelative;
+export default React.memo(FormRelative);

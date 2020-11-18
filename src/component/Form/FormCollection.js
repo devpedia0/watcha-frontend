@@ -103,4 +103,4 @@ const FormCollection = () => {
     );
 };
 
-export default FormCollection;
+export default React.memo(FormCollection);

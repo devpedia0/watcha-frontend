@@ -1,74 +1,63 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "./Modal";
-import useOpen from "../../Hooks/useOpen";
-import useInputs from "../../Hooks/useInputs";
 
-const initialValue = {
-    name: "",
-    profile_image_id: "",
-    description: "",
-};
+import styled from "styled-components";
+import CardList from "../CardList/CardList";
+import { Search } from "../../component/Header";
+import data from "../../img/data";
+const Wrapper = styled.div`
+    label {
+        margin: 10px 0;
+    }
+`;
 
-const ModalPeople = () => {
-    const { inputs, handleChangeInputs } = useInputs(initialValue);
-    const [isOpen, onClickOpen, onClickClose] = useOpen();
-    const handleClickSave = () => {};
-
+const ModalPeople = ({
+    isOpen,
+    onClickClose,
+    inputs,
+    onChange,
+    onClickSave,
+    onClickRow,
+}) => {
     return (
-        <>
-            <button
-                type="button"
-                className="btn btn-primary"
-                onClick={onClickOpen}
-            >
-                추가하기
-            </button>
-            <Modal
-                title="관계자 추가"
-                isOpen={isOpen}
-                onClick={handleClickSave}
-                onClickClose={onClickClose}
-            >
-                <form>
-                    <div className="form-group">
-                        <label>이름</label>
-                        <input
-                            className="form-control"
-                            name="name"
-                            value={inputs.name}
-                            onChange={handleChangeInputs}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>프로필사진</label>
-                        <div className="custom-file">
-                            <input
-                                name="profile_image_id"
-                                type="file"
-                                className="custom-file-input"
-                                id="customFile"
-                            />
-                            <label
-                                className="custom-file-label"
-                                htmlFor="customFile"
-                                data-browse="few"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label>설명</label>
-                        <textarea
-                            className="form-control"
-                            name="description"
-                            value={inputs.description}
-                            onChange={handleChangeInputs}
-                            rows="3"
-                        />
-                    </div>
-                </form>
-            </Modal>
-        </>
+        <Modal
+            title="인물추가"
+            isOpen={isOpen}
+            onClick={onClickSave}
+            onClickClose={onClickClose}
+        >
+            <Wrapper>
+                <div className="form-group">
+                    <label>역할</label>
+                    <input
+                        className="form-control"
+                        name="role"
+                        value={inputs.role}
+                        onChange={onChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>극중이름</label>
+                    <input
+                        className="form-control"
+                        name="act_name"
+                        value={inputs.act_name}
+                        onChange={onChange}
+                    />
+                </div>
+                <CardList
+                    data={data}
+                    selectedId={inputs.participant_id}
+                    title={"인물 검색"}
+                    circle={true}
+                    onClickRow={onClickRow}
+                >
+                    <Search>
+                        <input placeholder="검색하기" autoComplete="off" />
+                    </Search>
+                </CardList>
+            </Wrapper>
+        </Modal>
     );
 };
 

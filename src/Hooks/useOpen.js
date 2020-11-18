@@ -1,10 +1,16 @@
 import { useState, useCallback } from "react";
 
-const useOpen = (initialValue) => {
-    const [isOpen, setIsOpen] = useState(initialValue);
+const useOpen = () => {
+    const [isOpen, setIsOpen] = useState(false);
 
-    const onClickOpen = useCallback(() => setIsOpen(true), []);
-    const onClickClose = useCallback(() => setIsOpen(false), []);
+    const onClickOpen = useCallback(() => {
+        console.log("?");
+        return setIsOpen(true);
+    }, []);
+    const onClickClose = useCallback(() => {
+        console.log("??");
+        return setIsOpen(false);
+    }, []);
 
     return [isOpen, onClickOpen, onClickClose];
 };

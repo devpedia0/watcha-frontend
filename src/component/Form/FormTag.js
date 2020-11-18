@@ -48,4 +48,4 @@ const FormTag = () => {
     );
 };
 
-export default FormTag;
+export default React.memo(FormTag);

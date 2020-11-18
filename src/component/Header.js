@@ -158,7 +158,7 @@ const LiButton = styled.li`
     }
 `;
 
-const Search = styled.div`
+export const Search = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
