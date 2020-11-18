@@ -7,6 +7,7 @@ import FormContainer from "../../styles/FormContainer";
 import { ImgContantainer } from "../../styles/ImgContainer";
 import ModalPeople from "../Modal/ModalPeople";
 import CardList from "../CardList/CardList";
+import Card from "../Card/Card";
 
 const initialValue = {
     role: "",
@@ -60,13 +61,6 @@ const FormRelative = ({ data, setData }) => {
                     onClickSave={handleClickSave}
                     onClickRow={handleClickRow}
                 />
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={onClickOpen}
-                >
-                    추가하기
-                </button>
             </div>
             <div className="card-body">
                 <ImgContantainer
@@ -74,7 +68,18 @@ const FormRelative = ({ data, setData }) => {
                     height="100px"
                     onClick={onClickOpen}
                 />
-                <CardList data={data} title={"추가 리스트"} />
+                {!!data.length && (
+                    <CardList title={"추가 리스트"}>
+                        {data.map((item, idx) => (
+                            <Card
+                                key={idx}
+                                item={item}
+                                selectedId=""
+                                onClickRow={() => {}}
+                            />
+                        ))}
+                    </CardList>
+                )}
             </div>
         </FormContainer>
     );

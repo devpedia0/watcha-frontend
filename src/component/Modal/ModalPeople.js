@@ -5,6 +5,7 @@ import styled from "styled-components";
 import CardList from "../CardList/CardList";
 import { Search } from "../../component/Header";
 import data from "../../img/data";
+import Card from "../Card/Card";
 const Wrapper = styled.div`
     label {
         margin: 10px 0;
@@ -45,16 +46,16 @@ const ModalPeople = ({
                         onChange={onChange}
                     />
                 </div>
-                <CardList
-                    data={data}
-                    selectedId={inputs.participant_id}
-                    title={"인물 검색"}
-                    circle={true}
-                    onClickRow={onClickRow}
-                >
-                    <Search>
-                        <input placeholder="검색하기" autoComplete="off" />
-                    </Search>
+                <CardList title={"인물 검색"}>
+                    {data.map((item, idx) => (
+                        <Card
+                            key={idx}
+                            item={item}
+                            selectedId={inputs.participant_id}
+                            onClickRow={onClickRow}
+                            circle={true}
+                        />
+                    ))}
                 </CardList>
             </Wrapper>
         </Modal>
