@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import styled from "styled-components";
 import CardList from "../CardList/CardList";
 import { Search } from "../../component/Header";
-import data from "../../img/data";
+import data from "../../images/data";
 import Card from "../Card/Card";
 const Wrapper = styled.div`
     label {
@@ -52,8 +52,9 @@ const ModalPeople = ({
                             key={idx}
                             item={item}
                             selectedId={inputs.participant_id}
-                            onClickRow={onClickRow}
+                            onClick={onClickRow}
                             circle={true}
+                            buttonName="★"
                         />
                     ))}
                 </CardList>

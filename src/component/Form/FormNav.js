@@ -18,16 +18,34 @@ const FormNav = () => {
                 <div className="nav nav-pills">
                     <li className="nav-item">
                         <Link
-                            to="/form/content"
+                            to="/admin/movie"
                             className="nav-link"
                             activeClassName="active"
                         >
-                            컨텐츠
+                            영화
                         </Link>
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/form/people"
+                            to="/admin/book"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            책
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/tv"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            TV
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/people"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -36,7 +54,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/form/collection"
+                            to="/admin/collection"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -45,7 +63,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/form/tag"
+                            to="/admin/tag"
                             className="nav-link"
                             activeClassName="active"
                         >

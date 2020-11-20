@@ -10,6 +10,7 @@ import DefaultLayout from "./layouts/DefaultLayout";
 
 // pages
 import Home from "./pages/Home";
+import PageBoard from './pages/Form/PageBoard';
 import PageTag from './pages/Form/PageTag';
 import PagePeople from './pages/Form/PagePeople';
 import PageContent from "./pages/Form/PageContent";
@@ -20,15 +21,25 @@ function App() {
         <div className="App">
             <Router history={history}>
                 <Switch>
+                    <Route path="/team" component={Team} /> 
+                    <Route path="/myPage" component={MyPage} />
                     <DefaultLayout path="/program" component={Home} />
                     <DefaultLayout path="/book" component={Home} />
-                    <DefaultLayout path="/form/tag" component={PageTag} />
-                    <DefaultLayout path="/form/people" component={PagePeople} />
-                    <DefaultLayout path="/form/content" component={PageContent} />
-                    <DefaultLayout path="/form/collection" component={PageCollection} />
+                    
+                    <DefaultLayout path="/admin/movie" component={PageBoard} />
+                    <DefaultLayout path="/admin/book" component={PageBoard} />
+                    <DefaultLayout path="/admin/tv" component={PageBoard} />
+                    <DefaultLayout path="/admin/tag" component={PageBoard} />
+                    <DefaultLayout path="/admin/people" component={PageBoard} />
+                    <DefaultLayout path="/admin/collection" component={PageBoard} />
+                    
+                    <DefaultLayout path="/admin/tag/form" component={PageTag} />
+                    <DefaultLayout path="/admin/people/form" component={PagePeople} />
+                    <DefaultLayout path="/admin/content/form" component={PageContent} />
+                    <DefaultLayout path="/admin/collection/form" component={PageCollection} />
+                    
                     <DefaultLayout path="/" exact component={Home} />
-                    <Route path="/team" component={Team} />
-                    <Route path="/myPage" component={MyPage} />
+                    <Redirect from="/admin" to="/admin/movie" />
                     <Redirect to="/" />
                 </Switch>
             </Router>

@@ -34,6 +34,13 @@ const FormRelative = ({ data, setData }) => {
         }));
     };
 
+    const handleClickDelete = (rowIdx) => {
+        setData((state) => ({
+            ...state,
+            People: state.People.filter((_, idx) => idx !== rowIdx),
+        }));
+    };
+
     return (
         <FormContainer className="card">
             <div className="card-header bg-white d-flex justify-content-between">
@@ -75,7 +82,8 @@ const FormRelative = ({ data, setData }) => {
                                 key={idx}
                                 item={item}
                                 selectedId=""
-                                onClickRow={() => {}}
+                                onClick={() => handleClickDelete(idx)}
+                                buttonName="삭제"
                             />
                         ))}
                     </CardList>
