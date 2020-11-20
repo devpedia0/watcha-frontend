@@ -4,11 +4,9 @@ const useOpen = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const onClickOpen = useCallback(() => {
-        console.log("?");
         return setIsOpen(true);
     }, []);
     const onClickClose = useCallback(() => {
-        console.log("??");
         return setIsOpen(false);
     }, []);
 

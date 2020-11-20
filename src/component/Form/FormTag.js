@@ -1,14 +1,7 @@
 import React from "react";
-import useInputs from "../../Hooks/useInputs";
 import FormContainer from "../../styles/FormContainer";
 
-const initialValue = {
-    description: "",
-};
-
-const FormTag = () => {
-    const { inputs, handleChangeInputs } = useInputs(initialValue);
-
+const FormTag = ({ data, onChange, onSubmit }) => {
     return (
         <FormContainer className="card">
             <div className="card-header bg-white d-flex justify-content-between">
@@ -35,12 +28,16 @@ const FormTag = () => {
                     <textarea
                         className="form-control"
                         name="description"
-                        value={inputs.description}
-                        onChange={handleChangeInputs}
+                        value={data.description}
+                        onChange={onChange}
                         rows="3"
                     />
                 </div>
-                <button type="button" className="btn btn-primary">
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={onSubmit}
+                >
                     Submit
                 </button>
             </div>

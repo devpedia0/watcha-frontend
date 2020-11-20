@@ -18,7 +18,7 @@ const FormNav = () => {
                 <div className="nav nav-pills">
                     <li className="nav-item">
                         <Link
-                            to="/admin/movie"
+                            to="/admin/movies"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -27,7 +27,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/book"
+                            to="/admin/books"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -36,7 +36,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/tv"
+                            to="/admin/tv_shows"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -45,7 +45,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/people"
+                            to="/admin/participants"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -54,7 +54,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/collection"
+                            to="/admin/collections"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -63,7 +63,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/tag"
+                            to="/admin/tags"
                             className="nav-link"
                             activeClassName="active"
                         >

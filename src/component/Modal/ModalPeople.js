@@ -41,8 +41,8 @@ const ModalPeople = ({
                     <label>극중이름</label>
                     <input
                         className="form-control"
-                        name="act_name"
-                        value={inputs.act_name}
+                        name="characterName"
+                        value={inputs.characterName}
                         onChange={onChange}
                     />
                 </div>
@@ -51,9 +51,9 @@ const ModalPeople = ({
                         <Card
                             key={idx}
                             item={item}
-                            selectedId={inputs.participant_id}
+                            selectedId={inputs.id}
                             onClick={onClickRow}
-                            circle={true}
+                            radius="50%"
                             buttonName="★"
                         />
                     ))}

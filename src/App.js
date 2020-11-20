@@ -11,10 +11,13 @@ import DefaultLayout from "./layouts/DefaultLayout";
 // pages
 import Home from "./pages/Home";
 import PageBoard from './pages/Form/PageBoard';
+import PageMovie from "./pages/Form/PageMovie";
+import PageTV from "./pages/Form/PageTV";
+import PageBook from "./pages/Form/PageBook";
 import PageTag from './pages/Form/PageTag';
-import PagePeople from './pages/Form/PagePeople';
-import PageContent from "./pages/Form/PageContent";
+import PageParticipant from './pages/Form/PageParticipant';
 import PageCollection from './pages/Form/PageCollection';
+
 
 function App() {
     return (
@@ -23,23 +26,20 @@ function App() {
                 <Switch>
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
-                    <DefaultLayout path="/program" component={Home} />
-                    <DefaultLayout path="/book" component={Home} />
-                    
-                    <DefaultLayout path="/admin/movie" component={PageBoard} />
-                    <DefaultLayout path="/admin/book" component={PageBoard} />
-                    <DefaultLayout path="/admin/tv" component={PageBoard} />
-                    <DefaultLayout path="/admin/tag" component={PageBoard} />
-                    <DefaultLayout path="/admin/people" component={PageBoard} />
-                    <DefaultLayout path="/admin/collection" component={PageBoard} />
-                    
-                    <DefaultLayout path="/admin/tag/form" component={PageTag} />
-                    <DefaultLayout path="/admin/people/form" component={PagePeople} />
-                    <DefaultLayout path="/admin/content/form" component={PageContent} />
-                    <DefaultLayout path="/admin/collection/form" component={PageCollection} />
-                    
+                    <DefaultLayout path="/admin/books" exact component={PageBoard} />
+                    <DefaultLayout path="/admin/books/form" component={PageBook} />
+                    <DefaultLayout path="/admin/movies" exact component={PageBoard} />
+                    <DefaultLayout path="/admin/movies/form" component={PageMovie} />
+                    <DefaultLayout path="/admin/participants" exact component={PageBoard} />
+                    <DefaultLayout path="/admin/participants/form" component={PageParticipant} />
+                    <DefaultLayout path="/admin/tags" exact component={PageBoard} />
+                    <DefaultLayout path="/admin/tags/form" component={PageTag} />
+                    <DefaultLayout path="/admin/tv_shows" exact component={PageBoard} />
+                    <DefaultLayout path="/admin/tv_shows/form" component={PageTV} />
+                    <DefaultLayout path="/admin/collections" exact component={PageBoard} />
+                    <DefaultLayout path="/admin/collections/form" component={PageCollection} />
                     <DefaultLayout path="/" exact component={Home} />
-                    <Redirect from="/admin" to="/admin/movie" />
+                    <Redirect from="/admin" to="/admin/movies" />
                     <Redirect to="/" />
                 </Switch>
             </Router>
