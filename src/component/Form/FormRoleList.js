@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import useInputs from "../../Hooks/useInputs";
 
@@ -13,22 +12,22 @@ const initialValue = {
     participantId: "",
 };
 
-const FormRoleList = ({ roleList, setRoleList }) => {
+const FormRoleList = ({ roles, setRoles, error }) => {
     const { inputs, setInputs, onChange } = useInputs(initialValue);
 
     const handleClickSave = () => {
-        setRoleList((state) => ({
+        setRoles((state) => ({
             ...state,
-            roleList: [inputs, ...roleList],
+            roles: [inputs, ...roles],
         }));
 
         setInputs(initialValue);
     };
 
     const handleClickDelete = (rowIdx) => {
-        setRoleList((state) => ({
+        setRoles((state) => ({
             ...state,
-            roleList: state.filter((item) => item.id !== rowIdx),
+            roles: state.roles.filter((item) => item.id !== rowIdx),
         }));
     };
 
@@ -42,14 +41,14 @@ const FormRoleList = ({ roleList, setRoleList }) => {
     return (
         <CardList title="인물추가">
             <ModalParticipant
-                selectedList={roleList.map((item) => item.id)}
+                selectedList={roles.map((item) => item.id)}
                 inputs={inputs}
                 onChange={onChange}
                 onClickRow={handleClickRow}
                 onClickSave={handleClickSave}
             />
             <br />
-            {roleList.map((item, idx) => (
+            {roles.map((item, idx) => (
                 <Card
                     radius="50%"
                     key={idx}

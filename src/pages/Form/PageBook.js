@@ -12,47 +12,54 @@ const initialValue = {
     file: "",
     mainTitle: "",
     category: "",
-    productionDate: "",
+    productionDate: new Date(),
     description: "",
-
     subtitle: "",
     contents: "",
     page: "",
     elaboration: "",
-
-    roleList: [],
-    tagList: [],
+    roles: [],
+    tags: [],
 };
 
 const PageBook = () => {
-    const { inputs, setInputs, onChange, onSubmit } = useInputs(initialValue);
+    const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
+        initialValue
+    );
 
     const handleSubmit = () => {
-        let { file, tagList, ...body } = inputs;
-        let sendData = { ...body, tagList: tagList.map((tag) => tag.id) };
-        console.log(sendData);
-        let formData = new FormData();
-        formData.append("file", inputs.file);
-        formData.append(
-            "body",
-            new Blob([JSON.stringify(sendData)], {
-                type: "application/json",
-            })
-        );
+        if (!inputs.file) {
+            alert("파일을 추가해주세요.");
+        }
 
-        onSubmit("/admin/movies", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
+        let { roles, tags, ...body } = inputs;
+        let sendData = {
+            ...body,
+            roles: roles.map((role) => ({ ...role, participantId: role.id })),
+            tags: tags.map((tag) => tag.id),
+        };
+        onSubmitFile("/admin/books", sendData, "poster");
     };
 
     return (
         <FormLayout>
-            <FormContent title="책 추가" inputs={inputs} onChange={onChange} />
-            <FormBook inputs={inputs} onChange={onChange} />
-            <FormRoleList roleList={inputs.roleList} setRoleList={setInputs} />
-            <FormTagList tagList={inputs.tagList} setTagList={setInputs} />
+            <FormContent
+                title="책 추가"
+                inputs={inputs}
+                onChange={onChange}
+                errors={errors}
+            />
+            <FormBook inputs={inputs} onChange={onChange} errors={errors} />
+            <FormRoleList
+                roles={inputs.roles}
+                setRoles={setInputs}
+                error={errors.roles}
+            />
+            <FormTagList
+                tags={inputs.tags}
+                setTags={setInputs}
+                error={errors.tags}
+            />
             <button
                 type="button"
                 className="btn btn-primary mt-3"

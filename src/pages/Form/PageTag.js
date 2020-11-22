@@ -10,7 +10,7 @@ const initialValue = {
 };
 
 const PageTag = () => {
-    const { inputs, onChange, onSubmit } = useInputs(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         onSubmit("/admin/tags", inputs);
@@ -22,13 +22,20 @@ const PageTag = () => {
                 <div className="form-group">
                     <label>설명</label>
                     <textarea
-                        className="form-control"
                         name="description"
                         value={inputs.description}
                         onChange={onChange}
                         rows="3"
                         few={"Few"}
+                        className={`form-control ${
+                            errors.description && "is-invalid"
+                        }`}
                     />
+                    {errors.description && (
+                        <div className="invalid-feedback">
+                            {errors.description}
+                        </div>
+                    )}
                 </div>
                 <button
                     type="button"

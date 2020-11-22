@@ -1,18 +1,25 @@
 import React from "react";
 import CardList from "../../component/CardList/CardList";
 
-const FormMovie = ({ inputs, onChange }) => {
+const FormMovie = ({ inputs, errors, onChange }) => {
     return (
         <CardList title="추가 정보">
             <div className="row">
                 <div className="form-group col">
                     <label>원제목</label>
                     <input
-                        className="form-control"
                         name="originTitle"
                         value={inputs.originTitle || ""}
                         onChange={onChange}
+                        className={`form-control ${
+                            errors.originTitle && "is-invalid"
+                        }`}
                     />
+                    {errors.originTitle && (
+                        <div className="invalid-feedback">
+                            {errors.originTitle}
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -20,21 +27,35 @@ const FormMovie = ({ inputs, onChange }) => {
                 <div className="form-group col">
                     <label>국가코드</label>
                     <input
-                        className="form-control"
                         name="countryCode"
                         value={inputs.countryCode || ""}
                         onChange={onChange}
+                        className={`form-control ${
+                            errors.countryCode && "is-invalid"
+                        }`}
                     />
+                    {errors.countryCode && (
+                        <div className="invalid-feedback">
+                            {errors.countryCode}
+                        </div>
+                    )}
                 </div>
 
                 <div className="form-group col">
                     <label>상영시간(분)</label>
                     <input
-                        className="form-control"
                         name="runningTimeInMinutes"
                         value={inputs.runningTimeInMinutes || ""}
                         onChange={onChange}
+                        className={`form-control ${
+                            errors.runningTimeInMinutes && "is-invalid"
+                        }`}
                     />
+                    {errors.runningTimeInMinutes && (
+                        <div className="invalid-feedback">
+                            {errors.runningTimeInMinutes}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="form-row">
@@ -42,26 +63,40 @@ const FormMovie = ({ inputs, onChange }) => {
                     <label>예매율</label>
                     <div className="input-group">
                         <input
-                            className="form-control"
                             name="bookRate"
                             value={inputs.bookRate || ""}
                             onChange={onChange}
+                            className={`form-control ${
+                                errors.bookRate && "is-invalid"
+                            }`}
                         />
 
                         <div className="input-group-append">
                             <span className="input-group-text">%</span>
                         </div>
+                        {errors.bookRate && (
+                            <div className="invalid-feedback">
+                                {errors.bookRate}
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 <div className="form-group col">
                     <label>누적관객</label>
                     <input
-                        className="form-control"
                         name="totalAudience"
                         value={inputs.totalAudience || ""}
                         onChange={onChange}
+                        className={`form-control ${
+                            errors.totalAudience && "is-invalid"
+                        }`}
                     />
+                    {errors.totalAudience && (
+                        <div className="invalid-feedback">
+                            {errors.totalAudience}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="form-group">

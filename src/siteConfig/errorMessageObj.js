@@ -4,6 +4,7 @@ const errorMessageObj = {
     description: "설명",
     elaboration: "출판사 설명",
     mainTitle: "메인 제목",
+    subtitle: "부제목",
     page: "총페이지 수",
     productionDate: "제작년도",
     runningTimeInMinutes: "상영시간",

@@ -14,46 +14,47 @@ const Wrapper = styled.div`
     }
 `;
 
-const ModalTag = ({ tagList, onClickSave }) => {
-    const pageId = history.location.pathname.split("/")[2];
+const ModalTag = ({ tags, onClickSave }) => {
     const [isOpen, onClickOpen, onClickClose] = useOpen();
-    const [newTagList, setNewTagList] = useState([]);
+    const [newTags, setNewTagS] = useState([]);
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
 
     useEffect(() => {
         const getAPIdata = async () => {
-            const res = await api.get(`/tags?page=1&size=20`);
-            //const res = await axios.get(`http://localhost:8080/participants?page=1&size=20`);
+            const res = await api.get(`/admin/tags?page=1&size=20`);
+            //const res = await axios.get(`http://localhost:8080/admin/participants?page=1&size=20`);
             setData(res.data);
         };
 
         getAPIdata();
-    }, [pageId]);
+    }, []);
 
     useEffect(() => {
-        setNewTagList(tagList);
-    }, [tagList]);
+        setNewTagS(tags);
+    }, [tags]);
 
     const handleClickSearch = async () => {
-        const res = await api.get(`/tags?page=1&size=20&search=${search}`);
+        const res = await api.get(
+            `/admin/tags?page=1&size=20&search=${search}`
+        );
         setData(res.data);
     };
 
     const handleClickSave = () => {
-        onClickSave(newTagList);
+        onClickSave(newTags);
         onClickClose();
     };
 
     const handleClick = useCallback(
         (newItem) => {
-            newTagList.indexOf(newItem) > -1
-                ? setNewTagList((state) =>
+            newTags.indexOf(newItem) > -1
+                ? setNewTagS((state) =>
                       state.filter((item) => item !== newItem)
                   )
-                : setNewTagList((state) => [...state, newItem]);
+                : setNewTagS((state) => [...state, newItem]);
         },
-        [newTagList]
+        [newTags]
     );
 
     return (
@@ -96,7 +97,7 @@ const ModalTag = ({ tagList, onClickSave }) => {
                                 key={idx}
                                 item={item}
                                 selected={
-                                    newTagList
+                                    newTags
                                         .map((tag) => tag.id)
                                         .indexOf(item.id) > -1
                                 }

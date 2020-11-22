@@ -3,13 +3,13 @@ import api from "../../service/api";
 
 const signin = () => async (dispatch) => {
     try {
-        const res = await api.post("/signin", {
+        const res = await api.post("/auth/signin", {
             email: "gkb10a@gmail.com",
             password: "1234",
         });
 
         // 토큰값 가져와야 함
-        // console.log(res);
+        console.log(res);
         // console.log(res.headers);
         // console.log(api.defaults.headers);
 

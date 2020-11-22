@@ -8,30 +8,22 @@ import CardList from "../../component/CardList/CardList";
 
 const initialValue = {
     file: "",
-    id: "",
+    // id: "",
     name: "",
-    profileImagePath: "",
+    //profileImagePath: "",
     description: "",
 };
 
 const PageParticipant = () => {
     const imgRef = useRef();
-    const { inputs, onChange, onSubmit } = useInputs(initialValue);
+    const { inputs, errors, onChange, onSubmitFile } = useInputs(initialValue);
 
     const handleClickImage = () => imgRef.current.click();
-    const handleSubmit = async () => {
-        const { file, ...body } = inputs;
-        const formData = new FormData();
-        formData.append("file", inputs.file);
-        formData.append(
-            "body",
-            new Blob([JSON.stringify(body)], { type: "application/json" })
-        );
-        onSubmit("/admin/participants", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
+    const handleSubmit = () => {
+        if (!inputs.file) {
+            alert("파일을 추가해주세요.");
+        }
+        onSubmitFile("/admin/participants", inputs, "profile");
     };
 
     const imageUrl = inputs.profileImagePath
@@ -39,7 +31,7 @@ const PageParticipant = () => {
         : inputs.file
         ? URL.createObjectURL(inputs.file)
         : "";
-
+    console.log(errors);
     return (
         <FormLayout>
             <CardList title="인물 등록">
@@ -69,22 +61,36 @@ const PageParticipant = () => {
                         <div className="form-group">
                             <label>이름</label>
                             <input
-                                className="form-control"
                                 name="name"
                                 value={inputs.name}
                                 onChange={onChange}
+                                className={`form-control ${
+                                    errors.name && "is-invalid"
+                                }`}
                             />
+                            {errors.name && (
+                                <div className="invalid-feedback">
+                                    {errors.name}
+                                </div>
+                            )}
                         </div>
 
                         <div className="form-group">
                             <label>설명</label>
                             <textarea
-                                className="form-control"
                                 name="description"
                                 value={inputs.description}
                                 onChange={onChange}
                                 rows="3"
+                                className={`form-control ${
+                                    errors.description && "is-invalid"
+                                }`}
                             />
+                            {errors.description && (
+                                <div className="invalid-feedback">
+                                    {errors.description}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

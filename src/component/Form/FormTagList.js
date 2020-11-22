@@ -4,31 +4,31 @@ import CardTag from "../Card/CardTag";
 import CardList from "../CardList/CardList";
 import ModalTag from "../Modal/ModalTag";
 
-const FormTagList = ({ tagList, setTagList }) => {
+const FormTagList = ({ tags, setTags, error }) => {
     const handleClickSave = useCallback(
-        (newTagList) => {
-            setTagList((state) => ({
+        (newTags) => {
+            setTags((state) => ({
                 ...state,
-                tagList: newTagList,
+                tags: newTags,
             }));
         },
-        [setTagList]
+        [setTags]
     );
 
     const handleClickDelete = useCallback(
         (newItem) => {
-            setTagList((state) => ({
+            setTags((state) => ({
                 ...state,
-                tagList: state.tagList.filter((item) => item !== newItem),
+                tags: state.tags.filter((item) => item !== newItem),
             }));
         },
-        [setTagList]
+        [setTags]
     );
 
     return (
         <CardList title="태그추가">
-            <ModalTag tagList={tagList} onClickSave={handleClickSave} />
-            {tagList.map((item, idx) => (
+            <ModalTag tags={tags} onClickSave={handleClickSave} />
+            {tags.map((item, idx) => (
                 <CardTag
                     key={idx}
                     item={item}

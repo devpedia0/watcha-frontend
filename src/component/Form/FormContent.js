@@ -5,7 +5,7 @@ import { ImgContantainer } from "../../styles/ImgContainer";
 import CardList from "../CardList/CardList";
 registerLocale("ko", ko);
 
-const FormContent = ({ title, inputs, onChange }) => {
+const FormContent = ({ title, inputs, errors, onChange }) => {
     const imgRef = useRef();
     const handleClickImage = () => imgRef.current.click();
 
@@ -44,11 +44,18 @@ const FormContent = ({ title, inputs, onChange }) => {
                     <div className="form-group">
                         <label>제목</label>
                         <input
-                            className="form-control"
                             name="mainTitle"
                             value={inputs.mainTitle || ""}
                             onChange={onChange}
+                            className={`form-control ${
+                                errors.mainTitle && "is-invalid"
+                            }`}
                         />
+                        {errors.mainTitle && (
+                            <div className="invalid-feedback">
+                                {errors.mainTitle}
+                            </div>
+                        )}
                     </div>
                     <div className="form-group">
                         <label>카테고리</label>
@@ -56,7 +63,9 @@ const FormContent = ({ title, inputs, onChange }) => {
                             name="category"
                             value={inputs.category || ""}
                             onChange={onChange}
-                            className="custom-select"
+                            className={`custom-select ${
+                                errors.category && "is-invalid"
+                            }`}
                         >
                             <option value="">카테고리 선택</option>
                             <option value="romance">로맨스</option>
@@ -64,6 +73,11 @@ const FormContent = ({ title, inputs, onChange }) => {
                             <option value="comedy">코미디</option>
                             <option value="crime">범죄</option>
                         </select>
+                        {errors.category && (
+                            <div className="invalid-feedback">
+                                {errors.category}
+                            </div>
+                        )}
                     </div>
                     <div className="form-group">
                         <label>제작연도</label>
@@ -89,12 +103,19 @@ const FormContent = ({ title, inputs, onChange }) => {
                     <div className="form-group">
                         <label>설명</label>
                         <textarea
-                            className="form-control"
                             name="description"
                             value={inputs.description || ""}
                             onChange={onChange}
                             rows="3"
+                            className={`form-control ${
+                                errors.description && "is-invalid"
+                            }`}
                         />
+                        {errors.description && (
+                            <div className="invalid-feedback">
+                                {errors.description}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

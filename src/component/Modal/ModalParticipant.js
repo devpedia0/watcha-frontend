@@ -3,7 +3,6 @@ import history from "../../history";
 import styled from "styled-components";
 import api from "../../service/api";
 // import axios from 'axios';
-import dummy from "../../images/data";
 
 import { ImgContantainer } from "../../styles/ImgContainer";
 import useOpen from "../../Hooks/useOpen";
@@ -26,16 +25,16 @@ const ModalParticipant = ({
 }) => {
     const pageId = history.location.pathname.split("/")[2];
     const [isOpen, onClickOpen, onClickClose] = useOpen();
-    const [data, setData] = useState(dummy);
+    const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
     const handleClickSave = () => {
         onClickSave();
         onClickClose();
     };
-
+    console.log(data);
     useEffect(() => {
         const getAPIdata = async () => {
-            const res = await api.get(`/participants?page=1&size=20`);
+            const res = await api.get(`admin/participants?page=1&size=20`);
             //const res = await axios.get(`http://localhost:8080/participants?page=1&size=20`);
             setData(res.data);
         };

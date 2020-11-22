@@ -1,27 +1,30 @@
-import siteConfig from "../siteConfig/siteConfig";
 import errorMessageObj from "../siteConfig/errorMessageObj";
 
-// export const validateAll = (apiurl, inputs) => {
-//     const pageId = apiurl.split("/")[2];
-//     let isValid = false;
-//     let checkedErrors = {};
+export const validateAll = (inputs) => {
+    let isValid = false;
+    let checkedErrors = {};
 
-//     Object.keys(inputs).forEach((key) => {
-//         let errorMessage = validate(pageId, key, inputs[key]);
-//         if (errorMessage) {
-//             checkedErrors[key] = errorMessage;
-//         }
-//     });
+    Object.keys(inputs).forEach((key) => {
+        let errorMessage = validate(key, inputs[key]);
+        if (errorMessage) {
+            checkedErrors[key] = errorMessage;
+        }
+    });
 
-//     if (Object.keys(checkedErrors).length === 0) {
-//         isValid = true;
-//     }
+    if (Object.keys(checkedErrors).length === 0) {
+        isValid = true;
+    }
 
-//     return { isValid, checkedErrors };
-// };
+    return { isValid, checkedErrors };
+};
 
 export const validate = (name, value) => {
-    if (isEmpty(value)) {
+    if (
+        isEmpty(value) &&
+        name !== "file" &&
+        name !== "roles" &&
+        name !== "tags"
+    ) {
         return errorMessageObj[name] + "을(를) 입력해주세요.";
     }
 
@@ -36,9 +39,9 @@ export const validate = (name, value) => {
         case "":
             return checkEmail(value) && "이메일 형식에 맞게 작성해주세요.";
 
+        // case "bookRate":
         case "page":
         case "runningTimeInMinutes":
-        case "bookRate":
         case "totalAudience":
             return checkNumber(value) && "숫자만 입력 가능합니다.";
 
