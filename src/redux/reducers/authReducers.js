@@ -1,7 +1,7 @@
 import { AUTH_LOGIN, AUTH_SIGNUP, AUTH_LOGOUT } from "../types";
 
 const INITIAL_STATE = {};
-const authReducers = (state = INITIAL_STATE, action) => {
+const authReducers = (state = INITIAL_STATE, action = {}) => {
     switch (action.type) {
         case AUTH_LOGIN:
             return;

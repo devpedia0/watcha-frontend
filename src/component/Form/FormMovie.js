@@ -1,87 +1,110 @@
-import React, { useEffect } from "react";
-import useInputs from "../../Hooks/useInputs";
-import queryString from "query-string";
-import history from "../../history";
+import React from "react";
+import CardList from "../../component/CardList/CardList";
 
-const initialValue = {
-    content_id: "",
-    origin_title: "",
-    country_code: "KO",
-    running_time_minutes: "",
-    watcha_yn: "n",
-    netflix_yn: "n",
-    book_rate: "",
-    accumulated_audience: "",
-};
-
-const FormMovie = () => {
-    const content_id = queryString.parse(window.location.search).content_id;
-    const { inputs, setInputs, handleChangeInputs } = useInputs(initialValue);
-
-    useEffect(() => {
-        if (!content_id) {
-            history.goback();
-        }
-
-        setInputs((state) => ({
-            ...state,
-            content_id,
-        }));
-    }, [content_id, setInputs]);
-
-    const handleClickSubmit = async () => {
-        try {
-            // TODO: validate
-            // const { isValid, errors } = validateAll(inputs);
-
-            // TODO: API
-            // await formAPI.submit("/content/movie", inputs)
-            const url = `/form/content/relativepeople?content_id=${content_id}`;
-            history.push(url);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
+const FormMovie = ({ inputs, errors, onChange }) => {
     return (
-        <form>
-            <h2 className="mb-3">영화(2/3)</h2>
-            <div className="form-group">
-                <label>원제목</label>
-                <input
-                    className="form-control"
-                    name="origin_title"
-                    value={inputs.origin_title}
-                    onChange={handleChangeInputs}
-                />
+        <CardList title="추가 정보">
+            <div className="row">
+                <div className="form-group col">
+                    <label>원제목</label>
+                    <input
+                        name="originTitle"
+                        value={inputs.originTitle || ""}
+                        onChange={onChange}
+                        className={`form-control ${
+                            errors.originTitle && "is-invalid"
+                        }`}
+                    />
+                    {errors.originTitle && (
+                        <div className="invalid-feedback">
+                            {errors.originTitle}
+                        </div>
+                    )}
+                </div>
             </div>
 
-            <div className="form-group">
-                <label>국가코드</label>
-                <input
-                    className="form-control"
-                    name="country_code"
-                    value={inputs.country_code}
-                    onChange={handleChangeInputs}
-                />
-            </div>
+            <div className="form-row">
+                <div className="form-group col">
+                    <label>국가코드</label>
+                    <input
+                        name="countryCode"
+                        value={inputs.countryCode || ""}
+                        onChange={onChange}
+                        className={`form-control ${
+                            errors.countryCode && "is-invalid"
+                        }`}
+                    />
+                    {errors.countryCode && (
+                        <div className="invalid-feedback">
+                            {errors.countryCode}
+                        </div>
+                    )}
+                </div>
 
-            <div className="form-group">
-                <label>상영시간(분)</label>
-                <input
-                    className="form-control"
-                    name="running_time_minutes"
-                    value={inputs.running_time_minutes}
-                    onChange={handleChangeInputs}
-                />
+                <div className="form-group col">
+                    <label>상영시간(분)</label>
+                    <input
+                        name="runningTimeInMinutes"
+                        value={inputs.runningTimeInMinutes || ""}
+                        onChange={onChange}
+                        className={`form-control ${
+                            errors.runningTimeInMinutes && "is-invalid"
+                        }`}
+                    />
+                    {errors.runningTimeInMinutes && (
+                        <div className="invalid-feedback">
+                            {errors.runningTimeInMinutes}
+                        </div>
+                    )}
+                </div>
             </div>
+            <div className="form-row">
+                <div className="form-group col">
+                    <label>예매율</label>
+                    <div className="input-group">
+                        <input
+                            name="bookRate"
+                            value={inputs.bookRate || ""}
+                            onChange={onChange}
+                            className={`form-control ${
+                                errors.bookRate && "is-invalid"
+                            }`}
+                        />
 
+                        <div className="input-group-append">
+                            <span className="input-group-text">%</span>
+                        </div>
+                        {errors.bookRate && (
+                            <div className="invalid-feedback">
+                                {errors.bookRate}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="form-group col">
+                    <label>누적관객</label>
+                    <input
+                        name="totalAudience"
+                        value={inputs.totalAudience || ""}
+                        onChange={onChange}
+                        className={`form-control ${
+                            errors.totalAudience && "is-invalid"
+                        }`}
+                    />
+                    {errors.totalAudience && (
+                        <div className="invalid-feedback">
+                            {errors.totalAudience}
+                        </div>
+                    )}
+                </div>
+            </div>
             <div className="form-group">
                 <label>왓차여부</label>
                 <br />
                 {[
-                    { key: "y", title: "Y" },
-                    { key: "n", title: "N" },
+                    { key: "true", title: "Y" },
+                    { key: "false", title: "N" },
                 ].map((option) => (
                     <div
                         key={option.key}
@@ -90,15 +113,15 @@ const FormMovie = () => {
                         <input
                             className="form-check-input"
                             type="radio"
-                            name="watcha_yn"
+                            name="isWatchaContent"
                             value={option.key}
-                            checked={option.key === inputs.watcha_yn}
-                            onChange={handleChangeInputs}
-                            id={`watcha_yn${option.key}`}
+                            checked={option.key === inputs.isWatchaContent}
+                            onChange={onChange}
+                            id={`isWatchaContent${option.key}`}
                         />
                         <label
                             className="form-check-label"
-                            htmlFor={`watcha_yn${option.key}`}
+                            htmlFor={`isWatchaContent${option.key}`}
                         >
                             {option.title}
                         </label>
@@ -110,8 +133,8 @@ const FormMovie = () => {
                 <label>넷플릭스 여부</label>
                 <br />
                 {[
-                    { key: "y", title: "Y" },
-                    { key: "n", title: "N" },
+                    { key: "true", title: "Y" },
+                    { key: "false", title: "N" },
                 ].map((option) => (
                     <div
                         key={option.key}
@@ -120,57 +143,23 @@ const FormMovie = () => {
                         <input
                             className="form-check-input"
                             type="radio"
-                            name="netflix_yn"
+                            name="isNetflixContent"
                             value={option.key}
-                            checked={option.key === inputs.netflix_yn}
-                            onChange={handleChangeInputs}
-                            id={`netflix_yn${option.key}`}
+                            checked={option.key === inputs.isNetflixContent}
+                            onChange={onChange}
+                            id={`isNetflixContent${option.key}`}
                         />
                         <label
                             className="form-check-label"
-                            htmlFor={`netflix_yn${option.key}`}
+                            htmlFor={`isNetflixContent${option.key}`}
                         >
                             {option.title}
                         </label>
                     </div>
                 ))}
             </div>
-
-            <div className="form-group">
-                <label>예매율</label>
-                <div className="input-group">
-                    <input
-                        className="form-control"
-                        name="book_rate"
-                        value={inputs.book_rate}
-                        onChange={handleChangeInputs}
-                    />
-
-                    <div className="input-group-append">
-                        <span className="input-group-text">%</span>
-                    </div>
-                </div>
-            </div>
-
-            <div className="form-group">
-                <label>누적관객</label>
-                <input
-                    className="form-control"
-                    name="accumulated_audience"
-                    value={inputs.accumulated_audience}
-                    onChange={handleChangeInputs}
-                />
-            </div>
-
-            <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleClickSubmit}
-            >
-                Next
-            </button>
-        </form>
+        </CardList>
     );
 };
 
-export default FormMovie;
+export default React.memo(FormMovie);

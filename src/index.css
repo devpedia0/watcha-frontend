@@ -2,28 +2,12 @@
     list-style: none;
 }
 
-body {
-
-
-
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Roboto, "Noto Sans KR", sans-serif;
-
-
-
-}
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
 
-
-
 a {
-    color: #fff;
     text-decoration: none;
     outline: none;
 }
@@ -31,8 +15,6 @@ a {
 a:hover,
 a:active {
     text-decoration: none;
-
-    background-color: #fff;
 }
 
 html,
@@ -121,7 +103,7 @@ button {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
+    /* font: inherit; */
     vertical-align: baseline;
 }
 
@@ -141,8 +123,6 @@ section {
     display: block;
 }
 
-
-
 ol,
 ul,
 li {
@@ -154,4 +134,17 @@ a:visited {
     text-decoration: none;
 }
 
+.ReactModal__Body--open {
+    overflow-y: hidden;
+}
 
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, "Noto Sans KR", sans-serif;
+}
+
+.react-datepicker-wrapper {
+    display: block !important;
+}

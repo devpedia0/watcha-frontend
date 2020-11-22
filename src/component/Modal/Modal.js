@@ -1,6 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
-
+import styled from "styled-components";
 const defaultStyle = {
     content: {
         top: "50%",
@@ -10,7 +10,7 @@ const defaultStyle = {
         marginRight: "-50%",
         marginBottom: "50px",
         transform: "translate(-50%, -50%)",
-        width: "1000px",
+        width: "750px",
         height: "700px",
         overflowY: "scroll",
     },
@@ -21,6 +21,15 @@ const defaultStyle = {
 };
 
 ReactModal.setAppElement("#root");
+
+const Wrapper = styled.div`
+    h3 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+`;
 
 const Modal = ({
     title,
@@ -38,9 +47,10 @@ const Modal = ({
             style={modalStyle}
             onRequestClose={onClickClose}
             onAfterOpen={onAfterOpen}
+            className="card"
         >
-            <div className="row d-flex justify-content-between">
-                <h2>{title}</h2>
+            <Wrapper className="card-header bg-white d-flex justify-content-between">
+                <h3>{title}</h3>
                 <div>
                     <button
                         className="btn btn-secondary mr-1"
@@ -57,8 +67,8 @@ const Modal = ({
                         사용하기
                     </button>
                 </div>
-            </div>
-            {children}
+            </Wrapper>
+            <div className="card-body">{children}</div>
         </ReactModal>
     );
 };
