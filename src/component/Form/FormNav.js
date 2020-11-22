@@ -11,14 +11,13 @@ const Link = styled(NavLink)`
 `;
 
 const FormNav = () => {
-    console.log("FormNav");
     return (
         <FormContainer className="card">
             <div className="card-body">
                 <div className="nav nav-pills">
                     <li className="nav-item">
                         <Link
-                            to="/admin/movies"
+                            to="/admin/movies/form"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -27,7 +26,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/books"
+                            to="/admin/books/form"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -36,7 +35,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/tv_shows"
+                            to="/admin/tv_shows/form"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -45,7 +44,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/participants"
+                            to="/admin/participants/form"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -54,7 +53,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/collections"
+                            to="/admin/collections/form"
                             className="nav-link"
                             activeClassName="active"
                         >
@@ -63,7 +62,7 @@ const FormNav = () => {
                     </li>
                     <li className="nav-item">
                         <Link
-                            to="/admin/tags"
+                            to="/admin/tags/form"
                             className="nav-link"
                             activeClassName="active"
                         >

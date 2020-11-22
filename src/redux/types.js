@@ -10,3 +10,4 @@ export const BOARD_DELETE = "board/BOARD_DELETE";
 export const FORM_INIT = "form/FORM_INIT";
 export const FORM_CHANGE = "form/FORM_CHANGE";
 export const FORM_SUBMIT = "form/FORM_SUBMIT";
+export const FORM_INITIALIZE = "form/FORM_INITIALIZE";

@@ -39,7 +39,7 @@ function App() {
                     <DefaultLayout path="/admin/collections" exact component={PageBoard} />
                     <DefaultLayout path="/admin/collections/form" component={PageCollection} />
                     <DefaultLayout path="/" exact component={Home} />
-                    <Redirect from="/admin" to="/admin/movies" />
+                    <Redirect from="/admin" to="/admin/movies/form" />
                     <Redirect to="/" />
                 </Switch>
             </Router>
