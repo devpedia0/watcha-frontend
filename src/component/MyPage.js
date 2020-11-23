@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Background from '../images/Bg.jpg';
+import Setting from './Setting';
 import Footer from './Footer';
+import Header from './Header';
 
 const Page = styled.div`
   position: relative;
@@ -59,12 +60,14 @@ const Outer = styled.div`
 `;
 
 const Bg = styled.div`
-  background: url(${Background});
   position: relative;
-  background-size: 180px 177px;
-  height: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  height: 0px;
   padding-top: 32%;
-  margin: 0 0 -20px;
+  background: url('https://d2rlq84xifqisi.cloudfront.net/images/mypagePatternResize.2e73487f09488acbeb2d.jpg')
+    0% 0% / 180px 177px;
+  margin: 0px 0px -20px;
 
   ::before {
     content: '';
@@ -82,7 +85,7 @@ const Bg = styled.div`
   }
 `;
 
-const Setting = styled.button`
+const SettingIcon = styled.button`
   padding: 0;
   margin: 0;
   border: 0;
@@ -251,8 +254,15 @@ const Clip = styled.div`
   bottom: 8.5px;
 `;
 export default function MyPage() {
+  const [settingVisible, setSettingVisible] = useState(true);
+
+  const settingModal = () => {
+    setSettingVisible({ settingVisible: !settingVisible });
+  };
+
   return (
     <Page>
+      <Header />
       <Content>
         <Section>
           <Main>
@@ -260,7 +270,9 @@ export default function MyPage() {
               <Outer>
                 <div>
                   <Bg>
-                    <Setting></Setting>
+                    <SettingIcon
+                      onClick={() => setSettingVisible(!settingModal)}
+                    />
                   </Bg>
                   <Profile>
                     <ProfileHeader>
@@ -366,6 +378,9 @@ export default function MyPage() {
           </Main>
           <Footer />
         </Section>
+        <>
+          <Setting settingModal={settingModal} switchModal={settingVisible} />
+        </>
       </Content>
     </Page>
   );

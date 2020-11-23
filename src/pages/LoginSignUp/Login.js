@@ -1,74 +1,224 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import AuthService from '../../service/auth.service';
+import ReactFacebookLogin from '../../service/ReactFacebookLogin';
+import SignUp from './SignUp';
 
-const Outer = styled.div`
+const Login = (props) => {
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    if (!email.includes('@')) {
+      setEmailError('정확하지 않은 이메일 입니다.');
+    } else if (email.includes('@')) {
+      setEmailError(null);
+    }
+    setEmail(email);
+  };
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    if (password.length < 6) {
+      setPasswordError('정확하지 않은 비밀번호 입니다.');
+    } else if (password.length > 5) {
+      setPasswordError(null);
+    }
+    setPassword(password);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (email.includes('@') && password.length > 5) {
+      AuthService.login(email, password).then(
+        (response) => {
+          props.history.push('/profile');
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log('아이디 비밀번호 확인');
+    }
+  };
+
+  const loginEnter = (e) => {
+    e.preventDefault();
+
+    const loginValidate = email.includes('@') && password.length > 5;
+    if (e.key === 'Enter' && loginValidate === true) {
+      handleLogin();
+    }
+  };
+
+  return (
+    <BackScreen className={props.switchModal ? 'hideLogin' : ''}>
+      <Modal>
+        <Background onClick={props.loginModal} />
+        <LoginForm>
+          <LoginFormInner>
+            <Header>
+              <Logo />
+            </Header>
+            <H2>로그인</H2>
+            <div>
+              <div>
+                <Content>
+                  <form onSubmit={handleLogin}>
+                    <Area>
+                      <IdPw>
+                        <Value>
+                          <Input
+                            className={email ? 'inputChecked' : ''}
+                            type="text"
+                            name="email"
+                            value={email}
+                            onChange={onChangeEmail}
+                            label="이메일"
+                            placeholder="이메일"
+                            autoComplete="off"
+                          />
+
+                          <DelBtn>
+                            <DelIcon />
+                          </DelBtn>
+                          <Check className="checkIcon"></Check>
+                        </Value>
+                      </IdPw>
+                      <div style={{ color: 'red', fontSize: 12 }}>
+                        {emailError}
+                      </div>
+                    </Area>
+                    <Area>
+                      <IdPw>
+                        <Value>
+                          <Input
+                            className={password ? 'inputChecked' : ''}
+                            value={password}
+                            onChange={onChangePassword}
+                            name="password"
+                            label="비밀번호"
+                            placeholder="비밀번호"
+                            autoComplete="off"
+                            type="password"
+                          />
+
+                          <DelBtn>
+                            <DelIcon />
+                          </DelBtn>
+                          <Check className="checkIcon"></Check>
+                        </Value>
+                      </IdPw>
+
+                      <div
+                        style={{
+                          color: 'red',
+                          fontSize: 12,
+                        }}>
+                        {passwordError}
+                      </div>
+                    </Area>
+                    <LoginBtn>로그인</LoginBtn>
+                  </form>
+
+                  <Find>
+                    <Btn>비밀번호를 잊어버리셨나요?</Btn>
+                  </Find>
+
+                  <Register>
+                    계정이 없으신가요?
+                    <Btn>회원가입</Btn>
+                  </Register>
+                  <Hr />
+
+                  <Facebook>{/* <ReactFacebookLogin /> */}</Facebook>
+                </Content>
+              </div>
+            </div>
+          </LoginFormInner>
+        </LoginForm>
+      </Modal>
+    </BackScreen>
+  );
+};
+
+export default Login;
+
+const BackScreen = styled.div`
   display: block;
   position: fixed;
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;
-  z-index: 100;
+  z-index: 50;
   background: rgba(0, 0, 0, 0.56);
   overflow: hidden scroll;
 
-  @media (min-width: 719px) {
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    text-align: left;
-    width: 375px;
-    height: auto;
-    min-height: 540px;
-    border-radius: 6px;
-    overflow: auto;
-  }
   &.hideLogin {
-    position: fixed;
     display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
   }
 `;
 
 const Modal = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300vh;
-  height: 300vh;
-  background-color: rgba(0, 0, 0, 0.56);
-  z-index: -1;
-`;
-
-const Inner = styled.div`
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  z-index: 101;
 
   @media (min-width: 719px) {
     text-align: center;
-    /* padding: 20px 0px; */
+    padding: 20px 0px;
     overflow: auto;
+
+    ::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      margin-left: -0.25em;
+    }
   }
 `;
-const Page = styled.div`
-  display: inline-block;
+
+const Background = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 50;
+
+  @media (min-width: 719px) {
+    text-align: center;
+    padding: 20px 0px;
+    overflow: auto;
+
+    ::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      margin-left: -0.25em;
+    }
+  }
+`;
+
+const LoginForm = styled.div`
+  display: relative;
   background: rgb(255, 255, 255);
   width: 100%;
   height: 100%;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
   overflow: hidden;
+  z-index: 100;
 
   @media (min-width: 719px) {
     display: inline-block;
@@ -83,7 +233,7 @@ const Page = styled.div`
   }
 `;
 
-const PageInner = styled.div`
+const LoginFormInner = styled.div`
   padding: 32px 0px 48px;
 `;
 
@@ -134,75 +284,6 @@ const Value = styled.div`
   display: flex;
   flex: 1 1 0%;
   width: 335px;
-
-  &.label {
-    .checked {
-      width: 80%;
-      font-size: 16px;
-      letter-spacing: -0.7px;
-      line-height: 21px;
-      caret-color: rgb(255, 47, 110);
-      background: transparent;
-      border: none;
-
-      &::placeholder {
-        color: rgb(160, 160, 160);
-        letter-spacing: -0.7px;
-      }
-
-      &:focus {
-        outline: none;
-
-        &.checkIcon {
-          position: absolute;
-          top: 7px;
-          right: 12px;
-          width: 32px;
-          height: 32px;
-          background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAxKSI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iMTAuNSIgc3Ryb2tlPSIjMEZDM0I5Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzBGQzNCOSIgZD0iTTkuMzkgMTIuODM5bDUuNjU2LTUuNjU3YTEgMSAwIDEgMSAxLjQxNCAxLjQxNGwtNi4zNjQgNi4zNjRhLjk5Ny45OTcgMCAwIDEtMS40MTQgMGwtMi44MjgtMi44MjhhMSAxIDAgMSAxIDEuNDE0LTEuNDE0bDIuMTIxIDIuMTJ6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=')
-            center center / cover no-repeat;
-          background-size: 23px;
-          background-position: 100% 50%;
-          filter: grayscale(0);
-        }
-      }
-    }
-  }
-
-  &.labelWrong {
-    .checked {
-      width: 80%;
-      line-height: 21px;
-      font-weight: 400;
-      font-size: 16px;
-      letter-spacing: -0.7px;
-      caret-color: rgb(255, 47, 110);
-      background: transparent;
-      border: none;
-
-      &::placeholder {
-        color: rgb(160, 160, 160);
-      }
-
-      &:focus {
-        outline: none;
-
-        & ~ .checkIcon {
-          position: absolute;
-          top: 7px;
-          right: 12px;
-          width: 32px;
-          height: 32px;
-          background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAxKSI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iMTAuNSIgc3Ryb2tlPSIjRjUwMDAwIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0Y1MDAwMCIgZD0iTTExIDE0YTEuNSAxLjUgMCAxIDEgMCAzIDEuNSAxLjUgMCAwIDEgMC0zem0wLTlhMS41IDEuNSAwIDAgMSAxLjUgMS41VjExYTEuNSAxLjUgMCAwIDEtMyAwVjYuNUExLjUgMS41IDAgMCAxIDExIDV6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=')
-            center center / cover no-repeat;
-          background-size: 23px;
-          background-repeat: no-repeat;
-          background-position: 100% 50%;
-          filter: grayscale(0);
-        }
-      }
-    }
-  }
 `;
 const Input = styled.input`
   text-align: left;
@@ -279,7 +360,7 @@ const Btn = styled.button`
   font-size: 100%;
 `;
 
-const SignUp = styled.div`
+const Register = styled.div`
   font-size: 15px;
   font-weight: 400;
   letter-spacing: -0.5px;
@@ -347,125 +428,3 @@ const Facebook = styled.button`
     height: 22px;
   }
 `;
-
-const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setMessage('');
-    setLoading(true);
-
-    if (email.includes('@') && password.length > 5) {
-      AuthService.login(email, password).then(
-        () => {
-          props.history.push('/profile');
-          window.location.reload();
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setLoading(false);
-          setMessage(resMessage);
-        }
-      );
-    } else {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <Outer className={props.switchModal ? 'hideLogin' : ''}>
-      <Modal onClick={props.loginModal}></Modal>
-      <Inner>
-        <Page>
-          <PageInner>
-            <Header>
-              <Logo />
-            </Header>
-            <H2>로그인</H2>
-            <div>
-              <div>
-                <Content>
-                  <form onSubmit={handleLogin}>
-                    <Area>
-                      <IdPw>
-                        <Value>
-                          <Input
-                            value={email}
-                            onChange={onChangeEmail}
-                            name="email"
-                            label="이메일"
-                            placeholder="이메일"
-                            autoComplete="off"
-                            type="email"
-                          />
-                          <DelBtn>
-                            <DelIcon />
-                          </DelBtn>
-                          <Check className="checkIcon"></Check>
-                        </Value>
-                      </IdPw>
-                    </Area>
-                    <Area>
-                      <IdPw>
-                        <Value>
-                          <Input
-                            value={password}
-                            onChange={onChangePassword}
-                            name="password"
-                            label="비밀번호"
-                            placeholder="비밀번호"
-                            autoComplete="off"
-                            type="password"
-                          />
-                          <DelBtn>
-                            <DelIcon />
-                          </DelBtn>
-                          <Check className="checkIcon"></Check>
-                        </Value>
-                      </IdPw>
-                    </Area>
-                    <LoginBtn>로그인</LoginBtn>
-                  </form>
-
-                  <Find>
-                    <Btn>비밀번호를 잊어버리셨나요?</Btn>
-                  </Find>
-
-                  <SignUp>
-                    계정이 없으신가요?
-                    <Btn>회원가입</Btn>
-                  </SignUp>
-                  <Hr />
-
-                  <Facebook>Facebook 으로 로그인</Facebook>
-                </Content>
-              </div>
-            </div>
-          </PageInner>
-        </Page>
-      </Inner>
-    </Outer>
-  );
-};
-
-export default Login;

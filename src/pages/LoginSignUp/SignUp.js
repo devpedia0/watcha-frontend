@@ -1,82 +1,277 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AuthService from '../../service/auth.service';
 import ReactFacebookLogin from '../../service/ReactFacebookLogin';
+import SelectForm from './Languages/SelectForm';
+import Login from './Login';
 
-const Outer = styled.div`
+export default function SignUp(props) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [countryCode, setCountryCode] = useState('KR');
+  const [lanVisible, setLanVisible] = useState(true);
+
+  const ChangeCountry = () => {};
+
+  const languageModal = () => {
+    setLanVisible({ lanVisible: !lanVisible });
+  };
+
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setName(name);
+  };
+
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    if (!email.includes('@')) {
+      setEmailError('정확하지 않은 이메일 입니다.');
+    } else if (email.includes('@')) {
+      setEmailError(null);
+    } else if (
+      AuthService.checkEmail(email).then(
+        (exist) => exist && setEmailError('이미 가입된 이메일입니다.')
+      )
+    ) {
+      return '';
+    }
+    setEmail(email);
+  };
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    if (password.length < 6) {
+      setPasswordError('정확하지 않은 비밀번호 입니다.');
+    } else if (password.length > 5) {
+      setPasswordError(null);
+    }
+    setPassword(password);
+  };
+
+  // const checkEmail = () => {};
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    //
+
+    if (
+      (countryCode.length === 2,
+      email.includes('@') && password.length > 5,
+      name.length > 1)
+    ) {
+      AuthService.register(countryCode, name, email, password).then(
+        (response) => response.json(),
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  };
+  return (
+    <BackScreen className={props.switchModal ? 'hideSignUp' : ''}>
+      <Modal>
+        <Background onClick={props.signUpModal} />
+        <SignUpForm>
+          <SignUpFormInner>
+            <Header>
+              <Logo />
+            </Header>
+            <H2>회원가입</H2>
+            <div>
+              <div>
+                <Content>
+                  <form>
+                    <Area>
+                      <NameIdPw>
+                        <Value>
+                          <Input
+                            onChange={onChangeName}
+                            value={name}
+                            name="name"
+                            label="이름"
+                            placeholder="이름"
+                            autoComplete="off"
+                            type="text"
+                            id="name"
+                          />
+                        </Value>
+                        <DelBtn>
+                          <DelIcon></DelIcon>
+                        </DelBtn>
+                        <Check></Check>
+                      </NameIdPw>
+                    </Area>
+                    <Area>
+                      <NameIdPw>
+                        <Value>
+                          <Input
+                            value={email}
+                            onChange={onChangeEmail}
+                            name="email"
+                            label="이메일"
+                            placeholder="이메일"
+                            autoComplete="off"
+                            type="email"
+                            id="id"
+                          />
+                        </Value>
+                        <DelBtn>
+                          <DelIcon></DelIcon>
+                        </DelBtn>
+                        <Check></Check>
+                      </NameIdPw>
+                      <div style={{ color: 'red', fontSize: 12 }}>
+                        {emailError}
+                      </div>
+                    </Area>
+                    <Area>
+                      <NameIdPw>
+                        <Value>
+                          <Input
+                            value={password}
+                            onChange={onChangePassword}
+                            name="password"
+                            label="비밀번호"
+                            placeholder="비밀번호"
+                            autoComplete="off"
+                            type="password"
+                            id="password"
+                          />
+                        </Value>
+                        <DelBtn>
+                          <DelIcon></DelIcon>
+                        </DelBtn>
+                        <Check></Check>
+                      </NameIdPw>
+                      <div
+                        style={{
+                          color: 'red',
+                          fontSize: 12,
+                        }}>
+                        {passwordError}
+                      </div>
+                    </Area>
+
+                    <Language
+                      type="button"
+                      onClick={() => setLanVisible(!lanVisible)}>
+                      <CountryIcon />
+                      한국어 (대한민국)
+                      <LanguageCode
+                        id="sign_up_languageCode"
+                        name="languageCode"
+                        type="hidden"
+                        label
+                        placeholder
+                        value="ko"
+                      />
+                      <CountryCode
+                        id="sign_up_countryCode"
+                        name="countryCode"
+                        type="hidden"
+                        label
+                        placeholder
+                        value="KR"
+                      />
+                      <ArrowIcon />
+                    </Language>
+
+                    <SignUpBtn type="button" onSubmit={handleSignUp}>
+                      회원가입
+                    </SignUpBtn>
+                  </form>
+                  <AlReady>
+                    이미 가입하셨나요?
+                    <Btn>로그인</Btn>
+                  </AlReady>
+                  <Hr />
+                  <Facebook>{/* <ReactFacebookLogin /> */}</Facebook>
+                </Content>
+              </div>
+            </div>
+          </SignUpFormInner>
+        </SignUpForm>
+
+        <>
+          <SelectForm languageModal={languageModal} switchModal={lanVisible} />
+        </>
+      </Modal>
+    </BackScreen>
+  );
+}
+
+const BackScreen = styled.div`
   display: block;
   position: fixed;
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;
-  z-index: 100;
+  z-index: 50;
   background: rgba(0, 0, 0, 0.56);
   overflow: hidden scroll;
 
-  @media (min-width: 719px) {
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    text-align: left;
-    width: 375px;
-    height: auto;
-    min-height: 540px;
-    border-radius: 6px;
-    overflow: auto;
-  }
   &.hideSignUp {
-    position: fixed;
     display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
   }
 `;
 
 const Modal = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300vh;
-  height: 300vh;
-  background-color: rgba(0, 0, 0, 0.56);
-  z-index: -1;
-`;
-const Inner = styled.div`
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  z-index: 101;
 
   @media (min-width: 719px) {
     text-align: center;
-    /* padding: 20px 0px; */
+    padding: 20px 0px;
     overflow: auto;
-  }
 
-  ::after {
-    content: '';
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-    margin-left: -0.25em;
+    ::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      margin-left: -0.25em;
+    }
   }
 `;
-const Page = styled.div`
-  display: inline-block;
+
+const Background = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 50;
+
+  @media (min-width: 719px) {
+    text-align: center;
+    padding: 20px 0px;
+    overflow: auto;
+
+    ::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      margin-left: -0.25em;
+    }
+  }
+`;
+
+const SignUpForm = styled.div`
+  display: relative;
   background: rgb(255, 255, 255);
   width: 100%;
   height: 100%;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
   overflow: hidden;
+  z-index: 100;
 
   @media (min-width: 719px) {
     display: inline-block;
@@ -91,7 +286,7 @@ const Page = styled.div`
   }
 `;
 
-const PageInner = styled.div`
+const SignUpFormInner = styled.div`
   padding: 32px 0px 48px;
 `;
 
@@ -310,185 +505,25 @@ const Hr = styled.hr`
   }
 `;
 
-// const Facebook = styled.button`
-//   color: rgb(250, 250, 250);
-//   text-align: center;
-//   width: 100%;
-//   height: 44px;
-//   border-radius: 6px;
-//   position: relative;
-//   background: rgb(60, 90, 160);
-//   font-size: 100%;
+const Facebook = styled.button`
+  color: rgb(250, 250, 250);
+  text-align: center;
+  width: 100%;
+  height: 44px;
+  border-radius: 6px;
+  position: relative;
+  background: rgb(60, 90, 160);
+  font-size: 100%;
 
-//   ::before {
-//     content: '';
-//     display: inline-block;
-//     position: absolute;
-//     top: 11px;
-//     left: 14px;
-//     background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjMzMiA4LjJoLTIuMDE2cy0xLjI4NC4wNzctMS4yODQgMS42NDR2Mi4wMDhoMy4zbC0uNTUgMy4xMDdoLTIuNzV2OC4wNGgtMy4xMTR2LTguMDRoLTIuNzV2LTMuMTA3aDIuNzVWOS4xMTNzLS4xMDQtMy44MzQgMy44NDgtMy44MzRjMS44NDggMCAyLjU2Ni4xODQgMi41NjYuMTg0VjguMnptMC03LjJINC42NjhBMy42NjggMy42NjggMCAwIDAgMSA0LjY2NnYxNC42NjZBMy42NyAzLjY3IDAgMCAwIDQuNjY4IDIzaDE0LjY2NEEzLjY2OCAzLjY2OCAwIDAgMCAyMyAxOS4zMzJWNC42NjZBMy42NjYgMy42NjYgMCAwIDAgMTkuMzMyIDF6Ii8+Cjwvc3ZnPgo=')
-//       center center no-repeat;
-//     width: 22px;
-//     height: 22px;
-//   }
-// `;
-
-export default function SignUp(props) {
-  const [name, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
-
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    setMessage('');
-    setSuccessful(false);
-
-    if ((email.includes('@') && password.length > 5, name.length > 1)) {
-      AuthService.register(name, email, password).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
-    }
-  };
-  return (
-    <Outer className={props.switchModal ? 'hideSignUp' : ''}>
-      <Modal onClick={props.signUpModal}></Modal>
-      <Inner>
-        <Page>
-          <PageInner>
-            <Header>
-              <Logo />
-            </Header>
-            <H2>회원가입</H2>
-            <div>
-              <div>
-                <Content>
-                  <form onSubmit={handleSignUp}>
-                    <Area>
-                      <NameIdPw>
-                        <Value>
-                          <Input
-                            onChange={onChangeUsername}
-                            value={name}
-                            name="username"
-                            label="이름"
-                            placeholder="이름"
-                            autoComplete="off"
-                            type="text"
-                            id="name"
-                          />
-                        </Value>
-                        <DelBtn>
-                          <DelIcon></DelIcon>
-                        </DelBtn>
-                        <Check></Check>
-                      </NameIdPw>
-                    </Area>
-                    <Area>
-                      <NameIdPw>
-                        <Value>
-                          <Input
-                            value={email}
-                            onChange={onChangeEmail}
-                            name="email"
-                            label="이메일"
-                            placeholder="이메일"
-                            autoComplete="off"
-                            type="email"
-                            id="id"
-                          />
-                        </Value>
-                        <DelBtn>
-                          <DelIcon></DelIcon>
-                        </DelBtn>
-                        <Check></Check>
-                      </NameIdPw>
-                    </Area>
-                    <Area>
-                      <NameIdPw>
-                        <Value>
-                          <Input
-                            value={password}
-                            onChange={onChangePassword}
-                            name="password"
-                            label="비밀번호"
-                            placeholder="비밀번호"
-                            autoComplete="off"
-                            type="password"
-                            id="password"
-                          />
-                        </Value>
-                        <DelBtn>
-                          <DelIcon></DelIcon>
-                        </DelBtn>
-                        <Check></Check>
-                      </NameIdPw>
-                    </Area>
-                    <Language>
-                      <CountryIcon />
-                      한국어 (대한민국)
-                      <LanguageCode
-                        id="sine_up_languageCode"
-                        name="languageCode"
-                        type="hidden"
-                        label
-                        placeholder
-                        value="ko"
-                      />
-                      <CountryCode
-                        id="sine_up_countryCode"
-                        name="countryCode"
-                        type="hidden"
-                        label
-                        placeholder
-                        value="KR"
-                      />
-                      <ArrowIcon />
-                    </Language>
-                    <SignUpBtn>회원가입</SignUpBtn>
-                  </form>
-                  <AlReady>
-                    이미 가입하셨나요?<Btn>로그인</Btn>
-                  </AlReady>
-                  <Hr />
-                  {/* <Facebkook /> */}
-                  <ReactFacebookLogin />
-                </Content>
-              </div>
-            </div>
-          </PageInner>
-        </Page>
-      </Inner>
-    </Outer>
-  );
-}
+  ::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 11px;
+    left: 14px;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjMzMiA4LjJoLTIuMDE2cy0xLjI4NC4wNzctMS4yODQgMS42NDR2Mi4wMDhoMy4zbC0uNTUgMy4xMDdoLTIuNzV2OC4wNGgtMy4xMTR2LTguMDRoLTIuNzV2LTMuMTA3aDIuNzVWOS4xMTNzLS4xMDQtMy44MzQgMy44NDgtMy44MzRjMS44NDggMCAyLjU2Ni4xODQgMi41NjYuMTg0VjguMnptMC03LjJINC42NjhBMy42NjggMy42NjggMCAwIDAgMSA0LjY2NnYxNC42NjZBMy42NyAzLjY3IDAgMCAwIDQuNjY4IDIzaDE0LjY2NEEzLjY2OCAzLjY2OCAwIDAgMCAyMyAxOS4zMzJWNC42NjZBMy42NjYgMy42NjYgMCAwIDAgMTkuMzMyIDF6Ii8+Cjwvc3ZnPgo=')
+      center center no-repeat;
+    width: 22px;
+    height: 22px;
+  }
+`;
