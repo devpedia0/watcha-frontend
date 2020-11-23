@@ -1,26 +1,16 @@
 import React from "react";
-import useInputs from "../../Hooks/useInputs";
+import CardList from "../../component/CardList/CardList";
 
-const initialValue = {
-    origin_title: "",
-    country_code: "KO",
-    watcha_yn: "n",
-    netflix_yn: "n",
-};
-
-const FormTV = () => {
-    const { inputs, handleChangeInputs } = useInputs(initialValue);
-
+const FormTV = ({ inputs, onChange }) => {
     return (
-        <form>
-            <h2 className="mb-3">TV 프로그램(2/3)</h2>
+        <CardList title="추가 정보">
             <div className="form-group">
                 <label>원제목</label>
                 <input
                     className="form-control"
-                    name="origin_title"
-                    value={inputs.origin_title}
-                    onChange={handleChangeInputs}
+                    name="originTitle"
+                    value={inputs.originTitle || ""}
+                    onChange={onChange}
                 />
             </div>
 
@@ -28,9 +18,9 @@ const FormTV = () => {
                 <label>국가코드</label>
                 <input
                     className="form-control"
-                    name="country_code"
-                    value={inputs.country_code}
-                    onChange={handleChangeInputs}
+                    name="countryCode"
+                    value={inputs.countryCode || ""}
+                    onChange={onChange}
                 />
             </div>
 
@@ -38,8 +28,8 @@ const FormTV = () => {
                 <label>왓차여부</label>
                 <br />
                 {[
-                    { key: "y", title: "Y" },
-                    { key: "n", title: "N" },
+                    { key: "true", title: "Y" },
+                    { key: "false", title: "N" },
                 ].map((option) => (
                     <div
                         key={option.key}
@@ -48,15 +38,15 @@ const FormTV = () => {
                         <input
                             className="form-check-input"
                             type="radio"
-                            name="watcha_yn"
+                            name="isWatchaContent"
                             value={option.key}
-                            checked={option.key === inputs.watcha_yn}
-                            onChange={handleChangeInputs}
-                            id={`watcha_yn${option.key}`}
+                            checked={option.key === inputs.isWatchaContent}
+                            onChange={onChange}
+                            id={`isWatchaContent${option.key}`}
                         />
                         <label
                             className="form-check-label"
-                            htmlFor={`watcha_yn${option.key}`}
+                            htmlFor={`isWatchaContent${option.key}`}
                         >
                             {option.title}
                         </label>
@@ -68,8 +58,8 @@ const FormTV = () => {
                 <label>넷플릭스 여부</label>
                 <br />
                 {[
-                    { key: "y", title: "Y" },
-                    { key: "n", title: "N" },
+                    { key: "true", title: "Y" },
+                    { key: "false", title: "N" },
                 ].map((option) => (
                     <div
                         key={option.key}
@@ -78,27 +68,23 @@ const FormTV = () => {
                         <input
                             className="form-check-input"
                             type="radio"
-                            name="netflix_yn"
+                            name="isNetflixContent"
                             value={option.key}
-                            checked={option.key === inputs.netflix_yn}
-                            onChange={handleChangeInputs}
-                            id={`netflix_yn${option.key}`}
+                            checked={option.key === inputs.isNetflixContent}
+                            onChange={onChange}
+                            id={`isNetflixContent${option.key}`}
                         />
                         <label
                             className="form-check-label"
-                            htmlFor={`netflix_yn${option.key}`}
+                            htmlFor={`isNetflixContent${option.key}`}
                         >
                             {option.title}
                         </label>
                     </div>
                 ))}
             </div>
-
-            <button type="button" className="btn btn-primary">
-                Submit
-            </button>
-        </form>
+        </CardList>
     );
 };
 
-export default FormTV;
+export default React.memo(FormTV);

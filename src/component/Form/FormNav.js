@@ -1,59 +1,78 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
-const Wrapper = styled.ul`
-    margin-bottom: 30px;
-`;
+import FormContainer from "../../styles/FormContainer";
 
 const Link = styled(NavLink)`
     &.${(props) => props.activeClassName} {
-        color: #ff0558 !important;
+        color: white !important;
         font-weight: bold;
     }
 `;
 
 const FormNav = () => {
     return (
-        <Wrapper className="nav nav-tabs">
-            <li className="nav-item">
-                <Link
-                    to="/form/content"
-                    className="nav-link"
-                    activeClassName="active"
-                >
-                    컨텐츠
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link
-                    to="/form/people"
-                    className="nav-link"
-                    activeClassName="active"
-                >
-                    관계자
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link
-                    to="/form/collection"
-                    className="nav-link"
-                    activeClassName="active"
-                >
-                    컬렉션
-                </Link>
-            </li>
-            <li className="nav-item">
-                <Link
-                    to="/form/tag"
-                    className="nav-link"
-                    activeClassName="active"
-                >
-                    태그입력
-                </Link>
-            </li>
-        </Wrapper>
+        <FormContainer className="card">
+            <div className="card-body">
+                <div className="nav nav-pills">
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/movies/form"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            영화
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/books/form"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            책
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/tv_shows/form"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            TV
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/participants/form"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            관계자
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/collections/form"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            컬렉션
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            to="/admin/tags/form"
+                            className="nav-link"
+                            activeClassName="active"
+                        >
+                            태그입력
+                        </Link>
+                    </li>
+                </div>
+            </div>
+        </FormContainer>
     );
 };
 
-export default FormNav;
+export default React.memo(FormNav);
