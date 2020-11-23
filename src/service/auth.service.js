@@ -25,11 +25,15 @@ const login = (email, password) => {
         email,
         password,
     }).then((response) => {
-        console.log(response);
-        console.log(response.data);
         if (response.data.accessToken) {
-            console.log(response);
-            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem(
+                "accessToken",
+                JSON.stringify(response.data.accessToken)
+            );
+            localStorage.setItem(
+                "refreshToken",
+                JSON.stringify(response.data.refreshToken)
+            );
         }
         return response.data;
     });
