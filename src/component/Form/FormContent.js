@@ -34,13 +34,6 @@ const FormContent = ({ title, inputs, errors, onChange }) => {
                     </div>
                 </div>
                 <div className="col-8">
-                    <button
-                        className="btn btn-primary"
-                        type="button"
-                        onClick={handleClickImage}
-                    >
-                        이미지{inputs?.file ? " 변경" : " 추가"}
-                    </button>
                     <div className="form-group">
                         <label>제목</label>
                         <input

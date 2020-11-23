@@ -45,7 +45,6 @@ const useInputs = (initialValue) => {
             console.log(e);
             console.log(e.response);
             console.log(e.response.data.error);
-            // e.response.data.error => "Unauthorized" => 401
         }
     }, []);
 

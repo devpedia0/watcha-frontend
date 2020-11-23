@@ -9,7 +9,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 
 // pages
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import PageBoard from './pages/Form/PageBoard';
 import PageMovie from "./pages/Form/PageMovie";
 import PageTV from "./pages/Form/PageTV";
