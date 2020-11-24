@@ -12,7 +12,7 @@ const initialValue = {
     participantId: "",
 };
 
-const FormRoleList = ({ roles, setRoles, error }) => {
+const FormRoles = ({ roles, setRoles }) => {
     const { inputs, setInputs, onChange } = useInputs(initialValue);
 
     const handleClickSave = () => {
@@ -60,4 +60,4 @@ const FormRoleList = ({ roles, setRoles, error }) => {
     );
 };
 
-export default React.memo(FormRoleList);
+export default React.memo(FormRoles);

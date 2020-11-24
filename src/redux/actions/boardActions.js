@@ -1,6 +1,3 @@
-// import axios from "axios";
-import data from "../../siteConfig/movie";
-import axios from "axios";
 import api from "../../service/api";
 import {
     BOARD_FETCH,

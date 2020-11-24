@@ -3,10 +3,21 @@ import FormLayout from "../../layouts/FormLayout";
 import useInputs from "../../Hooks/useInputs";
 
 // components
-import FormContent from "../../component/Form/FormContent";
-import FormTV from "../../component/Form/FormTV";
-import FormRoleList from "../../component/Form/FormRoleList";
-import FormTagList from "../../component/Form/FormTagList";
+// import FormContent from "../../component/Form/FormContent";
+// import FormTV from "../../component/Form/FormTV";
+// import FormRoles from "../../component/Form/FormRoles";
+// import FormTags from "../../component/Form/FormTags";
+import Title from "../../styles/Title";
+import {
+    File,
+    Input,
+    SelectCtg,
+    YearPicker,
+    Textarea,
+    RadioYN,
+    FormRoles,
+    FormTags,
+} from "../../component/Form";
 
 const initialValue = {
     file: "",
@@ -16,8 +27,8 @@ const initialValue = {
     description: "",
     originTitle: "",
     countryCode: "",
-    isWatchaContent: "",
-    isNetflixContent: "",
+    isWatchaContent: "false",
+    isNetflixContent: "false",
     roles: [],
     tags: [],
 };
@@ -43,19 +54,79 @@ const PageTV = () => {
 
     return (
         <FormLayout>
-            <FormContent
-                title="TV 추가"
-                inputs={inputs}
+            <Title>영화 추가</Title>
+            <div className="row">
+                <div className="col-4">
+                    <File name="file" value={inputs.file} onChange={onChange} />
+                </div>
+                <div className="col-8">
+                    <Input
+                        title="제목"
+                        name="mainTitle"
+                        value={inputs.mainTitle}
+                        onChange={onChange}
+                        error={errors.mainTitle}
+                    />
+
+                    <SelectCtg
+                        title="카테고리"
+                        name="category"
+                        value={inputs.category}
+                        onChange={onChange}
+                        error={errors.category}
+                    />
+
+                    <YearPicker
+                        title="제작연도"
+                        name="productionDate"
+                        value={inputs.productionDate}
+                        onChange={onChange}
+                    />
+                </div>
+            </div>
+            <Textarea
+                title="설명"
+                name="description"
+                value={inputs.description}
                 onChange={onChange}
-                errors={errors}
+                error={errors.description}
             />
-            <FormTV inputs={inputs} onChange={onChange} errors={errors} />
-            <FormRoleList
+
+            <Title line>추가 정보</Title>
+            <Input
+                title="원제목"
+                name="originTitle"
+                value={inputs.originTitle}
+                onChange={onChange}
+                error={errors.originTitle}
+            />
+            <Input
+                title="국가코드"
+                name="countryCode"
+                value={inputs.countryCode}
+                onChange={onChange}
+                error={errors.countryCode}
+            />
+
+            <RadioYN
+                title="왓챠여부"
+                name="isWatchaContent"
+                value={inputs.isWatchaContent}
+                onChange={onChange}
+            />
+            <RadioYN
+                title="넷플릭스 여부"
+                name="isNetflixContent"
+                value={inputs.isNetflixContent}
+                onChange={onChange}
+            />
+
+            <FormRoles
                 roles={inputs.roles}
                 setRoles={setInputs}
                 error={errors.roles}
             />
-            <FormTagList
+            <FormTags
                 tags={inputs.tags}
                 setTags={setInputs}
                 error={errors.tags}

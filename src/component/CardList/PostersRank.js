@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-import PosterCard from "../PosterCard";
+import PosterCard from "../Card/PosterCard";
 import img1 from "../../images/1.jpg";
 import img2 from "../../images/2.jpg";
 import img3 from "../../images/3.jpg";

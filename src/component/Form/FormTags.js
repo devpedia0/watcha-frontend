@@ -4,7 +4,7 @@ import CardTag from "../Card/CardTag";
 import CardList from "../CardList/CardList";
 import ModalTag from "../Modal/ModalTag";
 
-const FormTagList = ({ tags, setTags, error }) => {
+const FormTags = ({ tags, setTags, error }) => {
     const handleClickSave = useCallback(
         (newTags) => {
             setTags((state) => ({
@@ -39,4 +39,4 @@ const FormTagList = ({ tags, setTags, error }) => {
     );
 };
 
-export default React.memo(FormTagList);
+export default React.memo(FormTags);

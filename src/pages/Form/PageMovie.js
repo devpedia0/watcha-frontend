@@ -1,12 +1,18 @@
 import React from "react";
 import FormLayout from "../../layouts/FormLayout";
 import useInputs from "../../Hooks/useInputs";
-import { validateAll } from "../../utils/validate";
-// components
-import FormContent from "../../component/Form/FormContent";
-import FormMovie from "../../component/Form/FormMovie";
-import FormRoleList from "../../component/Form/FormRoleList";
-import FormTagList from "../../component/Form/FormTagList";
+
+import Title from "../../styles/Title";
+import {
+    File,
+    Input,
+    SelectCtg,
+    YearPicker,
+    Textarea,
+    RadioYN,
+    FormRoles,
+    FormTags,
+} from "../../component/Form";
 
 const initialValue = {
     file: "",
@@ -46,20 +52,111 @@ const PageMovie = () => {
 
     return (
         <FormLayout>
-            <FormContent
-                title="영화 추가"
-                inputs={inputs}
-                onChange={onChange}
-                errors={errors}
-            />
-            <FormMovie inputs={inputs} onChange={onChange} errors={errors} />
+            <Title>영화 추가</Title>
+            <div className="row">
+                <div className="col-4">
+                    <File name="file" value={inputs.file} onChange={onChange} />
+                </div>
+                <div className="col-8">
+                    <Input
+                        title="제목"
+                        name="mainTitle"
+                        value={inputs.mainTitle}
+                        onChange={onChange}
+                        error={errors.mainTitle}
+                    />
 
-            <FormRoleList
+                    <SelectCtg
+                        title="카테고리"
+                        name="category"
+                        value={inputs.category}
+                        onChange={onChange}
+                        error={errors.category}
+                    />
+
+                    <YearPicker
+                        title="제작연도"
+                        name="productionDate"
+                        value={inputs.productionDate}
+                        onChange={onChange}
+                    />
+                </div>
+            </div>
+            <Textarea
+                title="설명"
+                name="description"
+                value={inputs.description}
+                onChange={onChange}
+                error={errors.description}
+            />
+
+            <Title line>추가 정보</Title>
+            <Input
+                title="원제목"
+                name="originTitle"
+                value={inputs.originTitle}
+                onChange={onChange}
+                error={errors.originTitle}
+            />
+            <div className="form-row">
+                <Input
+                    className="col"
+                    title="국가코드"
+                    name="countryCode"
+                    value={inputs.countryCode}
+                    onChange={onChange}
+                    error={errors.countryCode}
+                />
+
+                <Input
+                    className="col"
+                    title="상영시간(분)"
+                    name="runningTimeInMinutes"
+                    value={inputs.runningTimeInMinutes}
+                    onChange={onChange}
+                    error={errors.runningTimeInMinutes}
+                />
+            </div>
+            <div className="form-row">
+                <Input
+                    className="col"
+                    title="예매율"
+                    name="bookRate"
+                    value={inputs.bookRate}
+                    onChange={onChange}
+                    error={errors.bookRate}
+                >
+                    %
+                </Input>
+
+                <Input
+                    className="col"
+                    title="누적관객"
+                    name="totalAudience"
+                    value={inputs.totalAudience}
+                    onChange={onChange}
+                    error={errors.totalAudience}
+                />
+            </div>
+            <RadioYN
+                title="왓챠여부"
+                name="isWatchaContent"
+                value={inputs.isWatchaContent}
+                onChange={onChange}
+            />
+            <RadioYN
+                title="넷플릭스 여부"
+                name="isNetflixContent"
+                value={inputs.isNetflixContent}
+                onChange={onChange}
+            />
+
+            <FormRoles
                 roles={inputs.roles}
                 setRoles={setInputs}
                 error={errors.roles}
             />
-            <FormTagList
+            <FormTags
                 tags={inputs.tags}
                 setTags={setInputs}
                 error={errors.tags}

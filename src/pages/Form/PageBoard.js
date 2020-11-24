@@ -3,7 +3,7 @@ import history from "../../history";
 import FormLayout from "../../layouts/FormLayout";
 import FormContainer from "../../styles/FormContainer";
 import { ImgContantainer } from "../../styles/ImgContainer";
-import siteConfig from "../../siteConfig/siteConfig";
+import siteConfig from "../../utils/siteConfig";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
