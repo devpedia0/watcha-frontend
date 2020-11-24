@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PostersRank from "../component/Posters/PostersRank";
+import { PostersRank } from "../../components";
 
 const Wrapper = styled.div`
     display: flex;

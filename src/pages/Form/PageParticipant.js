@@ -1,10 +1,8 @@
-import React, { useState, useRef } from "react";
-import FormLayout from "../../layouts/FormLayout";
-import useInputs from "../../Hooks/useInputs";
+import React from "react";
+import useInputs from "../../hooks/useInputs";
 
-// components
-import { ImgContantainer } from "../../styles/ImgContainer";
-import CardList from "../../component/CardList/CardList";
+import LayoutForm from "../../layouts/LayoutForm";
+import { CardList, File, Input, Textarea } from "../../components";
 
 const initialValue = {
     file: "",
@@ -15,10 +13,8 @@ const initialValue = {
 };
 
 const PageParticipant = () => {
-    const imgRef = useRef();
     const { inputs, errors, onChange, onSubmitFile } = useInputs(initialValue);
 
-    const handleClickImage = () => imgRef.current.click();
     const handleSubmit = () => {
         if (!inputs.file) {
             alert("파일을 추가해주세요.");
@@ -26,72 +22,33 @@ const PageParticipant = () => {
         onSubmitFile("/admin/participants", inputs, "profile");
     };
 
-    const imageUrl = inputs.profileImagePath
-        ? inputs.profileImagePath
-        : inputs.file
-        ? URL.createObjectURL(inputs.file)
-        : "";
-    console.log(errors);
     return (
-        <FormLayout>
+        <LayoutForm>
             <CardList title="인물 등록">
                 <div className="row">
                     <div className="col-4 d-flex flex-column">
-                        <ImgContantainer
-                            src={imageUrl}
-                            onClick={handleClickImage}
+                        <File
+                            name="file"
+                            value={inputs.file}
+                            onChange={onChange}
                         />
-                        <div className="form-group">
-                            <div
-                                className="custom-file"
-                                style={{ display: "none" }}
-                            >
-                                <input
-                                    name="file"
-                                    type="file"
-                                    className="custom-file-input"
-                                    ref={imgRef}
-                                    onChange={onChange}
-                                    hidden
-                                />
-                            </div>
-                        </div>
                     </div>
                     <div className="col-8">
-                        <div className="form-group">
-                            <label>이름</label>
-                            <input
-                                name="name"
-                                value={inputs.name}
-                                onChange={onChange}
-                                className={`form-control ${
-                                    errors.name && "is-invalid"
-                                }`}
-                            />
-                            {errors.name && (
-                                <div className="invalid-feedback">
-                                    {errors.name}
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="form-group">
-                            <label>설명</label>
-                            <textarea
-                                name="description"
-                                value={inputs.description}
-                                onChange={onChange}
-                                rows="3"
-                                className={`form-control ${
-                                    errors.description && "is-invalid"
-                                }`}
-                            />
-                            {errors.description && (
-                                <div className="invalid-feedback">
-                                    {errors.description}
-                                </div>
-                            )}
-                        </div>
+                        <Input
+                            title="이름"
+                            name="name"
+                            value={inputs.name}
+                            onChange={onChange}
+                            error={errors.name}
+                        />
+                        <Textarea
+                            title="설명"
+                            name="description"
+                            value={inputs.description}
+                            onChange={onChange}
+                            error={errors.description}
+                            rows="3"
+                        />
                     </div>
                 </div>
                 <button
@@ -102,7 +59,7 @@ const PageParticipant = () => {
                     Submit
                 </button>
             </CardList>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 

@@ -1,59 +1,53 @@
 import React from "react";
-import FormLayout from "../../layouts/FormLayout";
-import useInputs from "../../Hooks/useInputs";
-// components
-import CardList from "../../component/CardList/CardList";
+import useInputs from "../../hooks/useInputs";
+
+import LayoutForm from "../../layouts/LayoutForm";
+import { CardList, Input, Textarea } from "../../components";
 
 const initialValue = {
     user_id: "",
     title: "",
     description: "",
-    delete_yn: "",
+    delete_yn: "n",
 };
 
 const PageCollection = () => {
     const pathname = "";
-    const { inputs, onChange, onSubmit } = useInputs(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         onSubmit(pathname, inputs);
     };
 
     return (
-        <FormLayout>
+        <LayoutForm>
             <CardList title="컬렉션추가">
-                <div className="form-group">
-                    <label>유저</label>
-                    <input
-                        className="form-control"
-                        name="user_id"
-                        value={inputs.user_id}
-                        onChange={onChange}
-                        disabled
-                    />
-                </div>
+                <Input
+                    title="유저"
+                    name="user_id"
+                    value={inputs.user_id}
+                    onChange={onChange}
+                    error={errors.user_id}
+                    disabled
+                />
 
-                <div className="form-group">
-                    <label>제목</label>
-                    <input
-                        className="form-control"
-                        name="title"
-                        value={inputs.title}
-                        onChange={onChange}
-                    />
-                </div>
+                <Input
+                    title="제목"
+                    name="title"
+                    value={inputs.title}
+                    onChange={onChange}
+                    error={errors.title}
+                    disabled
+                />
+                <Textarea
+                    title="설명"
+                    name="description"
+                    value={inputs.description}
+                    onChange={onChange}
+                    error={errors.description}
+                />
 
-                <div className="form-group">
-                    <label>설명</label>
-                    <textarea
-                        className="form-control"
-                        name="description"
-                        value={inputs.description}
-                        onChange={onChange}
-                        rows="3"
-                    />
-                </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label>삭제</label>
                     <br />
                     {[
@@ -81,7 +75,7 @@ const PageCollection = () => {
                             </label>
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 <button
                     type="button"
@@ -91,7 +85,7 @@ const PageCollection = () => {
                     Submit
                 </button>
             </CardList>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 

@@ -1,17 +1,12 @@
 import { AUTH_LOGIN, AUTH_SIGNUP, AUTH_LOGOUT } from "../types";
-import api from "../../service/api";
+import api from "../../services/api";
 
 const signin = () => async (dispatch) => {
     try {
-        const res = await api.post("/auth/signin", {
-            email: "gkb10a@gmail.com",
-            password: "1234",
-        });
-
-        // 토큰값 가져와야 함
-        console.log(res);
-        // console.log(res.headers);
-        // console.log(api.defaults.headers);
+        // const res = await api.post("/auth/signin", {
+        //     email: "gkb10a@gmail.com",
+        //     password: "1234",
+        // });
 
         dispatch({
             type: AUTH_LOGIN,

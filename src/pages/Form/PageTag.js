@@ -1,9 +1,7 @@
 import React from "react";
-
-// components
-import FormLayout from "../../layouts/FormLayout";
-import CardList from "../../component/CardList/CardList";
-import useInputs from "../../Hooks/useInputs";
+import useInputs from "../../hooks/useInputs";
+import LayoutForm from "../../layouts/LayoutForm";
+import { CardList, Textarea } from "../../components";
 
 const initialValue = {
     description: "",
@@ -17,26 +15,16 @@ const PageTag = () => {
     };
 
     return (
-        <FormLayout>
+        <LayoutForm>
             <CardList title="태그 등록">
-                <div className="form-group">
-                    <label>설명</label>
-                    <textarea
-                        name="description"
-                        value={inputs.description}
-                        onChange={onChange}
-                        rows="3"
-                        few={"Few"}
-                        className={`form-control ${
-                            errors.description && "is-invalid"
-                        }`}
-                    />
-                    {errors.description && (
-                        <div className="invalid-feedback">
-                            {errors.description}
-                        </div>
-                    )}
-                </div>
+                <Textarea
+                    title="설명"
+                    name="description"
+                    value={inputs.description}
+                    onChange={onChange}
+                    error={errors.description}
+                    rows="3"
+                />
                 <button
                     type="button"
                     className="btn btn-primary"
@@ -45,7 +33,7 @@ const PageTag = () => {
                     Submit
                 </button>
             </CardList>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 
