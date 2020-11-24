@@ -1,6 +1,6 @@
 import { FORM_INIT, FORM_CHANGE, FORM_SUBMIT, FORM_INITIALIZE } from "../types";
-import api from "../../service/api";
-import axios from "axios";
+// import api from "../../service/api";
+// import axios from "axios";
 
 const init = (initialValue) => {
     return {
@@ -23,7 +23,7 @@ const change = (e) => {
 
 const submit = (pathname, data) => async (dispatch) => {
     try {
-        const res = await api.post(pathname, data);
+        // const res = await api.post(pathname, data);
         // axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
         // const data2 = {
         //     email: "gkb10a@gmail.com",
@@ -49,11 +49,10 @@ const submit = (pathname, data) => async (dispatch) => {
         //     options
         // );
 
-        console.log(res);
-        // // dispatch({
-        // //     type: FORM_SUBMIT,
-        // //     payload: "",
-        // // })
+        dispatch({
+            type: FORM_SUBMIT,
+            payload: "",
+        });
     } catch (e) {
         console.log(e);
         console.log(e.response);

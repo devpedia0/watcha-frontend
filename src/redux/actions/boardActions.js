@@ -1,4 +1,4 @@
-import api from "../../service/api";
+import api from "../../services/api";
 import {
     BOARD_FETCH,
     BOARD_INSERT,
@@ -7,8 +7,6 @@ import {
 } from "../types";
 
 const fetch = (pathname) => async (dispatch) => {
-    console.log(pathname);
-    console.log(api.defaults);
     try {
         const res = await api.get(`/${pathname}`);
         // const res = await axios.get(

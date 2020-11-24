@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AuthService from "../../service/auth.service";
+import AuthService from "../../services/auth.service";
 import history from "../../history";
-import ReactFacebookLogin from "../../service/ReactFacebookLogin";
-import SignUp from "./SignUp";
+// import ReactFacebookLogin from "../../services/ReactFacebookLogin";
+// import SignUp from "./SignUp";
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
@@ -49,14 +49,14 @@ const Login = (props) => {
         }
     };
 
-    const loginEnter = (e) => {
-        e.preventDefault();
+    // const loginEnter = (e) => {
+    //     e.preventDefault();
 
-        const loginValidate = email.includes("@") && password.length > 5;
-        if (e.key === "Enter" && loginValidate === true) {
-            handleLogin();
-        }
-    };
+    //     const loginValidate = email.includes("@") && password.length > 5;
+    //     if (e.key === "Enter" && loginValidate === true) {
+    //         handleLogin();
+    //     }
+    // };
 
     return (
         <BackScreen className={props.switchModal ? "hideLogin" : ""}>

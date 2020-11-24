@@ -1,10 +1,7 @@
 import React from "react";
-
-// components
-import FormLayout from "../../layouts/FormLayout";
-import CardList from "../../component/CardList/CardList";
-import useInputs from "../../Hooks/useInputs";
-import { Textarea } from "../../component/Form";
+import useInputs from "../../hooks/useInputs";
+import LayoutForm from "../../layouts/LayoutForm";
+import { CardList, Textarea } from "../../components";
 
 const initialValue = {
     description: "",
@@ -14,12 +11,11 @@ const PageTag = () => {
     const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
-        console.log(inputs);
         onSubmit("/admin/tags", inputs);
     };
 
     return (
-        <FormLayout>
+        <LayoutForm>
             <CardList title="태그 등록">
                 <Textarea
                     title="설명"
@@ -37,7 +33,7 @@ const PageTag = () => {
                     Submit
                 </button>
             </CardList>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 

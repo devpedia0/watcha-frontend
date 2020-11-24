@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import api from "../service/api";
-import history from "../history";
+import api from "../services/api";
+// import history from "../history";
 import { validate, validateAll } from "../utils/validate";
 
 const useInputs = (initialValue) => {
@@ -38,13 +38,12 @@ const useInputs = (initialValue) => {
                 return;
             }
 
-            const res = await api.post(pathname, data);
-            console.log(res);
+            // const res = await api.post(pathname, data);
+            // console.log(res);
             // history.goBack();
         } catch (e) {
             console.log(e);
             console.log(e.response);
-            console.log(e.response.data.error);
         }
     }, []);
 
@@ -57,7 +56,6 @@ const useInputs = (initialValue) => {
             }
 
             let { file, ...body } = data;
-            console.log(body);
             let formData = new FormData();
             formData.append(reqFileName, file);
             formData.append(
@@ -78,7 +76,6 @@ const useInputs = (initialValue) => {
         } catch (e) {
             console.log(e);
             console.log(e.response);
-            console.log(e.response.data.error);
         }
     }, []);
 

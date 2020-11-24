@@ -1,10 +1,8 @@
 import React from "react";
-import FormLayout from "../../layouts/FormLayout";
-import useInputs from "../../Hooks/useInputs";
+import useInputs from "../../hooks/useInputs";
 
-// components
-import CardList from "../../component/CardList/CardList";
-import { File, Input, Textarea } from "../../component/Form";
+import LayoutForm from "../../layouts/LayoutForm";
+import { CardList, File, Input, Textarea } from "../../components";
 
 const initialValue = {
     file: "",
@@ -25,7 +23,7 @@ const PageParticipant = () => {
     };
 
     return (
-        <FormLayout>
+        <LayoutForm>
             <CardList title="인물 등록">
                 <div className="row">
                     <div className="col-4 d-flex flex-column">
@@ -61,7 +59,7 @@ const PageParticipant = () => {
                     Submit
                 </button>
             </CardList>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 

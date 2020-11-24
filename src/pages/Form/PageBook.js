@@ -1,9 +1,8 @@
 import React from "react";
-import FormLayout from "../../layouts/FormLayout";
-import useInputs from "../../Hooks/useInputs";
-
-import Title from "../../styles/Title";
+import useInputs from "../../hooks/useInputs";
+import LayoutForm from "../../layouts/LayoutForm";
 import {
+    CardList,
     File,
     Input,
     SelectCtg,
@@ -11,7 +10,7 @@ import {
     Textarea,
     FormRoles,
     FormTags,
-} from "../../component/Form";
+} from "../../components";
 
 const initialValue = {
     file: "",
@@ -47,77 +46,80 @@ const PageBook = () => {
     };
 
     return (
-        <FormLayout>
-            <Title>영화 추가</Title>
-            <div className="row">
-                <div className="col-4">
-                    <File name="file" value={inputs.file} onChange={onChange} />
+        <LayoutForm>
+            <CardList title="책 추가">
+                <div className="row">
+                    <div className="col-4">
+                        <File
+                            name="file"
+                            value={inputs.file}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div className="col-8">
+                        <Input
+                            title="제목"
+                            name="mainTitle"
+                            value={inputs.mainTitle}
+                            onChange={onChange}
+                            error={errors.mainTitle}
+                        />
+
+                        <SelectCtg
+                            title="카테고리"
+                            name="category"
+                            value={inputs.category}
+                            onChange={onChange}
+                            error={errors.category}
+                        />
+
+                        <YearPicker
+                            title="제작연도"
+                            name="productionDate"
+                            value={inputs.productionDate}
+                            onChange={onChange}
+                        />
+                    </div>
                 </div>
-                <div className="col-8">
-                    <Input
-                        title="제목"
-                        name="mainTitle"
-                        value={inputs.mainTitle}
-                        onChange={onChange}
-                        error={errors.mainTitle}
-                    />
-
-                    <SelectCtg
-                        title="카테고리"
-                        name="category"
-                        value={inputs.category}
-                        onChange={onChange}
-                        error={errors.category}
-                    />
-
-                    <YearPicker
-                        title="제작연도"
-                        name="productionDate"
-                        value={inputs.productionDate}
-                        onChange={onChange}
-                    />
-                </div>
-            </div>
-            <Textarea
-                title="설명"
-                name="description"
-                value={inputs.description}
-                onChange={onChange}
-                error={errors.description}
-                rows="3"
-            />
-
-            <Title>추가 정보</Title>
-
-            <Input
-                title="부제목"
-                name="subtitle"
-                value={inputs.subtitle}
-                onChange={onChange}
-                error={errors.subtitle}
-            />
-            <Input
-                title="페이지"
-                name="page"
-                value={inputs.page}
-                onChange={onChange}
-                error={errors.page}
-            />
-            <Textarea
-                title="설명"
-                name="contents"
-                value={inputs.contents}
-                onChange={onChange}
-                error={errors.contents}
-            />
-            <Textarea
-                title="출판사 설명"
-                name="elaboration"
-                value={inputs.elaboration}
-                onChange={onChange}
-                error={errors.elaboration}
-            />
-
+                <Textarea
+                    title="설명"
+                    name="description"
+                    value={inputs.description}
+                    onChange={onChange}
+                    error={errors.description}
+                    rows="3"
+                />
+            </CardList>
+            <CardList title="추가 정보">
+                <Input
+                    title="부제목"
+                    name="subtitle"
+                    value={inputs.subtitle}
+                    onChange={onChange}
+                    error={errors.subtitle}
+                />
+                <Input
+                    title="페이지"
+                    name="page"
+                    value={inputs.page}
+                    onChange={onChange}
+                    error={errors.page}
+                />
+                <Textarea
+                    title="설명"
+                    name="contents"
+                    value={inputs.contents}
+                    onChange={onChange}
+                    error={errors.contents}
+                />
+                <Textarea
+                    title="출판사 설명"
+                    name="elaboration"
+                    value={inputs.elaboration}
+                    onChange={onChange}
+                    error={errors.elaboration}
+                />
+            </CardList>
             <FormRoles
                 roles={inputs.roles}
                 setRoles={setInputs}
@@ -135,7 +137,7 @@ const PageBook = () => {
             >
                 submit
             </button>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 

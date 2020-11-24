@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import history from "../../history";
-import FormLayout from "../../layouts/FormLayout";
-import FormContainer from "../../styles/FormContainer";
-import { ImgContantainer } from "../../styles/ImgContainer";
+
 import siteConfig from "../../utils/siteConfig";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import boardActions from "../../redux/actions/boardActions";
+import LayoutForm from "../../layouts/LayoutForm";
+import { BoxImg } from "../../components";
 
 const PageBoard = () => {
     const pageId = history.location.pathname.split("/")[2];
@@ -26,7 +26,7 @@ const PageBoard = () => {
             <tr>
                 <th className="align-middle">1</th>
                 <td style={{ width: "70px" }}>
-                    <ImgContantainer width="50px" height="50px" />
+                    <BoxImg width="50px" height="50px" />
                 </td>
                 <td className="align-middle">Otto</td>
                 <td className="align-middle">@mdo</td>
@@ -49,29 +49,27 @@ const PageBoard = () => {
     };
 
     return (
-        <FormLayout>
-            <FormContainer className="card">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            {headers.map((item, idx) => (
-                                <th key={idx} scope="col">
-                                    {item.title}
-                                </th>
-                            ))}
-                            <th scope="col" className="col-auto">
-                                Ctrl
+        <LayoutForm>
+            <table className="table">
+                <thead>
+                    <tr>
+                        {headers.map((item, idx) => (
+                            <th key={idx} scope="col">
+                                {item.title}
                             </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item, idx) => (
-                            <Row key={idx} item={item} />
                         ))}
-                    </tbody>
-                </table>
-            </FormContainer>
-        </FormLayout>
+                        <th scope="col" className="col-auto">
+                            Ctrl
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((item, idx) => (
+                        <Row key={idx} item={item} />
+                    ))}
+                </tbody>
+            </table>
+        </LayoutForm>
     );
 };
 

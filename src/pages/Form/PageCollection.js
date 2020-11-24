@@ -1,10 +1,8 @@
 import React from "react";
-import FormLayout from "../../layouts/FormLayout";
-import useInputs from "../../Hooks/useInputs";
-// components
-import CardList from "../../component/CardList/CardList";
+import useInputs from "../../hooks/useInputs";
 
-import { Input, Textarea } from "../../component/Form";
+import LayoutForm from "../../layouts/LayoutForm";
+import { CardList, Input, Textarea } from "../../components";
 
 const initialValue = {
     user_id: "",
@@ -22,7 +20,7 @@ const PageCollection = () => {
     };
 
     return (
-        <FormLayout>
+        <LayoutForm>
             <CardList title="컬렉션추가">
                 <Input
                     title="유저"
@@ -87,7 +85,7 @@ const PageCollection = () => {
                     Submit
                 </button>
             </CardList>
-        </FormLayout>
+        </LayoutForm>
     );
 };
 

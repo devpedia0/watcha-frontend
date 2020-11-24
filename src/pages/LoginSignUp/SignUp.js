@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AuthService from "../../service/auth.service";
-import ReactFacebookLogin from "../../service/ReactFacebookLogin";
+import AuthService from "../../services/auth.service";
+// import ReactFacebookLogin from "../../services/ReactFacebookLogin";
 import SelectForm from "./Languages/SelectForm";
-import Login from "./Login";
+// import Login from "./Login";
 
 export default function SignUp(props) {
     const [name, setName] = useState("");
@@ -14,7 +14,7 @@ export default function SignUp(props) {
     const [countryCode, setCountryCode] = useState("KR");
     const [lanVisible, setLanVisible] = useState(true);
 
-    const ChangeCountry = () => {};
+    // const ChangeCountry = () => {};
 
     const languageModal = () => {
         setLanVisible({ lanVisible: !lanVisible });
@@ -174,16 +174,16 @@ export default function SignUp(props) {
                                                 id="sign_up_languageCode"
                                                 name="languageCode"
                                                 type="hidden"
-                                                label
-                                                placeholder
+                                                label=""
+                                                placeholder=""
                                                 value="ko"
                                             />
                                             <CountryCode
                                                 id="sign_up_countryCode"
                                                 name="countryCode"
                                                 type="hidden"
-                                                label
-                                                placeholder
+                                                label=""
+                                                placeholder=""
                                                 value="KR"
                                             />
                                             <ArrowIcon />
