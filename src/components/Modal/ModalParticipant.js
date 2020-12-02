@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import history from "../../history";
-import styled from "styled-components";
-import api from "../../services/api";
+import React, { useState, useEffect } from 'react';
+import history from '../../history';
+import styled from 'styled-components';
+import api from '../../services/api';
 // import axios from 'axios';
+
 
 import BoxImg from "../Box/BoxImg";
 import useOpen from "../../hooks/useOpen";
@@ -10,36 +11,38 @@ import Modal from "./Modal";
 import Card from "../Card/Card";
 import { FormSection } from "..";
 
+
 const Wrapper = styled.div`
-    label {
-        margin: 10px 0;
-    }
+  label {
+    margin: 10px 0;
+  }
 `;
 
 const ModalParticipant = ({
-    selectedList,
-    inputs,
-    onChange,
-    onClickSave,
-    onClickRow,
+  selectedList,
+  inputs,
+  onChange,
+  onClickSave,
+  onClickRow,
 }) => {
-    const pageId = history.location.pathname.split("/")[2];
-    const [isOpen, onClickOpen, onClickClose] = useOpen();
-    const [data, setData] = useState([]);
-    const [search, setSearch] = useState("");
-    const handleClickSave = () => {
-        onClickSave();
-        onClickClose();
+  const pageId = history.location.pathname.split('/')[2];
+  const [isOpen, onClickOpen, onClickClose] = useOpen();
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
+  const handleClickSave = () => {
+    onClickSave();
+    onClickClose();
+  };
+  useEffect(() => {
+    const getAPIdata = async () => {
+      const res = await api.get(`admin/participants?page=1&size=20`);
+      //const res = await axios.get(`http://localhost:8080/participants?page=1&size=20`);
+      setData(res.data);
     };
-    useEffect(() => {
-        const getAPIdata = async () => {
-            const res = await api.get(`admin/participants?page=1&size=20`);
-            //const res = await axios.get(`http://localhost:8080/participants?page=1&size=20`);
-            setData(res.data);
-        };
 
-        getAPIdata();
-    }, [pageId]);
+    getAPIdata();
+  }, [pageId]);
+
 
     const handleClickSearch = async () => {
         console.log("?");
@@ -110,6 +113,7 @@ const ModalParticipant = ({
             </Modal>
         </>
     );
+
 };
 
 export default ModalParticipant;

@@ -1,7 +1,8 @@
-import React from "react";
-import useInputs from "../../hooks/useInputs";
-import LayoutForm from "../../layouts/LayoutForm";
+import React from 'react';
+import useInputs from '../../Hooks/useInputs';
+import LayoutForm from '../../layouts/LayoutForm';
 import {
+
     FormSection,
     File,
     Input,
@@ -14,37 +15,38 @@ import {
 } from "../../components";
 
 const initialValue = {
-    file: "",
-    mainTitle: "",
-    category: "",
-    productionDate: new Date(),
-    description: "",
-    originTitle: "",
-    countryCode: "",
-    isWatchaContent: "false",
-    isNetflixContent: "false",
-    roles: [],
-    tags: [],
+  file: '',
+  mainTitle: '',
+  category: '',
+  productionDate: new Date(),
+  description: '',
+  originTitle: '',
+  countryCode: '',
+  isWatchaContent: 'false',
+  isNetflixContent: 'false',
+  roles: [],
+  tags: [],
 };
 
 const PageTV = () => {
-    const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
-        initialValue
-    );
+  const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
+    initialValue
+  );
 
-    const handleSubmit = () => {
-        if (!inputs.file) {
-            alert("파일을 추가해주세요.");
-        }
+  const handleSubmit = () => {
+    if (!inputs.file) {
+      alert('파일을 추가해주세요.');
+    }
 
-        let { roles, tags, ...body } = inputs;
-        let sendData = {
-            ...body,
-            roles: roles.map((role) => ({ ...role, participantId: role.id })),
-            tags: tags.map((tag) => tag.id),
-        };
-        onSubmitFile("/admin/tv_shows", sendData, "poster");
+    let { roles, tags, ...body } = inputs;
+    let sendData = {
+      ...body,
+      roles: roles.map((role) => ({ ...role, participantId: role.id })),
+      tags: tags.map((tag) => tag.id),
     };
+    onSubmitFile('/admin/tv_shows', sendData, 'poster');
+  };
+
 
     return (
         <LayoutForm>
@@ -66,13 +68,13 @@ const PageTV = () => {
                             error={errors.mainTitle}
                         />
 
-                        <SelectCtg
-                            title="카테고리"
-                            name="category"
-                            value={inputs.category}
-                            onChange={onChange}
-                            error={errors.category}
-                        />
+            <SelectCtg
+              title="카테고리"
+              name="category"
+              value={inputs.category}
+              onChange={onChange}
+              error={errors.category}
+            />
 
                         <YearPicker
                             title="제작연도"
@@ -106,18 +108,19 @@ const PageTV = () => {
                     error={errors.countryCode}
                 />
 
-                <RadioYN
-                    title="왓챠여부"
-                    name="isWatchaContent"
-                    value={inputs.isWatchaContent}
-                    onChange={onChange}
-                />
-                <RadioYN
-                    title="넷플릭스 여부"
-                    name="isNetflixContent"
-                    value={inputs.isNetflixContent}
-                    onChange={onChange}
-                />
+        <RadioYN
+          title="왓챠여부"
+          name="isWatchaContent"
+          value={inputs.isWatchaContent}
+          onChange={onChange}
+        />
+        <RadioYN
+          title="넷플릭스 여부"
+          name="isNetflixContent"
+          value={inputs.isNetflixContent}
+          onChange={onChange}
+        />
+
 
                 <FormRoles
                     roles={inputs.roles}

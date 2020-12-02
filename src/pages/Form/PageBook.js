@@ -1,3 +1,4 @@
+
 import React from "react";
 import useInputs from "../../hooks/useInputs";
 // import LayoutForm from "../../layouts/LayoutForm";
@@ -12,38 +13,40 @@ import {
     FormTags,
 } from "../../components";
 
+
 const initialValue = {
-    file: "",
-    mainTitle: "",
-    category: "",
-    productionDate: new Date(),
-    description: "",
-    subtitle: "",
-    contents: "",
-    page: "",
-    elaboration: "",
-    roles: [],
-    tags: [],
+  file: '',
+  mainTitle: '',
+  category: '',
+  productionDate: new Date(),
+  description: '',
+  subtitle: '',
+  contents: '',
+  page: '',
+  elaboration: '',
+  roles: [],
+  tags: [],
 };
 
 const PageBook = () => {
-    const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
-        initialValue
-    );
+  const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
+    initialValue
+  );
 
-    const handleSubmit = () => {
-        if (!inputs.file) {
-            alert("파일을 추가해주세요.");
-        }
+  const handleSubmit = () => {
+    if (!inputs.file) {
+      alert('파일을 추가해주세요.');
+    }
 
-        let { roles, tags, ...body } = inputs;
-        let sendData = {
-            ...body,
-            roles: roles.map((role) => ({ ...role, participantId: role.id })),
-            tags: tags.map((tag) => tag.id),
-        };
-        onSubmitFile("/admin/books", sendData, "poster");
+    let { roles, tags, ...body } = inputs;
+    let sendData = {
+      ...body,
+      roles: roles.map((role) => ({ ...role, participantId: role.id })),
+      tags: tags.map((tag) => tag.id),
     };
+    onSubmitFile('/admin/books', sendData, 'poster');
+  };
+
 
     return (
         <>
@@ -124,12 +127,16 @@ const PageBook = () => {
                 roles={inputs.roles}
                 setRoles={setInputs}
                 error={errors.roles}
+
             />
-            <FormTags
-                tags={inputs.tags}
-                setTags={setInputs}
-                error={errors.tags}
+
+            <YearPicker
+              title="제작연도"
+              name="productionDate"
+              value={inputs.productionDate}
+              onChange={onChange}
             />
+
             <button
                 type="button"
                 className="btn btn-primary mt-3"
@@ -139,6 +146,7 @@ const PageBook = () => {
             </button>
         </>
     );
+
 };
 
 export default PageBook;

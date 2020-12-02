@@ -1,5 +1,6 @@
-import React from "react";
-import useInputs from "../../hooks/useInputs";
+import React from 'react';
+import useInputs from '../../Hooks/useInputs';
+
 
 import { FormSection, File, Input, Textarea } from "../../components";
 
@@ -10,10 +11,12 @@ const initialValue = {
     name: "",
     //profileImagePath: "",
     description: "",
+
 };
 
 const PageParticipant = () => {
-    const { inputs, errors, onChange, onSubmitFile } = useInputs(initialValue);
+  const { inputs, errors, onChange, onSubmitFile } = useInputs(initialValue);
+
 
     const handleSubmit = () => {
         // if (!inputs.file) {
@@ -62,6 +65,7 @@ const PageParticipant = () => {
             </button>
         </FormSection>
     );
+
 };
 
 export default PageParticipant;

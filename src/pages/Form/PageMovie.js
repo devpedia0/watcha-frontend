@@ -1,3 +1,4 @@
+
 import React from "react";
 import styled from "styled-components";
 import useInputs from "../../hooks/useInputs";
@@ -13,41 +14,41 @@ import {
     FormTags,
 } from "../../components";
 
+
 const initialValue = {
-    file: "",
-    mainTitle: "",
-    category: "",
-    productionDate: new Date(),
-    description: "",
-    originTitle: "",
-    countryCode: "",
-    runningTimeInMinutes: "",
-    bookRate: "",
-    totalAudience: "",
-    isWatchaContent: "false",
-    isNetflixContent: "false",
-    roles: [],
-    tags: [],
+  file: '',
+  mainTitle: '',
+  category: '',
+  productionDate: new Date(),
+  description: '',
+  originTitle: '',
+  countryCode: '',
+  runningTimeInMinutes: '',
+  bookRate: '',
+  totalAudience: '',
+  isWatchaContent: 'false',
+  isNetflixContent: 'false',
+  roles: [],
+  tags: [],
 };
 
 const PageMovie = () => {
-    const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
-        initialValue
-    );
+  const { inputs, setInputs, errors, onChange, onSubmitFile } = useInputs(
+    initialValue
+  );
 
-    const handleSubmit = () => {
-        if (!inputs.file) {
-            alert("파일을 추가해주세요.");
-        }
+  const handleSubmit = () => {
+    if (!inputs.file) {
+      alert('파일을 추가해주세요.');
+    }
 
-        let { tags, roles, ...body } = inputs;
-        let sendData = {
-            ...body,
-            roles: roles.map((role) => ({ ...role, participantId: role.id })),
-            tags: tags.map((tag) => tag.id),
-        };
-        onSubmitFile("/admin/movies", sendData, "poster");
+    let { tags, roles, ...body } = inputs;
+    let sendData = {
+      ...body,
+      roles: roles.map((role) => ({ ...role, participantId: role.id })),
+      tags: tags.map((tag) => tag.id),
     };
+
     return (
         <>
             <FormSection title="영화 추가">
@@ -158,12 +159,16 @@ const PageMovie = () => {
                 roles={inputs.roles}
                 setRoles={setInputs}
                 error={errors.roles}
+
             />
-            <FormTags
-                tags={inputs.tags}
-                setTags={setInputs}
-                error={errors.tags}
+
+            <YearPicker
+              title="제작연도"
+              name="productionDate"
+              value={inputs.productionDate}
+              onChange={onChange}
             />
+
             <button
                 type="button"
                 className="btn btn-primary mt-3"
@@ -173,32 +178,33 @@ const PageMovie = () => {
             </button>
         </>
     );
+
 };
 
 export default PageMovie;
 
 const Wrapper = styled.div`
-    background: #f8f8f8;
-    margin-top: 71px;
-    padding-top: 2px;
-    padding-bottom: 50px;
-    width: 100%;
+  background: #f8f8f8;
+  margin-top: 71px;
+  padding-top: 2px;
+  padding-bottom: 50px;
+  width: 100%;
 
-    a {
-        padding: 15px 25px;
-    }
+  a {
+    padding: 15px 25px;
+  }
 
-    label {
-        margin: 10px 0;
-    }
+  label {
+    margin: 10px 0;
+  }
 
-    h2 {
-        font-size: 1.4rem;
-        font-weight: bold;
-    }
+  h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 
-    @media only screen and (min-width: 737px) {
-        margin-top: 62px;
-        height: 100%;
-    }
+  @media only screen and (min-width: 737px) {
+    margin-top: 62px;
+    height: 100%;
+  }
 `;

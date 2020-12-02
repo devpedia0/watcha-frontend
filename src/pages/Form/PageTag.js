@@ -1,17 +1,19 @@
+
 import React from "react";
 import useInputs from "../../hooks/useInputs";
 import { FormSection, Textarea } from "../../components";
 
 const initialValue = {
-    description: "",
+  description: '',
 };
 
 const PageTag = () => {
-    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
+  const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
-    const handleSubmit = () => {
-        onSubmit("/admin/tags", inputs);
-    };
+  const handleSubmit = () => {
+    onSubmit('/admin/tags', inputs);
+  };
+
 
     return (
         <FormSection title="태그 등록">
