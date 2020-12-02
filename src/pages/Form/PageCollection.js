@@ -1,53 +1,53 @@
-import React from "react";
-import useInputs from "../../hooks/useInputs";
+import React from 'react';
+import useInputs from '../../Hooks/useInputs';
 
-import LayoutForm from "../../layouts/LayoutForm";
-import { CardList, Input, Textarea } from "../../components";
+import LayoutForm from '../../layouts/LayoutForm';
+import { CardList, Input, Textarea } from '../../components';
 
 const initialValue = {
-    user_id: "",
-    title: "",
-    description: "",
-    delete_yn: "n",
+  user_id: '',
+  title: '',
+  description: '',
+  delete_yn: 'n',
 };
 
 const PageCollection = () => {
-    const pathname = "";
-    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
+  const pathname = '';
+  const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
-    const handleSubmit = () => {
-        onSubmit(pathname, inputs);
-    };
+  const handleSubmit = () => {
+    onSubmit(pathname, inputs);
+  };
 
-    return (
-        <LayoutForm>
-            <CardList title="컬렉션추가">
-                <Input
-                    title="유저"
-                    name="user_id"
-                    value={inputs.user_id}
-                    onChange={onChange}
-                    error={errors.user_id}
-                    disabled
-                />
+  return (
+    <LayoutForm>
+      <CardList title="컬렉션추가">
+        <Input
+          title="유저"
+          name="user_id"
+          value={inputs.user_id}
+          onChange={onChange}
+          error={errors.user_id}
+          disabled
+        />
 
-                <Input
-                    title="제목"
-                    name="title"
-                    value={inputs.title}
-                    onChange={onChange}
-                    error={errors.title}
-                    disabled
-                />
-                <Textarea
-                    title="설명"
-                    name="description"
-                    value={inputs.description}
-                    onChange={onChange}
-                    error={errors.description}
-                />
+        <Input
+          title="제목"
+          name="title"
+          value={inputs.title}
+          onChange={onChange}
+          error={errors.title}
+          disabled
+        />
+        <Textarea
+          title="설명"
+          name="description"
+          value={inputs.description}
+          onChange={onChange}
+          error={errors.description}
+        />
 
-                {/* <div className="form-group">
+        {/* <div className="form-group">
                     <label>삭제</label>
                     <br />
                     {[
@@ -77,16 +77,15 @@ const PageCollection = () => {
                     ))}
                 </div> */}
 
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onSubmit={handleSubmit}
-                >
-                    Submit
-                </button>
-            </CardList>
-        </LayoutForm>
-    );
+        <button
+          type="button"
+          className="btn btn-primary"
+          onSubmit={handleSubmit}>
+          Submit
+        </button>
+      </CardList>
+    </LayoutForm>
+  );
 };
 
 export default PageCollection;

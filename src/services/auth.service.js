@@ -1,82 +1,115 @@
-import axios from "axios";
-import api from "../services/api";
-
-// axios.defaults.baseURL = "http://222.111.195.42:8080/";
+import axios from 'axios';
+import api from './api';
 
 const register = (countryCode, name, email, password) => {
-    return axios
-        .post("/auth/signup", {
-            countryCode,
-            name,
-            email,
-            password,
-        })
-        .then((response) => {
-            if (response.data.accessToken) {
-                console.log(response);
-                localStorage.setItem("user", JSON.stringify(response.data));
-            }
-            return response.data;
-        });
+  return api.post('/auth/signup', {
+    countryCode,
+    name,
+    email,
+    password,
+  });
 };
 
 const login = (email, password) => {
-    api.post("/auth/signin", {
-        email,
-        password,
-    }).then((response) => {
-        if (response.data.accessToken) {
-            localStorage.setItem(
-                "accessToken",
-                JSON.stringify(response.data.accessToken)
-            );
-            localStorage.setItem(
-                "refreshToken",
-                JSON.stringify(response.data.refreshToken)
-            );
-        }
-        return response.data;
+  return api
+    .post('/auth/signin', {
+      email,
+      password,
+    })
+    .then((response) => {
+      if (response.headers) {
+        localStorage.setItem(
+          'accessToken',
+          JSON.stringify(response.headers.authorization)
+        );
+        localStorage.setItem(
+          'refreshToken',
+          JSON.stringify(response.headers.refreshtoken)
+        );
+      }
+      return response;
+    })
+    .catch((error) => alert(error));
+};
+
+const onRefresh = (Token) => {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  if (accessToken === null && refreshToken !== null) {
+    return api
+      .post('auth/token', { params: { refreshToken: refreshToken } })
+      .then((response) =>
+        localStorage.setItem(
+          'accessToken',
+          JSON.stringify(response.headers.authorization)
+        )
+      );
+  }
+  return api
+    .post('/auth/token', localStorage.getItem('refreshToken'))
+    .then((response) => {})
+    .catch((error) => {
+      console.log('refreshError', error);
     });
 };
 
 const checkEmail = (email) => {
-    return axios
-        .get("/public/email", {
-            email,
-        })
-        .then((response) => {
-            if (response.data.exist === true) {
-                console.log("이미 가입된 이메일입니다.");
-                return response.data.exist;
-            }
-        })
-        .catch((error) => error);
+  return api.get('/public/email', {
+    params: {
+      email: email,
+    },
+  });
 };
 
 const facebookLogin = (accessToken) => {
-    return axios
-        .post("/auth/facebook", {
-            accessToken,
-        })
-        .then((response) => {
-            if (response.data.accessToken) {
-                console.log(response);
-                localStorage.setItem("user", JSON.stringify(response.data));
-            }
-            return response.data;
-        });
-};
-
-const logout = () => {
-    localStorage.removeItem("user");
+  return api
+    .post('/auth/facebook', {
+      accessToken,
+    })
+    .then((response) => {
+      if (response) {
+        localStorage.setItem('facebookUser', JSON.stringify(response.data));
+      }
+      return response;
+    });
 };
 
 const authService = {
-    facebookLogin,
-    register,
-    login,
-    logout,
-    checkEmail,
+  facebookLogin,
+  register,
+  login,
+  checkEmail,
+  onRefresh,
 };
 
 export default authService;
+
+// api.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const { status, data } = error.response;
+//     const originalReq = error.config;
+//     if (status >= 400 && !localStorage.getItem('refreshToken')) {
+//       let refresh;
+//       try {
+//         refresh = (
+//           await api.post('/auth/token', null, {
+//             headers: {
+//               Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
+//             },
+//           })
+//         ).data;
+//         await localStorage.setItem('accessToken', refresh.access_token);
+//         api.defaults.headers['Autorization'] = `Bearer ${refresh.access_token}`;
+//         return await Axios(originalReq);
+//       } catch (e) {
+//         localStorage.clear();
+//         window.location.href = '/';
+//         throw new Error('Session has expired');
+//       }
+//     } else {
+//       throw new Error(data.message);
+//     }
+//   }
+// );
