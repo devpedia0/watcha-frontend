@@ -1,5 +1,6 @@
 import React from 'react';
-import useInputs from '../../Hooks/useInputs';
+import useInputs from '../../Hooks/useInputs'
+;
 import { FormSection, Textarea } from '../../components';
 
 const initialValue = {
