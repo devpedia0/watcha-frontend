@@ -15,6 +15,7 @@ const initialValue = {
 
 const FormRoles = ({ roles, setRoles }) => {
 
+
     const { inputs, setInputs, onChange } = useInputs(initialValue);
 
     const handleClickSave = () => {
@@ -60,6 +61,7 @@ const FormRoles = ({ roles, setRoles }) => {
             ))}
         </FormSection>
     );
+
 };
 
 export default React.memo(FormRoles);
