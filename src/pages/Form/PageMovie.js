@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import useInputs from "../../hooks/useInputs";
-import LayoutForm from "../../layouts/LayoutForm";
 import {
-    CardList,
+    FormSection,
     File,
     Input,
     SelectCtg,
@@ -49,10 +48,9 @@ const PageMovie = () => {
         };
         onSubmitFile("/admin/movies", sendData, "poster");
     };
-
     return (
-        <LayoutForm>
-            <CardList title="영화 추가">
+        <>
+            <FormSection title="영화 추가">
                 <div className="row">
                     <div className="col-4">
                         <File
@@ -93,9 +91,9 @@ const PageMovie = () => {
                     onChange={onChange}
                     error={errors.description}
                 />
-            </CardList>
+            </FormSection>
 
-            <CardList title="추가 정보">
+            <FormSection title="추가 정보">
                 <Input
                     title="원제목"
                     name="originTitle"
@@ -155,7 +153,7 @@ const PageMovie = () => {
                     value={inputs.isNetflixContent}
                     onChange={onChange}
                 />
-            </CardList>
+            </FormSection>
             <FormRoles
                 roles={inputs.roles}
                 setRoles={setInputs}
@@ -173,7 +171,7 @@ const PageMovie = () => {
             >
                 submit
             </button>
-        </LayoutForm>
+        </>
     );
 };
 

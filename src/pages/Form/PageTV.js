@@ -2,7 +2,7 @@ import React from "react";
 import useInputs from "../../hooks/useInputs";
 import LayoutForm from "../../layouts/LayoutForm";
 import {
-    CardList,
+    FormSection,
     File,
     Input,
     SelectCtg,
@@ -48,7 +48,7 @@ const PageTV = () => {
 
     return (
         <LayoutForm>
-            <CardList title="TV 추가">
+            <FormSection title="TV 추가">
                 <div className="row">
                     <div className="col-4">
                         <File
@@ -89,8 +89,8 @@ const PageTV = () => {
                     onChange={onChange}
                     error={errors.description}
                 />
-            </CardList>
-            <CardList title="추가 정보">
+            </FormSection>
+            <FormSection title="추가 정보">
                 <Input
                     title="원제목"
                     name="originTitle"
@@ -129,7 +129,7 @@ const PageTV = () => {
                     setTags={setInputs}
                     error={errors.tags}
                 />
-            </CardList>
+            </FormSection>
             <button
                 type="button"
                 className="btn btn-primary mt-3"

@@ -3,9 +3,11 @@ export const validateAll = (inputs) => {
     let checkedErrors = {};
 
     Object.keys(inputs).forEach((key) => {
-        let errorMessage = validate(key, inputs[key]);
-        if (errorMessage) {
-            checkedErrors[key] = errorMessage;
+        if (key !== "description" && key !== "job") {
+            let errorMessage = validate(key, inputs[key]);
+            if (errorMessage) {
+                checkedErrors[key] = errorMessage;
+            }
         }
     });
 

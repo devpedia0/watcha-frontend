@@ -170,12 +170,12 @@ const ContentInfo = styled.div`
         margin-top: 5px;
     }
 `;
-const CardPoster = ({ size, idx, imgSrc }) => {
+const CardPoster = ({ size, item }) => {
     return (
         <Wrapper size={size}>
             <ContentImg>
-                <img src={imgSrc} alt="" />
-                <RankBlock>{idx + 1}</RankBlock>
+                <img src={item.imgSrc} alt="" />
+                {item.rank && <RankBlock>{item.rank}</RankBlock>}
                 <WatchaBlock />
             </ContentImg>
             <ContentInfo>

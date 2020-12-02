@@ -38,8 +38,8 @@ const useInputs = (initialValue) => {
                 return;
             }
 
-            // const res = await api.post(pathname, data);
-            // console.log(res);
+            const res = await api.post(pathname, data);
+            console.log(res);
             // history.goBack();
         } catch (e) {
             console.log(e);
@@ -56,6 +56,7 @@ const useInputs = (initialValue) => {
             }
 
             let { file, ...body } = data;
+
             let formData = new FormData();
             formData.append(reqFileName, file);
             formData.append(
@@ -65,13 +66,13 @@ const useInputs = (initialValue) => {
                 })
             );
 
-            const res = await api.post(pathname, formData);
+            // const res = await api.post(pathname, formData);
             // await api.post(pathname, formData, {
             //     headers: {
             //         "Content-Type": "multipart/form-data",
             //     },
             // });
-            console.log(res);
+            //console.log(res);
             //history.goBack();
         } catch (e) {
             console.log(e);

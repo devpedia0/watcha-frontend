@@ -7,8 +7,8 @@ import api from "../../services/api";
 import BoxImg from "../Box/BoxImg";
 import useOpen from "../../hooks/useOpen";
 import Modal from "./Modal";
-import CardList from "../CardList/CardList";
 import Card from "../Card/Card";
+import { FormSection } from "..";
 
 const Wrapper = styled.div`
     label {
@@ -42,9 +42,11 @@ const ModalParticipant = ({
     }, [pageId]);
 
     const handleClickSearch = async () => {
+        console.log("?");
         const res = await api.get(
-            `/participants?page=1&size=20&search=${search}`
+            `admin/participants?page=1&size=20&query=${search}`
         );
+        console.log("?s", res);
         setData(res.data);
     };
 
@@ -76,7 +78,7 @@ const ModalParticipant = ({
                             onChange={onChange}
                         />
                     </div>
-                    <CardList title={"인물 검색"}>
+                    <FormSection title={"인물 검색"}>
                         <div className="input-group">
                             <input
                                 className="form-control"
@@ -103,7 +105,7 @@ const ModalParticipant = ({
                                 disabled={selectedList.indexOf(item.id) > -1}
                             />
                         ))}
-                    </CardList>
+                    </FormSection>
                 </Wrapper>
             </Modal>
         </>

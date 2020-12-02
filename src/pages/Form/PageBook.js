@@ -1,8 +1,8 @@
 import React from "react";
 import useInputs from "../../hooks/useInputs";
-import LayoutForm from "../../layouts/LayoutForm";
+// import LayoutForm from "../../layouts/LayoutForm";
 import {
-    CardList,
+    FormSection,
     File,
     Input,
     SelectCtg,
@@ -46,8 +46,8 @@ const PageBook = () => {
     };
 
     return (
-        <LayoutForm>
-            <CardList title="책 추가">
+        <>
+            <FormSection title="책 추가">
                 <div className="row">
                     <div className="col-4">
                         <File
@@ -89,8 +89,8 @@ const PageBook = () => {
                     error={errors.description}
                     rows="3"
                 />
-            </CardList>
-            <CardList title="추가 정보">
+            </FormSection>
+            <FormSection title="추가 정보">
                 <Input
                     title="부제목"
                     name="subtitle"
@@ -119,7 +119,7 @@ const PageBook = () => {
                     onChange={onChange}
                     error={errors.elaboration}
                 />
-            </CardList>
+            </FormSection>
             <FormRoles
                 roles={inputs.roles}
                 setRoles={setInputs}
@@ -137,7 +137,7 @@ const PageBook = () => {
             >
                 submit
             </button>
-        </LayoutForm>
+        </>
     );
 };
 

@@ -4,8 +4,8 @@ import api from "../../services/api";
 
 import useOpen from "../../hooks/useOpen";
 import Modal from "./Modal";
-import CardList from "../CardList/CardList";
-import CardTag from "../Card/CardTag";
+// import CardTag from "../Card/CardTag";
+import { FormSection, CardTag } from "..";
 
 const Wrapper = styled.div`
     label {
@@ -22,6 +22,7 @@ const ModalTag = ({ tags, onClickSave }) => {
     useEffect(() => {
         const getAPIdata = async () => {
             const res = await api.get(`/admin/tags?page=1&size=20`);
+            console.log(res);
             //const res = await axios.get(`http://localhost:8080/admin/participants?page=1&size=20`);
             setData(res.data);
         };
@@ -34,9 +35,7 @@ const ModalTag = ({ tags, onClickSave }) => {
     }, [tags]);
 
     const handleClickSearch = async () => {
-        const res = await api.get(
-            `/admin/tags?page=1&size=20&search=${search}`
-        );
+        const res = await api.get(`/admin/tags?page=1&size=20&query=${search}`);
         setData(res.data);
     };
 
@@ -74,7 +73,7 @@ const ModalTag = ({ tags, onClickSave }) => {
                 onClickClose={onClickClose}
             >
                 <Wrapper>
-                    <CardList title={"태그 검색"}>
+                    <FormSection title={"태그 검색"}>
                         <div className="input-group">
                             <input
                                 className="form-control"
@@ -103,7 +102,7 @@ const ModalTag = ({ tags, onClickSave }) => {
                                 onClick={handleClick}
                             />
                         ))}
-                    </CardList>
+                    </FormSection>
                 </Wrapper>
             </Modal>
         </>

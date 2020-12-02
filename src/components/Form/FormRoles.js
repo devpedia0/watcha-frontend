@@ -3,7 +3,7 @@ import React from "react";
 import useInputs from "../../hooks/useInputs";
 
 import ModalParticipant from "../Modal/ModalParticipant";
-import CardList from "../CardList/CardList";
+import FormSection from "../Form/FormSection";
 import Card from "../Card/Card";
 
 const initialValue = {
@@ -39,7 +39,7 @@ const FormRoles = ({ roles, setRoles }) => {
     };
 
     return (
-        <CardList title="인물추가">
+        <FormSection title="인물추가">
             <ModalParticipant
                 selectedList={roles.map((item) => item.id)}
                 inputs={inputs}
@@ -56,7 +56,7 @@ const FormRoles = ({ roles, setRoles }) => {
                     onClickDelete={handleClickDelete}
                 />
             ))}
-        </CardList>
+        </FormSection>
     );
 };
 
