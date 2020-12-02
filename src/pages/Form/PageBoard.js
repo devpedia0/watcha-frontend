@@ -6,7 +6,6 @@ import siteConfig from "../../utils/siteConfig";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import boardActions from "../../redux/actions/boardActions";
-import LayoutForm from "../../layouts/LayoutForm";
 import { BoxImg } from "../../components";
 
 const PageBoard = () => {
@@ -49,27 +48,25 @@ const PageBoard = () => {
     };
 
     return (
-        <LayoutForm>
-            <table className="table">
-                <thead>
-                    <tr>
-                        {headers.map((item, idx) => (
-                            <th key={idx} scope="col">
-                                {item.title}
-                            </th>
-                        ))}
-                        <th scope="col" className="col-auto">
-                            Ctrl
+        <table className="table">
+            <thead>
+                <tr>
+                    {headers.map((item, idx) => (
+                        <th key={idx} scope="col">
+                            {item.title}
                         </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item, idx) => (
-                        <Row key={idx} item={item} />
                     ))}
-                </tbody>
-            </table>
-        </LayoutForm>
+                    <th scope="col" className="col-auto">
+                        Ctrl
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.map((item, idx) => (
+                    <Row key={idx} item={item} />
+                ))}
+            </tbody>
+        </table>
     );
 };
 

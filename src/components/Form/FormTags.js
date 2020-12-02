@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import CardTag from "../Card/CardTag";
 
-import CardList from "../CardList/CardList";
+import FormSection from "../Form/FormSection";
 import ModalTag from "../Modal/ModalTag";
 
 const FormTags = ({ tags, setTags, error }) => {
@@ -26,7 +26,7 @@ const FormTags = ({ tags, setTags, error }) => {
     );
 
     return (
-        <CardList title="태그추가">
+        <FormSection title="태그추가">
             <ModalTag tags={tags} onClickSave={handleClickSave} />
             {tags.map((item, idx) => (
                 <CardTag
@@ -35,7 +35,7 @@ const FormTags = ({ tags, setTags, error }) => {
                     onClickDelete={handleClickDelete}
                 />
             ))}
-        </CardList>
+        </FormSection>
     );
 };
 

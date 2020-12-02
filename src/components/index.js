@@ -10,7 +10,6 @@ export { default as CardTag } from "./Card/CardTag";
 export { default as CardList } from "./CardList/CardList";
 export { default as CardListForm } from "./CardList/CardListForm";
 export { default as CardListSlick } from "./CardList/CardListSlick";
-export { default as PostersRank } from "./CardList/PostersRank";
 // Footer
 export { default as Footer } from "./Footer/Footer";
 // Form
@@ -18,6 +17,7 @@ export { default as Input } from "./Form/Input";
 export { default as File } from "./Form/File";
 export { default as Textarea } from "./Form/Textarea";
 export { default as FormNav } from "./Form/FormNav";
+export { default as FormSection } from "./Form/FormSection";
 export { default as SelectCtg } from "./Form/SelectCtg";
 export { default as RadioYN } from "./Form/RadioYN";
 export { default as YearPicker } from "./Form/YearPicker";

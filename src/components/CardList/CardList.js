@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import dummy from "../../utils/dummy";
+// import api from "../../services/api";
 
 const Wrapper = styled.div`
-    padding-top: ${(props) => (props.pt ? props.pt : "0px")};
-    padding-bottom: ${(props) => (props.pb ? props.pb : "30px")};
+    padding-top: 0px;
+    padding-bottom: 30px;
     border-bottom: 1px solid #f0f0f0;
     height: auto;
-
+    flex-wrap: wrap;
     .header {
         margin: 20px 0;
         font-size: 1.5rem;
@@ -21,11 +23,29 @@ const Wrapper = styled.div`
     }
 `;
 
-const CardList = ({ title, children, ...rest }) => {
+const initialState = {
+    title: "",
+    items: [],
+};
+
+const CardList = ({ fetchURL, size, card: Card }) => {
+    const [data, setData] = useState(initialState);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // const res = await api.get(fetchURL);
+            const res = dummy;
+            setData(res.data);
+        };
+        fetchData();
+    }, [fetchURL]);
+
     return (
-        <Wrapper {...rest}>
-            <div className="header">{title}</div>
-            {children}
+        <Wrapper>
+            <div className="header">{data.title}</div>
+            {data.items.map((item, idx) => (
+                <Card key={idx} item={item} size={size} />
+            ))}
         </Wrapper>
     );
 };

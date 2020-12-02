@@ -7,6 +7,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import  Layout  from './layouts/Layout';
 // pages
 import Home from "./pages/Home/Home";
+import Home2 from './pages/Home/Home2'
 import Team from "./pages/Team/Team";
 import MyPage from "./pages/MyPage/MyPage";
 import PageBoard from './pages/Form/PageBoard';
@@ -16,6 +17,7 @@ import PageBook from "./pages/Form/PageBook";
 import PageTag from './pages/Form/PageTag';
 import PageParticipant from './pages/Form/PageParticipant';
 import PageCollection from './pages/Form/PageCollection';
+import LayoutForm from "./layouts/LayoutForm";
 
 
 function App() {
@@ -25,18 +27,19 @@ function App() {
                 <Switch>
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
-                    <Layout path="/admin/books" exact component={PageBoard} />
-                    <Layout path="/admin/books/form" component={PageBook} />
-                    <Layout path="/admin/movies" exact component={PageBoard} />
-                    <Layout path="/admin/movies/form" component={PageMovie} />
-                    <Layout path="/admin/participants" exact component={PageBoard} />
-                    <Layout path="/admin/participants/form" component={PageParticipant} />
-                    <Layout path="/admin/tags" exact component={PageBoard} />
-                    <Layout path="/admin/tags/form" component={PageTag} />
-                    <Layout path="/admin/tv_shows" exact component={PageBoard} />
-                    <Layout path="/admin/tv_shows/form" component={PageTV} />
-                    <Layout path="/admin/collections" exact component={PageBoard} />
-                    <Layout path="/admin/collections/form" component={PageCollection} />
+                    <Layout path="/test" exact component={Home2} />
+                    <LayoutForm path="/admin/books" exact component={PageBoard} />
+                    <LayoutForm path="/admin/books/form" component={PageBook} />
+                    <LayoutForm path="/admin/movies" exact component={PageBoard} />
+                    <LayoutForm path="/admin/movies/form" component={PageMovie} />
+                    <LayoutForm path="/admin/participants" exact component={PageBoard} />
+                    <LayoutForm path="/admin/participants/form" component={PageParticipant} />
+                    <LayoutForm path="/admin/tags" exact component={PageBoard} />
+                    <LayoutForm path="/admin/tags/form" component={PageTag} />
+                    <LayoutForm path="/admin/tv_shows" exact component={PageBoard} />
+                    <LayoutForm path="/admin/tv_shows/form" component={PageTV} />
+                    <LayoutForm path="/admin/collections" exact component={PageBoard} />
+                    <LayoutForm path="/admin/collections/form" component={PageCollection} />
                     <Layout path="/" exact component={Home} />
                     <Redirect from="/admin" to="/admin/movies/form" />
                     <Redirect to="/" />

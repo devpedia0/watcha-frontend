@@ -126,20 +126,33 @@ const ContentInfo = styled.div`
         margin-top: 5px;
     }
 `;
+const item222 = {
+    title: "박스오피스",
+    description: "홍길동님의 컬렉션",
+    poster: process.env.PUBLIC_URL + "/images/1.jpg",
+    items: [
+        { rank: 1, imgSrc: process.env.PUBLIC_URL + "/images/1.jpg" },
+        { rank: 2, imgSrc: process.env.PUBLIC_URL + "/images/2.jpg" },
+        { rank: 3, imgSrc: process.env.PUBLIC_URL + "/images/3.jpg" },
+        { rank: 4, imgSrc: process.env.PUBLIC_URL + "/images/4.jpg" },
+        { rank: 5, imgSrc: process.env.PUBLIC_URL + "/images/5.jpg" },
+        { rank: 6, imgSrc: process.env.PUBLIC_URL + "/images/6.jpg" },
+    ],
+};
 
 const CardCollection = ({ item, size = "" }) => {
     return (
         <Wrapper size={size}>
             <WrapperBox>
                 <ImageContainer>
-                    <Image src={item.posters[0]} />
-                    <Image src={item.posters[1]} />
-                    <Image src={item.posters[2]} />
-                    <Image src={item.posters[3]} />
+                    <Image src={item222.items[0].imgSrc} />
+                    <Image src={item222.items[1].imgSrc} />
+                    <Image src={item222.items[2].imgSrc} />
+                    <Image src={item222.items[3].imgSrc} />
                 </ImageContainer>
             </WrapperBox>
             <ContentInfo>
-                <div className="contentTitle">{item.title}</div>
+                <div className="contentTitle">{item222.title}</div>
             </ContentInfo>
         </Wrapper>
     );

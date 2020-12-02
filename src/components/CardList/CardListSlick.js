@@ -1,5 +1,96 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
+import dummy from "../../utils/dummy";
+import BoxImg from "../Box/BoxImg";
+// import api from "../../services/api";
+
+const initialState = {
+    title: "",
+    poster: "",
+    description: "",
+    items: [],
+};
+
+const CardListSlick = ({ fetchURL, size, card: Card }) => {
+    const slider = useRef();
+    const [data, setData] = useState(initialState);
+    const [buttonCtrl, setButtonCtrl] = useState({
+        posX: 0,
+        left: false,
+        right: true,
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // const res = await api.get(fetchURL);
+            const res = dummy;
+            setData(res.data);
+        };
+        fetchData();
+    }, [fetchURL]);
+
+    const handleClickButton = (type) => {
+        const childNum = slider.current.children.length;
+        const childWidth = slider.current.children[0].clientWidth;
+        const childTotalWidth = childNum * childWidth;
+        const dist = slider.current.offsetWidth;
+        const newPosX =
+            type === "right" ? buttonCtrl.posX + dist : buttonCtrl.posX - dist;
+
+        setButtonCtrl({
+            posX: newPosX,
+            left: newPosX > 0,
+            right: newPosX <= childTotalWidth - dist,
+        });
+    };
+
+    return (
+        <Wrapper>
+            <Title>
+                {data.poster ? (
+                    <>
+                        <BoxImg
+                            radius="50%"
+                            width="42px"
+                            height="42px"
+                            src={data.poster}
+                        />
+                        <div className="d-flex ">
+                            <p>{data.title}</p>
+                            {data.title}
+                        </div>
+                    </>
+                ) : (
+                    <p>{data.title}</p>
+                )}
+            </Title>
+            <Content>
+                <CardContainerNonVisible>
+                    <CardContainer
+                        ref={slider}
+                        style={{
+                            transform: `translateX(-${buttonCtrl.posX}px)`,
+                        }}
+                    >
+                        {data.items.map((item, idx) => (
+                            <Card key={idx} item={item} size={size} />
+                        ))}
+                    </CardContainer>
+                </CardContainerNonVisible>
+                <ArrowButton
+                    left
+                    show={buttonCtrl.left}
+                    onClick={() => handleClickButton("left")}
+                />
+                <ArrowButton
+                    right
+                    show={buttonCtrl.right}
+                    onClick={() => handleClickButton("right")}
+                />
+            </Content>
+        </Wrapper>
+    );
+};
 
 const Wrapper = styled.div`
     margin-bottom: 20px;
@@ -14,10 +105,9 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
+    display: flex;
     white-space: nowrap;
     max-width: 1320px;
-    margin-right: 15px;
-    margin-left: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 29px;
@@ -31,46 +121,10 @@ const Title = styled.div`
         letter-spacing: -0.4px;
         line-height: 30px;
     }
-
-    @media only screen and (min-width: 719px) {
-        margin-right: 20px;
-        margin-left: 20px;
-        max-height: 60px;
-        line-height: 30px;
-        padding: 12px 0 14px;
-    }
-    @media only screen and (min-width: 760px) {
-        margin: 0 3.5%;
-    }
-    @media only screen and (min-width: 1100px) {
-        margin: 0 60px;
-    }
-    @media only screen and (min-width: 1440px) {
-        margin-right: auto;
-        margin-left: auto;
-    }
 `;
 
 const Content = styled.div`
     position: relative;
-    max-width: 1320px;
-    margin-right: 20px;
-    margin-left: 15px;
-
-    @media only screen and (min-width: 719px) {
-        margin-right: 20px;
-        margin-left: 20px;
-    }
-    @media only screen and (min-width: 760px) {
-        margin: 0 3.5%;
-    }
-    @media only screen and (min-width: 1100px) {
-        margin: 0 60px;
-    }
-    @media only screen and (min-width: 1440px) {
-        margin-right: auto;
-        margin-left: auto;
-    }
 `;
 
 const CardContainerNonVisible = styled.div`
@@ -80,7 +134,6 @@ const CardContainerNonVisible = styled.div`
 const CardContainer = styled.div`
     transition: 500ms;
     width: 100%;
-
     padding: 0px;
     white-space: nowrap;
     margin-top: 0px;
@@ -155,59 +208,5 @@ const ArrowButton = styled.div`
         opacity: 1 !important;
     }
 `;
-
-const CardListSlick = ({ size, children }) => {
-    const slider = useRef();
-    const [buttonCtrl, setButtonCtrl] = useState({
-        posX: 0,
-        left: false,
-        right: true,
-    });
-
-    const handleClickButton = (type) => {
-        const childNum = slider.current.children.length;
-        const childWidth = slider.current.children[0].clientWidth;
-        const childTotalWidth = childNum * childWidth;
-        const dist = slider.current.offsetWidth;
-        const newPosX =
-            type === "right" ? buttonCtrl.posX + dist : buttonCtrl.posX - dist;
-
-        setButtonCtrl({
-            posX: newPosX,
-            left: newPosX > 0,
-            right: newPosX <= childTotalWidth - dist,
-        });
-    };
-
-    return (
-        <Wrapper>
-            <Title>
-                <p>박스오피스</p>
-            </Title>
-            <Content>
-                <CardContainerNonVisible>
-                    <CardContainer
-                        ref={slider}
-                        style={{
-                            transform: `translateX(-${buttonCtrl.posX}px)`,
-                        }}
-                    >
-                        {children}
-                    </CardContainer>
-                </CardContainerNonVisible>
-                <ArrowButton
-                    left
-                    show={buttonCtrl.left}
-                    onClick={() => handleClickButton("left")}
-                />
-                <ArrowButton
-                    right
-                    show={buttonCtrl.right}
-                    onClick={() => handleClickButton("right")}
-                />
-            </Content>
-        </Wrapper>
-    );
-};
 
 export default CardListSlick;
