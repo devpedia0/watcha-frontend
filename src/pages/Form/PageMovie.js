@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import styled from 'styled-components';
 import useInputs from '../../Hooks/useInputs';
@@ -15,6 +16,9 @@ import {
   FormTags,
 } from '../../components';
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 import React from "react";
 import styled from "styled-components";
 import useInputs from "../../hooks/useInputs";
@@ -29,7 +33,11 @@ import {
     FormRoles,
     FormTags,
 } from "../../components";
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
 const initialValue = {
   file: '',
@@ -65,6 +73,7 @@ const PageMovie = () => {
       tags: tags.map((tag) => tag.id),
     };
 <<<<<<< HEAD
+<<<<<<< HEAD
     onSubmitFile('/admin/movies', sendData, 'poster');
   };
 
@@ -91,6 +100,9 @@ const PageMovie = () => {
               onChange={onChange}
               error={errors.category}
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     return (
         <>
             <FormSection title="영화 추가">
@@ -201,7 +213,11 @@ const PageMovie = () => {
                 roles={inputs.roles}
                 setRoles={setInputs}
                 error={errors.roles}
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
             />
 
             <YearPicker
@@ -210,6 +226,7 @@ const PageMovie = () => {
               value={inputs.productionDate}
               onChange={onChange}
             />
+<<<<<<< HEAD
 <<<<<<< HEAD
           </div>
         </div>
@@ -307,6 +324,19 @@ const PageMovie = () => {
         </>
     );
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+            <button
+                type="button"
+                className="btn btn-primary mt-3"
+                onClick={handleSubmit}
+            >
+                submit
+            </button>
+        </>
+    );
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 };
 
 export default PageMovie;

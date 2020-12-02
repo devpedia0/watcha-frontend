@@ -5,18 +5,26 @@ import api from '../../services/api';
 // import axios from 'axios';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BoxImg from '../Box/BoxImg';
 import useOpen from '../../Hooks/useOpen';
 import Modal from './Modal';
 import CardList from '../CardList/CardList';
 import Card from '../Card/Card';
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 import BoxImg from "../Box/BoxImg";
 import useOpen from "../../hooks/useOpen";
 import Modal from "./Modal";
 import Card from "../Card/Card";
 import { FormSection } from "..";
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
 const Wrapper = styled.div`
   label {
@@ -49,6 +57,7 @@ const ModalParticipant = ({
     getAPIdata();
   }, [pageId]);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   const handleClickSearch = async () => {
     const res = await api.get(`/participants?page=1&size=20&search=${search}`);
@@ -112,6 +121,9 @@ const ModalParticipant = ({
     </>
   );
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     const handleClickSearch = async () => {
         console.log("?");
         const res = await api.get(
@@ -181,7 +193,11 @@ const ModalParticipant = ({
             </Modal>
         </>
     );
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 };
 
 export default ModalParticipant;

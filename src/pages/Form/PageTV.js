@@ -3,6 +3,7 @@ import useInputs from '../../Hooks/useInputs';
 import LayoutForm from '../../layouts/LayoutForm';
 import {
 <<<<<<< HEAD
+<<<<<<< HEAD
   CardList,
   File,
   Input,
@@ -14,6 +15,9 @@ import {
   FormTags,
 } from '../../components';
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     FormSection,
     File,
     Input,
@@ -24,7 +28,10 @@ import {
     FormRoles,
     FormTags,
 } from "../../components";
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
 const initialValue = {
   file: '',
@@ -60,6 +67,7 @@ const PageTV = () => {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   return (
     <LayoutForm>
       <CardList title="TV 추가">
@@ -76,6 +84,9 @@ const PageTV = () => {
               error={errors.mainTitle}
             />
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     return (
         <LayoutForm>
             <FormSection title="TV 추가">
@@ -95,7 +106,10 @@ const PageTV = () => {
                             onChange={onChange}
                             error={errors.mainTitle}
                         />
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
             <SelectCtg
               title="카테고리"
@@ -105,6 +119,7 @@ const PageTV = () => {
               error={errors.category}
             />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             <YearPicker
               title="제작연도"
@@ -138,6 +153,8 @@ const PageTV = () => {
           error={errors.countryCode}
         />
 =======
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
                         <YearPicker
                             title="제작연도"
                             name="productionDate"
@@ -169,7 +186,10 @@ const PageTV = () => {
                     onChange={onChange}
                     error={errors.countryCode}
                 />
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
         <RadioYN
           title="왓챠여부"
@@ -184,6 +204,7 @@ const PageTV = () => {
           onChange={onChange}
         />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         <FormRoles
           roles={inputs.roles}
@@ -201,6 +222,9 @@ const PageTV = () => {
     </LayoutForm>
   );
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
                 <FormRoles
                     roles={inputs.roles}
                     setRoles={setInputs}
@@ -221,7 +245,10 @@ const PageTV = () => {
             </button>
         </LayoutForm>
     );
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 };
 
 export default PageTV;

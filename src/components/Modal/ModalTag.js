@@ -3,16 +3,23 @@ import styled from 'styled-components';
 import api from '../../services/api';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import useOpen from '../../Hooks/useOpen';
 import Modal from './Modal';
 import CardList from '../CardList/CardList';
 import CardTag from '../Card/CardTag';
 =======
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 import useOpen from "../../hooks/useOpen";
 import Modal from "./Modal";
 // import CardTag from "../Card/CardTag";
 import { FormSection, CardTag } from "..";
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
 const Wrapper = styled.div`
   label {
@@ -27,6 +34,7 @@ const ModalTag = ({ tags, onClickSave }) => {
   const [search, setSearch] = useState('');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   useEffect(() => {
     const getAPIdata = async () => {
       const res = await api.get(`/admin/tags?page=1&size=20`);
@@ -34,6 +42,8 @@ const ModalTag = ({ tags, onClickSave }) => {
       setData(res.data);
     };
 =======
+=======
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     useEffect(() => {
         const getAPIdata = async () => {
             const res = await api.get(`/admin/tags?page=1&size=20`);
@@ -41,7 +51,11 @@ const ModalTag = ({ tags, onClickSave }) => {
             //const res = await axios.get(`http://localhost:8080/admin/participants?page=1&size=20`);
             setData(res.data);
         };
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
     getAPIdata();
   }, []);
@@ -51,16 +65,24 @@ const ModalTag = ({ tags, onClickSave }) => {
   }, [tags]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const handleClickSearch = async () => {
     const res = await api.get(`/admin/tags?page=1&size=20&search=${search}`);
     setData(res.data);
   };
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     const handleClickSearch = async () => {
         const res = await api.get(`/admin/tags?page=1&size=20&query=${search}`);
         setData(res.data);
     };
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
   const handleClickSave = () => {
     onClickSave(newTags);
@@ -76,6 +98,7 @@ const ModalTag = ({ tags, onClickSave }) => {
     [newTags]
   );
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   return (
     <>
@@ -121,6 +144,9 @@ const ModalTag = ({ tags, onClickSave }) => {
     </>
   );
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     return (
         <>
             <div>
@@ -173,7 +199,11 @@ const ModalTag = ({ tags, onClickSave }) => {
             </Modal>
         </>
     );
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 };
 
 export default ModalTag;

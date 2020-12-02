@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import useInputs from '../../Hooks/useInputs';
 import LayoutForm from '../../layouts/LayoutForm';
@@ -13,6 +14,9 @@ import {
   FormTags,
 } from '../../components';
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 import React from "react";
 import useInputs from "../../hooks/useInputs";
 // import LayoutForm from "../../layouts/LayoutForm";
@@ -26,7 +30,11 @@ import {
     FormRoles,
     FormTags,
 } from "../../components";
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 
 const initialValue = {
   file: '',
@@ -62,6 +70,7 @@ const PageBook = () => {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   return (
     <LayoutForm>
       <CardList title="책 추가">
@@ -85,6 +94,9 @@ const PageBook = () => {
               onChange={onChange}
               error={errors.category}
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
     return (
         <>
             <FormSection title="책 추가">
@@ -164,7 +176,11 @@ const PageBook = () => {
                 roles={inputs.roles}
                 setRoles={setInputs}
                 error={errors.roles}
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
             />
 
             <YearPicker
@@ -173,6 +189,7 @@ const PageBook = () => {
               value={inputs.productionDate}
               onChange={onChange}
             />
+<<<<<<< HEAD
 <<<<<<< HEAD
           </div>
         </div>
@@ -230,6 +247,9 @@ const PageBook = () => {
     </LayoutForm>
   );
 =======
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
             <button
                 type="button"
                 className="btn btn-primary mt-3"
@@ -239,7 +259,11 @@ const PageBook = () => {
             </button>
         </>
     );
+<<<<<<< HEAD
 >>>>>>> 6021e5a547a7bc1c81fddc5c878b0ad7f402d4d2
+=======
+
+>>>>>>> 8e5ccb44def4bb0d1f008d7ad213251e42826ed4
 };
 
 export default PageBook;
