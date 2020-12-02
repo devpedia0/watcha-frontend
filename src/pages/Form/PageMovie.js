@@ -1,19 +1,17 @@
-
-import React from "react";
-import styled from "styled-components";
-import useInputs from "../../hooks/useInputs";
+import React from 'react';
+import styled from 'styled-components';
+import useInputs from '../../Hooks/useInputs';
 import {
-    FormSection,
-    File,
-    Input,
-    SelectCtg,
-    YearPicker,
-    Textarea,
-    RadioYN,
-    FormRoles,
-    FormTags,
-} from "../../components";
-
+  FormSection,
+  File,
+  Input,
+  SelectCtg,
+  YearPicker,
+  Textarea,
+  RadioYN,
+  FormRoles,
+  FormTags,
+} from '../../components';
 
 const initialValue = {
   file: '',
@@ -50,137 +48,129 @@ const PageMovie = () => {
     };
 
     return (
-        <>
-            <FormSection title="영화 추가">
-                <div className="row">
-                    <div className="col-4">
-                        <File
-                            name="file"
-                            value={inputs.file}
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div className="col-8">
-                        <Input
-                            title="제목"
-                            name="mainTitle"
-                            value={inputs.mainTitle}
-                            onChange={onChange}
-                            error={errors.mainTitle}
-                        />
+      <>
+        <FormSection title="영화 추가">
+          <div className="row">
+            <div className="col-4">
+              <File name="file" value={inputs.file} onChange={onChange} />
+            </div>
+            <div className="col-8">
+              <Input
+                title="제목"
+                name="mainTitle"
+                value={inputs.mainTitle}
+                onChange={onChange}
+                error={errors.mainTitle}
+              />
 
-                        <SelectCtg
-                            title="카테고리"
-                            name="category"
-                            value={inputs.category}
-                            onChange={onChange}
-                            error={errors.category}
-                        />
+              <SelectCtg
+                title="카테고리"
+                name="category"
+                value={inputs.category}
+                onChange={onChange}
+                error={errors.category}
+              />
 
-                        <YearPicker
-                            title="제작연도"
-                            name="productionDate"
-                            value={inputs.productionDate}
-                            onChange={onChange}
-                        />
-                    </div>
-                </div>
-                <Textarea
-                    title="설명"
-                    name="description"
-                    value={inputs.description}
-                    onChange={onChange}
-                    error={errors.description}
-                />
-            </FormSection>
+              <YearPicker
+                title="제작연도"
+                name="productionDate"
+                value={inputs.productionDate}
+                onChange={onChange}
+              />
+            </div>
+          </div>
+          <Textarea
+            title="설명"
+            name="description"
+            value={inputs.description}
+            onChange={onChange}
+            error={errors.description}
+          />
+        </FormSection>
 
-            <FormSection title="추가 정보">
-                <Input
-                    title="원제목"
-                    name="originTitle"
-                    value={inputs.originTitle}
-                    onChange={onChange}
-                    error={errors.originTitle}
-                />
-                <div className="form-row">
-                    <Input
-                        className="col"
-                        title="국가코드"
-                        name="countryCode"
-                        value={inputs.countryCode}
-                        onChange={onChange}
-                        error={errors.countryCode}
-                    />
-
-                    <Input
-                        className="col"
-                        title="상영시간(분)"
-                        name="runningTimeInMinutes"
-                        value={inputs.runningTimeInMinutes}
-                        onChange={onChange}
-                        error={errors.runningTimeInMinutes}
-                    />
-                </div>
-                <div className="form-row">
-                    <Input
-                        className="col"
-                        title="예매율"
-                        name="bookRate"
-                        value={inputs.bookRate}
-                        onChange={onChange}
-                        error={errors.bookRate}
-                    >
-                        %
-                    </Input>
-
-                    <Input
-                        className="col"
-                        title="누적관객"
-                        name="totalAudience"
-                        value={inputs.totalAudience}
-                        onChange={onChange}
-                        error={errors.totalAudience}
-                    />
-                </div>
-                <RadioYN
-                    title="왓챠여부"
-                    name="isWatchaContent"
-                    value={inputs.isWatchaContent}
-                    onChange={onChange}
-                />
-                <RadioYN
-                    title="넷플릭스 여부"
-                    name="isNetflixContent"
-                    value={inputs.isNetflixContent}
-                    onChange={onChange}
-                />
-            </FormSection>
-            <FormRoles
-                roles={inputs.roles}
-                setRoles={setInputs}
-                error={errors.roles}
-
-            />
-
-            <YearPicker
-              title="제작연도"
-              name="productionDate"
-              value={inputs.productionDate}
+        <FormSection title="추가 정보">
+          <Input
+            title="원제목"
+            name="originTitle"
+            value={inputs.originTitle}
+            onChange={onChange}
+            error={errors.originTitle}
+          />
+          <div className="form-row">
+            <Input
+              className="col"
+              title="국가코드"
+              name="countryCode"
+              value={inputs.countryCode}
               onChange={onChange}
+              error={errors.countryCode}
             />
 
-            <button
-                type="button"
-                className="btn btn-primary mt-3"
-                onClick={handleSubmit}
-            >
-                submit
-            </button>
-        </>
+            <Input
+              className="col"
+              title="상영시간(분)"
+              name="runningTimeInMinutes"
+              value={inputs.runningTimeInMinutes}
+              onChange={onChange}
+              error={errors.runningTimeInMinutes}
+            />
+          </div>
+          <div className="form-row">
+            <Input
+              className="col"
+              title="예매율"
+              name="bookRate"
+              value={inputs.bookRate}
+              onChange={onChange}
+              error={errors.bookRate}>
+              %
+            </Input>
+
+            <Input
+              className="col"
+              title="누적관객"
+              name="totalAudience"
+              value={inputs.totalAudience}
+              onChange={onChange}
+              error={errors.totalAudience}
+            />
+          </div>
+          <RadioYN
+            title="왓챠여부"
+            name="isWatchaContent"
+            value={inputs.isWatchaContent}
+            onChange={onChange}
+          />
+          <RadioYN
+            title="넷플릭스 여부"
+            name="isNetflixContent"
+            value={inputs.isNetflixContent}
+            onChange={onChange}
+          />
+        </FormSection>
+        <FormRoles
+          roles={inputs.roles}
+          setRoles={setInputs}
+          error={errors.roles}
+        />
+
+        <YearPicker
+          title="제작연도"
+          name="productionDate"
+          value={inputs.productionDate}
+          onChange={onChange}
+        />
+
+        <button
+          type="button"
+          className="btn btn-primary mt-3"
+          onClick={handleSubmit}>
+          submit
+        </button>
+      </>
     );
-
+  };
 };
-
 export default PageMovie;
 
 const Wrapper = styled.div`
