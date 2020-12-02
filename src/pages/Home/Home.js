@@ -1,6 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { PostersRank } from "../../components";
+import { CardCollection, CardListSlick, CardPoster } from "../../components";
+
+const collectionItem = {
+    posters: [
+        process.env.PUBLIC_URL + "/images/1.jpg",
+        process.env.PUBLIC_URL + "/images/2.jpg",
+        process.env.PUBLIC_URL + "/images/3.jpg",
+        process.env.PUBLIC_URL + "/images/4.jpg",
+    ],
+    title: "컬렉션 테스트",
+};
 
 const Wrapper = styled.div`
     display: flex;
@@ -26,11 +36,13 @@ const Wrapper = styled.div`
 const Home = () => {
     return (
         <Wrapper>
-            <PostersRank />
-            <PostersRank />
-            <PostersRank />
-            <PostersRank size="medium" />
-            <PostersRank size="medium" />
+            <CardListSlick fetchURL="" card={CardPoster} />
+            <CardListSlick fetchURL="" card={CardPoster} />
+            <CardListSlick fetchURL="" card={CardPoster} />
+            <CardListSlick fetchURL="" card={CardPoster} size="medium" />
+            <CardListSlick fetchURL="" card={CardPoster} size="medium" />
+            <CardListSlick fetchURL="" card={CardPoster} size="medium" />
+            <CardListSlick fetchURL="" card={CardCollection} size="medium" />
         </Wrapper>
     );
 };

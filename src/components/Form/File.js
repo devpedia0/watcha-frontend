@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import BoxImg from "../Box/BoxImg";
 
-const File = ({ name, value, onChange }) => {
+const File = ({ name, value, onChange, multiple }) => {
     const imgRef = useRef();
     const handleClickImage = () => imgRef.current.click();
 
@@ -25,6 +25,7 @@ const File = ({ name, value, onChange }) => {
                         ref={imgRef}
                         onChange={onChange}
                         hidden
+                        multiple
                     />
                 </div>
             </div>

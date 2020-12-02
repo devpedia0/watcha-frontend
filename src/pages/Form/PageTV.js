@@ -2,16 +2,17 @@ import React from 'react';
 import useInputs from '../../Hooks/useInputs';
 import LayoutForm from '../../layouts/LayoutForm';
 import {
-  CardList,
-  File,
-  Input,
-  SelectCtg,
-  YearPicker,
-  Textarea,
-  RadioYN,
-  FormRoles,
-  FormTags,
-} from '../../components';
+
+    FormSection,
+    File,
+    Input,
+    SelectCtg,
+    YearPicker,
+    Textarea,
+    RadioYN,
+    FormRoles,
+    FormTags,
+} from "../../components";
 
 const initialValue = {
   file: '',
@@ -46,21 +47,26 @@ const PageTV = () => {
     onSubmitFile('/admin/tv_shows', sendData, 'poster');
   };
 
-  return (
-    <LayoutForm>
-      <CardList title="TV 추가">
-        <div className="row">
-          <div className="col-4">
-            <File name="file" value={inputs.file} onChange={onChange} />
-          </div>
-          <div className="col-8">
-            <Input
-              title="제목"
-              name="mainTitle"
-              value={inputs.mainTitle}
-              onChange={onChange}
-              error={errors.mainTitle}
-            />
+
+    return (
+        <LayoutForm>
+            <FormSection title="TV 추가">
+                <div className="row">
+                    <div className="col-4">
+                        <File
+                            name="file"
+                            value={inputs.file}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div className="col-8">
+                        <Input
+                            title="제목"
+                            name="mainTitle"
+                            value={inputs.mainTitle}
+                            onChange={onChange}
+                            error={errors.mainTitle}
+                        />
 
             <SelectCtg
               title="카테고리"
@@ -70,37 +76,37 @@ const PageTV = () => {
               error={errors.category}
             />
 
-            <YearPicker
-              title="제작연도"
-              name="productionDate"
-              value={inputs.productionDate}
-              onChange={onChange}
-            />
-          </div>
-        </div>
-        <Textarea
-          title="설명"
-          name="description"
-          value={inputs.description}
-          onChange={onChange}
-          error={errors.description}
-        />
-      </CardList>
-      <CardList title="추가 정보">
-        <Input
-          title="원제목"
-          name="originTitle"
-          value={inputs.originTitle}
-          onChange={onChange}
-          error={errors.originTitle}
-        />
-        <Input
-          title="국가코드"
-          name="countryCode"
-          value={inputs.countryCode}
-          onChange={onChange}
-          error={errors.countryCode}
-        />
+                        <YearPicker
+                            title="제작연도"
+                            name="productionDate"
+                            value={inputs.productionDate}
+                            onChange={onChange}
+                        />
+                    </div>
+                </div>
+                <Textarea
+                    title="설명"
+                    name="description"
+                    value={inputs.description}
+                    onChange={onChange}
+                    error={errors.description}
+                />
+            </FormSection>
+            <FormSection title="추가 정보">
+                <Input
+                    title="원제목"
+                    name="originTitle"
+                    value={inputs.originTitle}
+                    onChange={onChange}
+                    error={errors.originTitle}
+                />
+                <Input
+                    title="국가코드"
+                    name="countryCode"
+                    value={inputs.countryCode}
+                    onChange={onChange}
+                    error={errors.countryCode}
+                />
 
         <RadioYN
           title="왓챠여부"
@@ -115,21 +121,27 @@ const PageTV = () => {
           onChange={onChange}
         />
 
-        <FormRoles
-          roles={inputs.roles}
-          setRoles={setInputs}
-          error={errors.roles}
-        />
-        <FormTags tags={inputs.tags} setTags={setInputs} error={errors.tags} />
-      </CardList>
-      <button
-        type="button"
-        className="btn btn-primary mt-3"
-        onClick={handleSubmit}>
-        submit
-      </button>
-    </LayoutForm>
-  );
+
+                <FormRoles
+                    roles={inputs.roles}
+                    setRoles={setInputs}
+                    error={errors.roles}
+                />
+                <FormTags
+                    tags={inputs.tags}
+                    setTags={setInputs}
+                    error={errors.tags}
+                />
+            </FormSection>
+            <button
+                type="button"
+                className="btn btn-primary mt-3"
+                onClick={handleSubmit}
+            >
+                submit
+            </button>
+        </LayoutForm>
+    );
 };
 
 export default PageTV;
