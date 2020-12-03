@@ -8,14 +8,15 @@ import { withRouter } from 'react-router-dom';
 function MyPage(props) {
   const [settingVisible, setSettingVisible] = useState(true);
 
+  const [userName, setUsername] = useState('');
+
   const settingModal = () => {
     setSettingVisible({ settingVisible: !settingVisible });
   };
 
   return (
     <Page>
-      <Header isLogin={props.isLogin === true} />
-      {/* 헤더 isLogin true 상태 유지하기 */}
+      <Header isLogin={props.isLogin} />
       <Content>
         <Section>
           <Main>
@@ -33,7 +34,7 @@ function MyPage(props) {
                         <Portrait></Portrait>
                       </Image>
                       <NickName>
-                        <H1>데브피디아</H1>
+                        <H1>1</H1>
                       </NickName>
                       <Desc>
                         <div className="descInner">프로필이 없습니다.</div>

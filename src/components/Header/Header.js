@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import history from '../../history';
-
+import MyPage from '../../pages/MyPage/MyPage';
 import Login from '../../pages/LoginSignUp/Login';
 import SignUp from '../../pages/LoginSignUp/SignUp';
 
@@ -39,7 +39,6 @@ export default function Header() {
         setEmailError(null);
       }
     });
-
     setEmail(email);
   };
 
@@ -58,10 +57,6 @@ export default function Header() {
     setName(name);
   };
 
-  const goToUserProfile = () => {
-    history.push('/myPage');
-  };
-
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -70,7 +65,6 @@ export default function Header() {
         (response) => {
           console.log('loginResponse', response);
           history.push('/');
-          setIsLogin({ isLogin: !isLogin });
         },
         (error) => {
           console.log(error);
@@ -91,8 +85,8 @@ export default function Header() {
     ) {
       AuthService.register(countryCode, name, email, password).then(
         (response) => {
-          console.log('response', response);
-          history.push('/profile');
+          console.log('registerResponse', response);
+          history.push('/user');
         },
         (error) => {
           console.log(error);
@@ -143,14 +137,6 @@ export default function Header() {
           </Link>
         </LiCtg>
 
-        {/* {showAdminBoard && (
-          <LiCtg>
-            <Link to="/book" activeClassName="active">
-              Admin Board
-            </Link>
-          </LiCtg>
-        )} */}
-
         <LiSearch>
           <Search>
             <input
@@ -160,7 +146,7 @@ export default function Header() {
           </Search>
         </LiSearch>
 
-        {isLogin ? (
+        {localStorage.getItem('accessToken') ? (
           <>
             <LiButton>
               <div>
@@ -168,7 +154,7 @@ export default function Header() {
               </div>
             </LiButton>
             <LiButton>
-              <div onClick={goToUserProfile}>
+              <div>
                 <div className="profileBtn">
                   <div className="profilePhotoImg" />
                 </div>
@@ -221,6 +207,7 @@ export default function Header() {
           password={password}
           passwordError={passwordError}
         />
+        <MyPage name={name} />
       </>
     </Wrapper>
   );
@@ -233,7 +220,8 @@ const Wrapper = styled.div`
   z-index: 51;
   background-color: rgb(255, 255, 255);
   text-align: center;
-  width: 100%;
+  width: 100%;a
+
   height: 71px;
   transition: all 700ms ease 0s;
   @media only screen and (min-width: 737px) {

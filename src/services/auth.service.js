@@ -75,41 +75,17 @@ const facebookLogin = (accessToken) => {
     });
 };
 
+const getUserInfo = () => {
+  return api.get('/users/me');
+};
+
 const authService = {
   facebookLogin,
   register,
   login,
   checkEmail,
   onRefresh,
+  getUserInfo,
 };
 
 export default authService;
-
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const { status, data } = error.response;
-//     const originalReq = error.config;
-//     if (status >= 400 && !localStorage.getItem('refreshToken')) {
-//       let refresh;
-//       try {
-//         refresh = (
-//           await api.post('/auth/token', null, {
-//             headers: {
-//               Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
-//             },
-//           })
-//         ).data;
-//         await localStorage.setItem('accessToken', refresh.access_token);
-//         api.defaults.headers['Autorization'] = `Bearer ${refresh.access_token}`;
-//         return await Axios(originalReq);
-//       } catch (e) {
-//         localStorage.clear();
-//         window.location.href = '/';
-//         throw new Error('Session has expired');
-//       }
-//     } else {
-//       throw new Error(data.message);
-//     }
-//   }
-// );

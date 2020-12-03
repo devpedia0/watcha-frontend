@@ -122,12 +122,7 @@ const PageBook = () => {
         error={errors.roles}
       />
 
-      <YearPicker
-        title="제작연도"
-        name="productionDate"
-        value={inputs.productionDate}
-        onChange={onChange}
-      />
+      <FormTags tags={inputs.tags} setTags={setInputs} error={errors.tags} />
 
       <button
         type="button"
