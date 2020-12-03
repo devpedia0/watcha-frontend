@@ -1,5 +1,5 @@
 import React from "react";
-import useInputs from "../../hooks/useInputs";
+import useInputs from "../../Hooks/useInputs";
 
 import { FormSection, File, Input, Textarea } from "../../components";
 
