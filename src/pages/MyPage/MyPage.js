@@ -9,14 +9,16 @@ import { withRouter } from 'react-router-dom';
 function MyPage(props) {
   const [settingVisible, setSettingVisible] = useState(true);
   const [name, setName] = useState('');
+
   const clickEvt = () => {
     AuthService.getUserInfo().then((response) =>
-      console.log(
-        '1',
-        response.data.name,
-        'haha',
-        AuthService.getUserInfo(response)
-      )
+      console.log('dataCheck', AuthService.getUserInfo(response))
+    );
+  };
+
+  const test = () => {
+    AuthService.setUserInfo().then((response) =>
+      console.log('putUserInfoCheck', AuthService.setUserInfo(response))
     );
   };
 
@@ -55,7 +57,9 @@ function MyPage(props) {
                         <H1>{name}</H1>
                       </NickName>
                       <Desc>
-                        <div className="descInner">프로필이 없습니다.</div>
+                        <div className="descInner" onClick={test}>
+                          프로필이 없습니다.
+                        </div>
                       </Desc>
                     </ProfileHeader>
                     <ul>

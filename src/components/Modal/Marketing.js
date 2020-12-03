@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import AuthService from '../../services/auth.service';
 
 export default function Marketing(props) {
-  const [email, setEmail] = useState(true);
-  const [sms, setSms] = useState(true);
-  const [app, setApp] = useState(true);
+  const [email, setEmail] = useState(false);
+  const [sms, setSms] = useState(false);
+  const [app, setApp] = useState(false);
 
-  const emailChange = () => {
-    setEmail(() => !email);
+  const emailState = () => {
+    AuthService.getUserInfo().then((response) => {
+      let email = response.data.isEmailAgreed;
+      // setEmail({ email: !email });
+      console.log(email, 'email', response.data.isEmailAgreed);
+    });
   };
 
-  const smsChange = () => {
-    setSms(() => !sms);
+  const smsState = () => {
+    AuthService.getUserInfo().then((response) => {
+      let sms = response.data.isSmsAgreed;
+      // setEmail({ email: !email });
+      console.log(email, 'sms', response.data.isSmsAgreed);
+    });
   };
-  const appChange = () => {
-    setApp(() => !app);
+  const appState = () => {
+    AuthService.getUserInfo().then((response) => {
+      let app = response.data.isPushAgreed;
+      // setEmail({ email: !email });
+      console.log(email, 'app', response.data.isPushAgreed);
+    });
   };
+
+  const changeEmail = () => {
+    AuthService.setUserInfo().then((response) => {
+      let email = response.data.isEmailAgreed;
+      setEmail({ email: !email });
+    });
+  };
+
+  const changeSms = () => {};
+
+  const changeApp = () => {};
 
   return (
     <BackScreen className={props.switchModal ? 'hideMarketing' : ''}>
@@ -38,16 +62,16 @@ export default function Marketing(props) {
                   <div className="listInner">
                     <div className="innerTitle">E-Mail</div>
 
-                    <div className="extra">
+                    <div className="extra" onClick={emailState}>
                       <ToggleBtn aria-label="toggle">
                         <span
-                          className={email ? 'active bar' : 'inactive bar'}
-                          onClick={emailChange}></span>
+                          className={
+                            email ? 'active bar' : 'inactive bar'
+                          }></span>
                         <span
                           className={
                             email ? 'active circle' : 'inactive circle'
-                          }
-                          onClick={emailChange}></span>
+                          }></span>
                       </ToggleBtn>
                     </div>
                   </div>
@@ -55,14 +79,17 @@ export default function Marketing(props) {
                 <li className="marketingList">
                   <div className="listInner">
                     <div className="innerTitle">SMS</div>
-                    <div className="extra">
+
+                    <div className="extra" onClick={smsState}>
                       <ToggleBtn aria-label="toggle">
                         <span
-                          className={sms ? 'active bar' : 'inactive bar'}
-                          onClick={smsChange}></span>
+                          className={
+                            sms ? 'active bar' : 'inactive bar'
+                          }></span>
                         <span
-                          className={sms ? 'active circle' : 'inactive circle'}
-                          onClick={smsChange}></span>
+                          className={
+                            sms ? 'active circle' : 'inactive circle'
+                          }></span>
                       </ToggleBtn>
                     </div>
                   </div>
@@ -70,14 +97,17 @@ export default function Marketing(props) {
                 <li className="marketingList">
                   <div className="listInner">
                     <div className="innerTitle">앱 Push</div>
-                    <div className="extra">
+
+                    <div className="extra" onClick={appState}>
                       <ToggleBtn aria-label="toggle">
                         <span
-                          className={app ? 'active bar' : 'inactive bar'}
-                          onClick={appChange}></span>
+                          className={
+                            app ? 'active bar' : 'inactive bar'
+                          }></span>
                         <span
-                          className={app ? 'active circle' : 'inactive circle'}
-                          onClick={appChange}></span>
+                          className={
+                            app ? 'active circle' : 'inactive circle'
+                          }></span>
                       </ToggleBtn>
                     </div>
                   </div>

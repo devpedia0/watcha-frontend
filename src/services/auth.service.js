@@ -83,6 +83,14 @@ const getUserInfo = () => {
   });
 };
 
+const setUserInfo = () => {
+  return api.put('/users/me').then((request) => {
+    if (request) {
+      return request;
+    }
+  });
+};
+
 const authService = {
   facebookLogin,
   register,
@@ -90,6 +98,7 @@ const authService = {
   checkEmail,
   onRefresh,
   getUserInfo,
+  setUserInfo,
 };
 
 export default authService;
