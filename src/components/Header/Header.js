@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import history from '../../history';
-import MyPage from '../../pages/MyPage/MyPage';
+
 import Login from '../../pages/LoginSignUp/Login';
 import SignUp from '../../pages/LoginSignUp/SignUp';
 
@@ -15,13 +15,10 @@ export default function Header() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const [profileImg, setProfileImg] = useState('');
   const [countryCode, setCountryCode] = useState('KR');
 
   const [loginVisible, setLoginVisible] = useState(true);
   const [signUpVisible, setSignUpVisible] = useState(true);
-
-  const [isLogin, setIsLogin] = useState(false);
 
   const onChangeEmail = (e) => {
     let email = e.target.value;
@@ -207,7 +204,7 @@ export default function Header() {
           password={password}
           passwordError={passwordError}
         />
-        <MyPage name={name} />
+        {/* <MyPage name={name} /> */}
       </>
     </Wrapper>
   );

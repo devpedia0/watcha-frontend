@@ -19,36 +19,35 @@ const api = axios.create({
   },
 });
 
-axios.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    const _refreshToken = localStorage.getItem('refreshToken');
+// axios.interceptors.response.use(
+//   function (response) {
+//     return response;
+//   },
+//   function (error) {
+//     const _refreshToken = localStorage.getItem('refreshToken');
 
-    console.log('에러', console.log(error));
-    if (error.response.data.status === 401 && error.config && error.response) {
-      console.log('토큰값 에러');
-      // }
-      // if (accessToken === null && refreshToken !== null) {
-      return api
-        .post(
-          'auth/token',
-          { refreshToken },
-          {
-            headers: { refreshToken: _refreshToken },
-          }
-        )
-        .then((response) =>
-          localStorage.setItem(
-            'accessToken',
-            JSON.stringify(response.headers.authorization)
-          )
-        );
-    }
-
-    return Promise.reject(error);
-  }
-);
+//     console.log('에러', console.log(error));
+//     if (error.response.data.status === 401 && error.config && error.response) {
+//       console.log('토큰값 에러');
+//       // }
+//       // if (accessToken === null && refreshToken !== null) {
+//       return api
+//         .post(
+//           'auth/token',
+//           { refreshToken },
+//           {
+//             headers: { refreshToken: _refreshToken },
+//           }
+//         )
+//         .then((response) =>
+//           localStorage.setItem(
+//             'accessToken',
+//             JSON.stringify(response.headers.authorization)
+//           )
+//         );
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api;

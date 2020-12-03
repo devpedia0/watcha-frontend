@@ -76,7 +76,11 @@ const facebookLogin = (accessToken) => {
 };
 
 const getUserInfo = () => {
-  return api.get('/users/me');
+  return api.get('/users/me').then((response) => {
+    if (response) {
+      return response;
+    }
+  });
 };
 
 const authService = {

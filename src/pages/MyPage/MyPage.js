@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Setting from '../../components/Setting/Setting';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
+import AuthService from '../../services/auth.service';
 import { withRouter } from 'react-router-dom';
 
 function MyPage(props) {
   const [settingVisible, setSettingVisible] = useState(true);
+  const [name, setName] = useState('');
+  const clickEvt = () => {
+    AuthService.getUserInfo().then((response) =>
+      console.log(
+        '1',
+        response.data.name,
+        'haha',
+        AuthService.getUserInfo(response)
+      )
+    );
+  };
 
-  const [userName, setUsername] = useState('');
+  useEffect(() => {
+    AuthService.getUserInfo().then((response) => {
+      setName(response.data.name);
+    });
+  }, []);
+
+  // const name = AuthService.getUserInfo().then((response) => response.data.name);
 
   const settingModal = () => {
     setSettingVisible({ settingVisible: !settingVisible });
@@ -34,7 +52,7 @@ function MyPage(props) {
                         <Portrait></Portrait>
                       </Image>
                       <NickName>
-                        <H1>1</H1>
+                        <H1>{name}</H1>
                       </NickName>
                       <Desc>
                         <div className="descInner">프로필이 없습니다.</div>
@@ -45,6 +63,7 @@ function MyPage(props) {
                         <A>
                           <ChartImage></ChartImage>
                           <span
+                            onClick={clickEvt}
                             style={{
                               borderBottom: '1px solid #ededed',
                               padding: '13px 0',
