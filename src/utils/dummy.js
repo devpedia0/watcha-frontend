@@ -18,6 +18,7 @@ const dummy = {
             { rank: 12, imgSrc: process.env.PUBLIC_URL + "/images/6.jpg" },
         ],
     },
+
 };
 
 export default dummy;

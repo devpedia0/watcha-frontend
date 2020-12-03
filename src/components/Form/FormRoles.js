@@ -1,18 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import useInputs from "../../hooks/useInputs";
+import useInputs from '../../Hooks/useInputs';
 
 import ModalParticipant from "../Modal/ModalParticipant";
 import FormSection from "../Form/FormSection";
 import Card from "../Card/Card";
 
+
 const initialValue = {
-    role: "",
-    characterName: "",
-    participantId: "",
+  role: '',
+  characterName: '',
+  participantId: '',
 };
 
 const FormRoles = ({ roles, setRoles }) => {
+
+
     const { inputs, setInputs, onChange } = useInputs(initialValue);
 
     const handleClickSave = () => {
@@ -58,6 +61,7 @@ const FormRoles = ({ roles, setRoles }) => {
             ))}
         </FormSection>
     );
+
 };
 
 export default React.memo(FormRoles);

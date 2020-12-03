@@ -9,14 +9,13 @@ export default function SelectForm(props) {
     setLang({ lang: !lang });
   };
 
-  // onClick={closeBtn}
   return (
     <BackScreen className={props.switchModal ? 'hideSelectForm' : ''}>
       <ModalContainer>
         <Background onClick={props.languageModal} />
         <HalfBottomModal>
           <Header title="선택">
-            <div className="leftBtn">
+            <div className="leftBtn" onClick={props.languageModal}>
               <button className="xBtn" aria-label="close"></button>
             </div>
             <HeaderTitle>선택</HeaderTitle>
@@ -27,7 +26,7 @@ export default function SelectForm(props) {
                 <OptionUl>
                   <li className="optionList">
                     <span className="title">언어</span>
-                    <span>한국어</span>
+                    <span onClick={() => setLang(!lang)}>한국어</span>
                   </li>
                   <li className="optionList">
                     <span className="title">국가/지역</span>
@@ -55,7 +54,6 @@ const BackScreen = styled.div`
   left: 0px;
   z-index: 100;
   overflow: hidden scroll;
-
   &.hideSelectForm {
     display: none;
   }
@@ -69,12 +67,10 @@ const ModalContainer = styled.div`
   left: 0px;
   z-index: 150;
   background: rgba(0, 0, 0, 0.56);
-
   @media (min-width: 719px) {
     text-align: center;
     padding: 20px 0px;
     overflow: auto;
-
     ::after {
       content: '';
       display: inline-block;
@@ -92,7 +88,6 @@ const Background = styled.div`
   right: 0px;
   bottom: 0px;
   z-index: 200;
-
   @media (min-width: 719px) {
     text-align: center;
     padding: 20px 0px;
@@ -111,7 +106,6 @@ const HalfBottomModal = styled.div`
   overflow: hidden;
   min-height: 320px !important;
   z-index: 250;
-
   @media (min-width: 719px) {
     position: relative !important;
     display: inline-block;
@@ -143,11 +137,9 @@ const Header = styled.header`
   box-sizing: border-box;
   top: 0px;
   position: absolute;
-
   .leftBtn {
     position: relative;
     z-index: 2;
-
     .xBtn {
       background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9IiNGRjJGNkUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgMTIgMTIpIj4KICAgICAgICA8cmVjdCB3aWR0aD0iMiIgaGVpZ2h0PSIxOCIgeD0iMTEiIHk9IjMiIHJ4PSIxIi8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjE4IiBoZWlnaHQ9IjIiIHg9IjMiIHk9IjExIiByeD0iMSIvPgogICAgPC9nPgo8L3N2Zz4K);
       padding: 0px;
@@ -172,10 +164,8 @@ const HeaderTitle = styled.em`
 
 const LanRegion = styled.div`
   display: block;
-
   .lanRegionInner {
     margin: 0px 20px;
-
     .lanRegionMargin {
       margin: 60px 0px 0px;
     }
@@ -186,7 +176,6 @@ const OptionUl = styled.ul`
   list-style: none;
   padding: 0px;
   margin: 0px;
-
   .optionList {
     display: flex;
     align-items: center;
@@ -198,7 +187,6 @@ const OptionUl = styled.ul`
     height: 48px;
     border-bottom: 1px solid rgb(240, 240, 240);
     cursor: pointer;
-
     .title {
       flex: 1 1 0%;
       color: rgb(120, 120, 120);
