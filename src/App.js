@@ -7,7 +7,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import  Layout  from './layouts/Layout';
 // pages
 import Home from "./pages/Home/Home";
-import Home2 from './pages/Home/Home2'
+import Detail from './pages/Detail/Detail'
 import Team from "./pages/Team/Team";
 import MyPage from "./pages/MyPage/MyPage";
 import PageBoard from './pages/Form/PageBoard';
@@ -27,7 +27,7 @@ function App() {
                 <Switch>
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
-                    <Layout path="/test" exact component={Home2} />
+                    <Layout path="/test" exact component={Detail} />
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
                     <LayoutForm path="/admin/movies" exact component={PageBoard} />

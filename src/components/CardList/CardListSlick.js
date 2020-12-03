@@ -1,33 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
-import dummy from "../../utils/dummy";
+//import dummy from "../../utils/dummy";
 import BoxImg from "../Box/BoxImg";
 // import api from "../../services/api";
+// import useOnScreen from "../../hooks/useOnScreen";
 
-const initialState = {
-    title: "",
-    poster: "",
-    description: "",
-    items: [],
-};
+// const initialState = {
+//     title: "",
+//     poster: "",
+//     description: "",
+//     items: [],
+// };
 
-const CardListSlick = ({ fetchURL, size, card: Card }) => {
+const CardListSlick = ({ data, size, card: Card }) => {
+    // const [ref, isShow] = useOnScreen("-100px");
     const slider = useRef();
-    const [data, setData] = useState(initialState);
+    // const [loading, setLoading] = useState(false);
+    // const [data, setData] = useState(initialState);
     const [buttonCtrl, setButtonCtrl] = useState({
         posX: 0,
         left: false,
         right: true,
     });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // const res = await api.get(fetchURL);
-            const res = dummy;
-            setData(res.data);
-        };
-        fetchData();
-    }, [fetchURL]);
+    // useEffect(() => {
+    //     if (isShow) {
+    //         setLoading(true);
+    //     }
+    // }, [isShow]);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         console.log("패치");
+    //         // const res = await api.get(fetchURL);
+    //         const res = dummy;
+    //         setData(res.data);
+    //     };
+    //     if (loading) {
+    //         fetchData();
+    //     }
+    // }, [loading]);
 
     const handleClickButton = (type) => {
         const childNum = slider.current.children.length;
@@ -44,8 +56,13 @@ const CardListSlick = ({ fetchURL, size, card: Card }) => {
         });
     };
 
+    if (Object.keys(data).length === 0) {
+        return null;
+    }
+
     return (
         <Wrapper>
+            {/* <Wrapper ref={ref}> */}
             <Title>
                 {data.poster ? (
                     <>
