@@ -6,6 +6,7 @@ import {
     CardPoster,
     Loader,
 } from "../../components";
+import api from "../../services/api";
 import dummy from "../../utils/dummy";
 
 const Wrapper = styled.div`
@@ -30,7 +31,7 @@ const Wrapper = styled.div`
 `;
 
 const steps = [
-    { id: "rank" },
+    { id: "rank", fetchUrl: "" },
     { id: "score" },
     { id: "award" },
     { id: "tag" },
@@ -50,14 +51,18 @@ const Home = () => {
         collection: {},
     });
 
-    const getDataAPI = useCallback(() => {
+    const getDataAPI = useCallback(async () => {
         if (state.step <= 5) {
-            const type = steps[state.step].id;
+            const type = steps[state.step];
             // const res = await api.get(fetchURL);
+
+            // const res2 = await api.get("/public/movies/rankings/contents");
+            // console.log(res2);
+
             const res = dummy;
             setState((prevState) => ({
                 ...prevState,
-                [type]: res.data,
+                [type.id]: res.data,
             }));
         }
 
