@@ -25,7 +25,8 @@ export { default as FormRoles } from "./Form/FormRoles";
 export { default as FormTags } from "./Form/FormTags";
 // Header
 export { default as Header } from "./Header/Header";
-
+// Loader
+export { default as Loader } from "./Loader/Loader";
 // Modal
 export { default as Modal } from "./Modal/Modal";
 export { default as ModalParticipant } from "./Modal/ModalParticipant";

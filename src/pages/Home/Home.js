@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { CardCollection, CardListSlick, CardPoster } from "../../components";
-
-const collectionItem = {
-    posters: [
-        process.env.PUBLIC_URL + "/images/1.jpg",
-        process.env.PUBLIC_URL + "/images/2.jpg",
-        process.env.PUBLIC_URL + "/images/3.jpg",
-        process.env.PUBLIC_URL + "/images/4.jpg",
-    ],
-    title: "컬렉션 테스트",
-};
+import {
+    CardCollection,
+    CardListSlick,
+    CardPoster,
+    Loader,
+} from "../../components";
+import dummy from "../../utils/dummy";
 
 const Wrapper = styled.div`
     display: flex;
@@ -33,16 +29,84 @@ const Wrapper = styled.div`
     }
 `;
 
+const steps = [
+    { id: "rank" },
+    { id: "score" },
+    { id: "award" },
+    { id: "tag" },
+    { id: "popular" },
+    { id: "collection" },
+];
+
 const Home = () => {
+    const [state, setState] = useState({
+        step: 0,
+        loading: false,
+        rank: {},
+        score: {},
+        award: {},
+        tag: {},
+        popular: {},
+        collection: {},
+    });
+
+    const getDataAPI = useCallback(() => {
+        if (state.step <= 5) {
+            const type = steps[state.step].id;
+            // const res = await api.get(fetchURL);
+            const res = dummy;
+            setState((prevState) => ({
+                ...prevState,
+                [type]: res.data,
+            }));
+        }
+
+        setState((prevState) => ({
+            ...prevState,
+            loading: false,
+        }));
+    }, [state.step]);
+
+    const infiniteScroll = useCallback(() => {
+        let elem = document.documentElement;
+        let body = document.body;
+
+        let scrollHeight = Math.max(elem.scrollHeight, body.scrollHeight);
+        let scrollTop = Math.max(elem.scrollTop, body.scrollTop);
+        let clientHeight = elem.clientHeight;
+
+        if (scrollTop + 250 >= scrollHeight - clientHeight) {
+            setState((prevState) => ({
+                ...prevState,
+                loading: true,
+                step: prevState.step + 1,
+            }));
+
+            getDataAPI();
+        }
+    }, [getDataAPI]);
+
+    useEffect(() => {
+        window.addEventListener("scroll", infiniteScroll);
+        getDataAPI();
+        return () => window.removeEventListener("scroll", infiniteScroll);
+    }, [infiniteScroll, getDataAPI]);
+
     return (
         <Wrapper>
-            <CardListSlick fetchURL="" card={CardPoster} />
-            <CardListSlick fetchURL="" card={CardPoster} />
-            <CardListSlick fetchURL="" card={CardPoster} />
-            <CardListSlick fetchURL="" card={CardPoster} size="medium" />
-            <CardListSlick fetchURL="" card={CardPoster} size="medium" />
-            <CardListSlick fetchURL="" card={CardPoster} size="medium" />
-            <CardListSlick fetchURL="" card={CardCollection} size="medium" />
+            <CardListSlick data={state.rank} card={CardPoster} />
+            <CardListSlick data={state.rank} card={CardPoster} />
+            <CardListSlick data={state.rank} card={CardPoster} />
+            <CardListSlick data={state.score} card={CardPoster} size="medium" />
+            <CardListSlick data={state.award} card={CardPoster} size="medium" />
+            <CardListSlick data={state.tag} card={CardPoster} size="medium" />
+            <CardListSlick data={state.popular} card={CardPoster} />
+            <CardListSlick
+                data={state.collection}
+                card={CardCollection}
+                size="medium"
+            />
+            {state.loading && <Loader />}
         </Wrapper>
     );
 };
