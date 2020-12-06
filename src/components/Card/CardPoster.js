@@ -1,5 +1,36 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import history from "../../history";
+
+const CardPoster = ({ size, item, rank }) => {
+    return (
+        <Wrapper
+            size={size}
+            onClick={() => history.push(`/contents/${item.id}`)}
+        >
+            <ContentImg>
+                <img src={item.posterImagePath + "?w=280&h=400"} alt="" />
+                {rank && <RankBlock>{rank}</RankBlock>}
+                <WatchaBlock show={item.isWatchaContent} />
+                <NetflixBlock show={item.isNetflixContent} />
+            </ContentImg>
+            <ContentInfo>
+                <div className="title">{item.mainTitle}</div>
+                {item.year && <div className="year-nation">1996 ・ 미국</div>}
+                {item.score && (
+                    <div className="rating">평균★{item.score.toFixed(1)}</div>
+                )}
+                {item.rate && (
+                    <div className="box-office">
+                        예매율 {item.rate}% ・ 누적 관객 1만명
+                    </div>
+                )}
+            </ContentInfo>
+        </Wrapper>
+    );
+};
+
+export default CardPoster;
 
 const Wrapper = styled.li`
     display: inline-block;
@@ -8,6 +39,7 @@ const Wrapper = styled.li`
     width: 33.333333333333336%;
     padding: 0 4px;
     margin-bottom: 0px;
+    cursor: pointer;
 
     @media only screen and (min-width: 600px) {
         width: ${(props) => (props.size === "medium" ? "25%" : "33.3333%")};
@@ -98,6 +130,7 @@ const RankBlock = styled.div`
 `;
 
 const WatchaBlock = styled.div`
+    display: ${(props) => (props.show ? "block" : "none")};
     position: relative;
     float: right;
     background: url("https://images.watcha.net/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png")
@@ -119,13 +152,37 @@ const WatchaBlock = styled.div`
         margin: 6px 6px 0px 0px;
     }
 `;
+const NetflixBlock = styled.div`
+    display: ${(props) => (props.show ? "block" : "none")};
+    position: relative;
+    float: right;
+    background: url("https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png")
+        center center / 17px no-repeat rgb(255, 255, 255);
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    padding: 4px 3px 3px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 50%;
+    opacity: 1;
+    transition: opacity 300ms ease 0s;
+
+    @media only screen and (min-width: 719px) {
+        background-size: 20px;
+        width: 30px;
+        height: 30px;
+        padding: 4px;
+        margin: 6px 6px 0px 0px;
+    }
+`;
+
 const ContentInfo = styled.div`
     text-align: left;
     width: calc(100% - 10px);
     margin: 5px 10px 0 0;
     cursor: pointer;
 
-    .contentTitle {
+    .title {
         color: #292a32;
         font-size: 16px;
         font-weight: 500;
@@ -137,7 +194,7 @@ const ContentInfo = styled.div`
         margin-bottom: 3px;
     }
 
-    .yearAndNation {
+    .year-nation {
         color: #292a32;
         padding-bottom: 1px;
         font-size: 14px;
@@ -146,7 +203,7 @@ const ContentInfo = styled.div`
         line-height: 21px;
     }
 
-    .contentRating {
+    .rating {
         margin-top: 2px;
         color: #555765;
         font-weight: 400;
@@ -160,7 +217,7 @@ const ContentInfo = styled.div`
         height: 15px;
     }
 
-    .ContentBoxOfficeStats {
+    .box-office {
         color: #74747b;
         white-space: normal;
         font-size: 13px;
@@ -170,42 +227,3 @@ const ContentInfo = styled.div`
         margin-top: 5px;
     }
 `;
-const CardPoster = ({ size, item }) => {
-    return (
-        <Wrapper size={size}>
-            <ContentImg>
-                <img src={item.imgSrc} alt="" />
-                {item.rank && <RankBlock>{item.rank}</RankBlock>}
-                <WatchaBlock />
-            </ContentImg>
-            <ContentInfo>
-                <div className="contentTitle">도굴</div>
-                <div className="yearAndNation">1996 ・ 미국</div>
-                <div className="contentRating">
-                    <span>평균</span>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="13"
-                        height="13"
-                        viewBox="0 0 12 12"
-                        fill="#555765"
-                        className="css-a4gmui-IcRatingStarSvg erjycaa0"
-                    >
-                        <path
-                            className="fillTarget"
-                            fill="#6A6B76"
-                            fillRule="evenodd"
-                            d="M5.637 8.02L2.779 9.911c-.138.092-.324.054-.415-.084-.048-.073-.063-.162-.04-.246l.916-3.302L.56 4.145c-.13-.103-.152-.292-.048-.421.054-.068.134-.11.221-.113l3.424-.15 1.2-3.21c.058-.155.23-.233.386-.175.081.03.146.094.176.175l1.2 3.21 3.424.15c.165.007.294.147.286.313-.003.086-.045.167-.112.221L8.034 6.28l.915 3.302c.045.16-.049.325-.209.37-.083.022-.173.008-.245-.04L5.637 8.02z"
-                        ></path>
-                    </svg>
-                    <span>3.7</span>
-                </div>
-                <div className="ContentBoxOfficeStats">
-                    예매율 5.5% ・ 누적 관객 1만명
-                </div>
-            </ContentInfo>
-        </Wrapper>
-    );
-};
-
-export default CardPoster;
