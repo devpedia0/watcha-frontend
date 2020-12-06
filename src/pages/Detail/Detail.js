@@ -9,26 +9,18 @@ import {
     Stars,
 } from "../../components";
 import styled from "styled-components";
-const Wrapper = styled.div`
-    /* display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 0px);
-    margin-top: 74px;
-    width: 100%;
 
-    @media only screen and (min-width: 600px) {
-        min-height: calc(100vh - 343px);
-        margin-top: 74px;
-    }
-
-    @media only screen and (min-width: 760px) {
-        margin-top: 80px;
-    }
-
-    @media only screen and (min-width: 1100px) {
-        margin-top: 86px;
-    } */
-`;
+const data = {
+    title: "이웃사촌",
+    category: "드라마",
+    country: "한국",
+    year: "2020",
+    status: "wish",
+    rate: 3.4,
+    num: 88,
+    imgUrl:
+        "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605487645/ciydhyimcw07k4e516hu.jpg",
+};
 
 const Detail = () => {
     return (
@@ -61,12 +53,14 @@ const Detail = () => {
                 <ContentContainer>
                     <ContentInfo>
                         <ContentInfoList>
-                            <Title>영화제목</Title>
+                            <Title>{data.title}</Title>
                             <InfoDetail>
-                                2020 ・ OCN ・ 판타지/드라마/TV드라마
+                                {`${data.year} ・ ${data.category} ・ ${data.country}`}
                             </InfoDetail>
-                            <InfoRating>평균 ★3.4 (88명)</InfoRating>
-                            <ModalBookmark />
+                            <InfoRating>
+                                평균 ★{data.rate} ({data.num})
+                            </InfoRating>
+                            <ModalBookmark data={data} />
                             <Stars />
                         </ContentInfoList>
                     </ContentInfo>
@@ -81,6 +75,27 @@ const Detail = () => {
 };
 
 export default Detail;
+
+const Wrapper = styled.div`
+    /* display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 0px);
+    margin-top: 74px;
+    width: 100%;
+
+    @media only screen and (min-width: 600px) {
+        min-height: calc(100vh - 343px);
+        margin-top: 74px;
+    }
+
+    @media only screen and (min-width: 760px) {
+        margin-top: 80px;
+    }
+
+    @media only screen and (min-width: 1100px) {
+        margin-top: 86px;
+    } */
+`;
 
 const Section = styled.div`
     background: #fff;

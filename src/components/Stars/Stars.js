@@ -45,7 +45,7 @@ const Stars = () => {
 
     return (
         <StarContainer rate={rate}>
-            <div className="text">{ratedTextMap[rate]}</div>
+            <div className="text">{ratedTextMap[fetchedRate]}</div>
 
             <div
                 className="star_block"
