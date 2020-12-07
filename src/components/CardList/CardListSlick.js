@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-import BoxImg from "../Box/BoxImg";
 
 const CardListSlick = ({ data, size, card: Card, rank }) => {
     const slider = useRef();
@@ -34,12 +33,7 @@ const CardListSlick = ({ data, size, card: Card, rank }) => {
             <Title>
                 {data.poster ? (
                     <>
-                        <BoxImg
-                            radius="50%"
-                            width="42px"
-                            height="42px"
-                            src={data.poster}
-                        />
+                        <img className="titleImg" src={data.poster} alt="" />
                         <div className="infoWrapper">
                             <p>{data.description}</p>
                             <h2>{data.title}</h2>
@@ -71,11 +65,13 @@ const CardListSlick = ({ data, size, card: Card, rank }) => {
                     left
                     show={buttonCtrl.left}
                     onClick={() => handleClickButton("left")}
+                    size={size}
                 />
                 <ArrowButton
                     right
                     show={buttonCtrl.right}
                     onClick={() => handleClickButton("right")}
+                    size={size}
                 />
             </Content>
         </Wrapper>
@@ -95,18 +91,35 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-    display: flex;
     white-space: nowrap;
     max-width: 1320px;
+    padding: 12px 0px 14px;
+    // margin-right: 15px;
+    // margin-left: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 29px;
-    max-height: 58px;
-    padding: 12px 0px 14px;
+    /* height: 52px; */
+    display: flex;
+
+    .titleImg {
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        margin: 4px 10px 4px 0px;
+        //background-image: url(https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_100,w_100/v1600028633/brszbbjluan7dyd8odju.jpg);
+        background-size: contain;
+
+        @media only screen and (min-width: 719px) {
+            width: 42px;
+            height: 42px;
+        }
+    }
 
     .infoWrapper {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        max-width: calc(100% - 74px);
 
         p {
             color: rgb(116, 116, 123);
@@ -198,13 +211,22 @@ const ArrowButton = styled.div`
         }}
 
         @media only screen and (min-width: 760px) {
-            margin-top: calc((100vw - 60px) * 108 / 157 / 4 - 17px);
+            margin-top: ${(props) =>
+                props.size === "medium"
+                    ? "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"
+                    : "calc((100vw - 120px) * 108 / 157 / 4 - 17px)"};
         }
         @media only screen and (min-width: 1100px) {
-            margin-top: calc((100vw - 120px) * 108 / 157 / 5 - 17px);
+            margin-top: ${(props) =>
+                props.size === "medium"
+                    ? "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"
+                    : "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"};
         }
         @media only screen and (min-width: 1440px) {
-            margin-top: calc(1320px * 108 / 157 / 5 - 17px);
+            margin-top: ${(props) =>
+                props.size === "medium"
+                    ? "calc((100vw - 120px) * 108 / 157 / 7 - 17px)"
+                    : "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"};
         }
     }
 

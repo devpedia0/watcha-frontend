@@ -1,8 +1,6 @@
 import React from "react";
 import {
     BoxForm,
-    CardPoster,
-    CardList,
     CardListSlick,
     CardCollection,
     ModalBookmark,
@@ -68,7 +66,6 @@ const Detail = () => {
             </Section>
             <BoxForm>
                 <CardListSlick data={[]} card={CardCollection} />
-                <CardList data={[]} card={CardPoster} />
             </BoxForm>
         </Wrapper>
     );
