@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import AuthService from '../../services/auth.service';
+import api from '../../services/api';
 
 export default function Private(props) {
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  const all = useRef();
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await AuthService.getUserInfo();
+      console.log('getData', response);
+    };
+    getData();
+  }, []);
+
+  const handleChange = () => {};
 
   return (
     <BackScreen className={props.switchModal ? 'hideRange' : ''}>
@@ -29,9 +39,9 @@ export default function Private(props) {
                   <li className="list">
                     <div className="radioContainer">
                       <span
-                        defaultChecked={true}
+                        ref={all}
+                        id="1"
                         onClick={handleChange}
-                        key="1"
                         className={
                           checked ? 'radioImg active' : 'radioImg inactive'
                         }></span>
@@ -43,12 +53,12 @@ export default function Private(props) {
                       </div>
                     </div>
                   </li>
+
                   <li className="list">
                     <div className="radioContainer">
                       <span
-                        key="2"
-                        defaultChecked={false}
                         onClick={handleChange}
+                        id="2"
                         className={
                           checked ? 'radioImg active' : 'radioImg inactive'
                         }></span>
@@ -60,12 +70,12 @@ export default function Private(props) {
                       </div>
                     </div>
                   </li>
+
                   <li className="list">
                     <div className="radioContainer">
                       <span
-                        key="3"
-                        defaultChecked={false}
                         onClick={handleChange}
+                        id="3"
                         className={
                           checked ? 'radioImg active' : 'radioImg inactive'
                         }></span>

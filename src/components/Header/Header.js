@@ -150,7 +150,7 @@ export default function Header() {
                 <button className="estimate">평가하기</button>
               </div>
             </LiButton>
-            <LiButton>
+            <LiButton onClick={() => (window.location.href = '/myPage')}>
               <div>
                 <div className="profileBtn">
                   <div className="profilePhotoImg" />

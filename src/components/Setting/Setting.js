@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Marketing from '../Modal/Marketing';
 import Range from '../Modal/Range';
-import Language from '../../pages/LoginSignUp/Languages/Language';
+import SelectCountry from '../../pages/LoginSignUp/Languages/SelectCountry';
 import LogOut from '../Modal/LogOut';
 import Secession from '../Modal/Secession';
 
@@ -15,20 +15,21 @@ export default function Setting(props) {
   const [logOut, setLogOut] = useState(true);
   const [secession, setSecession] = useState(true);
 
+  const marketingModal = () => {
+    setMarketing({ marketing: !marketing });
+  };
+
   const facebookChange = () => {
     setFacebook(() => !facebook);
   };
 
+  const rangeModal = () => {
+    setRange({ range: !range });
+  };
   const twitterChange = () => {
     setTwitter(() => !twitter);
   };
 
-  const marketingModal = () => {
-    setMarketing({ marketing: !marketing });
-  };
-  const rangeModal = () => {
-    setRange({ range: !range });
-  };
   const languageModal = () => {
     setLang({ lang: !lang });
   };
@@ -132,7 +133,7 @@ export default function Setting(props) {
                   <div className="subCategoryTitle">서비스 설정</div>
                   <VisualUl Padding>
                     <TextList>
-                      <div className="inner" onClick={() => setLang(!lang)}>
+                      <div className="inner">
                         <div className="innerTitle">언어</div>
                         <div className="extra">
                           <span className="languageValue">한국어</span>
@@ -140,7 +141,7 @@ export default function Setting(props) {
                       </div>
                     </TextList>
                     <TextList>
-                      <div className="inner">
+                      <div className="inner" onClick={() => setLang(!lang)}>
                         <div className="innerTitle">국가 및 지역</div>
                         <div className="extra">
                           <span className="languageValue">대한민국</span>
@@ -198,7 +199,7 @@ export default function Setting(props) {
         <>
           <Marketing marketingModal={marketingModal} switchModal={marketing} />
           <Range rangeModal={rangeModal} switchModal={range} />
-          <Language languageModal={languageModal} switchModal={lang} />
+          <SelectCountry languageModal={languageModal} switchModal={lang} />
           <LogOut logOutModal={logOutModal} switchModal={logOut} />
           <Secession secessionModal={secessionModal} switchModal={secession} />
         </>

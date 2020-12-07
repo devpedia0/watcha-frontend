@@ -1,45 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AuthService from '../../services/auth.service';
+import api from '../../services/api';
 
 export default function Marketing(props) {
+  const [userInfo, setUserInfo] = useState({});
   const [email, setEmail] = useState(false);
   const [sms, setSms] = useState(false);
   const [app, setApp] = useState(false);
 
+  //UserInfo 가져오기
+  useEffect(() => {
+    const getData = async () => {
+      const response = await AuthService.getUserInfo();
+      setUserInfo(() => response.data);
+
+      response.data.isEmailAgreed === false
+        ? setEmail(email)
+        : setEmail(!email);
+
+      response.data.isSmsAgreed === false ? setSms(sms) : setSms(!sms);
+
+      response.data.isPushAgreed === false ? setApp(app) : setApp(!app);
+
+      console.log('get데이터', response.data);
+    };
+    getData();
+  }, []);
+
+  //상태 변화
   const emailState = () => {
-    AuthService.getUserInfo().then((response) => {
-      let email = response.data.isEmailAgreed;
-      // setEmail({ email: !email });
-      console.log(email, 'email', response.data.isEmailAgreed);
+    const sendEmail = {
+      ...userInfo,
+      isEmailAgreed: !email,
+    };
+
+    api.put('/users/me', sendEmail).then((response) => {
+      console.log('이메일 변경체크하기', response.config.data);
     });
   };
 
   const smsState = () => {
-    AuthService.getUserInfo().then((response) => {
-      let sms = response.data.isSmsAgreed;
-      // setEmail({ email: !email });
-      console.log(email, 'sms', response.data.isSmsAgreed);
+    const sendSms = {
+      ...userInfo,
+      isSmsAgreed: !sms,
+    };
+    api.put('/users/me', sendSms).then((response) => {
+      setSms(!sms);
+      console.log('sms 변경체크하기', response.config.data);
     });
   };
+
   const appState = () => {
-    AuthService.getUserInfo().then((response) => {
-      let app = response.data.isPushAgreed;
-      // setEmail({ email: !email });
-      console.log(email, 'app', response.data.isPushAgreed);
+    const sendApp = {
+      ...userInfo,
+      isPushAgreed: !app,
+    };
+    api.put('/users/me', sendApp).then((response) => {
+      setApp(!app);
+      console.log('app 변경체크하기', response.config.data);
     });
   };
-
-  const changeEmail = () => {
-    AuthService.setUserInfo().then((response) => {
-      let email = response.data.isEmailAgreed;
-      setEmail({ email: !email });
-    });
-  };
-
-  const changeSms = () => {};
-
-  const changeApp = () => {};
 
   return (
     <BackScreen className={props.switchModal ? 'hideMarketing' : ''}>
@@ -62,8 +83,8 @@ export default function Marketing(props) {
                   <div className="listInner">
                     <div className="innerTitle">E-Mail</div>
 
-                    <div className="extra" onClick={emailState}>
-                      <ToggleBtn aria-label="toggle">
+                    <div className="extra">
+                      <ToggleBtn aria-label="toggle" onClick={emailState}>
                         <span
                           className={
                             email ? 'active bar' : 'inactive bar'
@@ -80,8 +101,8 @@ export default function Marketing(props) {
                   <div className="listInner">
                     <div className="innerTitle">SMS</div>
 
-                    <div className="extra" onClick={smsState}>
-                      <ToggleBtn aria-label="toggle">
+                    <div className="extra">
+                      <ToggleBtn aria-label="toggle" onClick={smsState}>
                         <span
                           className={
                             sms ? 'active bar' : 'inactive bar'
@@ -98,8 +119,8 @@ export default function Marketing(props) {
                   <div className="listInner">
                     <div className="innerTitle">앱 Push</div>
 
-                    <div className="extra" onClick={appState}>
-                      <ToggleBtn aria-label="toggle">
+                    <div className="extra">
+                      <ToggleBtn aria-label="toggle" onClick={appState}>
                         <span
                           className={
                             app ? 'active bar' : 'inactive bar'

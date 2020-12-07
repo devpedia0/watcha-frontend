@@ -83,11 +83,18 @@ const getUserInfo = () => {
   });
 };
 
-const setUserInfo = () => {
-  return api.put('/users/me').then((request) => {
-    if (request) {
-      return request;
+const getUserRating = () => {
+  return api.get('/users/me/ratings').then((response) => {
+    if (response) {
+      return response;
     }
+  });
+};
+
+const setUserInfo = () => {
+  return api.put('/users/me').then((response) => {
+    JSON.parse(response);
+    return response;
   });
 };
 
@@ -99,6 +106,8 @@ const authService = {
   onRefresh,
   getUserInfo,
   setUserInfo,
+
+  getUserRating,
 };
 
 export default authService;

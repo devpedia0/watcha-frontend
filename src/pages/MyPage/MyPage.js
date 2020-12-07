@@ -8,27 +8,47 @@ import { withRouter } from 'react-router-dom';
 
 function MyPage(props) {
   const [settingVisible, setSettingVisible] = useState(true);
-  const [name, setName] = useState('');
+  const [name, setName] = useState('데브피디아');
+  const [desc, setDesc] = useState('프로필이 없습니다.');
 
-  const clickEvt = () => {
-    AuthService.getUserInfo().then((response) =>
-      console.log('dataCheck', AuthService.getUserInfo(response))
-    );
-  };
+  const [toggle, setToggle] = useState({
+    book: 0,
+    tvShow: 0,
+    movie: 0,
+  });
 
-  const test = () => {
-    AuthService.setUserInfo().then((response) =>
-      console.log('putUserInfoCheck', AuthService.setUserInfo(response))
-    );
-  };
+  const [wishes, setWishes] = useState({
+    book: 0,
+    tvShow: 0,
+    movie: 0,
+  });
 
   useEffect(() => {
-    AuthService.getUserInfo().then((response) => {
-      setName(response.data.name);
-    });
-  }, []);
+    AuthService.getUserInfo().then(
+      (response) => {
+        setName(response.data.name);
+        if (response.data.description !== null) {
+          setDesc(response.data.description);
+        } else if (response.data.description === null) {
+          return desc;
+        }
+      },
 
-  // const name = AuthService.getUserInfo().then((response) => response.data.name);
+      AuthService.getUserRating().then((response) => {
+        console.log(response.data);
+        setToggle({
+          book: response.data.book.ratingCount,
+          tvShow: response.data.tvShow.ratingCount,
+          movie: response.data.movie.ratingCount,
+        });
+        setWishes({
+          book: response.data.book.wishCount,
+          tvShow: response.data.tvShow.wishCount,
+          movie: response.data.movie.wishCount,
+        });
+      })
+    );
+  }, []);
 
   const settingModal = () => {
     setSettingVisible({ settingVisible: !settingVisible });
@@ -57,9 +77,7 @@ function MyPage(props) {
                         <H1>{name}</H1>
                       </NickName>
                       <Desc>
-                        <div className="descInner" onClick={test}>
-                          프로필이 없습니다.
-                        </div>
+                        <div className="descInner">{desc}</div>
                       </Desc>
                     </ProfileHeader>
                     <ul>
@@ -67,7 +85,6 @@ function MyPage(props) {
                         <A>
                           <ChartImage></ChartImage>
                           <span
-                            onClick={clickEvt}
                             style={{
                               borderBottom: '1px solid #ededed',
                               padding: '13px 0',
@@ -83,7 +100,7 @@ function MyPage(props) {
                     <Ul>
                       <Li>
                         <Box
-                          href="/"
+                          href="/myMovie"
                           style={{
                             background:
                               'linear-gradient(45deg, #82d957 40%, #bfe874 100%)',
@@ -95,9 +112,9 @@ function MyPage(props) {
                             }}>
                             <Title>영화</Title>
                             <div style={{ display: 'flex' }}>
-                              ★<Star>222</Star>
+                              ★<Star>{toggle.movie}</Star>
                               <Clip>
-                                보고싶어요 <strong>4</strong>
+                                보고싶어요 <strong>{wishes.movie}</strong>
                               </Clip>
                             </div>
                           </Category>
@@ -105,7 +122,7 @@ function MyPage(props) {
                       </Li>
                       <Li>
                         <Box
-                          href="/"
+                          href="/myTv"
                           style={{
                             background:
                               'linear-gradient(45deg, #ffbf66 40%, #ffc89e 100%)',
@@ -117,9 +134,9 @@ function MyPage(props) {
                             }}>
                             <Title>TV 프로그램</Title>
                             <div style={{ display: 'flex' }}>
-                              ★<Star>222</Star>
+                              ★<Star>{toggle.tvShow}</Star>
                               <Clip>
-                                보고싶어요 <strong>4</strong>
+                                보고싶어요 <strong>{wishes.tvShow}</strong>
                               </Clip>
                             </div>
                           </Category>
@@ -127,7 +144,7 @@ function MyPage(props) {
                       </Li>
                       <Li>
                         <Box
-                          href="/"
+                          href="/myBook"
                           style={{
                             background:
                               'linear-gradient(45deg, #60d1f0 40%, #70e0d3 100%)',
@@ -139,9 +156,9 @@ function MyPage(props) {
                             }}>
                             <Title>책</Title>
                             <div style={{ display: 'flex' }}>
-                              ★<Star>222</Star>
+                              ★<Star>{toggle.book}</Star>
                               <Clip>
-                                읽고 싶어요 <strong>4</strong>
+                                읽고 싶어요 <strong>{wishes.book}</strong>
                               </Clip>
                             </div>
                           </Category>
@@ -395,7 +412,7 @@ const Star = styled.div`
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.7px;
-  line-height: 28px;
+  /* line-height: 28px; */
 `;
 
 const Clip = styled.div`
