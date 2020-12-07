@@ -31,5 +31,8 @@ export { default as Loader } from "./Loader/Loader";
 export { default as Modal } from "./Modal/Modal";
 export { default as ModalParticipant } from "./Modal/ModalParticipant";
 export { default as ModalTag } from "./Modal/ModalTag";
+export { default as ModalBookmark } from "./Modal/ModalBookmark";
 // Setting
 export { default as Setting } from "./Setting/Setting";
+// Stars
+export { default as Stars } from "./Stars/Stars";

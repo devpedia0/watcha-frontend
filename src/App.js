@@ -26,7 +26,8 @@ function App() {
                 <Switch>
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
-                    <Layout path="/test" exact component={Detail} />
+                    <Layout path="/" exact component={Home} />
+                    <Layout path="/contents" exact component={Detail} />
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
                     <LayoutForm path="/admin/movies" exact component={PageBoard} />
@@ -39,7 +40,7 @@ function App() {
                     <LayoutForm path="/admin/tv_shows/form" component={PageTV} />
                     <LayoutForm path="/admin/collections" exact component={PageBoard} />
                     <LayoutForm path="/admin/collections/form" component={PageCollection} />
-                    <Layout path="/" exact component={Home} />
+                    
                     <Redirect from="/admin" to="/admin/movies/form" />
                     <Redirect to="/" />
                 </Switch>
