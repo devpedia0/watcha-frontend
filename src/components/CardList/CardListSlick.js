@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import BoxImg from "../Box/BoxImg";
 
-const CardListSlick = ({ data, size, card: Card }) => {
+const CardListSlick = ({ data, size, card: Card, rank }) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
         posX: 0,
@@ -40,13 +40,13 @@ const CardListSlick = ({ data, size, card: Card }) => {
                             height="42px"
                             src={data.poster}
                         />
-                        <div className="d-flex ">
-                            <p>{data.title}</p>
-                            {data.title}
+                        <div className="infoWrapper">
+                            <p>{data.description}</p>
+                            <h2>{data.title}</h2>
                         </div>
                     </>
                 ) : (
-                    <p>{data.title}</p>
+                    <h2>{data.title}</h2>
                 )}
             </Title>
             <Content>
@@ -57,8 +57,13 @@ const CardListSlick = ({ data, size, card: Card }) => {
                             transform: `translateX(-${buttonCtrl.posX}px)`,
                         }}
                     >
-                        {data.items.map((item, idx) => (
-                            <Card key={idx} item={item} size={size} />
+                        {data.list.map((item, idx) => (
+                            <Card
+                                key={idx}
+                                item={item}
+                                size={size}
+                                rank={rank ? idx + 1 : ""}
+                            />
                         ))}
                     </CardContainer>
                 </CardContainerNonVisible>
@@ -97,9 +102,23 @@ const Title = styled.div`
     text-overflow: ellipsis;
     line-height: 29px;
     max-height: 58px;
-    padding: 4px 20px 9px 0;
+    padding: 12px 0px 14px;
 
-    p {
+    .infoWrapper {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            color: rgb(116, 116, 123);
+            font-size: 15px;
+            font-weight: normal;
+            letter-spacing: -0.2px;
+            line-height: 19px;
+            margin-bottom: 1px;
+        }
+    }
+
+    h2 {
         color: #292a32;
         font-size: 22px;
         font-weight: 700;
