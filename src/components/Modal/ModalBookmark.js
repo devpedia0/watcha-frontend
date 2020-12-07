@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useOpen from "../../Hooks/useOpen";
 
 const ModalBookmark = ({ data }) => {
-    const [isOpen, onClickOpen, onClickClose] = useOpen();
+    const [isOpen, setOpen, onClickClose] = useOpen();
     const [status, setStatus] = useState("");
 
     useEffect(() => {
@@ -11,6 +11,14 @@ const ModalBookmark = ({ data }) => {
             setStatus(data.status);
         }
     }, [data.status]);
+
+    const handleClickOpen = () => {
+        if (!status) {
+            setStatus("wish");
+        } else {
+            setOpen(true);
+        }
+    };
 
     const handleClick = (type) => {
         setStatus((state) => (state === type ? "" : type));
@@ -20,8 +28,8 @@ const ModalBookmark = ({ data }) => {
     return (
         <>
             <ButtonContainer>
-                <ButtonBlock onClick={onClickOpen}>
-                    <ButtonLeft>
+                <ButtonBlock isClicked={!!status} onClick={handleClickOpen}>
+                    <button className="btn-left">
                         <div className="btn-left-content">
                             <IconSelector status={status} />
 
@@ -31,17 +39,15 @@ const ModalBookmark = ({ data }) => {
                                     : "보고싶어요"}
                             </div>
                         </div>
-                    </ButtonLeft>
-                    <ButtonRight>
+                    </button>
+                    <button className="btn-right">
                         <svg fill="" width="24" height="24" viewBox="0 0 24 24">
                             <path
-                                fill={
-                                    status === "watching" ? "#d9d9d9" : "#FFF"
-                                }
+                                fill={!!status ? "#d9d9d9" : "#FFF"}
                                 d="M12 16l6-6H6z"
                             />
                         </svg>
-                    </ButtonRight>
+                    </button>
                 </ButtonBlock>
             </ButtonContainer>
             {isOpen && (
@@ -103,15 +109,84 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonBlock = styled.div`
+    background: ${(props) => (props.isClicked ? "#f6f6f6" : "#ff2f6e")};
+    border: ${(props) => (props.isClicked ? "1px solid #ebebeb" : "")};
     display: flex;
-    background: #ff2f6e;
     vertical-align: top;
     box-sizing: border-box;
     width: 254px;
     height: 40px;
     border-radius: 6px;
+
     margin: 0 auto;
     overflow: hidden;
+
+    .btn-left {
+        background: none;
+        padding: 0;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+        flex: 1;
+        color: ${(props) => (props.isClicked ? "#000" : "#f6f6f6")};
+        text-align: center;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.7px;
+        line-height: 22px;
+        height: 100%;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+
+        .btn-left-content {
+            display: flex;
+            position: relative;
+            left: -8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &:hover {
+            ${(props) =>
+                !props.isClicked &&
+                css`
+                    span {
+                        transform: rotate(90deg);
+                    }
+                `}
+        }
+    }
+
+    .btn-right {
+        background: none;
+        padding: 0;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+        box-sizing: border-box;
+        width: 51px;
+        height: 100%;
+        padding: 8px 0;
+        border-left: ${(props) => (props.isClicked ? "#f6f6f6" : "#e71252")};
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        cursor: pointer;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            transition: 300ms ease;
+        }
+
+        &:hover {
+            svg {
+                transform: translateY(4px);
+            }
+        }
+    }
 
     @media only screen and (min-width: 719px) {
         width: 213px;
@@ -121,39 +196,7 @@ const ButtonBlock = styled.div`
     }
 `;
 
-const ButtonLeft = styled.button`
-    background: none;
-    padding: 0;
-    border: none;
-    margin: 0;
-    cursor: pointer;
-    flex: 1;
-    color: #f6f6f6;
-    text-align: center;
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: -0.7px;
-    line-height: 22px;
-    height: 100%;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-
-    .btn-left-content {
-        display: flex;
-        position: relative;
-        left: -8px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &:hover {
-        span {
-            transform: rotate(90deg);
-        }
-    }
-`;
-
-const IconSelector = styled.div`
+const IconSelector = styled.span`
     display: inline-block;
     background: ${(props) =>
         props.status === "wish"
@@ -168,37 +211,6 @@ const IconSelector = styled.div`
     margin: 0 6px 0 0;
     -webkit-transition: 300ms;
     transition: 300ms;
-`;
-
-const ButtonRight = styled.button`
-    background: none;
-    padding: 0;
-    border: none;
-    margin: 0;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    box-sizing: border-box;
-    width: 51px;
-    height: 100%;
-    padding: 8px 0;
-    border-left: 1px solid #e71252;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
-    cursor: pointer;
-
-    svg {
-        width: 24px;
-        height: 24px;
-        transition: 300ms ease;
-    }
-
-    &:hover {
-        svg {
-            transform: translateY(4px);
-        }
-    }
 `;
 
 const ModalContainer = styled.div`
