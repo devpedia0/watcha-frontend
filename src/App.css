@@ -129,12 +129,10 @@ a:visited {
   overflow-y: hidden;
 }
 
-.App {
-
-  font-family: Roboto, "Noto Sans KR", sans-serif;
-
-}
+.App {font-family: Roboto, "Noto Sans KR", sans-serif;}
 
 .react-datepicker-wrapper {
   display: block !important;
 }
+
+button:focus {outline:0;}
