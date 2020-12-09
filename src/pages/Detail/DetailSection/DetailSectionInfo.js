@@ -30,6 +30,9 @@ const DetailSectionInfo = ({ data }) => {
 export default React.memo(DetailSectionInfo);
 
 const Wrapper = styled.div`
+    margin: 0 20px;
+    overflow: hidden;
+
     .summary {
         color: #4a4a4a;
         font-size: 15px;
@@ -62,6 +65,6 @@ const Wrapper = styled.div`
 `;
 
 const Divider = styled.div`
-    margin: 20px 20px 0;
+    margin: 20px 0 0;
     border-bottom: 1px solid #f0f0f0;
 `;

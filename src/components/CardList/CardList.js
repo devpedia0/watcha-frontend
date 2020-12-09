@@ -12,7 +12,7 @@ const CardList = ({ title, srcShowMore, children }) => {
                     </a>
                 )}
             </div>
-            <div className="body">{children}</div>
+            {children}
         </Wrapper>
     );
 };
@@ -20,7 +20,6 @@ const CardList = ({ title, srcShowMore, children }) => {
 const Wrapper = styled.div`
     padding: 8px 0px 0px;
     .header {
-        margin: 0 20px;
         overflow: hidden;
         h2 {
             float: left;
@@ -39,10 +38,6 @@ const Wrapper = styled.div`
                 color: #ff2f6e;
             }
         }
-    }
-
-    .body {
-        margin: 0 20px;
     }
 `;
 

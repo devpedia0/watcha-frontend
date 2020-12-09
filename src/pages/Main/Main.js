@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
-import {
-    CardCollection,
-    CardListSlick,
-    CardPoster,
-    Loader,
-} from "../../components";
+import { Loader } from "../../components";
 import api from "../../services/api";
 import dummy from "../../utils/dummy";
+import MainSection from "./MainSection/MainSection";
+import MainSectionAward from "./MainSection/MainSectionAward";
 
 const steps = [
     { id: "score" },
@@ -18,7 +15,7 @@ const steps = [
     { id: "award" },
 ];
 
-const Home = () => {
+const Main = () => {
     const pathname = history.location.pathname;
     const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
     const [state, setState] = useState({
@@ -102,29 +99,20 @@ const Home = () => {
 
     return (
         <Wrapper>
-            <CardListSlick
-                data={state.box_office}
-                card={CardPoster}
-                rank={true}
-            />
-            <CardListSlick data={state.mars} card={CardPoster} rank={true} />
-            <CardListSlick data={state.netflix} card={CardPoster} rank={true} />
-            <CardListSlick data={state.score} card={CardPoster} sizeCard="md" />
-            <CardListSlick data={state.tag} card={CardPoster} sizeCard="md" />
-            <CardListSlick data={state.popular} card={CardPoster} />
-            <CardListSlick
-                data={state.collection}
-                card={CardPoster}
-                size="md"
-            />
-            <CardListSlick data={state.award} card={CardCollection} size="md" />
-
+            <MainSection data={state.box_office} rank={true} />
+            <MainSection data={state.mars} rank={true} />
+            <MainSection data={state.netflix} rank={true} />
+            <MainSection data={state.score} sizeCard="md" />
+            <MainSection data={state.tag} sizeCard="md" />
+            <MainSection data={state.popular} sizeCard="md" />
+            <MainSection data={state.collection} sizeCard="md" />
+            <MainSectionAward data={state.award} sizeCard="md" />
             {state.loading && <Loader />}
         </Wrapper>
     );
 };
 
-export default Home;
+export default Main;
 
 const Wrapper = styled.div`
     display: flex;
@@ -161,24 +149,3 @@ const Wrapper = styled.div`
         margin-left: auto;
     }
 `;
-
-// const Wrapper = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     min-height: calc(100vh - 0px);
-//     margin-top: 74px;
-//     width: 100%;
-
-//     @media only screen and (min-width: 600px) {
-//         min-height: calc(100vh - 343px);
-//         margin-top: 74px;
-//     }
-
-//     @media only screen and (min-width: 760px) {
-//         margin-top: 80px;
-//     }
-
-//     @media only screen and (min-width: 1100px) {
-//         margin-top: 86px;
-//     }
-// `;

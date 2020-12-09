@@ -2,11 +2,12 @@ import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
 
 const CardListSlick = ({
-    data,
-    sizeCard = "",
-    sizeHeader = "",
-    rank = "",
-    card: Card,
+    title,
+    description,
+    posterUrl,
+    sizeCard,
+    sizeHeader,
+    children,
 }) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
@@ -30,36 +31,31 @@ const CardListSlick = ({
         });
     };
 
-    if (Object.keys(data).length === 0) {
-        return null;
-    }
-
     return (
         <Wrapper>
             <Header size={sizeHeader}>
-                {data.poster ? (
+                {posterUrl ? (
                     <>
-                        <img src={data.poster} alt="" />
+                        <img src={posterUrl} alt="" />
                         <div className="infoWrapper">
-                            <p>{data.description}</p>
-                            <div className="title">{data.title}</div>
+                            <p>{description}</p>
+                            <div className="title">{title}</div>
                         </div>
                     </>
                 ) : (
-                    <div className="title">{data.title}</div>
+                    <div className="title">{title}</div>
                 )}
             </Header>
             <Content>
                 <div className="slickWrapper">
-                    <div className="slickBlock">
-                        {data.list.map((item, idx) => (
-                            <Card
-                                key={idx}
-                                item={item}
-                                size={sizeCard}
-                                rank={rank && idx + 1}
-                            />
-                        ))}
+                    <div
+                        className="slickBlock"
+                        ref={slider}
+                        style={{
+                            transform: `translateX(-${buttonCtrl.posX}px)`,
+                        }}
+                    >
+                        {children}
                     </div>
                     <ArrowButton
                         type="left"
@@ -131,10 +127,21 @@ const Header = styled.div`
 
     .title {
         color: #292a32;
-        font-size: 22px;
         font-weight: 700;
-        letter-spacing: -0.4px;
-        line-height: 30px;
+
+        ${(props) =>
+            props.size === "sm"
+                ? css`
+                      font-size: 19px;
+                      letter-spacing: -0.7px;
+                      line-height: 28px;
+                      margin: 8px 0;
+                  `
+                : css`
+                      font-size: 22px;
+                      letter-spacing: -0.4px;
+                      line-height: 30px;
+                  `}
     }
 `;
 
@@ -211,19 +218,19 @@ const ArrowButton = styled.div`
 
         @media only screen and (min-width: 760px) {
             margin-top: ${(props) =>
-                props.size === "md"
+                props.size === "sm"
                     ? "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"
                     : "calc((100vw - 120px) * 108 / 157 / 4 - 17px)"};
         }
         @media only screen and (min-width: 1100px) {
             margin-top: ${(props) =>
-                props.size === "md"
+                props.size === "sm"
                     ? "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"
                     : "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"};
         }
         @media only screen and (min-width: 1440px) {
             margin-top: ${(props) =>
-                props.size === "md"
+                props.size === "sm"
                     ? "calc((100vw - 120px) * 108 / 157 / 7 - 17px)"
                     : "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"};
         }
