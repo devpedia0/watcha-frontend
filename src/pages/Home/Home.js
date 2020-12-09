@@ -109,19 +109,15 @@ const Home = () => {
             />
             <CardListSlick data={state.mars} card={CardPoster} rank={true} />
             <CardListSlick data={state.netflix} card={CardPoster} rank={true} />
-            <CardListSlick data={state.score} card={CardPoster} size="medium" />
-            <CardListSlick data={state.tag} card={CardPoster} size="medium" />
+            <CardListSlick data={state.score} card={CardPoster} sizeCard="md" />
+            <CardListSlick data={state.tag} card={CardPoster} sizeCard="md" />
             <CardListSlick data={state.popular} card={CardPoster} />
             <CardListSlick
                 data={state.collection}
                 card={CardPoster}
-                size="medium"
+                size="md"
             />
-            <CardListSlick
-                data={state.award}
-                card={CardCollection}
-                size="medium"
-            />
+            <CardListSlick data={state.award} card={CardCollection} size="md" />
 
             {state.loading && <Loader />}
         </Wrapper>

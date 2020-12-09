@@ -42,11 +42,11 @@ const Wrapper = styled.li`
     cursor: pointer;
 
     @media only screen and (min-width: 600px) {
-        width: ${(props) => (props.size === "medium" ? "25%" : "33.3333%")};
+        width: ${(props) => (props.size === "md" ? "25%" : "33.3333%")};
     }
     @media only screen and (min-width: 760px) {
         ${(props) =>
-            props.size === "medium"
+            props.size === "md"
                 ? css`
                       width: 20%;
                       padding: 0 5px;
@@ -59,7 +59,7 @@ const Wrapper = styled.li`
     }
     @media only screen and (min-width: 1100px) {
         ${(props) =>
-            props.size === "medium"
+            props.size === "md"
                 ? css`
                       width: 16.6667%;
                       padding: 0 8px;
