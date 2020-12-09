@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import DetailHeader from "./DetailHeader/DetailHeader";
 import DetailSectionInfo from "./DetailSection/DetailSectionInfo";
+import DetailSectionPeople from "./DetailSection/DetailSectionPeople";
 
 const data = {
     title: "이웃사촌",
@@ -22,6 +23,7 @@ const Detail = () => {
             <Content>
                 <div className="content-left">
                     <DetailSectionInfo data={data} />
+                    <DetailSectionPeople data={data} />
                 </div>
                 <div className="content-right"></div>
             </Content>

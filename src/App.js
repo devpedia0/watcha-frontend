@@ -6,7 +6,7 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Layout from './layouts/Layout';
 // pages
-import Home from "./pages/Home/Home";
+import Main from "./pages/Main/Main";
 import Detail from './pages/Detail/Detail'
 import Team from "./pages/Team/Team";
 import MyPage from "./pages/MyPage/MyPage";
@@ -26,9 +26,9 @@ function App() {
                 <Switch>
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
-                    <Layout path="/" exact component={Home} />
-                    <Layout path="/tv_shows" exact component={Home} />
-                    <Layout path="/books" exact component={Home} />
+                    <Layout path="/" exact component={Main} />
+                    <Layout path="/tv_shows" exact component={Main} />
+                    <Layout path="/books" exact component={Main} />
                     <Layout path="/contents" exact component={Detail} />
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
