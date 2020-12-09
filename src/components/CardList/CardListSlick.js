@@ -1,7 +1,13 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
 
-const CardListSlick = ({ data, size, card: Card, rank }) => {
+const CardListSlick = ({
+    data,
+    sizeCard = "",
+    sizeHeader = "",
+    rank = "",
+    card: Card,
+}) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
         posX: 0,
@@ -30,53 +36,50 @@ const CardListSlick = ({ data, size, card: Card, rank }) => {
 
     return (
         <Wrapper>
-            <Title>
+            <Header size={sizeHeader}>
                 {data.poster ? (
                     <>
-                        <img className="titleImg" src={data.poster} alt="" />
+                        <img src={data.poster} alt="" />
                         <div className="infoWrapper">
                             <p>{data.description}</p>
-                            <h2>{data.title}</h2>
+                            <div className="title">{data.title}</div>
                         </div>
                     </>
                 ) : (
-                    <h2>{data.title}</h2>
+                    <div className="title">{data.title}</div>
                 )}
-            </Title>
+            </Header>
             <Content>
-                <CardContainerNonVisible>
-                    <CardContainer
-                        ref={slider}
-                        style={{
-                            transform: `translateX(-${buttonCtrl.posX}px)`,
-                        }}
-                    >
+                <div className="slickWrapper">
+                    <div className="slickBlock">
                         {data.list.map((item, idx) => (
                             <Card
                                 key={idx}
                                 item={item}
-                                size={size}
-                                rank={rank ? idx + 1 : ""}
+                                size={sizeCard}
+                                rank={rank && idx + 1}
                             />
                         ))}
-                    </CardContainer>
-                </CardContainerNonVisible>
-                <ArrowButton
-                    left
-                    show={buttonCtrl.left}
-                    onClick={() => handleClickButton("left")}
-                    size={size}
-                />
-                <ArrowButton
-                    right
-                    show={buttonCtrl.right}
-                    onClick={() => handleClickButton("right")}
-                    size={size}
-                />
+                    </div>
+                    <ArrowButton
+                        type="left"
+                        show={buttonCtrl.left}
+                        onClick={() => handleClickButton("left")}
+                        size={sizeCard}
+                    />
+                    <ArrowButton
+                        type="right"
+                        show={buttonCtrl.right}
+                        onClick={() => handleClickButton("right")}
+                        size={sizeCard}
+                    />
+                </div>
             </Content>
         </Wrapper>
     );
 };
+
+export default CardListSlick;
 
 const Wrapper = styled.div`
     margin-bottom: 20px;
@@ -89,24 +92,19 @@ const Wrapper = styled.div`
         margin-bottom: 42px;
     }
 `;
-
-const Title = styled.div`
+const Header = styled.div`
     white-space: nowrap;
     max-width: 1320px;
     padding: 12px 0px 14px;
-    // margin-right: 15px;
-    // margin-left: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* height: 52px; */
     display: flex;
 
-    .titleImg {
+    img {
         width: 33px;
         height: 33px;
         border-radius: 50%;
         margin: 4px 10px 4px 0px;
-        //background-image: url(https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_100,w_100/v1600028633/brszbbjluan7dyd8odju.jpg);
         background-size: contain;
 
         @media only screen and (min-width: 719px) {
@@ -131,7 +129,7 @@ const Title = styled.div`
         }
     }
 
-    h2 {
+    .title {
         color: #292a32;
         font-size: 22px;
         font-weight: 700;
@@ -142,37 +140,37 @@ const Title = styled.div`
 
 const Content = styled.div`
     position: relative;
-`;
 
-const CardContainerNonVisible = styled.div`
-    overflow: hidden;
-`;
-
-const CardContainer = styled.div`
-    transition: 500ms;
-    width: 100%;
-    padding: 0px;
-    white-space: nowrap;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px -4px;
-    transition: 500ms;
-
-    @media only screen and (min-width: 719px) {
-        margin-right: 28px;
-        margin-left: 20px;
-        margin: 0px -5px;
+    .slickWrapper {
+        overflow: hidden;
     }
-    @media only screen and (min-width: 760px) {
-        margin-right: 0px;
-        margin-left: 0px;
-        margin: 0px -8px;
+
+    .slickBlock {
+        transition: 500ms;
+        width: 100%;
+        padding: 0px;
+        white-space: nowrap;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin: 0px -4px;
+        transition: 500ms;
+
+        @media only screen and (min-width: 719px) {
+            margin-right: 28px;
+            margin-left: 20px;
+            margin: 0px -5px;
+        }
+        @media only screen and (min-width: 760px) {
+            margin-right: 0px;
+            margin-left: 0px;
+            margin: 0px -8px;
+        }
     }
 `;
 
 const ArrowButton = styled.div`
-    right: ${(props) => (props.right ? "-5px" : null)};
-    left: ${(props) => (props.left ? "-19px" : null)};
+    right: ${(props) => (props.type === "right" ? "-5px" : null)};
+    left: ${(props) => (props.type === "left" ? "-19px" : null)};
     display: ${(props) => (props.show ? "flex" : "none")};
     position: absolute;
     top: 0px;
@@ -201,9 +199,10 @@ const ArrowButton = styled.div`
         transition: opacity 300ms ease 0s;
 
         ${(props) => {
-            const url = props.right
-                ? "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiMyOTJBMzIiIHN0cm9rZT0iIzI5MkEzMiIgc3Ryb2tlLXdpZHRoPSIuMzUiIGQ9Ik0zLjQyOSAxMy40MDlMNC4zNTQgMTQuMjU4IDEwLjY4IDguNDYgMTEuMTQzIDguMDM2IDQuMzU0IDEuODEzIDMuNDI5IDIuNjYyIDkuMjkxIDguMDM2eiIvPgogICAgPC9nPgo8L3N2Zz4K"
-                : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDYgOCkiLz4KICAgICAgICA8cGF0aCBmaWxsPSIjMjkyQTMyIiBzdHJva2U9IiMyOTJBMzIiIHN0cm9rZS13aWR0aD0iLjM1IiBkPSJNMy40MjkgMTMuNDA5TDQuMzU0IDE0LjI1OCAxMC42OCA4LjQ2IDExLjE0MyA4LjAzNiA0LjM1NCAxLjgxMyAzLjQyOSAyLjY2MiA5LjI5MSA4LjAzNnoiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA2IDgpIi8+CiAgICA8L2c+Cjwvc3ZnPgo=";
+            const url =
+                props.type === "right"
+                    ? "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiMyOTJBMzIiIHN0cm9rZT0iIzI5MkEzMiIgc3Ryb2tlLXdpZHRoPSIuMzUiIGQ9Ik0zLjQyOSAxMy40MDlMNC4zNTQgMTQuMjU4IDEwLjY4IDguNDYgMTEuMTQzIDguMDM2IDQuMzU0IDEuODEzIDMuNDI5IDIuNjYyIDkuMjkxIDguMDM2eiIvPgogICAgPC9nPgo8L3N2Zz4K"
+                    : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDYgOCkiLz4KICAgICAgICA8cGF0aCBmaWxsPSIjMjkyQTMyIiBzdHJva2U9IiMyOTJBMzIiIHN0cm9rZS13aWR0aD0iLjM1IiBkPSJNMy40MjkgMTMuNDA5TDQuMzU0IDE0LjI1OCAxMC42OCA4LjQ2IDExLjE0MyA4LjAzNiA0LjM1NCAxLjgxMyAzLjQyOSAyLjY2MiA5LjI5MSA4LjAzNnoiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA2IDgpIi8+CiAgICA8L2c+Cjwvc3ZnPgo=";
             return css`
                 background: url(${url}) 12px center / 12px no-repeat
                     rgb(255, 255, 255);
@@ -212,19 +211,19 @@ const ArrowButton = styled.div`
 
         @media only screen and (min-width: 760px) {
             margin-top: ${(props) =>
-                props.size === "medium"
+                props.size === "md"
                     ? "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"
                     : "calc((100vw - 120px) * 108 / 157 / 4 - 17px)"};
         }
         @media only screen and (min-width: 1100px) {
             margin-top: ${(props) =>
-                props.size === "medium"
+                props.size === "md"
                     ? "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"
                     : "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"};
         }
         @media only screen and (min-width: 1440px) {
             margin-top: ${(props) =>
-                props.size === "medium"
+                props.size === "md"
                     ? "calc((100vw - 120px) * 108 / 157 / 7 - 17px)"
                     : "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"};
         }
@@ -234,5 +233,3 @@ const ArrowButton = styled.div`
         opacity: 1 !important;
     }
 `;
-
-export default CardListSlick;
