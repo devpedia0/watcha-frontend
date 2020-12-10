@@ -1,16 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const CardList = ({ title, srcShowMore, children }) => {
+const CardList = ({ title, addComponent, children }) => {
     return (
         <Wrapper>
             <div className="header">
                 <h2>{title}</h2>
-                {srcShowMore && (
-                    <a className="more" href={srcShowMore}>
-                        더보기
-                    </a>
-                )}
+                <div className="right">{addComponent}</div>
             </div>
             {children}
         </Wrapper>
@@ -20,6 +16,8 @@ const CardList = ({ title, srcShowMore, children }) => {
 const Wrapper = styled.div`
     padding: 8px 0px 0px;
     .header {
+        display: flex;
+        justify-content: space-between;
         overflow: hidden;
         h2 {
             float: left;

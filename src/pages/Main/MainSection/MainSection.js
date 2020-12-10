@@ -8,14 +8,14 @@ const MainSection = ({ data, sizeCard, rank }) => {
         return null;
     }
 
-    const { title, description, posterUrl, list } = data;
+    const { title, description, poster, list } = data;
 
     return (
         <Wrapper>
             <CardListSlick
                 title={title}
                 description={description}
-                posterUrl={posterUrl}
+                posterUrl={poster}
             >
                 {list.map((item, idx) => (
                     <CardPoster

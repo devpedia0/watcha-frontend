@@ -7,6 +7,8 @@ const CardListSlick = ({
     posterUrl,
     sizeCard,
     sizeHeader,
+    horizon,
+    addComponent: AddComponent,
     children,
 }) => {
     const slider = useRef();
@@ -19,15 +21,30 @@ const CardListSlick = ({
     const handleClickButton = (type) => {
         const childNum = slider.current.children.length;
         const childWidth = slider.current.children[0].clientWidth;
-        const childTotalWidth = childNum * childWidth;
-        const dist = slider.current.offsetWidth;
-        const newPosX =
-            type === "right" ? buttonCtrl.posX + dist : buttonCtrl.posX - dist;
+        const slideWidth = slider.current.offsetWidth;
+        const curWidth = buttonCtrl.posX + slideWidth;
+        const childTotalWidth = horizon
+            ? Math.ceil(childNum / 3) * childWidth
+            : childNum * childWidth;
+
+        let leftWidth = childTotalWidth - curWidth;
+
+        let newPosX;
+        if (type === "right") {
+            if (leftWidth > slideWidth) {
+                newPosX = buttonCtrl.posX + slideWidth;
+            } else newPosX = buttonCtrl.posX + leftWidth;
+        } else {
+            newPosX =
+                buttonCtrl.posX <= slideWidth
+                    ? 0
+                    : buttonCtrl.posX - slideWidth;
+        }
 
         setButtonCtrl({
             posX: newPosX,
             left: newPosX > 0,
-            right: newPosX <= childTotalWidth - dist,
+            right: newPosX < childTotalWidth - slideWidth,
         });
     };
 
@@ -35,21 +52,24 @@ const CardListSlick = ({
         <Wrapper>
             <Header size={sizeHeader}>
                 {posterUrl ? (
-                    <>
+                    <div className="titleBlockImg">
                         <img src={posterUrl} alt="" />
                         <div className="infoWrapper">
                             <p>{description}</p>
                             <div className="title">{title}</div>
                         </div>
-                    </>
+                    </div>
                 ) : (
-                    <div className="title">{title}</div>
+                    <div className="titleBlock">
+                        <div className="title">{title}</div>
+                        <div className="titleRight">{AddComponent}</div>
+                    </div>
                 )}
             </Header>
             <Content>
                 <div className="slickWrapper">
                     <div
-                        className="slickBlock"
+                        className={`slickBlock ${horizon && "horizon"}`}
                         ref={slider}
                         style={{
                             transform: `translateX(-${buttonCtrl.posX}px)`,
@@ -94,7 +114,15 @@ const Header = styled.div`
     padding: 12px 0px 14px;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: flex;
+
+    .titleBlockImg {
+        display: flex;
+    }
+
+    .titleBlock {
+        display: flex;
+        justify-content: space-between;
+    }
 
     img {
         width: 33px;
@@ -126,6 +154,7 @@ const Header = styled.div`
     }
 
     .title {
+        justify-content: space-between;
         color: #292a32;
         font-weight: 700;
 
@@ -142,6 +171,10 @@ const Header = styled.div`
                       letter-spacing: -0.4px;
                       line-height: 30px;
                   `}
+
+        .titleRight {
+            float: right;
+        }
     }
 `;
 
@@ -153,7 +186,6 @@ const Content = styled.div`
     }
 
     .slickBlock {
-        transition: 500ms;
         width: 100%;
         padding: 0px;
         white-space: nowrap;
@@ -161,6 +193,21 @@ const Content = styled.div`
         margin-bottom: 0px;
         margin: 0px -4px;
         transition: 500ms;
+
+        &.horizon {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: auto;
+            height: 228px;
+            display: flex;
+            flex-flow: column wrap;
+            align-content: flex-start;
+            margin-right: -5px;
+            margin-left: 0px;
+            margin-top: 4px;
+            margin-bottom: 16px;
+        }
 
         @media only screen and (min-width: 719px) {
             margin-right: 28px;

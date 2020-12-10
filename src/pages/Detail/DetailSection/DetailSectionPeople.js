@@ -11,12 +11,15 @@ const item = {
 const DetailSectionPeople = () => {
     return (
         <Wrapper>
-            <CardListSlick title="출연/제작" sizeHeader="sm" sizeCard="sm">
-                <div className="card-align">
-                    {[...new Array(10)].map((_, idx) => (
-                        <Card key={idx} item={item} width="49%" radius="4%" />
-                    ))}
-                </div>
+            <CardListSlick
+                title="출연/제작"
+                sizeHeader="sm"
+                sizeCard="sm"
+                horizon
+            >
+                {[...new Array(10)].map((_, idx) => (
+                    <Card key={idx} item={item} width="49%" radius="4%" />
+                ))}
             </CardListSlick>
         </Wrapper>
     );
