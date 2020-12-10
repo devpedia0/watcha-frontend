@@ -3,7 +3,6 @@ import styled from "styled-components";
 import history from "../../history";
 import { Loader } from "../../components";
 import api from "../../services/api";
-import dummy from "../../utils/dummy";
 import MainSection from "./MainSection/MainSection";
 import MainSectionAward from "./MainSection/MainSectionAward";
 
@@ -73,29 +72,18 @@ const Main = () => {
     }, [infiniteScroll, state.loading]);
 
     useEffect(() => {
-        // [ TODO ] Fetch Rank Data
-        // const fetchAPI = async () => {
-        //     const baseUrl = `/public/${charType}/rankings?charId=`;
-        //     const resRank1 = await api.get(baseUrl + "box_office");
-        //     const resRank2 = await api.get(baseUrl + "mars");
-        //     const resRank3 = await api.get(baseUrl + "netflix");
-        //     setState((prevState) => ({
-        //         ...prevState,
-        //         box_office: resRank1.data,
-        //         mars: resRank2.data,
-        //         netflix: resRank3.data,
-        //     }));
-        // };
-        // fetchAPI();
-
-        const res = dummy;
-        setState((prevState) => ({
-            ...prevState,
-            box_office: res.data,
-            mars: res.data,
-            netflix: res.data,
-        }));
-    }, []);
+        const fetchAPI = async () => {
+            const baseUrl = `/public/${charType}/rankings`;
+            const res = await api.get(baseUrl);
+            setState((prevState) => ({
+                ...prevState,
+                box_office: res.data[0],
+                mars: res.data[1],
+                netflix: res.data[2],
+            }));
+        };
+        fetchAPI();
+    }, [charType]);
 
     return (
         <Wrapper>
