@@ -7,6 +7,7 @@ const CardListSlick = ({
     posterUrl,
     sizeCard,
     sizeHeader,
+    addComponent: AddComponent,
     children,
 }) => {
     const slider = useRef();
@@ -35,15 +36,18 @@ const CardListSlick = ({
         <Wrapper>
             <Header size={sizeHeader}>
                 {posterUrl ? (
-                    <>
+                    <div className="titleBlockImg">
                         <img src={posterUrl} alt="" />
                         <div className="infoWrapper">
                             <p>{description}</p>
                             <div className="title">{title}</div>
                         </div>
-                    </>
+                    </div>
                 ) : (
-                    <div className="title">{title}</div>
+                    <div className="titleBlock">
+                        <div className="title">{title}</div>
+                        <div className="titleRight">{AddComponent}</div>
+                    </div>
                 )}
             </Header>
             <Content>
@@ -94,7 +98,15 @@ const Header = styled.div`
     padding: 12px 0px 14px;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: flex;
+
+    .titleBlockImg {
+        display: flex;
+    }
+
+    .titleBlock {
+        display: flex;
+        justify-content: space-between;
+    }
 
     img {
         width: 33px;
@@ -126,6 +138,7 @@ const Header = styled.div`
     }
 
     .title {
+        justify-content: space-between;
         color: #292a32;
         font-weight: 700;
 
@@ -142,6 +155,10 @@ const Header = styled.div`
                       letter-spacing: -0.4px;
                       line-height: 30px;
                   `}
+
+        .titleRight {
+            float: right;
+        }
     }
 `;
 

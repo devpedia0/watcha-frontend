@@ -2,10 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import { CardList } from "../../../components";
 
+const ShowMore = ({ src }) => {
+    return (
+        <a className="more" href={src}>
+            더보기
+        </a>
+    );
+};
+
 const DetailSectionInfo = ({ data }) => {
     return (
         <Wrapper>
-            <CardList title="기본정보" srcShowMore="http://www.naver.com">
+            <CardList
+                title="기본정보"
+                addComponent={<ShowMore src="http://www.naver.com" />}
+            >
                 <div className="summary">
                     이웃사촌
                     <br />
