@@ -75,7 +75,7 @@ const Wrapper = styled.div`
     }
 `;
 
-const Divider = styled.div`
+export const Divider = styled.div`
     margin: 20px 0 0;
     border-bottom: 1px solid #f0f0f0;
 `;
