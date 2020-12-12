@@ -25,6 +25,7 @@ const login = (email, password) => {
           'refreshToken',
           JSON.stringify(response.headers.refreshtoken)
         );
+        localStorage.setItem('id', JSON.stringify(response.headers.id));
       }
       return response;
     })
@@ -75,7 +76,7 @@ const facebookLogin = (accessToken) => {
 };
 
 const getUserInfo = () => {
-  return api.get('/users/{id}').then((response) => {
+  return api.get('/users/6795').then((response) => {
     if (response) {
       return response;
     }
@@ -92,7 +93,6 @@ const getUserRating = () => {
 
 const setUserInfo = () => {
   return api.put('/users/settings').then((response) => {
-    JSON.parse(response);
     return response;
   });
 };
@@ -105,7 +105,6 @@ const authService = {
   onRefresh,
   getUserInfo,
   setUserInfo,
-
   getUserRating,
 };
 

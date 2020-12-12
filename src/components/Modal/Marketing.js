@@ -6,8 +6,8 @@ import api from '../../services/api';
 export default function Marketing(props) {
   const [userInfo, setUserInfo] = useState({
     isEmailAgreed: false,
-    isPushAgreed: false,
     isSmsAgreed: false,
+    isPushAgreed: false,
   });
 
   //UserInfo 가져오기
@@ -25,10 +25,12 @@ export default function Marketing(props) {
       ...userInfo,
       isEmailAgreed: !userInfo.isEmailAgreed,
     };
-
     api.put('/users/settings', sendEmail).then((response) => {
+      //바뀐정보 보내기
       if (response.status === 200) {
         AuthService.getUserInfo().then((newData) => {
+          //변경사항 가져오기
+
           setUserInfo(() => newData.data);
         });
       }
@@ -40,6 +42,7 @@ export default function Marketing(props) {
       ...userInfo,
       isSmsAgreed: !userInfo.isSmsAgreed,
     };
+
     api.put('/users/settings', sendSms).then((response) => {
       if (response.status === 200) {
         AuthService.getUserInfo().then((newData) => {
@@ -62,6 +65,7 @@ export default function Marketing(props) {
       }
     });
   };
+
   return (
     <BackScreen className={props.switchModal ? 'hideMarketing' : ''}>
       <ModalContainer>
