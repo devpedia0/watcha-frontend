@@ -5,6 +5,7 @@ import DetailSectionInfo from "./DetailSection/DetailSectionInfo";
 import DetailSectionPeople from "./DetailSection/DetailSectionPeople";
 import DetailSectionChart from "./DetailSection/DetailSectionChart";
 import DetailSectionComment from "./DetailSection/DetailSectionComment";
+import DetailSectionGallery from "./DetailSection/DetailSectionGallery";
 
 const data = {
     title: "이웃사촌",
@@ -18,6 +19,12 @@ const data = {
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605487645/ciydhyimcw07k4e516hu.jpg",
 };
 
+const data2 = {
+    type: "award",
+    title: "왓챠피디아 컬렉션",
+    list: [],
+};
+
 const Detail = () => {
     return (
         <Wrapper>
@@ -29,7 +36,10 @@ const Detail = () => {
                     <DetailSectionChart data={data} />
                     <DetailSectionComment data={data} />
                 </div>
-                <div className="right"></div>
+
+                <div className="right">
+                    <DetailSectionGallery data={data} />
+                </div>
             </Content>
         </Wrapper>
     );
@@ -79,5 +89,15 @@ const Content = styled.div`
     }
 
     .right {
+        @media only screen and (min-width: 719px) {
+            float: left;
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            float: right;
+            width: 320px;
+            padding: 0 8px;
+        }
     }
 `;

@@ -20,6 +20,7 @@ const Wrapper = styled.div`
         justify-content: space-between;
         overflow: hidden;
         h2 {
+            white-space: nowrap;
             float: left;
             color: #000;
             font-size: 19px;

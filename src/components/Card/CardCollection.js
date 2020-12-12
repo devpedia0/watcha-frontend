@@ -31,7 +31,7 @@ const Wrapper = styled.li`
     margin-bottom: 0px;
 
     ${(props) =>
-        props.size === "md"
+        props.size === "sm"
             ? css`
                   @media only screen and (min-width: 600px) {
                       width: "25%";
