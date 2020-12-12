@@ -4,26 +4,17 @@ import AuthService from '../../services/auth.service';
 import api from '../../services/api';
 
 export default function Marketing(props) {
-  const [userInfo, setUserInfo] = useState({});
-  const [email, setEmail] = useState(false);
-  const [sms, setSms] = useState(false);
-  const [app, setApp] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    isEmailAgreed: false,
+    isPushAgreed: false,
+    isSmsAgreed: false,
+  });
 
   //UserInfo 가져오기
   useEffect(() => {
     const getData = async () => {
       const response = await AuthService.getUserInfo();
       setUserInfo(() => response.data);
-
-      response.data.isEmailAgreed === false
-        ? setEmail(email)
-        : setEmail(!email);
-
-      response.data.isSmsAgreed === false ? setSms(sms) : setSms(!sms);
-
-      response.data.isPushAgreed === false ? setApp(app) : setApp(!app);
-
-      console.log('get데이터', response.data);
     };
     getData();
   }, []);
@@ -32,36 +23,45 @@ export default function Marketing(props) {
   const emailState = () => {
     const sendEmail = {
       ...userInfo,
-      isEmailAgreed: !email,
+      isEmailAgreed: !userInfo.isEmailAgreed,
     };
 
     api.put('/users/me', sendEmail).then((response) => {
-      console.log('이메일 변경체크하기', response.config.data);
+      if (response.status === 200) {
+        AuthService.getUserInfo().then((newData) => {
+          setUserInfo(() => newData.data);
+        });
+      }
     });
   };
 
   const smsState = () => {
     const sendSms = {
       ...userInfo,
-      isSmsAgreed: !sms,
+      isSmsAgreed: !userInfo.isSmsAgreed,
     };
     api.put('/users/me', sendSms).then((response) => {
-      setSms(!sms);
-      console.log('sms 변경체크하기', response.config.data);
+      if (response.status === 200) {
+        AuthService.getUserInfo().then((newData) => {
+          setUserInfo(() => newData.data);
+        });
+      }
     });
   };
 
   const appState = () => {
     const sendApp = {
       ...userInfo,
-      isPushAgreed: !app,
+      isAppAgreed: !userInfo.isAppAgreed,
     };
     api.put('/users/me', sendApp).then((response) => {
-      setApp(!app);
-      console.log('app 변경체크하기', response.config.data);
+      if (response.status === 200) {
+        AuthService.getUserInfo().then((newData) => {
+          setUserInfo(() => newData.data);
+        });
+      }
     });
   };
-
   return (
     <BackScreen className={props.switchModal ? 'hideMarketing' : ''}>
       <ModalContainer>
@@ -87,11 +87,15 @@ export default function Marketing(props) {
                       <ToggleBtn aria-label="toggle" onClick={emailState}>
                         <span
                           className={
-                            email ? 'active bar' : 'inactive bar'
+                            userInfo.isEmailAgreed
+                              ? 'active bar'
+                              : 'inactive bar'
                           }></span>
                         <span
                           className={
-                            email ? 'active circle' : 'inactive circle'
+                            userInfo.isEmailAgreed
+                              ? 'active circle'
+                              : 'inactive circle'
                           }></span>
                       </ToggleBtn>
                     </div>
@@ -105,11 +109,13 @@ export default function Marketing(props) {
                       <ToggleBtn aria-label="toggle" onClick={smsState}>
                         <span
                           className={
-                            sms ? 'active bar' : 'inactive bar'
+                            userInfo.isSmsAgreed ? 'active bar' : 'inactive bar'
                           }></span>
                         <span
                           className={
-                            sms ? 'active circle' : 'inactive circle'
+                            userInfo.isSmsAgreed
+                              ? 'active circle'
+                              : 'inactive circle'
                           }></span>
                       </ToggleBtn>
                     </div>
@@ -123,11 +129,15 @@ export default function Marketing(props) {
                       <ToggleBtn aria-label="toggle" onClick={appState}>
                         <span
                           className={
-                            app ? 'active bar' : 'inactive bar'
+                            userInfo.isPushAgreed
+                              ? 'active bar'
+                              : 'inactive bar'
                           }></span>
                         <span
                           className={
-                            app ? 'active circle' : 'inactive circle'
+                            userInfo.isPushAgreed
+                              ? 'active circle'
+                              : 'inactive circle'
                           }></span>
                       </ToggleBtn>
                     </div>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from './api';
 
 const register = (countryCode, name, email, password) => {
@@ -17,7 +16,7 @@ const login = (email, password) => {
       password,
     })
     .then((response) => {
-      if (response.headers) {
+      if (response) {
         localStorage.setItem(
           'accessToken',
           JSON.stringify(response.headers.authorization)
@@ -76,7 +75,7 @@ const facebookLogin = (accessToken) => {
 };
 
 const getUserInfo = () => {
-  return api.get('/users/me').then((response) => {
+  return api.get('/users/{id}').then((response) => {
     if (response) {
       return response;
     }
@@ -84,7 +83,7 @@ const getUserInfo = () => {
 };
 
 const getUserRating = () => {
-  return api.get('/users/me/ratings').then((response) => {
+  return api.get('/users/{id}/{contentType}/ratings').then((response) => {
     if (response) {
       return response;
     }

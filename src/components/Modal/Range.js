@@ -4,19 +4,47 @@ import AuthService from '../../services/auth.service';
 import api from '../../services/api';
 
 export default function Private(props) {
-  const [checked, setChecked] = useState(false);
-
-  const all = useRef();
+  const [checked, setChecked] = useState('');
 
   useEffect(() => {
     const getData = async () => {
       const response = await AuthService.getUserInfo();
-      console.log('getData', response);
+      setChecked(() => response.data.accessRange);
+      console.log('useEffect', checked); //PUBLIC
     };
     getData();
   }, []);
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    if (e.target.id === '1') {
+      setChecked('PUBLIC');
+      api.put('/users/me', { checked }).then((response) => {
+        if (response.status === 200) {
+          AuthService.getUserInfo().then((newData) => {
+            console.log(newData);
+          });
+        }
+      });
+    } else if (e.target.id === '2') {
+      setChecked(() => 'FRIEND');
+      api.put('/users/me', { checked }).then((response) => {
+        if (response.status === 200) {
+          AuthService.getUserInfo().then((newData) => {
+            console.log(newData);
+          });
+        }
+      });
+    } else if (e.target.id === '3') {
+      setChecked('PRIVATE');
+      api.put('/users/me', { checked }).then((response) => {
+        if (response.status === 200) {
+          AuthService.getUserInfo().then((newData) => {
+            console.log(newData);
+          });
+        }
+      });
+    }
+  };
 
   return (
     <BackScreen className={props.switchModal ? 'hideRange' : ''}>
@@ -39,11 +67,12 @@ export default function Private(props) {
                   <li className="list">
                     <div className="radioContainer">
                       <span
-                        ref={all}
                         id="1"
                         onClick={handleChange}
                         className={
-                          checked ? 'radioImg active' : 'radioImg inactive'
+                          checked === 'PUBLIC'
+                            ? 'radioImg active'
+                            : 'radioImg inactive'
                         }></span>
                     </div>
                     <div className="titleContainer">
@@ -60,7 +89,9 @@ export default function Private(props) {
                         onClick={handleChange}
                         id="2"
                         className={
-                          checked ? 'radioImg active' : 'radioImg inactive'
+                          checked === 'FRIEND'
+                            ? 'radioImg active'
+                            : 'radioImg inactive'
                         }></span>
                     </div>
                     <div className="titleContainer">
@@ -77,7 +108,9 @@ export default function Private(props) {
                         onClick={handleChange}
                         id="3"
                         className={
-                          checked ? 'radioImg active' : 'radioImg inactive'
+                          checked === 'PRIVATE'
+                            ? 'radioImg active'
+                            : 'radioImg inactive'
                         }></span>
                     </div>
                     <div className="titleContainer">

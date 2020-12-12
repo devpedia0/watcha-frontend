@@ -35,7 +35,6 @@ function MyPage(props) {
       },
 
       AuthService.getUserRating().then((response) => {
-        console.log(response.data);
         setToggle({
           book: response.data.book.ratingCount,
           tvShow: response.data.tvShow.ratingCount,
