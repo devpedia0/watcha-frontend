@@ -2,6 +2,7 @@ import React from "react";
 import useInputs from "../../Hooks/useInputs";
 import LayoutForm from "../../layouts/LayoutForm";
 import {
+
     FormSection,
     File,
     Input,
@@ -46,6 +47,7 @@ const PageTV = () => {
         onSubmitFile("/admin/tv_shows", sendData, "poster");
     };
 
+
     return (
         <LayoutForm>
             <FormSection title="TV 추가">
@@ -73,6 +75,7 @@ const PageTV = () => {
                             onChange={onChange}
                             error={errors.category}
                         />
+
 
                         <YearPicker
                             title="제작연도"
