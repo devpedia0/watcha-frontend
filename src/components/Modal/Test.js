@@ -24,7 +24,7 @@ const Test = () => {
       isEmailAgreed: !userInfo.isEmailAgreed,
     };
     console.log(sendData);
-    api.put('/users/me', sendData).then((res) => {
+    api.put('/users/settings', sendData).then((res) => {
       console.log(res);
     });
   };

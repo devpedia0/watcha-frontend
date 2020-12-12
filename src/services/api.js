@@ -32,11 +32,12 @@ api.interceptors.response.use(
       return api
         .post('/auth/token', { RefreshToken: _refreshToken })
         .then((response) => {
-          if (response)
+          if (response) {
             localStorage.setItem(
               'accessToken',
               JSON.stringify(response.headers.authorization)
             );
+          }
         });
     }
     return Promise.reject(error);

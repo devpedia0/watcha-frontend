@@ -91,7 +91,7 @@ const getUserRating = () => {
 };
 
 const setUserInfo = () => {
-  return api.put('/users/me').then((response) => {
+  return api.put('/users/settings').then((response) => {
     JSON.parse(response);
     return response;
   });

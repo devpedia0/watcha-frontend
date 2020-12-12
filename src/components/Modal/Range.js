@@ -18,7 +18,7 @@ export default function Private(props) {
   const handleChange = (e) => {
     if (e.target.id === '1') {
       setChecked('PUBLIC');
-      api.put('/users/me', { checked }).then((response) => {
+      api.put('/users/settings', { checked }).then((response) => {
         if (response.status === 200) {
           AuthService.getUserInfo().then((newData) => {
             console.log(newData);
@@ -27,7 +27,7 @@ export default function Private(props) {
       });
     } else if (e.target.id === '2') {
       setChecked(() => 'FRIEND');
-      api.put('/users/me', { checked }).then((response) => {
+      api.put('/users/settings', { checked }).then((response) => {
         if (response.status === 200) {
           AuthService.getUserInfo().then((newData) => {
             console.log(newData);
@@ -36,7 +36,7 @@ export default function Private(props) {
       });
     } else if (e.target.id === '3') {
       setChecked('PRIVATE');
-      api.put('/users/me', { checked }).then((response) => {
+      api.put('/users/settings', { checked }).then((response) => {
         if (response.status === 200) {
           AuthService.getUserInfo().then((newData) => {
             console.log(newData);

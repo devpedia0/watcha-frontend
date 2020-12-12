@@ -26,7 +26,7 @@ export default function Marketing(props) {
       isEmailAgreed: !userInfo.isEmailAgreed,
     };
 
-    api.put('/users/me', sendEmail).then((response) => {
+    api.put('/users/settings', sendEmail).then((response) => {
       if (response.status === 200) {
         AuthService.getUserInfo().then((newData) => {
           setUserInfo(() => newData.data);
@@ -40,7 +40,7 @@ export default function Marketing(props) {
       ...userInfo,
       isSmsAgreed: !userInfo.isSmsAgreed,
     };
-    api.put('/users/me', sendSms).then((response) => {
+    api.put('/users/settings', sendSms).then((response) => {
       if (response.status === 200) {
         AuthService.getUserInfo().then((newData) => {
           setUserInfo(() => newData.data);
@@ -54,7 +54,7 @@ export default function Marketing(props) {
       ...userInfo,
       isAppAgreed: !userInfo.isAppAgreed,
     };
-    api.put('/users/me', sendApp).then((response) => {
+    api.put('/users/settings', sendApp).then((response) => {
       if (response.status === 200) {
         AuthService.getUserInfo().then((newData) => {
           setUserInfo(() => newData.data);
