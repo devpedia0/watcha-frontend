@@ -1,12 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Setting from '../../components/Setting/Setting';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
+import AuthService from '../../services/auth.service';
 import { withRouter } from 'react-router-dom';
 
 function MyPage(props) {
   const [settingVisible, setSettingVisible] = useState(true);
+  const [name, setName] = useState('데브피디아');
+  const [desc, setDesc] = useState('프로필이 없습니다.');
+
+  const [toggle, setToggle] = useState({
+    book: 0,
+    tvShow: 0,
+    movie: 0,
+  });
+
+  const [wishes, setWishes] = useState({
+    book: 0,
+    tvShow: 0,
+    movie: 0,
+  });
+
+  useEffect(() => {
+    AuthService.getUserInfo().then(
+      (response) => {
+        setName(response.data.name);
+        if (response.data.description !== null) {
+          setDesc(response.data.description);
+        } else if (response.data.description === null) {
+          return desc;
+        }
+      },
+
+      AuthService.getUserRating().then((response) => {
+        setToggle({
+          book: response.data.book.ratingCount,
+          tvShow: response.data.tvShow.ratingCount,
+          movie: response.data.movie.ratingCount,
+        });
+        setWishes({
+          book: response.data.book.wishCount,
+          tvShow: response.data.tvShow.wishCount,
+          movie: response.data.movie.wishCount,
+        });
+      })
+    );
+  }, []);
 
   const settingModal = () => {
     setSettingVisible({ settingVisible: !settingVisible });
@@ -14,8 +55,7 @@ function MyPage(props) {
 
   return (
     <Page>
-      <Header isLogin={props.isLogin === true} />
-      {/* 헤더 isLogin true 상태 유지하기 */}
+      <Header isLogin={props.isLogin} />
       <Content>
         <Section>
           <Main>
@@ -33,10 +73,10 @@ function MyPage(props) {
                         <Portrait></Portrait>
                       </Image>
                       <NickName>
-                        <H1>데브피디아</H1>
+                        <H1>{name}</H1>
                       </NickName>
                       <Desc>
-                        <div className="descInner">프로필이 없습니다.</div>
+                        <div className="descInner">{desc}</div>
                       </Desc>
                     </ProfileHeader>
                     <ul>
@@ -59,7 +99,7 @@ function MyPage(props) {
                     <Ul>
                       <Li>
                         <Box
-                          href="/"
+                          href="/myMovie"
                           style={{
                             background:
                               'linear-gradient(45deg, #82d957 40%, #bfe874 100%)',
@@ -71,9 +111,9 @@ function MyPage(props) {
                             }}>
                             <Title>영화</Title>
                             <div style={{ display: 'flex' }}>
-                              ★<Star>222</Star>
+                              ★<Star>{toggle.movie}</Star>
                               <Clip>
-                                보고싶어요 <strong>4</strong>
+                                보고싶어요 <strong>{wishes.movie}</strong>
                               </Clip>
                             </div>
                           </Category>
@@ -81,7 +121,7 @@ function MyPage(props) {
                       </Li>
                       <Li>
                         <Box
-                          href="/"
+                          href="/myTv"
                           style={{
                             background:
                               'linear-gradient(45deg, #ffbf66 40%, #ffc89e 100%)',
@@ -93,9 +133,9 @@ function MyPage(props) {
                             }}>
                             <Title>TV 프로그램</Title>
                             <div style={{ display: 'flex' }}>
-                              ★<Star>222</Star>
+                              ★<Star>{toggle.tvShow}</Star>
                               <Clip>
-                                보고싶어요 <strong>4</strong>
+                                보고싶어요 <strong>{wishes.tvShow}</strong>
                               </Clip>
                             </div>
                           </Category>
@@ -103,7 +143,7 @@ function MyPage(props) {
                       </Li>
                       <Li>
                         <Box
-                          href="/"
+                          href="/myBook"
                           style={{
                             background:
                               'linear-gradient(45deg, #60d1f0 40%, #70e0d3 100%)',
@@ -115,9 +155,9 @@ function MyPage(props) {
                             }}>
                             <Title>책</Title>
                             <div style={{ display: 'flex' }}>
-                              ★<Star>222</Star>
+                              ★<Star>{toggle.book}</Star>
                               <Clip>
-                                읽고 싶어요 <strong>4</strong>
+                                읽고 싶어요 <strong>{wishes.book}</strong>
                               </Clip>
                             </div>
                           </Category>
@@ -371,7 +411,7 @@ const Star = styled.div`
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.7px;
-  line-height: 28px;
+  /* line-height: 28px; */
 `;
 
 const Clip = styled.div`

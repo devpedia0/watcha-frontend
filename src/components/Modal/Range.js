@@ -1,12 +1,52 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import AuthService from '../../services/auth.service';
+import api from '../../services/api';
 
 export default function Private(props) {
-    const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState('');
 
-    const handleChange = () => {
-        setChecked(!checked);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await AuthService.getUserInfo();
+      setChecked(() => response.data.accessRange);
+      console.log('useEffect', checked); //PUBLIC
     };
+    getData();
+  }, []);
+
+  const handleChange = (e) => {
+    if (e.target.id === '1') {
+      setChecked('PUBLIC');
+      api.put('/users/settings', { checked }).then((response) => {
+        if (response.status === 200) {
+          AuthService.getUserInfo().then((newData) => {
+            console.log(newData);
+          });
+        }
+      });
+    } else if (e.target.id === '2') {
+      setChecked(() => 'FRIEND');
+      api.put('/users/settings', { checked }).then((response) => {
+        if (response.status === 200) {
+          AuthService.getUserInfo().then((newData) => {
+            console.log(newData);
+          });
+        }
+      });
+    } else if (e.target.id === '3') {
+      setChecked('PRIVATE');
+      api.put('/users/settings', { checked }).then((response) => {
+        if (response.status === 200) {
+          AuthService.getUserInfo().then((newData) => {
+            console.log(newData);
+          });
+        }
+      });
+    }
+  };
+
 
     return (
         <BackScreen className={props.switchModal ? "hideRange" : ""}>
@@ -25,84 +65,74 @@ export default function Private(props) {
                         <em className="title">공개 정보</em>
                     </Header>
 
-                    <ChildrenContainer>
-                        <div>
-                            <div className="containerMargin">
-                                <VisualUl>
-                                    <li className="list">
-                                        <div className="radioContainer">
-                                            <span
-                                                defaultChecked={true}
-                                                onClick={handleChange}
-                                                key="1"
-                                                className={
-                                                    checked
-                                                        ? "radioImg active"
-                                                        : "radioImg inactive"
-                                                }
-                                            ></span>
-                                        </div>
-                                        <div className="titleContainer">
-                                            <div className="title">
-                                                전체공개
-                                            </div>
-                                            <div className="sub">
-                                                왓챠피디아의 모든 유저에게
-                                                공개합니다.
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="list">
-                                        <div className="radioContainer">
-                                            <span
-                                                key="2"
-                                                defaultChecked={false}
-                                                onClick={handleChange}
-                                                className={
-                                                    checked
-                                                        ? "radioImg active"
-                                                        : "radioImg inactive"
-                                                }
-                                            ></span>
-                                        </div>
-                                        <div className="titleContainer">
-                                            <div className="title">
-                                                친구공개
-                                            </div>
-                                            <div className="sub">
-                                                내가 팔로우하는 유저에게
-                                                공개합니다.
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="list">
-                                        <div className="radioContainer">
-                                            <span
-                                                key="3"
-                                                defaultChecked={false}
-                                                onClick={handleChange}
-                                                className={
-                                                    checked
-                                                        ? "radioImg active"
-                                                        : "radioImg inactive"
-                                                }
-                                            ></span>
-                                        </div>
-                                        <div className="titleContainer">
-                                            <div className="title">비공개</div>
-                                            <div className="sub">
-                                                아무에게도 공개하지 않습니다.
-                                            </div>
-                                        </div>
-                                    </li>
-                                </VisualUl>
-                            </div>
-                        </div>
-                    </ChildrenContainer>
-                </Container>
-            </ModalContainer>
-        </BackScreen>
-    );
+
+          <ChildrenContainer>
+            <div>
+              <div className="containerMargin">
+                <VisualUl>
+                  <li className="list">
+                    <div className="radioContainer">
+                      <span
+                        id="1"
+                        onClick={handleChange}
+                        className={
+                          checked === 'PUBLIC'
+                            ? 'radioImg active'
+                            : 'radioImg inactive'
+                        }></span>
+                    </div>
+                    <div className="titleContainer">
+                      <div className="title">전체공개</div>
+                      <div className="sub">
+                        왓챠피디아의 모든 유저에게 공개합니다.
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="list">
+                    <div className="radioContainer">
+                      <span
+                        onClick={handleChange}
+                        id="2"
+                        className={
+                          checked === 'FRIEND'
+                            ? 'radioImg active'
+                            : 'radioImg inactive'
+                        }></span>
+                    </div>
+                    <div className="titleContainer">
+                      <div className="title">친구공개</div>
+                      <div className="sub">
+                        내가 팔로우하는 유저에게 공개합니다.
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="list">
+                    <div className="radioContainer">
+                      <span
+                        onClick={handleChange}
+                        id="3"
+                        className={
+                          checked === 'PRIVATE'
+                            ? 'radioImg active'
+                            : 'radioImg inactive'
+                        }></span>
+                    </div>
+                    <div className="titleContainer">
+                      <div className="title">비공개</div>
+                      <div className="sub">아무에게도 공개하지 않습니다.</div>
+                    </div>
+                  </li>
+                </VisualUl>
+              </div>
+            </div>
+          </ChildrenContainer>
+        </Container>
+      </ModalContainer>
+    </BackScreen>
+  );
+
 }
 
 const BackScreen = styled.div`

@@ -18,14 +18,21 @@ import PageTag from './pages/Form/PageTag';
 import PageParticipant from './pages/Form/PageParticipant';
 import PageCollection from './pages/Form/PageCollection';
 import LayoutForm from './layouts/LayoutForm';
+import MyMovie from './pages/MyData/MyMovie';
+import MyTv from './pages/MyData/MyTv';
+import MyBook from './pages/MyData/MyBook';
 
 function App() {
+
     return (
         <div className="App">
             <Router history={history}>
                 <Switch>
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
+                    <Route path="/myMovie" component={MyMovie} />
+                    <Route path="/myTv" component={MyTv} />
+                    <Route path="/myBook" component={MyBook} />
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
@@ -48,6 +55,7 @@ function App() {
             </Router>
         </div>
     );
+
 }
 
 export default App;

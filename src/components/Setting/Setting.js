@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Marketing from "../Modal/Marketing";
-import Range from "../Modal/Range";
-import Language from "../../pages/LoginSignUp/Languages/Language";
-import LogOut from "../Modal/LogOut";
-import Secession from "../Modal/Secession";
+
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Marketing from '../Modal/Marketing';
+import Range from '../Modal/Range';
+import SelectCountry from '../../pages/LoginSignUp/Languages/SelectCountry';
+import LogOut from '../Modal/LogOut';
+import Secession from '../Modal/Secession';
+
 
 export default function Setting(props) {
     const [facebook, setFacebook] = useState(true);
@@ -15,23 +17,25 @@ export default function Setting(props) {
     const [logOut, setLogOut] = useState(true);
     const [secession, setSecession] = useState(true);
 
-    const facebookChange = () => {
-        setFacebook(() => !facebook);
-    };
 
-    const twitterChange = () => {
-        setTwitter(() => !twitter);
-    };
+  const marketingModal = () => {
+    setMarketing({ marketing: !marketing });
+  };
 
-    const marketingModal = () => {
-        setMarketing({ marketing: !marketing });
-    };
-    const rangeModal = () => {
-        setRange({ range: !range });
-    };
-    const languageModal = () => {
-        setLang({ lang: !lang });
-    };
+  const facebookChange = () => {
+    setFacebook(() => !facebook);
+  };
+
+  const rangeModal = () => {
+    setRange({ range: !range });
+  };
+  const twitterChange = () => {
+    setTwitter(() => !twitter);
+  };
+
+  const languageModal = () => {
+    setLang({ lang: !lang });
+  };
 
     const logOutModal = () => {
         setLogOut({ logOut: !logOut });
@@ -55,235 +59,99 @@ export default function Setting(props) {
                                 ></button>
                             </div>
                         </div>
-                        <div className="largeTitleBlock">
-                            <div className="largeTitle">설정</div>
-                        </div>
-                        <div className="smallTitle">설정</div>
-                    </Header>
 
-                    <ChildrenContainer>
-                        <div>
-                            <div className="containerMargin">
-                                <VisualUl>
-                                    <TextList Pointer>
-                                        <div
-                                            className="inner"
-                                            onClick={() =>
-                                                setMarketing(!marketing)
-                                            }
-                                        >
-                                            <div className="innerTitle">
-                                                마케팅 정보
-                                            </div>
-                                        </div>
-                                    </TextList>
-                                    <TextList Pointer>
-                                        <div
-                                            className="inner"
-                                            onClick={() => setRange(!range)}
-                                        >
-                                            <div className="innerTitle">
-                                                공개 설정
-                                            </div>
-                                        </div>
-                                    </TextList>
-                                </VisualUl>
-                                <Section>
-                                    <div className="subCategoryTitle">
-                                        SNS 연동 설정
-                                    </div>
-                                    <VisualUl Padding>
-                                        <TextList>
-                                            <div className="inner">
-                                                <div className="innerTitle">
-                                                    페이스북
-                                                </div>
-                                                <div className="extra">
-                                                    <ToggleBtn ariaLabel="toggle">
-                                                        <span
-                                                            className={
-                                                                facebook
-                                                                    ? "active bar"
-                                                                    : "inactive bar"
-                                                            }
-                                                            onClick={
-                                                                facebookChange
-                                                            }
-                                                        ></span>
-                                                        <span
-                                                            className={
-                                                                facebook
-                                                                    ? "active circle"
-                                                                    : "inactive circle"
-                                                            }
-                                                            onClick={
-                                                                facebookChange
-                                                            }
-                                                        ></span>
-                                                    </ToggleBtn>
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                        <TextList>
-                                            <div className="inner">
-                                                <div className="innerTitle">
-                                                    트위터
-                                                </div>
-                                                <div className="extra">
-                                                    <ToggleBtn ariaLabel="toggle">
-                                                        <span
-                                                            className={
-                                                                twitter
-                                                                    ? "active bar"
-                                                                    : "inactive bar"
-                                                            }
-                                                            onClick={
-                                                                twitterChange
-                                                            }
-                                                        ></span>
-                                                        <span
-                                                            className={
-                                                                twitter
-                                                                    ? "active circle"
-                                                                    : "inactive circle"
-                                                            }
-                                                            onClick={
-                                                                twitterChange
-                                                            }
-                                                        ></span>
-                                                    </ToggleBtn>
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                    </VisualUl>
-                                </Section>
-                                <Section>
-                                    <div className="subCategoryTitle">
-                                        친구 설정
-                                    </div>
-                                    <VisualUl Padding>
-                                        <TextList Pointer>
-                                            <div className="inner">
-                                                <div className="innerTitle">
-                                                    페이스북 친구 추가
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                    </VisualUl>
-                                </Section>
-                                <Section>
-                                    <div className="subCategoryTitle">
-                                        서비스 설정
-                                    </div>
-                                    <VisualUl Padding>
-                                        <TextList>
-                                            <div
-                                                className="inner"
-                                                onClick={() => setLang(!lang)}
-                                            >
-                                                <div className="innerTitle">
-                                                    언어
-                                                </div>
-                                                <div className="extra">
-                                                    <span className="languageValue">
-                                                        한국어
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                        <TextList>
-                                            <div className="inner">
-                                                <div className="innerTitle">
-                                                    국가 및 지역
-                                                </div>
-                                                <div className="extra">
-                                                    <span className="languageValue">
-                                                        대한민국
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                    </VisualUl>
-                                </Section>
-                                <Section>
-                                    <div className="subCategoryTitle">
-                                        고객 센터
-                                    </div>
-                                    <VisualUl Padding>
-                                        <TextList Pointer>
-                                            <div className="inner">
-                                                <div className="innerTitle">
-                                                    문의하기 / FAQ
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                        <TextList Pointer>
-                                            <div className="inner">
-                                                <div className="innerTitle">
-                                                    DB 수정/추가 요청하기
-                                                </div>
-                                            </div>
-                                        </TextList>
-                                    </VisualUl>
-                                </Section>
-                                <Section>
-                                    <TextList Pointer>
-                                        <div className="inner">
-                                            <div className="innerTitle">
-                                                공지사항
-                                            </div>
-                                        </div>
-                                    </TextList>
-                                </Section>
-                                <Section>
-                                    <TextList Pointer>
-                                        <div className="inner">
-                                            <div
-                                                className="innerTitle"
-                                                onClick={() =>
-                                                    setLogOut(!logOut)
-                                                }
-                                            >
-                                                로그아웃
-                                            </div>
-                                        </div>
-                                    </TextList>
-                                    <TextList Pointer>
-                                        <div className="inner">
-                                            <div
-                                                className="innerTitle"
-                                                onClick={() =>
-                                                    setSecession(!secession)
-                                                }
-                                            >
-                                                탈퇴하기
-                                            </div>
-                                        </div>
-                                    </TextList>
-                                </Section>
-                            </div>
+                      </div>
+                    </TextList>
+                  </VisualUl>
+                </Section>
+                <Section>
+                  <div className="subCategoryTitle">친구 설정</div>
+                  <VisualUl Padding>
+                    <TextList Pointer>
+                      <div className="inner">
+                        <div className="innerTitle">페이스북 친구 추가</div>
+                      </div>
+                    </TextList>
+                  </VisualUl>
+                </Section>
+                <Section>
+                  <div className="subCategoryTitle">서비스 설정</div>
+                  <VisualUl Padding>
+                    <TextList>
+                      <div className="inner">
+                        <div className="innerTitle">언어</div>
+                        <div className="extra">
+                          <span className="languageValue">한국어</span>
                         </div>
-                    </ChildrenContainer>
-                </Container>
-                <>
-                    <Marketing
-                        marketingModal={marketingModal}
-                        switchModal={marketing}
-                    />
-                    <Range rangeModal={rangeModal} switchModal={range} />
-                    <Language
-                        languageModal={languageModal}
-                        switchModal={lang}
-                    />
-                    <LogOut logOutModal={logOutModal} switchModal={logOut} />
-                    <Secession
-                        secessionModal={secessionModal}
-                        switchModal={secession}
-                    />
-                </>
-            </ModalContainer>
-        </BackScreen>
-    );
+                      </div>
+                    </TextList>
+                    <TextList>
+                      <div className="inner" onClick={() => setLang(!lang)}>
+                        <div className="innerTitle">국가 및 지역</div>
+                        <div className="extra">
+                          <span className="languageValue">대한민국</span>
+                        </div>
+                      </div>
+                    </TextList>
+                  </VisualUl>
+                </Section>
+                <Section>
+                  <div className="subCategoryTitle">고객 센터</div>
+                  <VisualUl Padding>
+                    <TextList Pointer>
+                      <div className="inner">
+                        <div className="innerTitle">문의하기 / FAQ</div>
+                      </div>
+                    </TextList>
+                    <TextList Pointer>
+                      <div className="inner">
+                        <div className="innerTitle">DB 수정/추가 요청하기</div>
+                      </div>
+                    </TextList>
+                  </VisualUl>
+                </Section>
+                <Section>
+                  <TextList Pointer>
+                    <div className="inner">
+                      <div className="innerTitle">공지사항</div>
+                    </div>
+                  </TextList>
+                </Section>
+                <Section>
+                  <TextList Pointer>
+                    <div className="inner">
+                      <div
+                        className="innerTitle"
+                        onClick={() => setLogOut(!logOut)}>
+                        로그아웃
+                      </div>
+                    </div>
+                  </TextList>
+                  <TextList Pointer>
+                    <div className="inner">
+                      <div
+                        className="innerTitle"
+                        onClick={() => setSecession(!secession)}>
+                        탈퇴하기
+                      </div>
+                    </div>
+                  </TextList>
+                </Section>
+              </div>
+            </div>
+          </ChildrenContainer>
+        </Container>
+        <>
+          <Marketing marketingModal={marketingModal} switchModal={marketing} />
+          <Range rangeModal={rangeModal} switchModal={range} />
+          <SelectCountry languageModal={languageModal} switchModal={lang} />
+          <LogOut logOutModal={logOutModal} switchModal={logOut} />
+          <Secession secessionModal={secessionModal} switchModal={secession} />
+        </>
+      </ModalContainer>
+    </BackScreen>
+  );
+
 }
 
 const BackScreen = styled.div`

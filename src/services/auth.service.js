@@ -1,5 +1,5 @@
-// import axios from 'axios';
-import api from "./api";
+import api from './api';
+
 
 const register = (countryCode, name, email, password) => {
     return api.post("/auth/signup", {
@@ -11,25 +11,27 @@ const register = (countryCode, name, email, password) => {
 };
 
 const login = (email, password) => {
-    return api
-        .post("/auth/signin", {
-            email,
-            password,
-        })
-        .then((response) => {
-            if (response.headers) {
-                localStorage.setItem(
-                    "accessToken",
-                    JSON.stringify(response.headers.authorization)
-                );
-                localStorage.setItem(
-                    "refreshToken",
-                    JSON.stringify(response.headers.refreshtoken)
-                );
-            }
-            return response;
-        })
-        .catch((error) => alert(error));
+  return api
+    .post('/auth/signin', {
+      email,
+      password,
+    })
+    .then((response) => {
+      if (response) {
+        localStorage.setItem(
+          'accessToken',
+          JSON.stringify(response.headers.authorization)
+        );
+        localStorage.setItem(
+          'refreshToken',
+          JSON.stringify(response.headers.refreshtoken)
+        );
+        localStorage.setItem('id', JSON.stringify(response.headers.id));
+      }
+      return response;
+    })
+    .catch((error) => alert(error));
+
 };
 
 const onRefresh = (Token) => {
@@ -78,41 +80,38 @@ const facebookLogin = (accessToken) => {
         });
 };
 
+const getUserInfo = () => {
+  return api.get('/users/6795').then((response) => {
+    if (response) {
+      return response;
+    }
+  });
+};
+
+const getUserRating = () => {
+  return api.get('/users/{id}/{contentType}/ratings').then((response) => {
+    if (response) {
+      return response;
+    }
+  });
+};
+
+const setUserInfo = () => {
+  return api.put('/users/settings').then((response) => {
+    return response;
+  });
+};
+
 const authService = {
-    facebookLogin,
-    register,
-    login,
-    checkEmail,
-    onRefresh,
+  facebookLogin,
+  register,
+  login,
+  checkEmail,
+  onRefresh,
+  getUserInfo,
+  setUserInfo,
+  getUserRating,
+
 };
 
 export default authService;
-
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const { status, data } = error.response;
-//     const originalReq = error.config;
-//     if (status >= 400 && !localStorage.getItem('refreshToken')) {
-//       let refresh;
-//       try {
-//         refresh = (
-//           await api.post('/auth/token', null, {
-//             headers: {
-//               Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
-//             },
-//           })
-//         ).data;
-//         await localStorage.setItem('accessToken', refresh.access_token);
-//         api.defaults.headers['Autorization'] = `Bearer ${refresh.access_token}`;
-//         return await Axios(originalReq);
-//       } catch (e) {
-//         localStorage.clear();
-//         window.location.href = '/';
-//         throw new Error('Session has expired');
-//       }
-//     } else {
-//       throw new Error(data.message);
-//     }
-//   }
-// );
