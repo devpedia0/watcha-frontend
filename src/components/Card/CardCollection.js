@@ -1,6 +1,26 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+const CardCollection = ({ item, size = "" }) => {
+    return (
+        <Wrapper size={size}>
+            <WrapperBox>
+                <ImageContainer>
+                    <Image src={item.images[0] + "?w=280&h=400"} />
+                    <Image src={item.images[1] + "?w=280&h=400"} />
+                    <Image src={item.images[2] + "?w=280&h=400"} />
+                    <Image src={item.images[3] + "?w=280&h=400"} />
+                </ImageContainer>
+            </WrapperBox>
+            <ContentInfo>
+                <div className="contentTitle">{item.title}</div>
+            </ContentInfo>
+        </Wrapper>
+    );
+};
+
+export default React.memo(CardCollection);
+
 const Wrapper = styled.li`
     display: inline-block;
     vertical-align: top;
@@ -11,7 +31,7 @@ const Wrapper = styled.li`
     margin-bottom: 0px;
 
     ${(props) =>
-        props.size === "medium"
+        props.size === "md"
             ? css`
                   @media only screen and (min-width: 600px) {
                       width: "25%";
@@ -126,36 +146,3 @@ const ContentInfo = styled.div`
         margin-top: 5px;
     }
 `;
-const item222 = {
-    title: "박스오피스",
-    description: "홍길동님의 컬렉션",
-    poster: process.env.PUBLIC_URL + "/images/1.jpg",
-    items: [
-        { rank: 1, imgSrc: process.env.PUBLIC_URL + "/images/1.jpg" },
-        { rank: 2, imgSrc: process.env.PUBLIC_URL + "/images/2.jpg" },
-        { rank: 3, imgSrc: process.env.PUBLIC_URL + "/images/3.jpg" },
-        { rank: 4, imgSrc: process.env.PUBLIC_URL + "/images/4.jpg" },
-        { rank: 5, imgSrc: process.env.PUBLIC_URL + "/images/5.jpg" },
-        { rank: 6, imgSrc: process.env.PUBLIC_URL + "/images/6.jpg" },
-    ],
-};
-
-const CardCollection = ({ item, size = "" }) => {
-    return (
-        <Wrapper size={size}>
-            <WrapperBox>
-                <ImageContainer>
-                    <Image src={item222.items[0].imgSrc} />
-                    <Image src={item222.items[1].imgSrc} />
-                    <Image src={item222.items[2].imgSrc} />
-                    <Image src={item222.items[3].imgSrc} />
-                </ImageContainer>
-            </WrapperBox>
-            <ContentInfo>
-                <div className="contentTitle">{item222.title}</div>
-            </ContentInfo>
-        </Wrapper>
-    );
-};
-
-export default CardCollection;

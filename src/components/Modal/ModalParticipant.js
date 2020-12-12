@@ -42,13 +42,12 @@ const ModalParticipant = ({
   }, [pageId]);
 
   const handleClickSearch = async () => {
-    console.log('?');
-    const res = await api.get(
-      `admin/participants?page=1&size=20&query=${search}`
-    );
-    console.log('?s', res);
-    setData(res.data);
+      const res = await api.get(
+          `admin/participants?page=1&size=20&query=${search}`
+      );
+      setData(res.data);
   };
+
 
   return (
     <>

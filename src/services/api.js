@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const token = JSON.parse(localStorage.getItem('accessToken'));
+
 
 // const accessToken = localStorage.getItem('accessToken');
 const _refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
@@ -51,5 +52,6 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 
 export default api;
