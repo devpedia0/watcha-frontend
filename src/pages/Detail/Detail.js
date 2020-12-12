@@ -6,6 +6,7 @@ import DetailSectionPeople from "./DetailSection/DetailSectionPeople";
 import DetailSectionChart from "./DetailSection/DetailSectionChart";
 import DetailSectionComment from "./DetailSection/DetailSectionComment";
 import DetailSectionGallery from "./DetailSection/DetailSectionGallery";
+import DetailSectionCollection from "./DetailSection/DetailSectionCollection";
 
 const data = {
     title: "이웃사촌",
@@ -39,6 +40,9 @@ const Detail = () => {
 
                 <div className="right">
                     <DetailSectionGallery data={data} />
+                </div>
+                <div className="bottom" style={{ height: "300px" }}>
+                    <DetailSectionCollection data={data} />
                 </div>
             </Content>
         </Wrapper>
@@ -98,6 +102,31 @@ const Content = styled.div`
             float: right;
             width: 320px;
             padding: 0 8px;
+        }
+    }
+
+    .bottom {
+        background: #fff;
+        border-color: #e3e3e3 !important;
+        overflow: hidden;
+        background: rgb(255, 255, 255);
+        overflow: hidden;
+        border-color: rgb(227, 227, 227) !important;
+
+        @media only screen and (min-width: 718px) {
+            float: left;
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            float: left;
+            width: 640px;
+            padding: 0px 8px;
+            border-right: 1px solid;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
         }
     }
 `;
