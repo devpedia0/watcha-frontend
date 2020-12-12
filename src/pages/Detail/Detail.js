@@ -7,7 +7,7 @@ import DetailSectionChart from "./DetailSection/DetailSectionChart";
 import DetailSectionComment from "./DetailSection/DetailSectionComment";
 import DetailSectionGallery from "./DetailSection/DetailSectionGallery";
 import DetailSectionCollection from "./DetailSection/DetailSectionCollection";
-
+import DetailSectionRecommend from "./DetailSection/DetailSectionRecommend";
 const data = {
     title: "이웃사촌",
     category: "드라마",
@@ -41,8 +41,9 @@ const Detail = () => {
                 <div className="right">
                     <DetailSectionGallery data={data} />
                 </div>
-                <div className="bottom" style={{ height: "300px" }}>
+                <div className="bottom">
                     <DetailSectionCollection data={data} />
+                    <DetailSectionRecommend data={data} />
                 </div>
             </Content>
         </Wrapper>

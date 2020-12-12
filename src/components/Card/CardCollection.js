@@ -31,24 +31,24 @@ const Wrapper = styled.li`
     margin-bottom: 0px;
 
     ${(props) =>
-        props.size === "sm"
+        props.size !== "sm"
             ? css`
                   @media only screen and (min-width: 600px) {
-                      width: "25%";
+                      width: 33.33333333%;
                   }
 
                   @media only screen and (min-width: 760px) {
-                      width: 20%;
+                      width: 25%;
                       padding: 0 5px;
                   }
                   @media only screen and (min-width: 1100px) {
-                      width: 16.6667%;
+                      width: 20%;
                       padding: 0 8px;
                   }
               `
             : css`
                   @media only screen and (min-width: 600px) {
-                      width: "33.3333%";
+                      width: 50%;
                   }
                   @media only screen and (min-width: 760px) {
                       width: 25%;
@@ -56,7 +56,7 @@ const Wrapper = styled.li`
                       padding-left: 6px;
                   }
                   @media only screen and (min-width: 1100px) {
-                      width: 20%;
+                      width: 25%;
                       padding-right: 8px;
                       padding-left: 8px;
                   }
