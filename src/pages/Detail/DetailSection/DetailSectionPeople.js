@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CardListSlick, Card } from "../../../components";
-
+import { Divider } from "./DetailSectionInfo";
 const item = {
     name: "name",
     description: "description",
@@ -21,6 +21,7 @@ const DetailSectionPeople = () => {
                     <Card key={idx} item={item} width="49%" radius="4%" />
                 ))}
             </CardListSlick>
+            <Divider />
         </Wrapper>
     );
 };

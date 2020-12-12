@@ -6,6 +6,7 @@ export { default as Card } from "./Card/Card";
 export { default as CardCollection } from "./Card/CardCollection";
 export { default as CardPoster } from "./Card/CardPoster";
 export { default as CardTag } from "./Card/CardTag";
+export { default as CardComment } from "./Card/CardComment";
 // CardList
 export { default as CardList } from "./CardList/CardList";
 export { default as CardListForm } from "./CardList/CardListForm";

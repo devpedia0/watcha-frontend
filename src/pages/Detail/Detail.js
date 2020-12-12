@@ -4,6 +4,7 @@ import DetailHeader from "./DetailHeader/DetailHeader";
 import DetailSectionInfo from "./DetailSection/DetailSectionInfo";
 import DetailSectionPeople from "./DetailSection/DetailSectionPeople";
 import DetailSectionChart from "./DetailSection/DetailSectionChart";
+import DetailSectionComment from "./DetailSection/DetailSectionComment";
 
 const data = {
     title: "이웃사촌",
@@ -22,12 +23,13 @@ const Detail = () => {
         <Wrapper>
             <DetailHeader data={data} />
             <Content>
-                <div className="content-left">
+                <div className="left">
                     <DetailSectionInfo data={data} />
                     <DetailSectionPeople data={data} />
                     <DetailSectionChart data={data} />
+                    <DetailSectionComment data={data} />
                 </div>
-                <div className="content-right"></div>
+                <div className="right"></div>
             </Content>
         </Wrapper>
     );
@@ -43,7 +45,7 @@ const Content = styled.div`
     overflow: hidden;
     margin: 0px auto;
 
-    .content-left {
+    .left {
         margin: 12px 0 0;
         background: #fff;
         border-color: #e3e3e3 !important;
@@ -76,6 +78,6 @@ const Content = styled.div`
         max-width: 976px;
     }
 
-    .content-right {
+    .right {
     }
 `;

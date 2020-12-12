@@ -28,14 +28,6 @@ const Wrapper = styled.div`
             line-height: 28px;
             margin: 8px 0;
         }
-
-        a {
-            float: right;
-            margin: 12px 0;
-            &.more {
-                color: #ff2f6e;
-            }
-        }
     }
 `;
 
