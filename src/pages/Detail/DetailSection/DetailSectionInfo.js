@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { CardList } from "../../../components";
 
 const ShowMore = ({ src }) => {
-    return (
-        <a className="more" href={src}>
-            더보기
-        </a>
-    );
+    return <Link href={src}>더보기</Link>;
 };
 
 const DetailSectionInfo = ({ data }) => {
@@ -73,6 +69,13 @@ const Wrapper = styled.div`
         letter-spacing: -0.2px;
         line-height: 24px;
     }
+`;
+
+const Link = styled.a`
+    float: right;
+    margin: 12px 0;
+
+    color: #ff2f6e;
 `;
 
 export const Divider = styled.div`
