@@ -5,7 +5,9 @@ import DetailSectionInfo from "./DetailSection/DetailSectionInfo";
 import DetailSectionPeople from "./DetailSection/DetailSectionPeople";
 import DetailSectionChart from "./DetailSection/DetailSectionChart";
 import DetailSectionComment from "./DetailSection/DetailSectionComment";
-
+import DetailSectionGallery from "./DetailSection/DetailSectionGallery";
+import DetailSectionCollection from "./DetailSection/DetailSectionCollection";
+import DetailSectionRecommend from "./DetailSection/DetailSectionRecommend";
 const data = {
     title: "이웃사촌",
     category: "드라마",
@@ -16,6 +18,12 @@ const data = {
     num: 88,
     imgUrl:
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605487645/ciydhyimcw07k4e516hu.jpg",
+};
+
+const data2 = {
+    type: "award",
+    title: "왓챠피디아 컬렉션",
+    list: [],
 };
 
 const Detail = () => {
@@ -29,7 +37,14 @@ const Detail = () => {
                     <DetailSectionChart data={data} />
                     <DetailSectionComment data={data} />
                 </div>
-                <div className="right"></div>
+
+                <div className="right">
+                    <DetailSectionGallery data={data} />
+                </div>
+                <div className="bottom">
+                    <DetailSectionCollection data={data} />
+                    <DetailSectionRecommend data={data} />
+                </div>
             </Content>
         </Wrapper>
     );
@@ -79,5 +94,40 @@ const Content = styled.div`
     }
 
     .right {
+        @media only screen and (min-width: 719px) {
+            float: left;
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            float: right;
+            width: 320px;
+            padding: 0 8px;
+        }
+    }
+
+    .bottom {
+        background: #fff;
+        border-color: #e3e3e3 !important;
+        overflow: hidden;
+        background: rgb(255, 255, 255);
+        overflow: hidden;
+        border-color: rgb(227, 227, 227) !important;
+
+        @media only screen and (min-width: 718px) {
+            float: left;
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            float: left;
+            width: 640px;
+            padding: 0px 8px;
+            border-right: 1px solid;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
     }
 `;
