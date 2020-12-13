@@ -75,6 +75,7 @@ export default function Header() {
         (response) => {
           console.log('loginResponse', response);
           history.push('/');
+          setLoginVisible({ loginVisible: !loginVisible });
         },
         (error) => {
           console.log(error);
@@ -97,6 +98,7 @@ export default function Header() {
         (response) => {
           console.log('registerResponse', response);
           history.push('/user');
+          setSignUpVisible({ signUpVisible: !signUpVisible });
         },
         (error) => {
           console.log(error);
