@@ -20,11 +20,11 @@ const data = {
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605487645/ciydhyimcw07k4e516hu.jpg",
 };
 
-const data2 = {
-    type: "award",
-    title: "왓챠피디아 컬렉션",
-    list: [],
-};
+// const data2 = {
+//     type: "award",
+//     title: "왓챠피디아 컬렉션",
+//     list: [],
+// };
 
 const Detail = () => {
     return (

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import { CardListSlick, CardCollection } from "../../../components";
+import { Divider } from "./DetailSectionInfo";
+
 const item = {
     title: "컬렉션",
     images: [
@@ -12,30 +14,33 @@ const item = {
     ],
 };
 
-const MainSectionAward = ({ data, sizeCard, rank }) => {
+const DetialSectionGallery = ({ data }) => {
     if (Object.keys(data).length === 0) {
         return null;
     }
-
-    const { title, description, posterUrl } = data;
-    // const { title, description, posterUrl, list } = data;
-
+    const { title, description, poster } = data;
+    // const { title, description, poster, list } = data;
     return (
         <Wrapper>
             <CardListSlick
                 title={title}
                 description={description}
-                posterUrl={posterUrl}
+                posterUrl={poster}
+                sizeHeader="sm"
+                sizeCard="sm"
             >
                 {[...new Array(10)].map((_, idx) => (
                     // {list.map((item, idx) => (
-                    <CardCollection key={idx} item={item} size={sizeCard} />
+                    <CardCollection key={idx} item={item} size="sm" />
                 ))}
             </CardListSlick>
+            <Divider />
         </Wrapper>
     );
 };
 
-export default MainSectionAward;
+export default React.memo(DetialSectionGallery);
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    margin: 0 20px;
+`;
