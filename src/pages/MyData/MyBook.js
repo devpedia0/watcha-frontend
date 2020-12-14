@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
+import AuthService from '../../services/auth.service';
 
 export default function MyBook() {
+  const [rated, setRated] = useState({
+    book: 0,
+  });
+
+  const [wishes, setWishes] = useState({
+    book: 0,
+  });
+
+  const [watching, setWatching] = useState({
+    book: 0,
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = AuthService.getUserRating().then((response) => {
+        setRated({
+          book: response.data.book.ratingCount,
+        });
+        setWishes({
+          book: response.data.book.wishCount,
+        });
+        setWatching({
+          book: response.data.book.watchingCount,
+        });
+      });
+    };
+    getData();
+  }, []);
   return (
     <Page>
       <Header />
@@ -21,7 +50,7 @@ export default function MyBook() {
             <div className="rating">
               <header className="ratingHeader">
                 <h2 className="ratingTitle">평가</h2>
-                <span className="titleNumber">222</span>
+                <span className="titleNumber">{rated.book}</span>
                 <div className="topRight">
                   <div className="viewMore">
                     <a href="/">더보기</a>
@@ -249,7 +278,7 @@ export default function MyBook() {
                     <div className="listTitle">
                       <a href="/" className="localLink">
                         보고싶어요
-                        <span className="number">4</span>
+                        <span className="number">{wishes.book}</span>
                       </a>
                     </div>
                   </div>
@@ -259,7 +288,7 @@ export default function MyBook() {
                     <div className="listTitle">
                       <a href="/" className="localLink">
                         보는중
-                        <span className="number">0</span>
+                        <span className="number">{watching.book}</span>
                       </a>
                     </div>
                   </div>

@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
+import { Link } from 'react-router-dom';
+import AuthService from '../../services/auth.service';
 
 export default function MyMovie() {
+  const [rated, setRated] = useState({
+    movie: 0,
+  });
+
+  const [wishes, setWishes] = useState({
+    movie: 0,
+  });
+
+  const [watching, setWatching] = useState({
+    movie: 0,
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = AuthService.getUserRating().then((response) => {
+        setRated({
+          movie: response.data.movie.ratingCount,
+        });
+        setWishes({
+          movie: response.data.movie.wishCount,
+        });
+        setWatching({
+          movie: response.data.movie.watchingCount,
+        });
+      });
+    };
+    getData();
+  }, []);
+
   return (
     <Page>
       <Header />
@@ -21,10 +52,10 @@ export default function MyMovie() {
             <div className="rating">
               <header className="ratingHeader">
                 <h2 className="ratingTitle">평가</h2>
-                <span className="titleNumber">222</span>
+                <span className="titleNumber">{rated.movie}</span>
                 <div className="topRight">
                   <div className="viewMore">
-                    <a href="/">더보기</a>
+                    <Link to="/ratedMovie">더보기</Link>
                   </div>
                 </div>
               </header>
@@ -249,7 +280,7 @@ export default function MyMovie() {
                     <div className="listTitle">
                       <a href="/" className="localLink">
                         보고싶어요
-                        <span className="number">4</span>
+                        <span className="number">{wishes.movie}</span>
                       </a>
                     </div>
                   </div>
@@ -259,7 +290,7 @@ export default function MyMovie() {
                     <div className="listTitle">
                       <a href="/" className="localLink">
                         보는중
-                        <span className="number">0</span>
+                        <span className="number">{watching.movie}</span>
                       </a>
                     </div>
                   </div>
