@@ -1,85 +1,93 @@
-import React from "react";
-import styled from "styled-components";
-
+import React from 'react';
+import styled from 'styled-components';
+import api from '../../services/api';
 export default function Secession(props) {
-    return (
-        <BackScreen className={props.switchModal ? "hideSecession" : ""}>
-            <ModalContainer>
-                <Background onClick={props.secessionModal} />
-                <Content>
-                    <div className="popUpScreen">
-                        <div>
-                            <div className="margin">
-                                <div className="title">알림</div>
-                                <div className="message">
-                                    가입하신 메일로 회원 탈퇴 메일을 보내드리니
-                                    메일함을 확인해주세요.
-                                </div>
-                                <div className="buttons">
-                                    <button
-                                        className="cancel"
-                                        onClick={props.secessionModal}
-                                    >
-                                        취소
-                                    </button>
-                                    <button className="enter">확인</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Content>
-            </ModalContainer>
-        </BackScreen>
-    );
+  const deleteUser = () => {
+    api.delete('/users').then((response) => {
+      if (response.status === 200) {
+        localStorage.clear();
+        window.location.href = '/';
+      }
+    });
+  };
+
+  return (
+    <BackScreen className={props.switchModal ? 'hideSecession' : ''}>
+      <ModalContainer>
+        <Background onClick={props.secessionModal} />
+        <Content>
+          <div className="popUpScreen">
+            <div>
+              <div className="margin">
+                <div className="title">알림</div>
+                <div className="message">
+                  가입하신 메일로 회원 탈퇴 메일을 보내드리니 메일함을
+                  확인해주세요.
+                </div>
+                <div className="buttons">
+                  <button className="cancel" onClick={props.secessionModal}>
+                    취소
+                  </button>
+                  <button className="enter" onClick={deleteUser}>
+                    확인
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Content>
+      </ModalContainer>
+    </BackScreen>
+  );
 }
 
 const BackScreen = styled.div`
-    display: block;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    z-index: 100;
-    overflow: hidden scroll;
-    &.hideSecession {
-        display: none;
-    }
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 100;
+  overflow: hidden scroll;
+  &.hideSecession {
+    display: none;
+  }
 `;
 
 const ModalContainer = styled.div`
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background: rgba(0, 0, 0, 0.56);
-    @media (min-width: 719px) {
-        text-align: center;
-        padding: 20px 0px;
-        overflow: auto;
-        ::after {
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
-            margin-left: -0.25em;
-        }
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.56);
+  @media (min-width: 719px) {
+    text-align: center;
+    padding: 20px 0px;
+    overflow: auto;
+    ::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      margin-left: -0.25em;
     }
+  }
 `;
 
 const Background = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: 50;
-    @media (min-width: 719px) {
-        text-align: center;
-        padding: 20px 0px;
-        overflow: auto;
-    }
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 50;
+  @media (min-width: 719px) {
+    text-align: center;
+    padding: 20px 0px;
+    overflow: auto;
+  }
 `;
 
 const Content = styled.div`
