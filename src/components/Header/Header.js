@@ -70,38 +70,36 @@ export default function Header() {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        if (email.includes("@") && password.length > 3) {
-            AuthService.login(email, password).then(
-                (response) => {
-                    console.log("loginResponse", response);
-                    history.push("/");
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        } else {
-            alert("아이디 비밀번호 확인");
+    if (email.includes('@') && password.length > 3) {
+      AuthService.login(email, password).then(
+        (response) => {
+          console.log('loginResponse', response);
+          history.push('/');
+          setLoginVisible({ loginVisible: !loginVisible });
+        },
+        (error) => {
+          console.log(error);
+
         }
     };
 
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        //
-        if (
-            (countryCode.length === 2,
-            email.includes("@") && password.length > 3,
-            name.length > 1)
-        ) {
-            AuthService.register(countryCode, name, email, password).then(
-                (response) => {
-                    console.log("registerResponse", response);
-                    history.push("/user");
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    //
+    if (
+      (countryCode.length === 2,
+      email.includes('@') && password.length > 3,
+      name.length > 1)
+    ) {
+      AuthService.register(countryCode, name, email, password).then(
+        (response) => {
+          console.log('registerResponse', response);
+          history.push('/user');
+          setSignUpVisible({ signUpVisible: !signUpVisible });
+        },
+        (error) => {
+          console.log(error);
+
         }
     };
 
