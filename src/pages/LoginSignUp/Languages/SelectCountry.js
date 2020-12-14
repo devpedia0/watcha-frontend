@@ -15,46 +15,6 @@ export default function SelectCountry(props) {
     getData();
   }, []);
 
-  const handleChange = (e) => {
-    if (e.target.id === '1') {
-      const changeState = {
-        countryCode: 'US',
-      };
-      api.put('/users/settings', changeState).then((response) => {
-        if (response === 200) {
-          AuthService.getUserInfo().then((newData) => {
-            console.log(newData.data.countryCode);
-          });
-        }
-        setToggle('US');
-      });
-    } else if (e.target.id === '2') {
-      const changeState = {
-        countryCode: 'KR',
-      };
-      api.put('/users/settings', changeState).then((response) => {
-        if (response === 200) {
-          AuthService.getUserInfo().then((newData) => {
-            console.log(newData.data.countryCode);
-          });
-        }
-        setToggle('KR');
-      });
-    } else if (e.target.id === '3') {
-      const changeState = {
-        countryCode: 'JP',
-      };
-      api.put('/users/settings', changeState).then((response) => {
-        if (response === 200) {
-          AuthService.getUserInfo().then((newData) => {
-            console.log(newData.data.countryCode);
-          });
-        }
-        setToggle('JP');
-      });
-    }
-  };
-
   const changeUS = () => {
     const changeState = {
       countryCode: 'US',
