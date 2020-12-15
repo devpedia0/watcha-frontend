@@ -138,12 +138,12 @@ export default function Header() {
                     </Link>
                 </LiCtg>
                 <LiCtg>
-                    <Link to="/program" activeClassName="active">
+                    <Link to="/tv_shows" activeClassName="active">
                         TV 프로그램
                     </Link>
                 </LiCtg>
                 <LiCtg>
-                    <Link to="/book" activeClassName="active">
+                    <Link to="/books" activeClassName="active">
                         책
                     </Link>
                 </LiCtg>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 
 const CardListSlick = ({
@@ -16,8 +16,15 @@ const CardListSlick = ({
         posX: 0,
         left: false,
         right: true,
+        height: 0,
     });
 
+    useEffect(() => {
+        setButtonCtrl((state) => ({
+            ...state,
+            height: slider.current.offsetHeight,
+        }));
+    }, []);
     const handleClickButton = (type) => {
         const childNum = slider.current.children.length;
         const childWidth = slider.current.children[0].clientWidth;
@@ -82,12 +89,14 @@ const CardListSlick = ({
                         show={buttonCtrl.left}
                         onClick={() => handleClickButton("left")}
                         size={sizeCard}
+                        height={buttonCtrl.height}
                     />
                     <ArrowButton
                         type="right"
                         show={buttonCtrl.right}
                         onClick={() => handleClickButton("right")}
                         size={sizeCard}
+                        height={buttonCtrl.height}
                     />
                 </div>
             </Content>
@@ -264,22 +273,13 @@ const ArrowButton = styled.div`
         }}
 
         @media only screen and (min-width: 760px) {
-            margin-top: ${(props) =>
-                props.size === "sm"
-                    ? "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"
-                    : "calc((100vw - 120px) * 108 / 157 / 4 - 17px)"};
+            margin-top: ${(props) => props.height * 0.4 + "px"};
         }
         @media only screen and (min-width: 1100px) {
-            margin-top: ${(props) =>
-                props.size === "sm"
-                    ? "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"
-                    : "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"};
+            margin-top: ${(props) => props.height * 0.4 + "px"};
         }
         @media only screen and (min-width: 1440px) {
-            margin-top: ${(props) =>
-                props.size === "sm"
-                    ? "calc((100vw - 120px) * 108 / 157 / 7 - 17px)"
-                    : "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"};
+            margin-top: ${(props) => props.height * 0.4 + "px"};
         }
     }
 

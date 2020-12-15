@@ -1,72 +1,71 @@
-
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import AuthService from '../../services/auth.service';
-import api from '../../services/api';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import AuthService from "../../services/auth.service";
+import api from "../../services/api";
 
 export default function Marketing(props) {
-  const [userInfo, setUserInfo] = useState({
-    isEmailAgreed: false,
-    isSmsAgreed: false,
-    isPushAgreed: false,
-  });
-
-  //UserInfo 가져오기
-  useEffect(() => {
-    const getData = async () => {
-      const response = await AuthService.getUserInfo();
-      setUserInfo(() => response.data);
-    };
-    getData();
-  }, []);
-
-  //상태 변화
-  const emailState = () => {
-    const sendEmail = {
-      ...userInfo,
-      isEmailAgreed: !userInfo.isEmailAgreed,
-    };
-    api.put('/users/settings', sendEmail).then((response) => {
-      //바뀐정보 보내기
-      if (response.status === 200) {
-        AuthService.getUserInfo().then((newData) => {
-          //변경사항 가져오기
-
-          setUserInfo(() => newData.data);
-        });
-      }
+    const [userInfo, setUserInfo] = useState({
+        isEmailAgreed: false,
+        isSmsAgreed: false,
+        isPushAgreed: false,
     });
-  };
 
-  const smsState = () => {
-    const sendSms = {
-      ...userInfo,
-      isSmsAgreed: !userInfo.isSmsAgreed,
+    //UserInfo 가져오기
+    useEffect(() => {
+        const getData = async () => {
+            const response = await AuthService.getUserInfo();
+            setUserInfo(() => response.data);
+        };
+        getData();
+    }, []);
+
+    //상태 변화
+    const emailState = () => {
+        const sendEmail = {
+            ...userInfo,
+            isEmailAgreed: !userInfo.isEmailAgreed,
+        };
+        api.put("/users/settings", sendEmail).then((response) => {
+            //바뀐정보 보내기
+            if (response.status === 200) {
+                AuthService.getUserInfo().then((newData) => {
+                    //변경사항 가져오기
+
+                    setUserInfo(newData.data);
+                });
+            }
+        });
     };
 
-    api.put('/users/settings', sendSms).then((response) => {
-      if (response.status === 200) {
-        AuthService.getUserInfo().then((newData) => {
-          setUserInfo(() => newData.data);
+    const smsState = () => {
+        const sendSms = {
+            ...userInfo,
+            isSmsAgreed: !userInfo.isSmsAgreed,
+        };
+        console.log(sendSms);
+        api.put("/users/settings", sendSms).then((response) => {
+            if (response.status === 200) {
+                AuthService.getUserInfo().then((newData) => {
+                    console.log(newData);
+                    setUserInfo(newData.data);
+                });
+            }
         });
-      }
-    });
-  };
-
-  const appState = () => {
-    const sendApp = {
-      ...userInfo,
-      isAppAgreed: !userInfo.isAppAgreed,
     };
-    api.put('/users/settings', sendApp).then((response) => {
-      if (response.status === 200) {
-        AuthService.getUserInfo().then((newData) => {
-          setUserInfo(() => newData.data);
-        });
-      }
-    });
-  };
 
+    const appState = () => {
+        const sendApp = {
+            ...userInfo,
+            isAppAgreed: !userInfo.isAppAgreed,
+        };
+        api.put("/users/settings", sendApp).then((response) => {
+            if (response.status === 200) {
+                AuthService.getUserInfo().then((newData) => {
+                    setUserInfo(newData.data);
+                });
+            }
+        });
+    };
 
     return (
         <BackScreen className={props.switchModal ? "hideMarketing" : ""}>
@@ -95,75 +94,92 @@ export default function Marketing(props) {
                                     <div className="listInner">
                                         <div className="innerTitle">E-Mail</div>
 
+                                        <div className="extra">
+                                            <ToggleBtn
+                                                aria-label="toggle"
+                                                onClick={emailState}
+                                            >
+                                                <span
+                                                    className={
+                                                        userInfo.isEmailAgreed
+                                                            ? "active bar"
+                                                            : "inactive bar"
+                                                    }
+                                                ></span>
+                                                <span
+                                                    className={
+                                                        userInfo.isEmailAgreed
+                                                            ? "active circle"
+                                                            : "inactive circle"
+                                                    }
+                                                ></span>
+                                            </ToggleBtn>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="marketingList">
+                                    <div className="listInner">
+                                        <div className="innerTitle">SMS</div>
 
-                    <div className="extra">
-                      <ToggleBtn aria-label="toggle" onClick={emailState}>
-                        <span
-                          className={
-                            userInfo.isEmailAgreed
-                              ? 'active bar'
-                              : 'inactive bar'
-                          }></span>
-                        <span
-                          className={
-                            userInfo.isEmailAgreed
-                              ? 'active circle'
-                              : 'inactive circle'
-                          }></span>
-                      </ToggleBtn>
-                    </div>
-                  </div>
-                </li>
-                <li className="marketingList">
-                  <div className="listInner">
-                    <div className="innerTitle">SMS</div>
+                                        <div className="extra">
+                                            <ToggleBtn
+                                                aria-label="toggle"
+                                                onClick={smsState}
+                                            >
+                                                <span
+                                                    className={
+                                                        userInfo.isSmsAgreed
+                                                            ? "active bar"
+                                                            : "inactive bar"
+                                                    }
+                                                ></span>
+                                                <span
+                                                    className={
+                                                        userInfo.isSmsAgreed
+                                                            ? "active circle"
+                                                            : "inactive circle"
+                                                    }
+                                                ></span>
+                                            </ToggleBtn>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="marketingList">
+                                    <div className="listInner">
+                                        <div className="innerTitle">
+                                            앱 Push
+                                        </div>
 
-                    <div className="extra">
-                      <ToggleBtn aria-label="toggle" onClick={smsState}>
-                        <span
-                          className={
-                            userInfo.isSmsAgreed ? 'active bar' : 'inactive bar'
-                          }></span>
-                        <span
-                          className={
-                            userInfo.isSmsAgreed
-                              ? 'active circle'
-                              : 'inactive circle'
-                          }></span>
-                      </ToggleBtn>
-                    </div>
-                  </div>
-                </li>
-                <li className="marketingList">
-                  <div className="listInner">
-                    <div className="innerTitle">앱 Push</div>
-
-                    <div className="extra">
-                      <ToggleBtn aria-label="toggle" onClick={appState}>
-                        <span
-                          className={
-                            userInfo.isPushAgreed
-                              ? 'active bar'
-                              : 'inactive bar'
-                          }></span>
-                        <span
-                          className={
-                            userInfo.isPushAgreed
-                              ? 'active circle'
-                              : 'inactive circle'
-                          }></span>
-                      </ToggleBtn>
-                    </div>
-                  </div>
-                </li>
-              </div>
-            </MarketingUl>
-          </ChildrenContainer>
-        </Container>
-      </ModalContainer>
-    </BackScreen>
-  );
-
+                                        <div className="extra">
+                                            <ToggleBtn
+                                                aria-label="toggle"
+                                                onClick={appState}
+                                            >
+                                                <span
+                                                    className={
+                                                        userInfo.isPushAgreed
+                                                            ? "active bar"
+                                                            : "inactive bar"
+                                                    }
+                                                ></span>
+                                                <span
+                                                    className={
+                                                        userInfo.isPushAgreed
+                                                            ? "active circle"
+                                                            : "inactive circle"
+                                                    }
+                                                ></span>
+                                            </ToggleBtn>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+                        </MarketingUl>
+                    </ChildrenContainer>
+                </Container>
+            </ModalContainer>
+        </BackScreen>
+    );
 }
 
 const BackScreen = styled.div`

@@ -37,6 +37,7 @@ function App() {
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/contents" exact component={Detail} />
+                    {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
                     <LayoutForm path="/admin/movies" exact component={PageBoard} />
