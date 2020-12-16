@@ -1,13 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
 const token = JSON.parse(localStorage.getItem('accessToken'));
-
 
 // const accessToken = localStorage.getItem('accessToken');
 const _refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
 
 const api = axios.create({
-  // baseURL: "http://121.160.25.204:8080",
+  // baseURL: 'http://121.160.25.204:8080',
   baseURL: 'http://222.111.195.42:8080',
 
   //baseURL: "http://localhost:8080",
@@ -41,7 +40,7 @@ api.interceptors.response.use(
           }
         )
         .then((response) => {
-          if (response === 200) {
+          if (response) {
             localStorage.setItem(
               'accessToken',
               JSON.stringify(response.headers.authorization)
@@ -49,9 +48,9 @@ api.interceptors.response.use(
           }
         });
     }
+
     return Promise.reject(error);
   }
 );
-
 
 export default api;

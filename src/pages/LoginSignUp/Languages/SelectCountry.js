@@ -1,15 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import AuthService from '../../../services/auth.service';
+import api from '../../../services/api';
 
 export default function SelectCountry(props) {
-  const [toggle, setToggle] = useState({
-    one: false,
-    two: false,
-    three: false,
-  });
+  const [toggle, setToggle] = useState('');
 
-  const toggleFilter = (e) => {
-    setToggle({ [e.target.id]: !toggle[e.target.value] });
+  useEffect(() => {
+    const getData = async () => {
+      const response = await AuthService.getUserInfo();
+      setToggle(() => response.data.countryCode);
+      console.log('useEffect', toggle);
+    };
+    getData();
+  }, []);
+
+  const changeUS = () => {
+    const changeState = {
+      countryCode: 'US',
+    };
+    api.put('/users/settings', changeState).then((response) => {
+      if (response === 200) {
+        AuthService.getUserInfo().then((newData) => {
+          console.log(newData.data.countryCode);
+        });
+      }
+      setToggle('US');
+    });
+  };
+
+  const changeKR = () => {
+    const changeState = {
+      countryCode: 'KR',
+    };
+    api.put('/users/settings', changeState).then((response) => {
+      if (response === 200) {
+        AuthService.getUserInfo().then((newData) => {
+          console.log(newData.data.countryCode);
+        });
+      }
+      setToggle('KR');
+    });
+  };
+
+  const changeJP = () => {
+    const changeState = {
+      countryCode: 'JP',
+    };
+    api.put('/users/settings', changeState).then((response) => {
+      if (response === 200) {
+        AuthService.getUserInfo().then((newData) => {
+          console.log(newData.data.countryCode);
+        });
+      }
+      setToggle('JP');
+    });
   };
 
   return (
@@ -27,41 +72,32 @@ export default function SelectCountry(props) {
             <div>
               <div className="containerMargin">
                 <LanguageUl>
-                  <li
-                    onClick={toggleFilter}
-                    id="one"
-                    className={toggle.one ? 'checker language' : ' language'}
-                    value="1">
+                  <li onClick={changeUS} className="language">
                     <div className="languageInner">
                       <div className="title">미국</div>
                       <div className="extra">
-                        <span></span>
+                        <span
+                          className={toggle === 'US' ? 'checker' : ''}></span>
                       </div>
                     </div>
                   </li>
 
-                  <li
-                    className={toggle.two ? 'checker language' : 'language'}
-                    id="two"
-                    onClick={toggleFilter}
-                    value="2">
+                  <li className="language" onClick={changeKR}>
                     <div className="languageInner">
                       <div className="title">대한민국</div>
                       <div className="extra">
-                        <span></span>
+                        <span
+                          className={toggle === 'KR' ? 'checker' : ''}></span>
                       </div>
                     </div>
                   </li>
 
-                  <li
-                    className={toggle.three ? 'checker language' : 'language'}
-                    id="three"
-                    onClick={toggleFilter}
-                    value="3">
+                  <li className="language" onClick={changeJP}>
                     <div className="languageInner">
                       <div className="title">일본</div>
                       <div className="extra">
-                        <span></span>
+                        <span
+                          className={toggle === 'JP' ? 'checker' : ''}></span>
                       </div>
                     </div>
                   </li>
@@ -221,6 +257,16 @@ const LanguageUl = styled.ul`
     letter-spacing: -0.7px;
     line-height: 22px;
   }
+  .extra {
+    .checker {
+      display: inline-block;
+      background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuOTMgMTQuMzAzbDcuNTQzLTcuMzY0YTEuMjY1IDEuMjY1IDAgMCAxIDEuNzc4LjAxIDEuMjM1IDEuMjM1IDAgMCAxLS4wMSAxLjc1OEw5Ljg5NiAxNy44M2EyLjUyIDIuNTIgMCAwIDEtLjAyNS0uMDI2bC00Ljc2OC00LjgzN2ExLjI2IDEuMjYgMCAwIDEgLjAwNi0xLjc3NSAxLjI0MSAxLjI0MSAwIDAgMSAxLjc2Mi4wMDdsMy4wMzggMy4wODMuMDIxLjAyMXoiLz4KPC9zdmc+Cg==)
+        center center / contain no-repeat;
+      vertical-align: top;
+      width: 24px;
+      height: 24px;
+    }
+  }
   .languageInner {
     display: flex;
     flex: 1 1 0%;
@@ -234,16 +280,6 @@ const LanguageUl = styled.ul`
       white-space: pre-wrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-    .extra {
-      .checker {
-        display: inline-block;
-        background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNGRjJGNkUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuOTMgMTQuMzAzbDcuNTQzLTcuMzY0YTEuMjY1IDEuMjY1IDAgMCAxIDEuNzc4LjAxIDEuMjM1IDEuMjM1IDAgMCAxLS4wMSAxLjc1OEw5Ljg5NiAxNy44M2EyLjUyIDIuNTIgMCAwIDEtLjAyNS0uMDI2bC00Ljc2OC00LjgzN2ExLjI2IDEuMjYgMCAwIDEgLjAwNi0xLjc3NSAxLjI0MSAxLjI0MSAwIDAgMSAxLjc2Mi4wMDdsMy4wMzggMy4wODMuMDIxLjAyMXoiLz4KPC9zdmc+Cg==)
-          center center / contain no-repeat;
-        vertical-align: top;
-        width: 24px;
-        height: 24px;
-      }
     }
   }
 `;

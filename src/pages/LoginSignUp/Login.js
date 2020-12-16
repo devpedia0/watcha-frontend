@@ -86,11 +86,7 @@ const Login = (props) => {
                         {props.passwordError}
                       </div>
                     </Area>
-                    <LoginBtn
-                      onClick={props.handleLogin}
-                      onClick={props.loginModal}>
-                      로그인
-                    </LoginBtn>
+                    <LoginBtn onClick={props.handleLogin}>로그인</LoginBtn>
                   </form>
 
                   <Find>
