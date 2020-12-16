@@ -22,7 +22,8 @@ import PageCollection from './pages/Form/PageCollection';
 import MyMovie from './pages/MyData/MyMovie';
 import MyTv from './pages/MyData/MyTv';
 import MyBook from './pages/MyData/MyBook';
-// import DetailInfo from './pages/Detail/DetailInfo';
+import DetailInfo from './pages/Detail/DetailInfo';
+import DetailComment from './pages/Detail/DetailComment';
 
 function App() {
 
@@ -39,7 +40,8 @@ function App() {
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/contents" exact component={Detail} />
-                    {/* <LayoutDetail path="/contents/overview" exact component={DetailInfo}/> */}
+                    <LayoutDetail path="/contents/overview" exact component={DetailInfo}/>
+                    <LayoutDetail path="/contents/comment" exact component={DetailComment}/>
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
