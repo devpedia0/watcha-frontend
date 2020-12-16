@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import AuthService from '../../services/auth.service';
 import api from '../../services/api';
 
+
 export default function Marketing(props) {
-  const [userInfo, setUserInfo] = useState({
-    isEmailAgreed: false,
-    isSmsAgreed: false,
-    isPushAgreed: false,
-  });
+    const [userInfo, setUserInfo] = useState({
+        isEmailAgreed: false,
+        isSmsAgreed: false,
+        isPushAgreed: false,
+    });
+
 
   //UserInfo 가져오기
   useEffect(() => {
@@ -33,15 +35,8 @@ export default function Marketing(props) {
           //변경사항 가져오기
           setUserInfo(newData.data);
         });
-      }
-    });
-  };
-
-  const smsState = () => {
-    const sendSms = {
-      ...userInfo,
-      isSmsAgreed: !userInfo.isSmsAgreed,
     };
+
     api.put('/users/settings', sendSms).then((response) => {
       if (response) {
         AuthService.getUserInfo().then((newData) => {
@@ -152,6 +147,7 @@ export default function Marketing(props) {
       </ModalContainer>
     </BackScreen>
   );
+
 }
 
 const BackScreen = styled.div`

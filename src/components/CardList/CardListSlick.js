@@ -231,10 +231,10 @@ const ArrowButton = styled.div`
     z-index: 22;
     overflow: visible;
     align-items: center;
-    height: 100%;
+    height: 50%;
     transition: all 300ms ease 0s;
     opacity: 0;
-    align-items: flex-start;
+    align-items: flex-end;
 
     ::after {
         content: "";
@@ -262,25 +262,6 @@ const ArrowButton = styled.div`
                     rgb(255, 255, 255);
             `;
         }}
-
-        @media only screen and (min-width: 760px) {
-            margin-top: ${(props) =>
-                props.size === "sm"
-                    ? "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"
-                    : "calc((100vw - 120px) * 108 / 157 / 4 - 17px)"};
-        }
-        @media only screen and (min-width: 1100px) {
-            margin-top: ${(props) =>
-                props.size === "sm"
-                    ? "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"
-                    : "calc((100vw - 120px) * 108 / 157 / 5 - 17px)"};
-        }
-        @media only screen and (min-width: 1440px) {
-            margin-top: ${(props) =>
-                props.size === "sm"
-                    ? "calc((100vw - 120px) * 108 / 157 / 7 - 17px)"
-                    : "calc((100vw - 120px) * 108 / 157 / 6 - 17px)"};
-        }
     }
 
     @media only screen and (min-width: 760px) {

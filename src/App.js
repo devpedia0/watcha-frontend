@@ -5,6 +5,8 @@ import './App.css';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Layout from './layouts/Layout';
+import LayoutDetail from './layouts/LayoutDetail';
+import LayoutForm from './layouts/LayoutForm';
 // pages
 import Main from "./pages/Main/Main";
 import Detail from './pages/Detail/Detail'
@@ -17,10 +19,10 @@ import PageBook from './pages/Form/PageBook';
 import PageTag from './pages/Form/PageTag';
 import PageParticipant from './pages/Form/PageParticipant';
 import PageCollection from './pages/Form/PageCollection';
-import LayoutForm from './layouts/LayoutForm';
 import MyMovie from './pages/MyData/MyMovie';
 import MyTv from './pages/MyData/MyTv';
 import MyBook from './pages/MyData/MyBook';
+// import DetailInfo from './pages/Detail/DetailInfo';
 
 function App() {
 
@@ -37,6 +39,8 @@ function App() {
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/contents" exact component={Detail} />
+                    {/* <LayoutDetail path="/contents/overview" exact component={DetailInfo}/> */}
+                    {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
                     <LayoutForm path="/admin/movies" exact component={PageBoard} />
