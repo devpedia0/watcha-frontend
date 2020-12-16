@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { changeNumberFormat } from "../../utils/helperFunc";
 
-export default function Footer() {
+export default function Footer({ className }) {
     const [data, setData] = useState("");
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function Footer() {
     }, []);
 
     return (
-        <Main>
+        <Main className={className}>
             <Section1>
                 <Span>
                     지금까지 <em>★ {changeNumberFormat(data)} 개의 평가가 </em>
