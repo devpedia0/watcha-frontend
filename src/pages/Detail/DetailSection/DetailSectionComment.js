@@ -15,7 +15,7 @@ const DetailSectionComment = ({ data }) => {
                 addComponent={<ShowMore src="http://www.naver.com" />}
             >
                 {[...new Array(10)].map((_, idx) => (
-                    <CardComment key={idx} />
+                    <StyledCard key={idx} />
                 ))}
             </CardListSlick>
             <Divider />
@@ -39,4 +39,12 @@ const Link = styled.a`
 export const Divider = styled.div`
     margin: 20px 0 0;
     border-bottom: 1px solid #f0f0f0;
+`;
+
+const StyledCard = styled(CardComment)`
+    width: 95%;
+
+    @media only screen and (min-width: 719px) {
+        width: 47.5%;
+    }
 `;
