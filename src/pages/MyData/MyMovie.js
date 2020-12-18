@@ -34,6 +34,15 @@ export default function MyMovie() {
     getData();
   }, []);
 
+  useEffect(() => {
+    const getDetailData = async () => {
+      const response = AuthService.getUserRatingDetail().then((response) => {
+        console.log('userDetail', response);
+      });
+    };
+    getDetailData();
+  }, []);
+
   return (
     <Page>
       <Header />

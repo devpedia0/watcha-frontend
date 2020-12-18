@@ -81,17 +81,19 @@ function MyPage(props) {
                     </ProfileHeader>
                     <ul>
                       <Type>
-                        <A>
-                          <ChartImage></ChartImage>
-                          <span
-                            style={{
-                              borderBottom: '1px solid #ededed',
-                              padding: '13px 0',
-                              flex: 1,
-                            }}>
-                            취향분석
-                          </span>
-                        </A>
+                        <Link to="/analysis">
+                          <A>
+                            <ChartImage></ChartImage>
+                            <span
+                              style={{
+                                borderBottom: '1px solid #ededed',
+                                padding: '13px 0',
+                                flex: 1,
+                              }}>
+                              취향분석
+                            </span>
+                          </A>
+                        </Link>
                       </Type>
                     </ul>
                   </Profile>

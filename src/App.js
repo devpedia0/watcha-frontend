@@ -24,6 +24,7 @@ import RatedMovie from './pages/MyData/RatedMovie';
 import MyTv from './pages/MyData/MyTv';
 import MyBook from './pages/MyData/MyBook';
 
+import Analysis from './pages/MyData/Analysis';
 function App() {
   return (
     <div className="App">
@@ -35,6 +36,7 @@ function App() {
           <Route path="/ratedMovie" component={RatedMovie} />
           <Route path="/myTv" component={MyTv} />
           <Route path="/myBook" component={MyBook} />
+          <Route path="/analysis" component={Analysis} />
           <Layout path="/" exact component={Main} />
           <Layout path="/tv_shows" exact component={Main} />
           <Layout path="/books" exact component={Main} />
