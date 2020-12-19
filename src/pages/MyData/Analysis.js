@@ -5,8 +5,17 @@ import api from '../../services/api';
 import AuthService from '../../services/auth.service';
 
 function Analysis() {
-  const [userName, setUserName] = useState('데브피디아');
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    username: '',
+    rating: {
+      movieCount: 0,
+      tvShowCount: 0,
+      bookCount: 0,
+    },
+    movie: {
+      totalRunningTimeInMinute: 0,
+    },
+  });
 
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem('id'));
@@ -21,6 +30,7 @@ function Analysis() {
   const checkState = () => {
     console.log(userInfo);
   };
+
   return (
     <NavContainer>
       <section className="main">
@@ -59,15 +69,21 @@ function Analysis() {
                     <div className="ratingCategory">
                       <Ul>
                         <li className="statList">
-                          <div className="statSumTitle">233</div>
+                          <div className="statSumTitle">
+                            {userInfo.rating.movieCount}
+                          </div>
                           <div className="statSumSubTitle">영화</div>
                         </li>
                         <li className="statList">
-                          <div className="statSumTitle">17</div>
+                          <div className="statSumTitle">
+                            {userInfo.rating.tvShowCount}
+                          </div>
                           <div className="statSumSubTitle">TV프로그램</div>
                         </li>
                         <li className="statList">
-                          <div className="statSumTitle">0</div>
+                          <div className="statSumTitle">
+                            {userInfo.rating.bookCount}
+                          </div>
                           <div className="statSumSubTitle">책</div>
                         </li>
                       </Ul>
@@ -106,15 +122,21 @@ function Analysis() {
                     <div className="starSumContainer">
                       <Ul>
                         <li className="statList">
-                          <div className="statSumTitle">3.6</div>
+                          <div className="statSumTitle">
+                            {userInfo.rating.average}
+                          </div>
                           <div className="statSumSubTitle">별점 평균</div>
                         </li>
                         <li className="statList">
-                          <div className="statSumTitle">240</div>
+                          <div className="statSumTitle">
+                            {userInfo.rating.totalCount}
+                          </div>
                           <div className="statSumSubTitle">별점 개수</div>
                         </li>
                         <li className="statList">
-                          <div className="statSumTitle">4.0</div>
+                          <div className="statSumTitle">
+                            {userInfo.rating.mostRating}
+                          </div>
                           <div className="statSumSubTitle">많이 준 별점</div>
                         </li>
                       </Ul>
@@ -240,7 +262,7 @@ function Analysis() {
                 <div>
                   <Margin>
                     <div className="watchingTime">
-                      {/* {userInfo.movie.totalRunningTimeInMinute}시간 */}
+                      {userInfo.movie.totalRunningTimeInMinute}시간
                     </div>
                     <div className="analysisSubtitle">
                       이제 자기만의 영화보는 관점이 생기셨을 거예요.

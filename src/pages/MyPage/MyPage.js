@@ -193,7 +193,6 @@ const Page = styled.div`
 `;
 
 const Content = styled.div`
-  display: block;
   padding-top: 0;
   padding-bottom: 56px;
   @media (min-width: 719px) {
@@ -203,25 +202,26 @@ const Content = styled.div`
 `;
 
 const Section = styled.div`
-  display: block;
   background: #f8f8f8;
   overflow: hidden;
+
   @media (min-width: 719px) {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh- 62px);
+    height: 100vh;
   }
 `;
 
 const Main = styled.div`
   @media (min-width: 719px) {
-    flex: 1;
-    margin: 28px 0 30px;
+    flex: 1 1 0%;
+    margin: 28px 0px 30px;
   }
 `;
 
 const MaxWidth = styled.div`
   margin: 0 auto;
+
   @media (min-width: 719px) {
     max-width: 640px;
   }
@@ -231,6 +231,7 @@ const Outer = styled.div`
   background: #fff;
   border-color: #e3e3e3 !important;
   overflow: hidden;
+
   @media (max-width: 1023px) and (min-width: 719px) {
     border: 1px solid;
     border-radius: 6px;

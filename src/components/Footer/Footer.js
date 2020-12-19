@@ -110,7 +110,8 @@ export default function Footer() {
 
 const Main = styled.div`
   display: none;
-  @media only screen and (min-width: 719px) {
+
+  @media (min-width: 719px) {
     display: block;
     box-sizing: border-box;
     width: 100%;
