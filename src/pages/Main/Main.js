@@ -30,7 +30,7 @@ const Main = () => {
         popular: {},
         collection: {},
     });
-
+    console.log(state);
     const getDataAPI = useCallback(async () => {
         if (state.step <= 4) {
             const baseUrl = `/public/${charType}/`;
