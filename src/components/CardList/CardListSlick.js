@@ -5,6 +5,7 @@ const CardListSlick = ({
     title,
     description,
     posterUrl,
+    count,
     sizeCard,
     sizeHeader,
     horizon,
@@ -61,7 +62,10 @@ const CardListSlick = ({
                     </div>
                 ) : (
                     <div className="titleBlock">
-                        <div className="title">{title}</div>
+                        <div className="title">
+                            {title}
+                            <span>{count}</span>
+                        </div>
                         <div className="titleRight">{AddComponent}</div>
                     </div>
                 )}
@@ -122,6 +126,16 @@ const Header = styled.div`
     .titleBlock {
         display: flex;
         justify-content: space-between;
+
+        span {
+            display: inline-block;
+            color: rgb(160, 160, 160);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 20px;
+            margin: 12px 0px 12px 6px;
+        }
     }
 
     img {

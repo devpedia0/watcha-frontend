@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import api from "../../../services/api";
 
 import { CardList, CardPoster } from "../../../components";
@@ -15,7 +15,7 @@ const dummy = {
 
 const DetailSectionRecommend = () => {
     const list = [...new Array(13)];
-    const [data, setData] = useState(list);
+    const [, setData] = useState(list);
     const handleClick = async () => {
         const res = await api.get("/detail/more");
         setData((state) => [...state, ...res.data]);
@@ -63,6 +63,5 @@ const StyledCard = styled(CardPoster)`
 
     @media only screen and (min-width: 719px) {
         width: 25%;
-        border: 1px solid blue;
     }
 `;

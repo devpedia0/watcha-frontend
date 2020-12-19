@@ -11,6 +11,7 @@ const DetailSectionComment = ({ data }) => {
         <Wrapper>
             <CardListSlick
                 title="코멘트"
+                count="10"
                 sizeHeader="sm"
                 addComponent={<ShowMore src="http://www.naver.com" />}
             >
