@@ -47,7 +47,7 @@ export default function MyMovie() {
     <Page>
       <Header />
       <Section>
-        <section className="container">
+        <section className="Maincontainer">
           <header className="header">
             <div className="backBtn">
               <div className="btnIcon"></div>
@@ -335,7 +335,7 @@ const Section = styled.section`
     padding-bottom: unset;
   }
 
-  .container {
+  .Maincontainer {
     padding: 88px 0px 0px;
     display: block;
 
