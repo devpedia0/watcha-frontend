@@ -142,6 +142,7 @@ export default function Footer({ className }) {
 }
 
 const Main = styled.div`
+<<<<<<< HEAD
     display: none;
 
     @media (min-width: 719px) {
@@ -149,6 +150,16 @@ const Main = styled.div`
         box-sizing: border-box;
         width: 100%;
     }
+=======
+  display: none;
+
+  @media (min-width: 719px) {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+>>>>>>> 0003be5e446f51d2aff629170132d9ce2265eb9b
 `;
 
 const Section1 = styled.div`

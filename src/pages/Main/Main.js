@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0003be5e446f51d2aff629170132d9ce2265eb9b
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
@@ -16,6 +20,10 @@ const steps = [
 ];
 
 const Main = () => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0003be5e446f51d2aff629170132d9ce2265eb9b
     const pathname = history.location.pathname;
     const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
     const [state, setState] = useState({
@@ -45,9 +53,15 @@ const Main = () => {
         }
     }, [state, charType]);
 
+<<<<<<< HEAD
     const infiniteScroll = useCallback(() => {
         let elem = document.documentElement;
         let body = document.body;
+=======
+  const infiniteScroll = useCallback(() => {
+    let elem = document.documentElement;
+    let body = document.body;
+>>>>>>> 0003be5e446f51d2aff629170132d9ce2265eb9b
 
         let scrollHeight = Math.max(elem.scrollHeight, body.scrollHeight);
         let scrollTop = Math.max(elem.scrollTop, body.scrollTop);
@@ -86,6 +100,10 @@ const Main = () => {
         fetchAPI();
     }, [charType]);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0003be5e446f51d2aff629170132d9ce2265eb9b
     return (
         <Wrapper>
             <MainSectionRank data={state.box_office} />
