@@ -28,7 +28,6 @@ api.interceptors.response.use(
   function (error) {
     if (error.response.data.status === 401 && error.response) {
       console.log('토큰값 에러', error.response.data.error);
-      console.log(_refreshToken);
       return api
         .post(
           '/auth/token',

@@ -8,10 +8,10 @@ import Layout from './layouts/Layout';
 import LayoutDetail from './layouts/LayoutDetail';
 import LayoutForm from './layouts/LayoutForm';
 // pages
-import Main from "./pages/Main/Main";
-import Detail from './pages/Detail/Detail'
-import Team from "./pages/Team/Team";
-import MyPage from "./pages/MyPage/MyPage";
+import Main from './pages/Main/Main';
+import Detail from './pages/Detail/Detail';
+import Team from './pages/Team/Team';
+import MyPage from './pages/MyPage/MyPage';
 import PageBoard from './pages/Form/PageBoard';
 import PageMovie from './pages/Form/PageMovie';
 import PageTV from './pages/Form/PageTV';
@@ -20,11 +20,14 @@ import PageTag from './pages/Form/PageTag';
 import PageParticipant from './pages/Form/PageParticipant';
 import PageCollection from './pages/Form/PageCollection';
 import MyMovie from './pages/MyData/MyMovie';
+import RatedMovie from './pages/MyData/RatedMovie';
+
 import MyTv from './pages/MyData/MyTv';
 import MyBook from './pages/MyData/MyBook';
 import DetailInfo from './pages/Detail/DetailInfo';
 import DetailComment from './pages/Detail/DetailComment';
 
+import Analysis from './pages/MyData/Analysis';
 function App() {
 
     return (
@@ -34,6 +37,9 @@ function App() {
                     <Route path="/team" component={Team} /> 
                     <Route path="/myPage" component={MyPage} />
                     <Route path="/myMovie" component={MyMovie} />
+                    <Route path="/analysis" component={Analysis} />
+                    <Route path="/ratedMovie" component={RatedMovie} />
+
                     <Route path="/myTv" component={MyTv} />
                     <Route path="/myBook" component={MyBook} />
                     <Layout path="/" exact component={Main} />

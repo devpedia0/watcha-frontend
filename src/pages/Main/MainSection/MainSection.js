@@ -1,14 +1,17 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { CardListSlick, CardPoster } from "../../../components";
+import { CardListSlick, CardPoster } from '../../../components';
 
 const MainSection = ({ data }) => {
+
     if (Object.keys(data).length === 0) {
         return null;
     }
 
-    const { title, description, poster, list } = data;
+
+  const { title, description, poster, list } = data;
+
 
     return (
         <Wrapper>
@@ -29,6 +32,7 @@ export default MainSection;
 
 const Wrapper = styled.div``;
 const StyledCard = styled(CardPoster)`
+
     width: 33.3333333%;
 
     @media only screen and (min-width: 600px) {
