@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const CardList = ({ title, addComponent, children }) => {
+const CardList = ({ title, count, addComponent, children }) => {
     return (
         <Wrapper>
             <div className="header">
-                <h2>{title}</h2>
+                <h2>
+                    {title}
+                    <span>{count}</span>
+                </h2>
                 <div className="right">{addComponent}</div>
             </div>
             {children}
@@ -29,6 +32,16 @@ const Wrapper = styled.div`
             line-height: 28px;
             margin: 8px 0;
         }
+    }
+
+    .header span {
+        display: inline-block;
+        color: rgb(160, 160, 160);
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+        line-height: 20px;
+        margin: 12px 0px 12px 6px;
     }
 `;
 

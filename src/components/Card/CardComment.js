@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const CardComment = () => {
+const CardComment = ({ className }) => {
     return (
-        <Wrapper>
+        <Wrapper className={className}>
             <div className="card-block">
                 <Header>
                     <div className="title">
@@ -15,7 +15,7 @@ const CardComment = () => {
                     </div>
                     <div className="score">★ 3.0</div>
                 </Header>
-                <Content>
+                <Content className="content">
                     한정적으로 설정한 뒤 구석구석 찔러가며 깔끔하게 득점한다.
                 </Content>
                 <Like>
@@ -38,7 +38,7 @@ const Wrapper = styled.div`
     display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
-    width: 95%;
+    width: 100%;
     padding: 0 5px;
 
     .card-block {
@@ -46,10 +46,6 @@ const Wrapper = styled.div`
         background-color: #f2f2f2;
         border-radius: 6px;
         overflow: hidden;
-    }
-
-    @media only screen and (min-width: 719px) {
-        width: 47.5%;
     }
 `;
 

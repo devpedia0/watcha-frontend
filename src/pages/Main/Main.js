@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
-import history from '../../history';
-import { Loader } from '../../components';
-import api from '../../services/api';
-import MainSection from './MainSection/MainSection';
-import MainSectionAward from './MainSection/MainSectionAward';
+
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import history from "../../history";
+import { Loader } from "../../components";
+import api from "../../services/api";
+import MainSection from "./MainSection/MainSection";
+import MainSectionRank from "./MainSection/MainSectionRank";
+import MainSectionAward from "./MainSection/MainSectionAward";
 
 const steps = [
   { id: 'score' },
@@ -15,34 +17,35 @@ const steps = [
 ];
 
 const Main = () => {
-  const pathname = history.location.pathname;
-  const charType = pathname === '/' ? 'movies' : pathname.split('/')[1];
-  const [state, setState] = useState({
-    step: 0,
-    loading: false,
-    box_office: {},
-    mars: {},
-    netflix: {},
-    score: {},
-    award: {},
-    tag: {},
-    popular: {},
-    collection: {},
-  });
 
-  const getDataAPI = useCallback(async () => {
-    if (state.step <= 4) {
-      const baseUrl = `/public/${charType}/`;
-      const charId = steps[state.step];
-      const res = await api.get(baseUrl + charId.id);
-      setState({
-        ...state,
-        [charId.id]: res.data[0],
-        step: state.step + 1,
+    const pathname = history.location.pathname;
+    const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
+    const [state, setState] = useState({
+        step: 0,
         loading: false,
-      });
-    }
-  }, [state, charType]);
+        box_office: {},
+        mars: {},
+        netflix: {},
+        score: {},
+        award: {},
+        tag: {},
+        popular: {},
+        collection: {},
+    });
+    console.log(state);
+    const getDataAPI = useCallback(async () => {
+        if (state.step <= 4) {
+            const baseUrl = `/public/${charType}/`;
+            const charId = steps[state.step];
+            const res = await api.get(baseUrl + charId.id);
+            setState({
+                ...state,
+                [charId.id]: res.data[0],
+                step: state.step + 1,
+                loading: false,
+            });
+        }
+    }, [state, charType]);
 
   const infiniteScroll = useCallback(() => {
     let elem = document.documentElement;
@@ -85,19 +88,20 @@ const Main = () => {
     fetchAPI();
   }, [charType]);
 
-  return (
-    <Wrapper>
-      <MainSection data={state.box_office} rank={true} />
-      <MainSection data={state.mars} rank={true} />
-      <MainSection data={state.netflix} rank={true} />
-      <MainSection data={state.score} sizeCard="sm" />
-      <MainSection data={state.tag} sizeCard="sm" />
-      <MainSection data={state.popular} sizeCard="sm" />
-      <MainSection data={state.collection} sizeCard="sm" />
-      <MainSectionAward data={state.award} />
-      {state.loading && <Loader />}
-    </Wrapper>
-  );
+
+    return (
+        <Wrapper>
+            <MainSectionRank data={state.box_office} />
+            <MainSectionRank data={state.mars} />
+            <MainSectionRank data={state.netflix} />
+            <MainSection data={state.score} />
+            <MainSection data={state.tag} />
+            <MainSection data={state.popular} />
+            <MainSection data={state.collection} />
+            <MainSectionAward data={state.award} />
+            {state.loading && <Loader />}
+        </Wrapper>
+    );
 };
 
 export default Main;

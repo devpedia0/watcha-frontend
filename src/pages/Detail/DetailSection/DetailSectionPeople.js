@@ -30,18 +30,4 @@ export default React.memo(DetailSectionPeople);
 
 const Wrapper = styled.div`
     margin: 0 20px;
-
-    .card-align {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        height: 228px;
-        display: flex;
-        flex-flow: column wrap;
-        align-content: flex-start;
-        margin-right: -5px;
-        margin-left: 0px;
-        margin-top: 4px;
-        margin-bottom: 16px;
-    }
 `;
