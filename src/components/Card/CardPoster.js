@@ -1,10 +1,11 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import history from "../../history";
 
-const CardPoster = ({ size, item, rank }) => {
+const CardPoster = ({ size, item, rank, className }) => {
     return (
         <Wrapper
+            className={className}
             size={size}
             onClick={() => history.push(`/contents/${item.id}`)}
         >
@@ -36,40 +37,10 @@ const Wrapper = styled.li`
     display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
-    width: 33.333333333333336%;
+    width: 100%;
     padding: 0 4px;
     margin-bottom: 0px;
     cursor: pointer;
-
-    @media only screen and (min-width: 600px) {
-        width: ${(props) => (props.size === "sm" ? "25%" : "33.3333%")};
-    }
-    @media only screen and (min-width: 760px) {
-        ${(props) =>
-            props.size === "sm"
-                ? css`
-                      width: 20%;
-                      padding: 0 5px;
-                  `
-                : css`
-                      width: 25%;
-                      padding-right: 6px;
-                      padding-left: 6px;
-                  `}
-    }
-    @media only screen and (min-width: 1100px) {
-        ${(props) =>
-            props.size === "sm"
-                ? css`
-                      width: 16.6667%;
-                      padding: 0 8px;
-                  `
-                : css`
-                      width: 20%;
-                      padding-right: 8px;
-                      padding-left: 8px;
-                  `}
-    }
 `;
 
 const ContentImg = styled.div`
