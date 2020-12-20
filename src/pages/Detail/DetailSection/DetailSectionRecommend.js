@@ -14,7 +14,7 @@ const dummy = {
 };
 
 const DetailSectionRecommend = () => {
-    const list = [...new Array(13)];
+    const list = [...new Array(12)];
     const [, setData] = useState(list);
     const handleClick = async () => {
         const res = await api.get("/detail/more");
@@ -28,7 +28,7 @@ const DetailSectionRecommend = () => {
                     <StyledCard key={idx} item={dummy} />
                 ))}
             </CardList>
-            {list.length > 12 && <Button onClick={handleClick}>더보기</Button>}
+            {list.length >= 12 && <Button onClick={handleClick}>더보기</Button>}
         </Wrapper>
     );
 };
