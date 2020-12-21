@@ -29,14 +29,13 @@ import DetailComment from "./pages/Detail/DetailComment";
 
 import Analysis from "./pages/MyData/Analysis";
 function App() {
-
     return (
         <div className="App">
             <Router history={history}>
                 <Switch>
                     <Route path="/team" component={Team} />
                     <Route path="/myPage" component={MyPage} />
-                    <Route path="/myMovie" component={MyMovie} />
+                    <Route path="/MOVIES" component={MyMovie} />
                     <Route path="/ratedMovie" component={RatedMovie} />
                     <Route path="/myTv" component={MyTv} />
                     <Route path="/myBook" component={MyBook} />
@@ -99,10 +98,6 @@ function App() {
             </Router>
         </div>
     );
-<<<<<<< HEAD
-=======
-
->>>>>>> 0003be5e446f51d2aff629170132d9ce2265eb9b
 }
 
 export default App;
