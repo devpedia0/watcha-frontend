@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { ModalBookmark, Stars } from "../../../components";
 
-const DetailHeader = ({ data }) => {
+const ContentsHeader = ({ data }) => {
     const img =
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605860774/brjxqof6s9jx6tlerasw.jpg";
     return (
@@ -45,7 +45,7 @@ const DetailHeader = ({ data }) => {
     );
 };
 
-export default DetailHeader;
+export default ContentsHeader;
 
 const Wrapper = styled.div`
     background: #fff;

@@ -6,7 +6,7 @@ const ShowMore = ({ src }) => {
     return <Link href={src}>더보기</Link>;
 };
 
-const DetailSectionComment = ({ data }) => {
+const ContentsSectionComment = ({ data }) => {
     return (
         <Wrapper>
             <CardListSlick
@@ -24,7 +24,7 @@ const DetailSectionComment = ({ data }) => {
     );
 };
 
-export default React.memo(DetailSectionComment);
+export default React.memo(ContentsSectionComment);
 
 const Wrapper = styled.div`
     margin: 0 20px;

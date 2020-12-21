@@ -6,7 +6,7 @@ const ShowMore = ({ src }) => {
     return <Link href={src}>더보기</Link>;
 };
 
-const DetailSectionInfo = ({ data }) => {
+const ContentsSectionInfo = ({ data }) => {
     return (
         <Wrapper>
             <CardList
@@ -34,7 +34,7 @@ const DetailSectionInfo = ({ data }) => {
     );
 };
 
-export default React.memo(DetailSectionInfo);
+export default React.memo(ContentsSectionInfo);
 
 const Wrapper = styled.div`
     margin: 0 20px;

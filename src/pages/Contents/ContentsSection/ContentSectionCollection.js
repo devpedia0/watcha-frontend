@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { CardListSlick, CardCollection } from "../../../components";
-import { Divider } from "./DetailSectionInfo";
+import { Divider } from "./ContentsSectionInfo";
 
 const item = {
     title: "컬렉션",
@@ -14,7 +14,7 @@ const item = {
     ],
 };
 
-const DetialSectionGallery = ({ data }) => {
+const ContentSectionCollection = ({ data }) => {
     if (Object.keys(data).length === 0) {
         return null;
     }
@@ -39,7 +39,7 @@ const DetialSectionGallery = ({ data }) => {
     );
 };
 
-export default React.memo(DetialSectionGallery);
+export default React.memo(ContentSectionCollection);
 
 const Wrapper = styled.div`
     margin: 0 20px;

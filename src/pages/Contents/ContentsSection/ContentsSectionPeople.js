@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { CardListSlick, Card } from "../../../components";
-import { Divider } from "./DetailSectionInfo";
+import { Divider } from "./ContentsSectionInfo";
 const item = {
     name: "name",
     description: "description",
     profileImagePath: "",
 };
 
-const DetailSectionPeople = () => {
+const ContentsSectionPeople = () => {
     return (
         <Wrapper>
             <CardListSlick
@@ -26,7 +26,7 @@ const DetailSectionPeople = () => {
     );
 };
 
-export default React.memo(DetailSectionPeople);
+export default React.memo(ContentsSectionPeople);
 
 const Wrapper = styled.div`
     margin: 0 20px;

@@ -9,7 +9,7 @@ import LayoutDetail from './layouts/LayoutDetail';
 import LayoutForm from './layouts/LayoutForm';
 // pages
 import Main from "./pages/Main/Main";
-import Detail from './pages/Detail/Detail'
+import Contents from './pages/Contents/Contents'
 import Team from "./pages/Team/Team";
 import MyPage from "./pages/MyPage/MyPage";
 import PageBoard from './pages/Form/PageBoard';
@@ -22,8 +22,8 @@ import PageCollection from './pages/Form/PageCollection';
 import MyMovie from './pages/MyData/MyMovie';
 import MyTv from './pages/MyData/MyTv';
 import MyBook from './pages/MyData/MyBook';
-import DetailInfo from './pages/Detail/DetailInfo';
-import DetailComment from './pages/Detail/DetailComment';
+import ContentsInfo from './pages/Contents/ContentsInfo';
+import ContentsComment from './pages/Contents/ContentsComment';
 
 function App() {
 
@@ -39,9 +39,9 @@ function App() {
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
-                    <Layout path="/contents" exact component={Detail} />
-                    <LayoutDetail path="/contents/overview" exact component={DetailInfo}/>
-                    <LayoutDetail path="/contents/comment" exact component={DetailComment}/>
+                    <Layout path="/contents" exact component={Contents} />
+                    <LayoutDetail path="/contents/overview" exact component={ContentsInfo}/>
+                    <LayoutDetail path="/contents/comment" exact component={ContentsComment}/>
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />

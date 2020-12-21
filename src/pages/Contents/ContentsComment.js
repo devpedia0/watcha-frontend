@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { CardComment, HeaderDetail } from "../../components";
 
-const DetailInfo = () => {
+const ContentsComment = () => {
     return (
         <Wrap>
             <HeaderDetail title="코멘트" />
@@ -15,7 +15,7 @@ const DetailInfo = () => {
     );
 };
 
-export default DetailInfo;
+export default ContentsComment;
 
 const Wrap = styled.div`
     padding-top: 0px;

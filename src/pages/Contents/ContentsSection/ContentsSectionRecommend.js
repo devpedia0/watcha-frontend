@@ -13,7 +13,7 @@ const dummy = {
     score: 3.2,
 };
 
-const DetailSectionRecommend = () => {
+const ContentsSectionRecommend = () => {
     const list = [...new Array(12)];
     const [, setData] = useState(list);
     const handleClick = async () => {
@@ -33,7 +33,7 @@ const DetailSectionRecommend = () => {
     );
 };
 
-export default React.memo(DetailSectionRecommend);
+export default React.memo(ContentsSectionRecommend);
 
 const Wrapper = styled.div`
     margin: 0 20px;

@@ -37,7 +37,7 @@ const CardWatchPlace = ({ data }) => {
     );
 };
 
-const DetialSectionGallery = ({ data }) => {
+const ContentsSectionGallery = ({ data }) => {
     if (Object.keys(data).length === 0) {
         return null;
     }
@@ -66,7 +66,7 @@ const DetialSectionGallery = ({ data }) => {
     );
 };
 
-export default React.memo(DetialSectionGallery);
+export default React.memo(ContentsSectionGallery);
 
 const WrapperCard = styled.div`
     display: flex;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import { HeaderDetail } from "../../components";
 
@@ -30,7 +30,7 @@ const dataDummy = [
     },
 ];
 
-const DetailInfo = () => {
+const ContentsInfo = () => {
     return (
         <Wrap>
             <HeaderDetail title="기본 정보" />
@@ -50,7 +50,7 @@ const DetailInfo = () => {
     );
 };
 
-export default DetailInfo;
+export default ContentsInfo;
 
 const Wrap = styled.div`
     padding-top: 0px;
