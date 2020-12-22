@@ -21,7 +21,7 @@ import PageParticipant from "./pages/Form/PageParticipant";
 import PageCollection from "./pages/Form/PageCollection";
 import MyMovie from "./pages/MyData/MyMovie";
 import RatedMovie from "./pages/MyData/RatedMovie";
-
+// import Search from "./pages/Search/Search";
 import MyTv from "./pages/MyData/MyTv";
 import MyBook from "./pages/MyData/MyBook";
 import DetailInfo from "./pages/Detail/DetailInfo";
@@ -35,15 +35,27 @@ function App() {
                 <Switch>
                     <Route path="/team" component={Team} />
                     <Route path="/myPage" component={MyPage} />
-                    <Route path="/MOVIES" component={MyMovie} />
+                    <Route path="/myMovie" component={MyMovie} />
+                    <Route path="/analysis" component={Analysis} />
                     <Route path="/ratedMovie" component={RatedMovie} />
+                    {/* <Route path="/searches" component={Search} /> */}
                     <Route path="/myTv" component={MyTv} />
                     <Route path="/myBook" component={MyBook} />
-                    <Route path="/analysis" component={Analysis} />
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/contents" exact component={Detail} />
+                    <LayoutDetail
+                        path="/contents/overview"
+                        exact
+                        component={DetailInfo}
+                    />
+                    <LayoutDetail
+                        path="/contents/comment"
+                        exact
+                        component={DetailComment}
+                    />
+                    {/* Form Page */}
                     <LayoutForm
                         path="/admin/books"
                         exact

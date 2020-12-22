@@ -28,56 +28,60 @@ function FavGenre() {
                         <ul className="sumUl">
                             <li className="statList">
                                 <div className="statTitle">
-                                    {genreInfo[0].description}
+                                    {/* {genreInfo[0].description} */}
                                 </div>
                                 <div className="subTitle">
-                                    {genreInfo[0].score}점 •{genreInfo[0].count}
-                                    편
+                                    {/* {/* {genreInfo[0].score}점 •{genreInfo[0].count} */}{" "}
+                                    */} 편
                                 </div>
                             </li>
                             <li className="statList">
                                 <div className="statTitle">
-                                    {genreInfo[1].description}
+                                    {/* {genreInfo[1].description} */}
                                 </div>
                                 <div className="subTitle">
-                                    {genreInfo[1].score}점 •{genreInfo[1].count}
-                                    편
+                                    {/* {/* {genreInfo[1].score}점 •{genreInfo[1].count} */}{" "}
+                                    */} 편
                                 </div>
                             </li>
                             <li className="statList">
                                 <div className="statTitle">
-                                    {genreInfo[2].description}
+                                    {/* {genreInfo[2].description} */}
                                 </div>
                                 <div className="subTitle">
-                                    {genreInfo[2].score}점 •{genreInfo[2].count}
-                                    편
+                                    {/* {/* {genreInfo[2].score}점 •{genreInfo[2].count} */}{" "}
+                                    */} 편
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <ul className="subContainer">
                         <li className="subList">
-                            {genreInfo[3].description}
+                            {/* {genreInfo[3].description} */}
                             <span>
-                                {genreInfo[3].score}점 •{genreInfo[3].count}편
+                                {/* {/* {genreInfo[3].score}점 •{genreInfo[3].count}편 */}{" "}
+                                */}
                             </span>
                         </li>
                         <li className="subList">
-                            {genreInfo[4].description}
+                            {/* {genreInfo[4].description} */}
                             <span>
-                                {genreInfo[4].score}점 •{genreInfo[4].count}편
+                                {/* {/* {genreInfo[4].score}점 •{genreInfo[4].count}편 */}{" "}
+                                */}
                             </span>
                         </li>
                         <li className="subList">
-                            {genreInfo[5].description}
+                            {/* {genreInfo[5].description} */}
                             <span>
-                                {genreInfo[5].score}점 •{genreInfo[5].count}편
+                                {/* {/* {genreInfo[5].score}점 •{genreInfo[5].count}편 */}{" "}
+                                */}
                             </span>
                         </li>
                         <li className="subList">
-                            {genreInfo[6].description}
+                            {/* {genreInfo[6].description} */}
                             <span>
-                                {genreInfo[6].score}점 •{genreInfo[6].count}편
+                                {/* {/* {genreInfo[6].score}점 •{genreInfo[6].count}편 */}{" "}
+                                */}
                             </span>
                         </li>
                     </ul>
