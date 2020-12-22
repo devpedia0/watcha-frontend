@@ -3,47 +3,29 @@ import styled from "styled-components";
 import history from "../../history";
 import { Loader } from "../../components";
 import api from "../../services/api";
-import MainSection from "./MainSection/MainSection";
-import MainSectionRank from "./MainSection/MainSectionRank";
-import MainSectionAward from "./MainSection/MainSectionAward";
+import TestSection from "./TestSection";
 
-const steps = [
-    { id: "score" },
-    { id: "tag" },
-    { id: "popular" },
-    { id: "collection" },
-    { id: "award" },
-];
+const MainComponent = () => {
+    const id = JSON.parse(localStorage.getItem("id"));
 
-const Main = () => {
     const pathname = history.location.pathname;
-    const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
+    const contentType = pathname === "/" ? "MOVIES" : pathname.split("/")[1];
     const [state, setState] = useState({
-        step: 0,
-        loading: false,
-        box_office: {},
-        mars: {},
-        netflix: {},
-        score: {},
-        award: {},
-        tag: {},
-        popular: {},
-        collection: {},
+        id: 0,
+        isNetflixContent: false,
+        isWatchaContent: false,
+        mainTitle: "",
+        score: 0,
     });
     console.log("state", state);
     const getDataAPI = useCallback(async () => {
-        if (state.step <= 4) {
-            const baseUrl = `/public/${charType}/`;
-            const charId = steps[state.step];
-            const res = await api.get(baseUrl + charId.id);
-            setState({
-                ...state,
-                [charId.id]: res.data[0],
-                step: state.step + 1,
-                loading: false,
-            });
-        }
-    }, [state, charType]);
+        const getDataAPI = async () => {
+            const baseUrl = `/users/${id}/${contentType}/ratings`;
+            const response = await api.get(baseUrl + `?page=1&size=7`);
+            setState(() => response.data);
+            console.log(response);
+        };
+    }, [state, contentType]);
 
     const infiniteScroll = useCallback(() => {
         let elem = document.documentElement;
@@ -72,36 +54,15 @@ const Main = () => {
         return () => window.removeEventListener("scroll", infiniteScroll);
     }, [infiniteScroll, state.loading]);
 
-    useEffect(() => {
-        const fetchAPI = async () => {
-            const baseUrl = `/public/${charType}/rankings`;
-            const res = await api.get(baseUrl);
-            setState((prevState) => ({
-                ...prevState,
-                box_office: res.data[0],
-                mars: res.data[1],
-                netflix: res.data[2],
-            }));
-        };
-        fetchAPI();
-    }, [charType]);
-
     return (
         <Wrapper>
-            <MainSectionRank data={state.box_office} />
-            <MainSectionRank data={state.mars} />
-            <MainSectionRank data={state.netflix} />
-            <MainSection data={state.score} />
-            <MainSection data={state.tag} />
-            <MainSection data={state.popular} />
-            <MainSection data={state.collection} />
-            <MainSectionAward data={state.award} />
+            <TestSection data={state} />
             {state.loading && <Loader />}
         </Wrapper>
     );
 };
 
-export default Main;
+export default MainComponent;
 
 const Wrapper = styled.div`
     display: flex;

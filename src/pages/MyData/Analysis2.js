@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import history from "../../history";
 import api from "../../services/api";
+import AuthService from "../../services/auth.service";
 import MyTag from "./Tag/MyTag";
 import Chart from "./Chart";
-import ActorSection from "./Actor/ActorSection";
-import MakerSection from "./Maker/MakerSection";
-import FavCountry from "./FavoriteCountry/FavCountry";
-import FavGenre from "./Genre/FavGenre";
+import ActorSection from "./ActorSection";
 
 function Analysis() {
     const [userInfo, setUserInfo] = useState({
@@ -21,7 +19,7 @@ function Analysis() {
             totalRunningTimeInMinute: 0,
         },
     });
-    const [data, setData] = useState({}); //analysis에서  state값으로 나머지도 설정해서 하위 props로 데이터를 받아올지 지금처럼 하위 컴포넌트마다 데이터 가져올지
+    const [data, setData] = useState({});
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));
@@ -199,7 +197,7 @@ function Analysis() {
                                             <div>
                                                 <Margin>
                                                     <div className="tagBox">
-                                                        <MyTag />
+                                                        <MyTag data={data} />
                                                     </div>
                                                 </Margin>
                                             </div>
@@ -210,26 +208,94 @@ function Analysis() {
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <ActorSection />
-                                    <Divider />
+                                    <Margin>
+                                        <header className="tagHeader">
+                                            <h2 className="tagTitle">
+                                                선호배우
+                                            </h2>
+                                        </header>
+                                    </Margin>
+                                </div>
+                                <div>
+                                    <Margin>
+                                        <div className="tagCloudContainer">
+                                            <div>
+                                                <Margin>
+                                                    <div className="tagBox"></div>
+                                                </Margin>
+                                            </div>
+                                        </div>
+                                        <Divider />
+                                    </Margin>
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <MakerSection />
-                                    <Divider />
+                                    <Margin>
+                                        <header className="tagHeader">
+                                            <h2 className="tagTitle">
+                                                선호감독
+                                            </h2>
+                                        </header>
+                                    </Margin>
+                                </div>
+                                <div>
+                                    <Margin>
+                                        <div className="tagCloudContainer">
+                                            <div>
+                                                <Margin>
+                                                    <div className="tagBox"></div>
+                                                </Margin>
+                                            </div>
+                                        </div>
+                                        <Divider />
+                                    </Margin>
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <FavCountry />
-                                    <Divider />
+                                    <Margin>
+                                        <header className="tagHeader">
+                                            <h2 className="tagTitle">
+                                                영화 선호국가
+                                            </h2>
+                                        </header>
+                                    </Margin>
+                                </div>
+                                <div>
+                                    <Margin>
+                                        <div className="tagCloudContainer">
+                                            <div>
+                                                <Margin>
+                                                    <div className="tagBox"></div>
+                                                </Margin>
+                                            </div>
+                                        </div>
+                                        <Divider />
+                                    </Margin>
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <FavGenre />
-                                    <Divider />
+                                    <Margin>
+                                        <header className="tagHeader">
+                                            <h2 className="tagTitle">
+                                                영호 선호장르
+                                            </h2>
+                                        </header>
+                                    </Margin>
+                                </div>
+                                <div>
+                                    <Margin>
+                                        <div className="tagCloudContainer">
+                                            <div>
+                                                <Margin>
+                                                    <div className="tagBox"></div>
+                                                </Margin>
+                                            </div>
+                                        </div>
+                                        <Divider />
+                                    </Margin>
                                 </div>
                             </section>
                             <section className="totalRunning">
