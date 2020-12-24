@@ -1,6 +1,7 @@
 import api from './api';
 
 const id = JSON.parse(localStorage.getItem('id'));
+const contentType = ['MOVIES', 'BOOKS', 'TV_SHOWS'];
 
 const register = (countryCode, name, email, password) => {
   return api.post('/auth/signup', {
@@ -99,6 +100,14 @@ const setUserInfo = () => {
   });
 };
 
+const getUserRatingDetail = () => {
+  return api.get(`/users/${id}/${contentType[0]}/ratings`).then((response) => {
+    if (response) {
+      return response;
+    }
+  });
+};
+
 const authService = {
   facebookLogin,
   register,
@@ -108,6 +117,7 @@ const authService = {
   getUserInfo,
   setUserInfo,
   getUserRating,
+  getUserRatingDetail,
 };
 
 export default authService;

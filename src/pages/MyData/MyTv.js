@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 
+import AuthService from '../../services/auth.service';
+
 export default function MyTv() {
+  const [rated, setRated] = useState({
+    tvShow: 0,
+  });
+
+  const [wishes, setWishes] = useState({
+    tvShow: 0,
+  });
+
+  const [watching, setWatching] = useState({
+    tvShow: 0,
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = AuthService.getUserRating().then((response) => {
+        setRated({
+          tvShow: response.data.tvShow.ratingCount,
+        });
+        setWishes({
+          tvShow: response.data.tvShow.wishCount,
+        });
+        setWatching({
+          tvShow: response.data.tvShow.watchingCount,
+        });
+      });
+    };
+    getData();
+  }, []);
   return (
     <Page>
       <Header />
@@ -21,7 +51,7 @@ export default function MyTv() {
             <div className="rating">
               <header className="ratingHeader">
                 <h2 className="ratingTitle">평가</h2>
-                <span className="titleNumber">222</span>
+                <span className="titleNumber">{rated.tvShow}</span>
                 <div className="topRight">
                   <div className="viewMore">
                     <a href="/">더보기</a>
@@ -249,7 +279,7 @@ export default function MyTv() {
                     <div className="listTitle">
                       <a href="/" className="localLink">
                         보고싶어요
-                        <span className="number">4</span>
+                        <span className="number">{wishes.tvShow}</span>
                       </a>
                     </div>
                   </div>
@@ -259,7 +289,7 @@ export default function MyTv() {
                     <div className="listTitle">
                       <a href="/" className="localLink">
                         보는중
-                        <span className="number">0</span>
+                        <span className="number">{watching.tvShow}</span>
                       </a>
                     </div>
                   </div>

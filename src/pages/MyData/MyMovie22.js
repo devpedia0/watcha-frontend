@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import api from "../../services/api";
 import history from "../../history";
-import MainComponent from "./MainComponent";
+import DataSection from "./DataSection";
+
+const id = JSON.parse(localStorage.getItem("id"));
 
 export default function MyMovie() {
     const [rated, setRated] = useState({
@@ -28,22 +30,18 @@ export default function MyMovie() {
         score: 0,
     });
 
-    const id = JSON.parse(localStorage.getItem("id"));
-    const contentType = "MOVIES";
+    const pathname = history.location.pathname; //myMovie
+    const contentType = pathname === "/" ? "MOVIES" : pathname.split("/")[1];
 
-    useEffect(() => {
-        const getDataAPI = async () => {
-            const baseUrl = `/users/${id}/${contentType}/ratings`;
-            const response = await api.get(baseUrl + `?page=1&size=7`);
-            setState(() => response.data);
-            console.log(response);
-        };
-        getDataAPI();
-    }, []);
-
-    const testClick = () => {
-        console.log(state);
-    };
+    const getDataAPI = useCallback(async () => {
+        if (state.step <= 4) {
+            const baseUrl = `users/${id}/${contentType}/ratings`;
+            const res = await api.get(baseUrl + `?page=1&size=7`);
+            setState({
+                ...state,
+            });
+        }
+    }, [state, contentType]);
 
     useEffect(() => {
         const getData = async () => {
@@ -79,9 +77,7 @@ export default function MyMovie() {
                     <Content>
                         <div className="rating">
                             <header className="ratingHeader">
-                                <h2 className="ratingTitle" onClick={testClick}>
-                                    평가
-                                </h2>
+                                <h2 className="ratingTitle">평가</h2>
                                 <span className="titleNumber">
                                     {rated.movie}
                                 </span>
@@ -97,9 +93,32 @@ export default function MyMovie() {
                                 <div className="scrollingInner">
                                     <div className="scrollRow">
                                         <Ul>
-                                            <Wrapper>
-                                                <MainComponent />
-                                            </Wrapper>
+                                            {/* <Li>
+                                                <a href="/" title="시실리 2km">
+                                                    <div className="contentPosterBlock">
+                                                        <div className="lazyLoading">
+                                                            <img
+                                                                src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
+                                                                className="styledImg"
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            className="badge"
+                                                            alt="watcha!"
+                                                            src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
+                                                        ></div>
+                                                    </div>
+                                                    <div className="contentInfo">
+                                                        <div className="contentTitle">
+                                                            시실리 2km
+                                                        </div>
+                                                        <div className="contentRating">
+                                                            평가함 ★ 2.5
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </Li> */}
                                         </Ul>
                                     </div>
                                 </div>

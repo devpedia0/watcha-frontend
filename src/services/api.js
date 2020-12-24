@@ -22,32 +22,31 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(
-    function (response) {
-        return response;
-    },
-    function (error) {
-        if (error.response.data.status === 401 && error.response) {
-            console.log("토큰값 에러", error.response.data.error);
-            console.log(_refreshToken);
-            return api
-                .post(
-                    "/auth/token",
-                    {},
-                    {
-                        headers: {
-                            RefreshToken: _refreshToken,
-                        },
-                    }
-                )
-                .then((response) => {
-                    if (response) {
-                        localStorage.setItem(
-                            "accessToken",
-                            JSON.stringify(response.headers.authorization)
-                        );
-                    }
-                });
-        }
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response.data.status === 401 && error.response) {
+      console.log('토큰값 에러', error.response.data.error);
+      return api
+        .post(
+          '/auth/token',
+          {},
+          {
+            headers: {
+              RefreshToken: _refreshToken,
+            },
+          }
+        )
+        .then((response) => {
+          if (response) {
+            localStorage.setItem(
+              'accessToken',
+              JSON.stringify(response.headers.authorization)
+            );
+          }
+        });
+    }
 
         return Promise.reject(error);
     }

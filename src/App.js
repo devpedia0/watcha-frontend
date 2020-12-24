@@ -1,12 +1,12 @@
-import './App.css';
-import history from './history';
-import React from 'react';
-import './App.css';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import "./App.css";
+import history from "./history";
+import React from "react";
+import "./App.css";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 
-import Layout from './layouts/Layout';
-import LayoutDetail from './layouts/LayoutDetail';
-import LayoutForm from './layouts/LayoutForm';
+import Layout from "./layouts/Layout";
+import LayoutDetail from "./layouts/LayoutDetail";
+import LayoutForm from "./layouts/LayoutForm";
 // pages
 import Main from "./pages/Main/Main";
 import Contents from './pages/Contents/Contents'
@@ -26,16 +26,21 @@ import ContentsInfo from './pages/Contents/ContentsInfo';
 import ContentsComment from './pages/Contents/ContentsComment';
 import Decks from './pages/Decks/Decks';
 import Watcha from './pages/Watcha/Watcha';
+import RatedMovie from "./pages/MyData/RatedMovie";
+// import Search from "./pages/Search/Search";
 
+import Analysis from "./pages/MyData/Analysis";
 function App() {
-
     return (
         <div className="App">
             <Router history={history}>
                 <Switch>
-                    <Route path="/team" component={Team} /> 
+                    <Route path="/team" component={Team} />
                     <Route path="/myPage" component={MyPage} />
                     <Route path="/myMovie" component={MyMovie} />
+                    <Route path="/analysis" component={Analysis} />
+                    <Route path="/ratedMovie" component={RatedMovie} />
+                    {/* <Route path="/searches" component={Search} /> */}
                     <Route path="/myTv" component={MyTv} />
                     <Route path="/myBook" component={MyBook} />
                     <Layout path="/" exact component={Main} />
@@ -46,6 +51,7 @@ function App() {
                     <LayoutDetail path="/watcha/:id" component={Watcha}/>
                     <LayoutDetail path="/contents/overview" exact component={ContentsInfo}/>
                     <LayoutDetail path="/contents/comment" exact component={ContentsComment}/>
+
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
@@ -65,7 +71,6 @@ function App() {
             </Router>
         </div>
     );
-
 }
 
 export default App;
