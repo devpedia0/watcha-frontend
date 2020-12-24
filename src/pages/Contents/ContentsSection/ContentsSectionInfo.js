@@ -11,7 +11,7 @@ const ContentsSectionInfo = ({ data }) => {
         <Wrapper>
             <CardList
                 title="기본정보"
-                addComponent={<ShowMore href="http://www.naver.com" />}
+                addComponent={<ShowMore href="/contents/overview" />}
             >
                 <div className="summary">
                     이웃사촌

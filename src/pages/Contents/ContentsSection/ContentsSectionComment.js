@@ -12,7 +12,7 @@ const ContentsSectionComment = ({ data }) => {
             <CardListSlick
                 title="코멘트"
                 count="10"
-                addComponent={<ShowMore href="http://www.naver.com" />}
+                addComponent={<ShowMore href="/contents/comment" />}
             >
                 {[...new Array(10)].map((_, idx) => (
                     <StyledCard key={idx} />

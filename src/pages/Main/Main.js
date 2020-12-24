@@ -86,7 +86,7 @@ const Main = () => {
         };
         fetchAPI();
     }, [charType]);
-
+    console.log(state.collection);
     return (
         <Wrapper>
             <MainSectionRank data={state.box_office} />

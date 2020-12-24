@@ -36,7 +36,7 @@ const Decks = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/public/awards/${pageId}?size=12`);
+            const res = await api.get(`/public/collections/${pageId}?size=12`);
             //setState(res.data);
             console.log(res.data);
         };
@@ -44,7 +44,7 @@ const Decks = () => {
 
         setState(dataDummy);
     }, [pageId]);
-    console.log(state);
+
     return (
         <Wrapper>
             <div className="deck-container">

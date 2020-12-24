@@ -20,18 +20,17 @@ const MainSectionCollection = ({ data }) => {
     if (Object.keys(data).length === 0) {
         return null;
     }
-    console.log(data);
-    const { title, subtitle, list, id } = data;
+
+    const { title, subtitle, list, userId, collectionId } = data;
     return (
         <Wrapper>
             <CardListSlick
                 title={title}
                 description={subtitle}
                 posterUrl="https://images.watcha.net/user/48770/small/2a6649c40f8c25614e86f4624c9692594d738d24.jpg"
-                collectionId={id}
+                userId={userId}
                 sizeHeader="lg"
-                addComponent={<ShowMore href={`/`} />}
-                // addComponent={<ShowMore href={`/decks/${id}`} />}
+                addComponent={<ShowMore href={`/decks/${collectionId}`} />}
             >
                 {list.map((item, idx) => (
                     <StyledCard
@@ -74,7 +73,7 @@ const Link = styled.a`
     text-decoration: none;
     line-height: 15px;
     height: 20px;
-    margin: auto 4px 0px auto;
+    margin: 30px 4px 0px;
 
     img {
         width: 15px;
