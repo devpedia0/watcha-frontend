@@ -8,7 +8,7 @@ const Search = () => {
     const handleClickClose = () => setOepn(false);
 
     return (
-        <Wrap onClick={handleClickOpen}>
+        <Wrapper onClick={handleClickOpen}>
             <div className="search-block">
                 <input
                     placeholder="작품 제목, 배우, 감독을 검색해보세요."
@@ -22,13 +22,13 @@ const Search = () => {
                     onClickClose={handleClickClose}
                 />
             )}
-        </Wrap>
+        </Wrapper>
     );
 };
 
 export default Search;
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
     position: relative;
     display: none;
     align-items: center;

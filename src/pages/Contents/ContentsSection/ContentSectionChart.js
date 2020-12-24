@@ -76,7 +76,6 @@ const ContentSectionChart = ({ data }) => {
         <Wrapper>
             <CardList
                 title="별점 그래프"
-                sizeHeader="sm"
                 addComponent={<Score score="4.0" total="1273" />}
             >
                 <Canvas>

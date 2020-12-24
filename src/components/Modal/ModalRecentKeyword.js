@@ -41,7 +41,7 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
         });
     };
     return (
-        <Wrap ref={searchRef}>
+        <Wrapper ref={searchRef}>
             <div className="keyword-recent">
                 <div className="keyword-recent-block">
                     <label>최근키워드</label>
@@ -52,18 +52,18 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
                 ))}
             </div>
             <div className="keword-hot">
-                <label>최근키워드</label>
+                <label>인기검색어</label>
                 {keywords.hot.map((item, idx) => (
                     <li key={idx}>{item}</li>
                 ))}
             </div>
-        </Wrap>
+        </Wrapper>
     );
 };
 
 export default ModalRecentKeyword;
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
     position: absolute;
     top: 55px;
     left: 0px;

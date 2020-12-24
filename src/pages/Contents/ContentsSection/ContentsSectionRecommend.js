@@ -23,7 +23,7 @@ const ContentsSectionRecommend = () => {
 
     return (
         <Wrapper>
-            <CardList title="비슷한 작품" sizeHeader="sm">
+            <CardList title="비슷한 작품">
                 {list.map((_, idx) => (
                     <StyledCard key={idx} item={dummy} />
                 ))}

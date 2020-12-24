@@ -6,6 +6,7 @@ import api from "../../services/api";
 import MainSection from "./MainSection/MainSection";
 import MainSectionRank from "./MainSection/MainSectionRank";
 import MainSectionAward from "./MainSection/MainSectionAward";
+import MainSectionCollection from "./MainSection/MainSectionCollection";
 
 const steps = [
     { id: "score" },
@@ -94,7 +95,7 @@ const Main = () => {
             <MainSection data={state.score} />
             <MainSection data={state.tag} />
             <MainSection data={state.popular} />
-            <MainSection data={state.collection} />
+            <MainSectionCollection data={state.collection} />
             <MainSectionAward data={state.award} />
             {state.loading && <Loader />}
         </Wrapper>

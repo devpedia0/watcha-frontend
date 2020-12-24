@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 
 import styled from "styled-components";
 import { CardList, CardPoster, Loader } from "../../../components";
+import useInterSection from "../../../Hooks/useIntersection";
 // import api from "../../services/api";
 const DecksRecommend = ({ posters }) => {
     const [state, setState] = useState({
@@ -12,6 +13,7 @@ const DecksRecommend = ({ posters }) => {
         size: 12,
     });
     const loaderRef = useRef();
+    const isIntersecting = useInterSection(loaderRef);
 
     const fetchData = useCallback(async () => {
         // [ TODO ]
@@ -26,38 +28,6 @@ const DecksRecommend = ({ posters }) => {
         }, 1000);
     }, [posters]);
 
-    const handleIntersection = useCallback(
-        (entries) => {
-            const target = entries[0];
-            if (target.isIntersecting && !state.isFetching) {
-                setState((state) => ({ ...state, isFetching: true }));
-                fetchData();
-            }
-        },
-        [state.isFetching, fetchData]
-    );
-
-    useEffect(() => {
-        setState((state) => ({ ...state, data: posters }));
-    }, [posters]);
-
-    useEffect(() => {
-        if (state.showMore) return;
-
-        const loaderElem = loaderRef?.current;
-        if (!loaderElem) return;
-
-        const options = {
-            root: null,
-            rootMargin: "0px",
-            threshold: 0.25,
-        };
-        const observer = new IntersectionObserver(handleIntersection, options);
-        observer.observe(loaderRef.current);
-
-        return () => observer.unobserve(loaderElem);
-    }, [state.showMore, handleIntersection]);
-
     const handleClick = () => {
         setState({
             ...state,
@@ -67,20 +37,28 @@ const DecksRecommend = ({ posters }) => {
         fetchData();
     };
 
+    useEffect(() => {
+        if (isIntersecting && !state.showMore) {
+            setState((state) => ({ ...state, isFetching: true }));
+            fetchData();
+        }
+    }, [state.showMore, isIntersecting, fetchData]);
+
+    useEffect(() => {
+        setState((state) => ({ ...state, data: posters }));
+    }, [posters]);
+
     return (
         <Wrppaer>
-            <CardList title="작품들" sizeHeader="sm">
+            <CardList title="작품들">
                 {state.data.map((item, idx) => (
                     <StyledCard key={idx} item={item} />
                 ))}
             </CardList>
-            {state.showMore ? (
-                <Button onClick={handleClick}>더보기</Button>
-            ) : (
-                <StyledLoader ref={loaderRef}>
-                    {state.isFetching && <Loader />}
-                </StyledLoader>
-            )}
+            {state.showMore && <Button onClick={handleClick}>더보기</Button>}
+            <StyledLoader ref={loaderRef}>
+                {state.isFetching && <Loader />}
+            </StyledLoader>
         </Wrppaer>
     );
 };
@@ -120,4 +98,5 @@ const Button = styled.button`
 
 const StyledLoader = styled.div`
     height: 50px;
+    border: 1px solid red;
 `;

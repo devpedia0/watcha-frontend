@@ -46,13 +46,13 @@ const ContentsSectionGallery = ({ data }) => {
     // isNetflixContent / isWatchaContent
     return (
         <Wrapper>
-            <CardList title="감상 가능한 곳" sizeHeader="sm">
+            <CardList title="감상 가능한 곳">
                 <CardWatchPlace data={images.watcha} />
                 <CardWatchPlace data={images.netflix} />
                 <CardWatchPlace data={images.tving} />
                 <CardWatchPlace data={images.wave} />
             </CardList>
-            <CardListSlick title="갤러리" sizeHeader="sm" sizeCard="sm">
+            <CardListSlick title="갤러리">
                 {[...new Array(10)].map((_, idx) => (
                     // {list.map((item, idx) => (
                     <CardGallery key={idx}>

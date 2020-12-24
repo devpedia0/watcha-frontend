@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { CardListSlick, CardComment } from "../../../components";
 
-const ShowMore = ({ src }) => {
-    return <Link href={src}>더보기</Link>;
+const ShowMore = ({ href }) => {
+    return <Link href={href}>더보기</Link>;
 };
 
 const ContentsSectionComment = ({ data }) => {
@@ -12,8 +12,7 @@ const ContentsSectionComment = ({ data }) => {
             <CardListSlick
                 title="코멘트"
                 count="10"
-                sizeHeader="sm"
-                addComponent={<ShowMore src="http://www.naver.com" />}
+                addComponent={<ShowMore href="http://www.naver.com" />}
             >
                 {[...new Array(10)].map((_, idx) => (
                     <StyledCard key={idx} />

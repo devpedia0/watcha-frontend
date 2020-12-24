@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import history from "../../history";
+
 import DecksRecommend from "./DecksRecommend/DecksRecommend";
+import api from "../../services/api";
 
 const dummy = {
     id: "few",
@@ -28,10 +31,20 @@ const Decks = () => {
     const [state, setState] = useState({
         posters: [],
     });
-    useEffect(() => {
-        setState(dataDummy);
-    }, []);
+    const pathname = history.location.pathname;
+    const pageId = pathname.split("/")[2];
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await api.get(`/public/awards/${pageId}?size=12`);
+            //setState(res.data);
+            console.log(res.data);
+        };
+        fetchData();
+
+        setState(dataDummy);
+    }, [pageId]);
+    console.log(state);
     return (
         <Wrapper>
             <div className="deck-container">

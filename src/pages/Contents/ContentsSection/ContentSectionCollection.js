@@ -26,8 +26,6 @@ const ContentSectionCollection = ({ data }) => {
                 title={title}
                 description={description}
                 posterUrl={poster}
-                sizeHeader="sm"
-                sizeCard="sm"
             >
                 {[...new Array(10)].map((_, idx) => (
                     // {list.map((item, idx) => (

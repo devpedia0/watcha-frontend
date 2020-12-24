@@ -25,6 +25,7 @@ import MyBook from './pages/MyData/MyBook';
 import ContentsInfo from './pages/Contents/ContentsInfo';
 import ContentsComment from './pages/Contents/ContentsComment';
 import Decks from './pages/Decks/Decks';
+import Watcha from './pages/Watcha/Watcha';
 
 function App() {
 
@@ -41,7 +42,8 @@ function App() {
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/contents" exact component={Contents} />
-                    <Layout path="/decks" exact component={Decks} />
+                    <Layout path="/decks/:id" component={Decks} />
+                    <LayoutDetail path="/watcha/:id" component={Watcha}/>
                     <LayoutDetail path="/contents/overview" exact component={ContentsInfo}/>
                     <LayoutDetail path="/contents/comment" exact component={ContentsComment}/>
                     {/* Form Page */}
