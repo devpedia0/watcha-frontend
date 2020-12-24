@@ -18,7 +18,8 @@ export default function MyBook() {
 
   useEffect(() => {
     const getData = async () => {
-      const response = AuthService.getUserRating().then((response) => {
+      // const response = AuthService.getUserRating().then((response) => {
+        AuthService.getUserRating().then((response) => {
         setRated({
           book: response.data.book.ratingCount,
         });

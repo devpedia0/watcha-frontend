@@ -21,7 +21,7 @@ function Analysis() {
             totalRunningTimeInMinute: 0,
         },
     });
-    const [data, setData] = useState({}); //analysis에서  state값으로 나머지도 설정해서 하위 props로 데이터를 받아올지 지금처럼 하위 컴포넌트마다 데이터 가져올지
+    // const [data, setData] = useState({}); //analysis에서  state값으로 나머지도 설정해서 하위 props로 데이터를 받아올지 지금처럼 하위 컴포넌트마다 데이터 가져올지
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));

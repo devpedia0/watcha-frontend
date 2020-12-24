@@ -47,7 +47,7 @@ function MyPage(props) {
                 });
             })
         );
-    }, []);
+    }, [desc]);
 
     const settingModal = () => {
         setSettingVisible({ settingVisible: !settingVisible });

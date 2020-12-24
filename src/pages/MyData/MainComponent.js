@@ -19,13 +19,11 @@ const MainComponent = () => {
     });
     console.log("state", state);
     const getDataAPI = useCallback(async () => {
-        const getDataAPI = async () => {
-            const baseUrl = `/users/${id}/${contentType}/ratings`;
-            const response = await api.get(baseUrl + `?page=1&size=7`);
-            setState(() => response.data);
-            console.log(response);
-        };
-    }, [state, contentType]);
+        const baseUrl = `/users/${id}/${contentType}/ratings`;
+        const response = await api.get(baseUrl + `?page=1&size=7`);
+        setState(() => response.data);
+        console.log(response);
+    }, [contentType, id]);
 
     const infiniteScroll = useCallback(() => {
         let elem = document.documentElement;

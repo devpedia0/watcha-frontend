@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ActorCard from "./ActorCard";
 import ActorCardListSlick from "./ActorCardListSlick";
-import { Divider } from "../../Detail/DetailSection/DetailSectionInfo";
+import { Divider } from "../../Contents/ContentsSection/ContentsSectionInfo";
 const item = {
     name: "name",
     description: "description",

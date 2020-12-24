@@ -16,15 +16,15 @@ const options = {
 };
 
 export default function MyTag() {
-    const [tag, setTag] = useState({}); // api key 값 바꿔달라고 하기
-
+    //const [tag, setTag] = useState({}); // api key 값 바꿔달라고 하기
+    const [, setTag] = useState({}); // api key 값 바꿔달라고 하기
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));
         const getData = async () => {
             const response = await api.get(`/users/${id}/analysis`);
             console.log("useEffect", response.data.movie.tag);
             setTag(() => response.data.movie.tag);
-            const words = tag;
+            // const words = tag;
         };
         getData();
     }, []);

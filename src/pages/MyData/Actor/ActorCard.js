@@ -12,7 +12,7 @@ const Card = ({
     disabled,
     width,
 }) => {
-    const { name, description, profileImagePath } = item;
+    const { name, description } = item;
     const [actorInfo, setActorInfo] = useState({});
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Card = ({
         };
         console.log("actor", actorInfo);
         getData();
-    }, []);
+    }, [actorInfo]);
 
     return (
         <Wrapper width={width}>

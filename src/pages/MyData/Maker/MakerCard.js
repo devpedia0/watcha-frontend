@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import BoxImg from "../../../components/Box/BoxImg";
-import api from "../../../services/api";
+// import api from "../../../services/api";
 
 const MakerCard = ({
     radius,
@@ -12,8 +12,8 @@ const MakerCard = ({
     disabled,
     width,
 }) => {
-    const { name, description, profileImagePath } = item;
-    const [actorInfo, setActorInfo] = useState({});
+    const { name, description } = item;
+    const [actorInfo] = useState({});
 
     // useEffect(() => {
     //     const id = JSON.parse(localStorage.getItem("id"));

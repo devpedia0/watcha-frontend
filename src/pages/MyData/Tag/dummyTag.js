@@ -1,4 +1,4 @@
-export default [
+const dummyTag = [
     {
         text: "여행",
         value: 6,
@@ -40,3 +40,5 @@ export default [
         value: 5,
     },
 ];
+
+export default dummyTag;

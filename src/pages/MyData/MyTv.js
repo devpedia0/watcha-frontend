@@ -19,7 +19,8 @@ export default function MyTv() {
 
   useEffect(() => {
     const getData = async () => {
-      const response = AuthService.getUserRating().then((response) => {
+      //const response = AuthService.getUserRating().then((response) => {
+      AuthService.getUserRating().then((response) => {
         setRated({
           tvShow: response.data.tvShow.ratingCount,
         });

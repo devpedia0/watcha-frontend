@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import MakerCard from "./MakerCard";
 import MakerCardListSlick from "./MakerCardListSlick";
-import { Divider } from "../../Detail/DetailSection/DetailSectionInfo";
+import { Divider } from "../../Contents/ContentsSection/ContentsSectionInfo";
 const item = {
     name: "name",
     description: "description",

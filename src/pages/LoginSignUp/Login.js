@@ -5,7 +5,7 @@ import ReactFacebookLogin from "../../services/ReactFacebookLogin";
 
 const Login = (props) => {
     const loginValidate = (type) => {
-        let regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
         const validation = {
             email: regExp.test(props.email) === true,
             password: props.password.length > 3,
