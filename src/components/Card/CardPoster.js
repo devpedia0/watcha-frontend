@@ -1,14 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import history from "../../history";
 
-const CardPoster = ({ size, item, rank, className }) => {
+const CardPoster = ({ size, item, rank, className, onClick }) => {
     return (
-        <Wrapper
-            className={className}
-            size={size}
-            onClick={() => history.push(`/contents/${item.id}`)}
-        >
+        <Wrapper className={className} size={size} onClick={onClick}>
             <ContentImg>
                 <img src={item.posterImagePath + "?w=280&h=400"} alt="" />
                 {rank && <RankBlock>{rank}</RankBlock>}
@@ -31,7 +26,7 @@ const CardPoster = ({ size, item, rank, className }) => {
     );
 };
 
-export default CardPoster;
+export default React.memo(CardPoster);
 
 const Wrapper = styled.li`
     display: inline-block;

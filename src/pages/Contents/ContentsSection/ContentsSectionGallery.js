@@ -37,7 +37,7 @@ const CardWatchPlace = ({ data }) => {
     );
 };
 
-const DetialSectionGallery = ({ data }) => {
+const ContentsSectionGallery = ({ data }) => {
     if (Object.keys(data).length === 0) {
         return null;
     }
@@ -46,13 +46,13 @@ const DetialSectionGallery = ({ data }) => {
     // isNetflixContent / isWatchaContent
     return (
         <Wrapper>
-            <CardList title="감상 가능한 곳" sizeHeader="sm">
+            <CardList title="감상 가능한 곳">
                 <CardWatchPlace data={images.watcha} />
                 <CardWatchPlace data={images.netflix} />
                 <CardWatchPlace data={images.tving} />
                 <CardWatchPlace data={images.wave} />
             </CardList>
-            <CardListSlick title="갤러리" sizeHeader="sm" sizeCard="sm">
+            <CardListSlick title="갤러리">
                 {[...new Array(10)].map((_, idx) => (
                     // {list.map((item, idx) => (
                     <CardGallery key={idx}>
@@ -66,7 +66,7 @@ const DetialSectionGallery = ({ data }) => {
     );
 };
 
-export default React.memo(DetialSectionGallery);
+export default React.memo(ContentsSectionGallery);
 
 const WrapperCard = styled.div`
     display: flex;

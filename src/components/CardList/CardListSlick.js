@@ -6,9 +6,9 @@ const CardListSlick = ({
     description,
     posterUrl,
     count,
-    sizeCard,
     sizeHeader,
     horizon,
+    collectionId,
     addComponent: AddComponent,
     children,
 }) => {
@@ -52,12 +52,15 @@ const CardListSlick = ({
     return (
         <Wrapper>
             <Header size={sizeHeader}>
-                {posterUrl ? (
+                {collectionId ? (
                     <div className="titleBlockImg">
                         <img src={posterUrl} alt="" />
                         <div className="infoWrapper">
-                            <p>{description}</p>
-                            <div className="title">{title}</div>
+                            <p>{title}</p>
+                            <div className="titleBlock">
+                                <div className="title">{description}</div>
+                                <div className="titleRight">{AddComponent}</div>
+                            </div>
                         </div>
                     </div>
                 ) : (
@@ -85,13 +88,11 @@ const CardListSlick = ({
                         type="left"
                         show={buttonCtrl.left}
                         onClick={() => handleClickButton("left")}
-                        size={sizeCard}
                     />
                     <ArrowButton
                         type="right"
                         show={buttonCtrl.right}
                         onClick={() => handleClickButton("right")}
-                        size={sizeCard}
                     />
                 </div>
             </Content>
@@ -124,6 +125,7 @@ const Header = styled.div`
     }
 
     .titleBlock {
+        flex: 1;
         display: flex;
         justify-content: space-between;
 
@@ -152,6 +154,7 @@ const Header = styled.div`
     }
 
     .infoWrapper {
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -173,17 +176,17 @@ const Header = styled.div`
         font-weight: 700;
 
         ${(props) =>
-            props.size === "sm"
+            props.size === "lg"
                 ? css`
+                      font-size: 22px;
+                      letter-spacing: -0.4px;
+                      line-height: 30px;
+                  `
+                : css`
                       font-size: 19px;
                       letter-spacing: -0.7px;
                       line-height: 28px;
                       margin: 8px 0;
-                  `
-                : css`
-                      font-size: 22px;
-                      letter-spacing: -0.4px;
-                      line-height: 30px;
                   `}
 
         .titleRight {

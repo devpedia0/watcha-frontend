@@ -19,7 +19,7 @@ const HeaderDetail = ({ title }) => {
         return () => window.removeEventListener("scroll", scrollEvent);
     }, [scrollEvent]);
     return (
-        <Wrap>
+        <Wrapper>
             <HeaderBlock>
                 <span className="icon-back" />
                 <p className={!scrolling ? "off" : ""}>{title}</p>
@@ -28,13 +28,13 @@ const HeaderDetail = ({ title }) => {
             {!scrolling && (
                 <div className={`scrolling ${scrolling && "off"}`}>{title}</div>
             )}
-        </Wrap>
+        </Wrapper>
     );
 };
 
 export default HeaderDetail;
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;

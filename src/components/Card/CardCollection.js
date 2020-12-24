@@ -1,9 +1,9 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const CardCollection = ({ item, size = "" }) => {
+const CardCollection = ({ item, onClick }) => {
     return (
-        <Wrapper size={size}>
+        <Wrapper onClick={onClick}>
             <WrapperBox>
                 <ImageContainer>
                     <Image src={item.images[0] + "?w=280&h=400"} />
@@ -30,39 +30,21 @@ const Wrapper = styled.li`
     padding: 0 4px;
     margin-bottom: 0px;
 
-    ${(props) =>
-        props.size !== "sm"
-            ? css`
-                  @media only screen and (min-width: 600px) {
-                      width: 33.33333333%;
-                  }
+    @media only screen and (min-width: 600px) {
+        width: 33.33333333%;
+    }
 
-                  @media only screen and (min-width: 760px) {
-                      width: 25%;
-                      padding: 0 5px;
-                  }
-                  @media only screen and (min-width: 1100px) {
-                      width: 20%;
-                      padding: 0 8px;
-                  }
-              `
-            : css`
-                  @media only screen and (min-width: 600px) {
-                      width: 50%;
-                  }
-                  @media only screen and (min-width: 760px) {
-                      width: 25%;
-                      padding-right: 6px;
-                      padding-left: 6px;
-                  }
-                  @media only screen and (min-width: 1100px) {
-                      width: 25%;
-                      padding-right: 8px;
-                      padding-left: 8px;
-                  }
-              `}
+    @media only screen and (min-width: 760px) {
+        width: 25%;
+        padding: 0 5px;
+    }
+    @media only screen and (min-width: 1100px) {
+        width: 20%;
+        padding: 0 8px;
+    }
 `;
 const WrapperBox = styled.div`
+    cursor: pointer;
     position: relative;
     width: 100%;
     height: 0;

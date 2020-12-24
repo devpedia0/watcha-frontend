@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import DetailHeader from "./DetailHeader/DetailHeader";
-import DetailSectionInfo from "./DetailSection/DetailSectionInfo";
-import DetailSectionPeople from "./DetailSection/DetailSectionPeople";
-import DetailSectionChart from "./DetailSection/DetailSectionChart";
-import DetailSectionComment from "./DetailSection/DetailSectionComment";
-import DetailSectionGallery from "./DetailSection/DetailSectionGallery";
-import DetailSectionCollection from "./DetailSection/DetailSectionCollection";
-import DetailSectionRecommend from "./DetailSection/DetailSectionRecommend";
+import ContentsHeader from "./ContentsHeader/ContentsHeader";
+import ContentsSectionInfo from "./ContentsSection/ContentsSectionInfo";
+import ContentsSectionPeople from "./ContentsSection/ContentsSectionPeople";
+import ContentSectionChart from "./ContentsSection/ContentSectionChart";
+import ContentsSectionComment from "./ContentsSection/ContentsSectionComment";
+import ContentsSectionGallery from "./ContentsSection/ContentsSectionGallery";
+import ContentSectionCollection from "./ContentsSection/ContentSectionCollection";
+import ContentsSectionRecommend from "./ContentsSection/ContentsSectionRecommend";
 const data = {
     title: "이웃사촌",
     category: "드라마",
@@ -20,31 +20,31 @@ const data = {
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605487645/ciydhyimcw07k4e516hu.jpg",
 };
 
-const Detail = () => {
+const Contents = () => {
     return (
         <Wrapper>
-            <DetailHeader data={data} />
+            <ContentsHeader data={data} />
             <Content>
                 <div className="left">
-                    <DetailSectionInfo data={data} />
-                    <DetailSectionPeople data={data} />
-                    <DetailSectionChart data={data} />
-                    <DetailSectionComment data={data} />
+                    <ContentsSectionInfo data={data} />
+                    <ContentsSectionPeople data={data} />
+                    <ContentSectionChart data={data} />
+                    <ContentsSectionComment data={data} />
                 </div>
 
                 <div className="right">
-                    <DetailSectionGallery data={data} />
+                    <ContentsSectionGallery data={data} />
                 </div>
                 <div className="bottom">
-                    <DetailSectionCollection data={data} />
-                    <DetailSectionRecommend data={data} />
+                    <ContentSectionCollection data={data} />
+                    <ContentsSectionRecommend data={data} />
                 </div>
             </Content>
         </Wrapper>
     );
 };
 
-export default Detail;
+export default Contents;
 
 const Wrapper = styled.div`
     background: #f8f8f8;

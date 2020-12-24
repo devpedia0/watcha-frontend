@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import { HeaderDetail } from "../../components";
 
@@ -30,9 +30,9 @@ const dataDummy = [
     },
 ];
 
-const DetailInfo = () => {
+const ContentsInfo = () => {
     return (
-        <Wrap>
+        <Wrapper>
             <HeaderDetail title="기본 정보" />
             <Content>
                 <ul>
@@ -46,21 +46,13 @@ const DetailInfo = () => {
                     ))}
                 </ul>
             </Content>
-        </Wrap>
+        </Wrapper>
     );
 };
 
-export default DetailInfo;
+export default ContentsInfo;
 
-const Wrap = styled.div`
-    padding-top: 0px;
-    padding-bottom: 56px;
-
-    @media only screen and (min-width: 719px) {
-        padding-top: 62px;
-        padding-bottom: unset;
-    }
-`;
+const Wrapper = styled.div``;
 
 const Content = styled.div`
     padding-top: 88px;
@@ -120,7 +112,7 @@ const Content = styled.div`
 
         .content-content {
             display: block;
-            white-space: pre-wrap;
+            white-space: pre-wrapper;
             font-size: 15px;
             font-weight: 400;
             letter-spacing: -0.2px;

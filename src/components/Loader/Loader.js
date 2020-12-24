@@ -8,6 +8,7 @@ const Loader = styled.div`
     border-top: 3px solid #e73873;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+    z-index: 10;
     @keyframes spin {
         0% {
             transform: rotate(0deg);
