@@ -19,7 +19,7 @@ export default function MyMovie() {
 
     useEffect(() => {
         const getData = async () => {
-            const response = AuthService.getUserRating().then((response) => {
+            AuthService.getUserRating().then((response) => {
                 setRated({
                     movie: response.data.movie.ratingCount,
                 });
@@ -32,6 +32,7 @@ export default function MyMovie() {
             });
         };
         getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <Page>
