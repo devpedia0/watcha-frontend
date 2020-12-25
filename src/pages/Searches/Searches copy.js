@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
 
-function Search() {
+function Searches() {
     return (
         <Page>
             <Header />
@@ -329,7 +329,7 @@ function Search() {
     );
 }
 
-export default Search;
+export default Searches;
 
 const Page = styled.div`
     position: relative;
