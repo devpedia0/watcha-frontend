@@ -1,21 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import api from "../../../services/api";
 
-function FavGenre() {
-    const [genreInfo, setGenreInfo] = useState({});
-
-    useEffect(() => {
-        const id = JSON.parse(localStorage.getItem("id"));
-        const getData = async () => {
-            const response = await api.get(`/users/${id}/analysis`);
-            console.log("FavGenre", response);
-            setGenreInfo(() => response.data.movie.category);
-        };
-        console.log("genre", genreInfo);
-        getData();
-    }, []);
-
+function FavGenre({ data }) {
     return (
         <Favorite>
             <header className="tagHeader">
@@ -28,60 +14,56 @@ function FavGenre() {
                         <ul className="sumUl">
                             <li className="statList">
                                 <div className="statTitle">
-                                    {/* {genreInfo[0].description} */}
+                                    {data[0].description}
                                 </div>
                                 <div className="subTitle">
-                                    {/* {/* {genreInfo[0].score}점 •{genreInfo[0].count} */}{" "}
-                                    */} 편
+                                    {data[0].score.toFixed(1)}점 •{" "}
+                                    {data[0].count}편
                                 </div>
                             </li>
                             <li className="statList">
                                 <div className="statTitle">
-                                    {/* {genreInfo[1].description} */}
+                                    {data[1].description}
                                 </div>
                                 <div className="subTitle">
-                                    {/* {/* {genreInfo[1].score}점 •{genreInfo[1].count} */}{" "}
-                                    */} 편
+                                    {data[1].score.toFixed(1)}점 •{" "}
+                                    {data[1].count}편
                                 </div>
                             </li>
                             <li className="statList">
                                 <div className="statTitle">
-                                    {/* {genreInfo[2].description} */}
+                                    {data[2].description}
                                 </div>
                                 <div className="subTitle">
-                                    {/* {/* {genreInfo[2].score}점 •{genreInfo[2].count} */}{" "}
-                                    */} 편
+                                    {data[2].score.toFixed(1)}점 •{" "}
+                                    {data[2].count}편
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <ul className="subContainer">
                         <li className="subList">
-                            {/* {genreInfo[3].description} */}
+                            {data[3].description}
                             <span>
-                                {/* {/* {genreInfo[3].score}점 •{genreInfo[3].count}편 */}{" "}
-                                */}
+                                {data[3].score.toFixed(1)}점 • {data[3].count}편
                             </span>
                         </li>
                         <li className="subList">
-                            {/* {genreInfo[4].description} */}
+                            {data[4].description}
                             <span>
-                                {/* {/* {genreInfo[4].score}점 •{genreInfo[4].count}편 */}{" "}
-                                */}
+                                {data[4].score.toFixed(1)}점 • {data[4].count}편
                             </span>
                         </li>
                         <li className="subList">
-                            {/* {genreInfo[5].description} */}
+                            {data[5].description}
                             <span>
-                                {/* {/* {genreInfo[5].score}점 •{genreInfo[5].count}편 */}{" "}
-                                */}
+                                {data[5].score.toFixed(1)}점 • {data[5].count}편
                             </span>
                         </li>
                         <li className="subList">
-                            {/* {genreInfo[6].description} */}
+                            {data[6].description}
                             <span>
-                                {/* {/* {genreInfo[6].score}점 •{genreInfo[6].count}편 */}{" "}
-                                */}
+                                {data[6].score.toFixed(1)}점 • {data[6].count}편
                             </span>
                         </li>
                     </ul>
@@ -100,10 +82,7 @@ const Favorite = styled.div`
     overflow: hidden;
     background: transparent;
     margin: 12px 0 0;
-    @media (min-width: 1023px) {
-        border: 1px solid;
-        border-radius: 6px;
-    }
+
     .nameTitle {
         color: #ff2f6e;
         font-size: 13px;

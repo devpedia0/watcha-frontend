@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-
+import { Link } from "react-router-dom";
 const CardListSlick = ({
     title,
     description,
@@ -11,6 +11,7 @@ const CardListSlick = ({
     horizon,
     addComponent: AddComponent,
     children,
+    ratedMovie,
 }) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
@@ -66,7 +67,14 @@ const CardListSlick = ({
                             {title}
                             <span>{count}</span>
                         </div>
-                        <div className="titleRight">{AddComponent}</div>
+
+                        {ratedMovie ? (
+                            <Link className="toRated" to="/ratedMovie">
+                                {AddComponent}
+                            </Link>
+                        ) : (
+                            <div className="titleRight">{AddComponent}</div>
+                        )}
                     </div>
                 )}
             </Header>
@@ -114,7 +122,7 @@ const Wrapper = styled.div`
 `;
 const Header = styled.div`
     white-space: nowrap;
-    max-width: 1320px;
+    /* max-width: 1320px; */
     padding: 12px 0px 14px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -185,10 +193,15 @@ const Header = styled.div`
                       letter-spacing: -0.4px;
                       line-height: 30px;
                   `}
+    }
 
-        .titleRight {
-            float: right;
-        }
+    .titleRight {
+        float: right;
+    }
+    .toRated {
+        color: #ff2f6e;
+        text-decoration: none;
+        float: right;
     }
 `;
 

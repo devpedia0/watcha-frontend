@@ -1,27 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import ActorCard from "./ActorCard";
-import ActorCardListSlick from "./ActorCardListSlick";
-import { Divider } from "../../Detail/DetailSection/DetailSectionInfo";
-const item = {
-    name: "name",
-    description: "description",
-    profileImagePath: "",
-};
 
-const ActorSection = () => {
+import { Divider } from "../../Detail/DetailSection/DetailSectionInfo";
+import { CardListSlick, Card } from "../../../components";
+
+const ActorSection = ({ data }) => {
     return (
         <Wrapper>
-            <ActorCardListSlick
-                title="선호배우"
-                sizeHeader="sm"
-                sizeCard="sm"
-                horizon
-            >
-                {[...new Array(10)].map((_, idx) => (
-                    <ActorCard key={idx} item={item} width="49%" radius="4%" />
+            <CardListSlick title="선호배우" horizon>
+                {data.map((item, idx) => (
+                    <Card
+                        key={idx}
+                        item={item}
+                        score={item.score}
+                        count={item.count}
+                        width="95%"
+                        radius="50%"
+                        movieName={item.movieName}
+                        analysis="analysis"
+                    />
                 ))}
-            </ActorCardListSlick>
+            </CardListSlick>
             <Divider />
         </Wrapper>
     );

@@ -9,11 +9,14 @@ const Card = ({
     onClickDelete,
     selected,
     disabled,
+    score,
+    count,
     width,
+    analysis,
 }) => {
     const { name, description, profileImagePath } = item;
     return (
-        <Wrapper width={width}>
+        <Wrapper width={width} analysis={analysis}>
             <BoxImg
                 width="50px"
                 height="50px"
@@ -26,6 +29,11 @@ const Card = ({
                     <div className="subTitle">{description}</div>
                 </div>
                 <div className="text">
+                    {analysis && (
+                        <span className="scoreCount">
+                            {score}점 • {count}편
+                        </span>
+                    )}
                     {onClickDelete && (
                         <button
                             type="button"
@@ -65,8 +73,12 @@ const Wrapper = styled.div`
         justify-content: space-between;
         height: 100%;
         width: 100%;
-        border-bottom: 1px solid #f0f0f0;
         margin-left: 8px;
+
+        border-bottom: ${(props) =>
+            props.analysis
+                ? "none"
+                : "1px solid #f0f0f0"}; //선호배우 3번째마다 라인없게끔!
     }
     .text {
         display: flex;
@@ -94,6 +106,14 @@ const Wrapper = styled.div`
             overflow: hidden;
             text-overflow: ellipsis;
             margin-top: 2px;
+        }
+
+        .scoreCount {
+            color: #787878;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            line-height: 19px;
         }
     }
 `;

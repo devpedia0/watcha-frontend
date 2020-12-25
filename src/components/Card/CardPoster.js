@@ -41,6 +41,26 @@ const Wrapper = styled.li`
     padding: 0 4px;
     margin-bottom: 0px;
     cursor: pointer;
+    /*
+    @media (min-width: 520px) {
+        width: 25%;
+    }
+
+    @media (min-width: 680px) {
+        width: 20%;
+    }
+
+    @media (min-width: 840px) {
+        width: 16.6667%;
+    }
+
+    @media (min-width: 960px) {
+        width: 14.2857%;
+    }
+
+    @media (min-width: 1100px) {
+        width: 12.5%;
+    } */
 `;
 
 const ContentImg = styled.div`

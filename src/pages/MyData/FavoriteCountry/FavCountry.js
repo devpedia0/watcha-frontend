@@ -1,21 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import api from "../../../services/api";
 
-function FavCountry() {
-    const [countryInfo, setCountryInfo] = useState({});
-
-    useEffect(() => {
-        const id = JSON.parse(localStorage.getItem("id"));
-        const getData = async () => {
-            const response = await api.get(`/users/${id}/analysis`);
-            console.log("favCountry", response);
-            setCountryInfo(() => response.data.movie.country);
-        };
-        console.log(countryInfo);
-        getData();
-    }, []);
-
+function FavCountry({ data }) {
     return (
         <Favorite>
             <header className="tagHeader">
@@ -27,53 +13,50 @@ function FavCountry() {
                         <ul className="sumUl">
                             <li className="statList">
                                 <div className="statTitle">
-                                    {/* {countryInfo[0].description} */}
+                                    {data[0].description}
                                 </div>
                                 <div className="subTitle">
-                                    {/* {countryInfo[0].score}점 • */}
-                                    {/* {countryInfo[0].count}편 */}
+                                    {data[0].score.toFixed(1)}점 •{" "}
+                                    {data[0].count}편
                                 </div>
                             </li>
                             <li className="statList">
                                 <div className="statTitle">
-                                    {/* {countryInfo[1].description} */}
+                                    {data[1].description}
                                 </div>
                                 <div className="subTitle">
-                                    {/* {countryInfo[1].score}점 • */}
-                                    {/* {countryInfo[1].count}편 */}
+                                    {data[1].score.toFixed(1)}점 •{" "}
+                                    {data[1].count}편
                                 </div>
                             </li>
                             <li className="statList">
                                 <div className="statTitle">
-                                    {/* {countryInfo[2].description} */}
+                                    {data[2].description}
                                 </div>
                                 <div className="subTitle">
-                                    {/* {countryInfo[2].score}점 • */}
-                                    {/* {countryInfo[2].count}편 */}
+                                    {data[2].score.toFixed(1)}점 •{" "}
+                                    {data[2].count}편
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <ul className="subContainer">
                         <li className="subList">
-                            {/* {countryInfo[3].description} */}
+                            {data[3].description}
                             <span>
-                                {/* {/* {countryInfo[3].score}점 •{countryInfo[3].count} */}{" "}
-                                */} 편
+                                {data[3].score.toFixed(1)}점 • {data[3].count}편
                             </span>
                         </li>
                         <li className="subList">
-                            {/* {countryInfo[4].description} */}
+                            {data[4].description}
                             <span>
-                                {/* {/* {countryInfo[4].score}점 •{countryInfo[4].count} */}{" "}
-                                */} 편
+                                {data[4].score.toFixed(1)}점 • {data[4].count}편
                             </span>
                         </li>
                         <li className="subList">
-                            {/* {countryInfo[5].description} */}
+                            {data[4].description}
                             <span>
-                                {/* {/* {countryInfo[5].score}점 •{countryInfo[5].count} */}{" "}
-                                */} 편
+                                {data[4].score.toFixed(1)}점 • {data[4].count}편
                             </span>
                         </li>
                     </ul>
@@ -93,7 +76,6 @@ const Favorite = styled.div`
     background: transparent;
     margin: 12px 0 0;
     @media (min-width: 1023px) {
-        border: 1px solid;
         border-radius: 6px;
     }
 
@@ -189,7 +171,6 @@ const Favorite = styled.div`
                 }
             }
         }
-
         .hr {
             border: 0;
             border-bottom: 1px solid #f0f0f0;

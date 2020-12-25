@@ -107,7 +107,7 @@ function MyPage(props) {
                                     <div style={{ margin: "0 20px" }}>
                                         <Ul>
                                             <Li>
-                                                <Link to="/MOVIES">
+                                                <Link to="/myMovie">
                                                     <Box
                                                         style={{
                                                             background:

@@ -21,7 +21,7 @@ import PageParticipant from "./pages/Form/PageParticipant";
 import PageCollection from "./pages/Form/PageCollection";
 import MyMovie from "./pages/MyData/MyMovie";
 import RatedMovie from "./pages/MyData/RatedMovie";
-// import Search from "./pages/Search/Search";
+import Search from "./pages/Search/Search";
 import MyTv from "./pages/MyData/MyTv";
 import MyBook from "./pages/MyData/MyBook";
 import DetailInfo from "./pages/Detail/DetailInfo";
@@ -38,7 +38,7 @@ function App() {
                     <Route path="/myMovie" component={MyMovie} />
                     <Route path="/analysis" component={Analysis} />
                     <Route path="/ratedMovie" component={RatedMovie} />
-                    {/* <Route path="/searches" component={Search} /> */}
+                    <Route path="/search" component={Search} />
                     <Route path="/myTv" component={MyTv} />
                     <Route path="/myBook" component={MyBook} />
                     <Layout path="/" exact component={Main} />

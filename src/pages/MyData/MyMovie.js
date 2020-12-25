@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Header from "../../components/Header/Header";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import api from "../../services/api";
-import history from "../../history";
-import MainComponent from "./MainComponent";
+
+import { CardListSlick, CardPoster, Header } from "../../components";
 
 export default function MyMovie() {
     const [rated, setRated] = useState({
@@ -20,13 +19,7 @@ export default function MyMovie() {
         movie: 0,
     });
 
-    const [state, setState] = useState({
-        id: 0,
-        isNetflixContent: false,
-        isWatchaContent: false,
-        mainTitle: "",
-        score: 0,
-    });
+    const [state, setState] = useState([]);
 
     const id = JSON.parse(localStorage.getItem("id"));
     const contentType = "MOVIES";
@@ -34,20 +27,17 @@ export default function MyMovie() {
     useEffect(() => {
         const getDataAPI = async () => {
             const baseUrl = `/users/${id}/${contentType}/ratings`;
-            const response = await api.get(baseUrl + `?page=1&size=7`);
+            const response = await api.get(baseUrl + `?page=1&size=20`);
             setState(() => response.data);
             console.log(response);
         };
+
         getDataAPI();
     }, []);
 
-    const testClick = () => {
-        console.log(state);
-    };
-
     useEffect(() => {
         const getData = async () => {
-            const response = AuthService.getUserRating().then((response) => {
+            AuthService.getUserRating().then((response) => {
                 setRated({
                     movie: response.data.movie.ratingCount,
                 });
@@ -77,47 +67,21 @@ export default function MyMovie() {
                         <div className="smallTitle">영화</div>
                     </header>
                     <Content>
-                        <div className="rating">
-                            <header className="ratingHeader">
-                                <h2 className="ratingTitle" onClick={testClick}>
-                                    평가
-                                </h2>
-                                <span className="titleNumber">
-                                    {rated.movie}
-                                </span>
-                                <div className="topRight">
-                                    <div className="viewMore">
-                                        <Link to="/ratedMovie">더보기</Link>
-                                    </div>
-                                </div>
-                            </header>
-                        </div>
-                        <div className="scrollBarContainer">
-                            <div className="scrollBar">
-                                <div className="scrollingInner">
-                                    <div className="scrollRow">
-                                        <Ul>
-                                            <Wrapper>
-                                                <MainComponent />
-                                            </Wrapper>
-                                        </Ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div direction="left" className="cheatBlock"></div>
-                            <div direction="right" className="cheatBlock"></div>
-                            <div className="arrow_left" direction="left">
-                                <div className="backward"></div>
-                            </div>
-                            <div className="arrow_right" direction="right">
-                                <div className="forward">
-                                    <img
-                                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiMyOTJBMzIiIHN0cm9rZT0iIzI5MkEzMiIgc3Ryb2tlLXdpZHRoPSIuMzUiIGQ9Ik0zLjQyOSAxMy40MDlMNC4zNTQgMTQuMjU4IDEwLjY4IDguNDYgMTEuMTQzIDguMDM2IDQuMzU0IDEuODEzIDMuNDI5IDIuNjYyIDkuMjkxIDguMDM2eiIvPgogICAgPC9nPgo8L3N2Zz4K"
-                                        alt="forward"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <Ul>
+                            <Wrapper>
+                                <CardListSlick
+                                    title="평가"
+                                    count={rated.movie}
+                                    ratedMovie={"ratedMovie"}
+                                    size={"sm"}
+                                    addComponent={<div>더보기</div>}
+                                >
+                                    {state.map((item) => (
+                                        <StyledCard key={item.id} item={item} />
+                                    ))}
+                                </CardListSlick>
+                            </Wrapper>
+                        </Ul>
                         <hr className="divider" />
                         <ContentRow>
                             <ul className="visualUl">
@@ -150,13 +114,13 @@ export default function MyMovie() {
                     </Content>
                 </section>
             </Section>
-            {/* <Footer>
-        <nav className="footerNav">
-          <ul className="navTabUl">
-            <li className="navItem"></li>
-          </ul>
-        </nav>
-      </Footer> */}
+            <Footer>
+                <nav className="footerNav">
+                    <ul className="navTabUl">
+                        <li className="navItem"></li>
+                    </ul>
+                </nav>
+            </Footer>
         </Page>
     );
 }
@@ -270,138 +234,6 @@ const Content = styled.section`
     padding: 16px 0px 0px;
     display: block;
 
-    .rating {
-        margin: 0px 20px;
-
-        .ratingHeader {
-            overflow: hidden;
-
-            .ratingTitle {
-                float: left;
-                color: rgb(0, 0, 0);
-                font-size: 19px;
-                font-weight: 700;
-                letter-spacing: -0.7px;
-                line-height: 28px;
-                margin: 8px 0px;
-            }
-            .titleNumber {
-                display: inline-block;
-                color: rgb(160, 160, 160);
-                font-size: 15px;
-                font-weight: 400;
-                letter-spacing: -0.5px;
-                line-height: 20px;
-                margin: 12px 0px 12px 6px;
-            }
-
-            .topRight {
-                float: right;
-                .viewMore {
-                    margin: 12px 0px;
-
-                    > a {
-                        color: rgb(255, 47, 110);
-                        text-decoration: none;
-                    }
-                }
-            }
-        }
-    }
-
-    .scrollBarContainer {
-        position: relative;
-        -webkit-transform: translate3d(0, 0, 0);
-        -ms-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-
-        .scrollBar {
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-
-            .scrollingInner {
-                -webkit-transition: 500ms;
-                transition: 500ms;
-                .scrollRow {
-                    margin: 0px 20px;
-                }
-            }
-        }
-
-        .cheatBlock {
-            display: none;
-            position: absolute;
-            top: 0;
-            z-index: 1;
-            left: 0;
-            background-color: #fff;
-            width: 0;
-            height: 100%;
-        }
-
-        .arrow_left {
-            display: none;
-            position: absolute;
-            top: 0px;
-            z-index: 2;
-            left: 10px;
-            -webkit-box-align: center;
-            align-items: center;
-            height: 100%;
-            opacity: 0;
-            transition: all 300ms ease 0s;
-
-            .backward {
-                background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMEgxMlYxNkgweiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDYgOCkiLz4KICAgICAgICA8cGF0aCBmaWxsPSIjMjkyQTMyIiBzdHJva2U9IiMyOTJBMzIiIHN0cm9rZS13aWR0aD0iLjM1IiBkPSJNMy40MjkgMTMuNDA5TDQuMzU0IDE0LjI1OCAxMC42OCA4LjQ2IDExLjE0MyA4LjAzNiA0LjM1NCAxLjgxMyAzLjQyOSAyLjY2MiA5LjI5MSA4LjAzNnoiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA2IDgpIi8+CiAgICA8L2c+Cjwvc3ZnPgo=")
-                    12px center / 12px no-repeat rgb(255, 255, 255);
-                box-sizing: border-box;
-                border: 1px solid rgb(249, 249, 249);
-                border-radius: 50%;
-                box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 0px;
-                width: 34px;
-                height: 34px;
-                cursor: pointer;
-                transition: opacity 300ms ease 0s;
-            }
-        }
-
-        .arrow_right {
-            display: flex;
-            position: absolute;
-            top: 0px;
-            z-index: 2;
-            right: 10px;
-            -webkit-box-align: center;
-            align-items: center;
-            height: 100%;
-            opacity: 0;
-            transition: all 300ms ease 0s;
-
-            .forward {
-                display: flex;
-                -webkit-box-pack: center;
-                justify-content: center;
-                -webkit-box-align: center;
-                align-items: center;
-                background-color: rgb(255, 255, 255);
-                box-sizing: border-box;
-                border: 1px solid rgb(249, 249, 249);
-                border-radius: 50%;
-                box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 0px;
-                background-size: 12px;
-                width: 34px;
-                height: 34px;
-                cursor: pointer;
-                transition: opacity 300ms ease 0s;
-
-                > img {
-                    opacity: 0.4;
-                }
-            }
-        }
-    }
-
     .divider {
         border-width: 0px 0px 1px;
         border-top-style: initial;
@@ -421,10 +253,7 @@ const Ul = styled.ul`
     list-style: none;
     padding: 0px;
     white-space: nowrap;
-    margin-top: 14px;
-    margin-bottom: 0px;
-    margin-right: -5px !important;
-    margin-left: -5px !important;
+    margin: 0 20px;
 
     ::after {
         content: "";
@@ -434,13 +263,14 @@ const Ul = styled.ul`
     }
 `;
 
-const Li = styled.li`
-    display: inline-block;
-    vertical-align: top;
-    box-sizing: border-box;
-    width: 33.333333333333336%;
-    padding: 0 5px;
-    margin: 0 0 24px;
+const Wrapper = styled.div`
+    list-style: none;
+    padding: 0px;
+    white-space: nowrap;
+    margin-bottom: 0px;
+`;
+const StyledCard = styled(CardPoster)`
+    width: 33.3333333%;
 
     @media (min-width: 520px) {
         width: 25%;
@@ -462,93 +292,17 @@ const Li = styled.li`
         width: 12.5%;
     }
 
-    .contentPosterBlock {
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding-bottom: 145.37037037037038%;
-
-        .lazyLoading {
-            position: relative;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            box-sizing: border-box;
-            width: 100%;
-            height: 100%;
-            border: 1px solid #eae9e8;
-            border-radius: 5px;
-            background: #f8f8f8;
-            -webkit-transition: 300ms;
-            transition: 300ms;
-
-            .styledImg {
-                vertical-align: top;
-                width: 100%;
-                height: 100%;
-                opacity: 1;
-                object-fit: cover;
-                transition: opacity 420ms ease 0s;
-            }
-        }
-
-        .badge {
-            display: block;
-            position: relative;
-            float: right;
-            background: url("https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png")
-                center center / 17px no-repeat rgb(255, 255, 255);
-            box-sizing: border-box;
-            width: 24px;
-            height: 24px;
-            padding: 4px 3px 3px 4px;
-            margin: 4px 4px 0px 0px;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 50%;
-            opacity: 1;
-            transition: opacity 300ms ease 0s;
-
-            @media (min-width: 719px) {
-                margin: 6px 6px 0px 0px;
-                background-size: 20px;
-                width: 30px;
-                height: 30px;
-                padding: 4px;
-            }
-        }
+    @media (min-width: 1200px) {
+        width: 11.11111111111111%;
     }
-
-    .contentInfo {
-        text-align: left;
-        width: calc(100% - 10px);
-        margin: 5px 10px 0 0;
-
-        .contentTitle {
-            color: rgb(41, 42, 50);
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: -0.3px;
-            line-height: 22px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .contentRating {
-            color: rgb(255, 161, 54);
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: -0.2px;
-            line-height: 18px;
-            white-space: nowrap;
-            height: 18px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            @media (min-width: 719px) {
-                margin-top: 2px;
-            }
-        }
+    @media (min-width: 1360px) {
+        width: 10%;
+    }
+    @media (min-width: 1750px) {
+        width: 8.333333333333334%;
+    }
+    @media (min-width: 1920px) {
+        width: 7.6923076923076925%;
     }
 `;
 
@@ -601,78 +355,42 @@ const ContentRow = styled.div`
     }
 `;
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 0px);
-    margin-top: 74px;
-    max-width: 1320px;
-    margin-bottom: 20px;
-    margin-right: 15px;
-    margin-left: 15px;
-    @media only screen and (min-width: 600px) {
-        min-height: calc(100vh - 343px);
-        margin-top: 74px;
+const Footer = styled.footer`
+    position: fixed;
+    bottom: 0;
+    z-index: 51;
+    background: #fff;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #d2d2d2;
+
+    @media (min-width: 719px) {
+        display: none;
     }
 
-    @media only screen and (min-width: 719px) {
-        margin-bottom: 30px;
-        margin-right: 20px;
-        margin-left: 20px;
-    }
-    @media only screen and (min-width: 760px) {
-        margin-right: 3.5%;
-        margin-left: 3.5%;
-        margin-top: 80px;
-    }
-    @media only screen and (min-width: 1100px) {
-        margin-bottom: 42px;
-        margin-right: 60px;
-        margin-left: 60px;
-        margin-top: 86px;
-    }
-    @media only screen and (min-width: 1440px) {
-        margin-right: auto;
-        margin-left: auto;
-    }
+    .footerNav {
+        box-sizing: border-box;
+        height: 56px;
+        padding: 8px 0 4px;
 
-    // const Footer = styled.footer
+        .navTabUl {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            height: 100%;
+            overflow: hidden;
+
+            .navItem {
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                text-align: center;
+                height: 100%;
+            }
+        }
+    }
 `;
-//   position: fixed;
-//   bottom: 0;
-//   z-index: 51;
-//   background: #fff;
-//   box-sizing: border-box;
-//   width: 100%;
-//   border-top: 1px solid #d2d2d2;
-
-//   @media (min-width: 719px) {
-//     display: none;
-//   }
-
-//   .footerNav {
-//     box-sizing: border-box;
-//     height: 56px;
-//     padding: 8px 0 4px;
-
-//     .navTabUl {
-//       list-style: none;
-//       padding: 0;
-//       margin: 0;
-//       display: -webkit-box;
-//       display: -webkit-flex;
-//       display: -ms-flexbox;
-//       display: flex;
-//       height: 100%;
-//       overflow: hidden;
-
-//       .navItem {
-//         -webkit-flex: 1;
-//         -ms-flex: 1;
-//         flex: 1;
-//         text-align: center;
-//         height: 100%;
-//       }
-//     }
-//   }
-// `;
