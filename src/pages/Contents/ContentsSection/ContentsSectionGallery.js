@@ -45,24 +45,43 @@ const ContentsSectionGallery = ({ data }) => {
     // [ TODO ]
     // isNetflixContent / isWatchaContent
     return (
-        <Wrapper>
-            <CardList title="감상 가능한 곳">
-                <CardWatchPlace data={images.watcha} />
-                <CardWatchPlace data={images.netflix} />
-                <CardWatchPlace data={images.tving} />
-                <CardWatchPlace data={images.wave} />
-            </CardList>
-            <CardListSlick title="갤러리">
-                {[...new Array(10)].map((_, idx) => (
-                    // {list.map((item, idx) => (
-                    <CardGallery key={idx}>
-                        <div className="img-block">
-                            <img src={imgDummy} alt="" />
-                        </div>
-                    </CardGallery>
-                ))}
-            </CardListSlick>
-        </Wrapper>
+        <>
+            <WrapperTeam className="team-info">
+                <h2>팀소개</h2>
+                <p>
+                    깃허브:
+                    <a href="https://github.com/devpedia0">
+                        https://github.com/devpedia0
+                    </a>
+                </p>
+                <p>
+                    사이트:
+                    <a href="https://www.naver.com">https://www.naver.com</a>
+                </p>
+                <p>
+                    소개:
+                    <a href="https://www.naver.com">https://www.naver.com</a>
+                </p>
+            </WrapperTeam>
+            <Wrapper>
+                <CardList title="감상 가능한 곳">
+                    <CardWatchPlace data={images.watcha} />
+                    <CardWatchPlace data={images.netflix} />
+                    <CardWatchPlace data={images.tving} />
+                    <CardWatchPlace data={images.wave} />
+                </CardList>
+                <CardListSlick title="갤러리">
+                    {[...new Array(10)].map((_, idx) => (
+                        // {list.map((item, idx) => (
+                        <CardGallery key={idx}>
+                            <div className="img-block">
+                                <img src={imgDummy} alt="" />
+                            </div>
+                        </CardGallery>
+                    ))}
+                </CardListSlick>
+            </Wrapper>
+        </>
     );
 };
 
@@ -113,6 +132,34 @@ const Wrapper = styled.div`
     @media only screen and (min-width: 1023px) {
         border: 1px solid;
         border-radius: 6px;
+    }
+`;
+
+const WrapperTeam = styled(Wrapper)`
+    display: none;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+
+    h2 {
+        white-space: nowrap;
+        color: #000;
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: -0.7px;
+        line-height: 28px;
+        margin: 15px 0;
+    }
+    p {
+        line-height: 15px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        margin-left: 10px;
+        font-size: 0.9rem;
+    }
+    @media only screen and (min-width: 1023px) {
+        display: block;
     }
 `;
 

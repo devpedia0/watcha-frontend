@@ -92,7 +92,7 @@ const ContentsHeader = ({ data }) => {
                             </ButtonBlock>
                         </ButtonContainer>
                         <Stars />
-                        {true && (
+                        {isOpen && (
                             <Bookmark
                                 data={data}
                                 status={status}
