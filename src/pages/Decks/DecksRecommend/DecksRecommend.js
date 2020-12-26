@@ -98,5 +98,4 @@ const Button = styled.button`
 
 const StyledLoader = styled.div`
     height: 50px;
-    border: 1px solid red;
 `;

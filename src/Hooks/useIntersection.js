@@ -26,7 +26,7 @@ function useIntersection(ref) {
         };
     }, [ref]);
 
-    return isIntersecting;
+    return [isIntersecting, setIntersecting];
 }
 
 export default useIntersection;

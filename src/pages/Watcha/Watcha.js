@@ -37,7 +37,7 @@ const Watcha = () => {
                 ...state,
                 list: [...state.list, ...res.data],
                 isFetching: false,
-                page: res.data < state.size ? 0 : state.page + 1,
+                page: res.data < state.size ? 0 : data.page + 1,
             }));
         });
     }, [isIntersecting, pageId, data.page, data.size]);

@@ -10,6 +10,7 @@ export { default as CardComment } from "./Card/CardComment";
 // CardList
 export { default as CardList } from "./CardList/CardList";
 export { default as CardListForm } from "./CardList/CardListForm";
+export { default as CardListInfinite } from "./CardList/CardListInfinite";
 export { default as CardListSlick } from "./CardList/CardListSlick";
 // Footer
 export { default as Footer } from "./Footer/Footer";
