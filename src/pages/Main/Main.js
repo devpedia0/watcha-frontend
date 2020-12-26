@@ -16,21 +16,24 @@ const steps = [
     { id: "award" },
 ];
 
+const initialState = {
+    step: 0,
+    isFetching: true,
+    isLoading: false,
+    box_office: {},
+    mars: {},
+    netflix: {},
+    score: {},
+    award: {},
+    tag: {},
+    popular: {},
+    collection: {},
+};
+
 const Main = () => {
     const pathname = history.location.pathname;
     const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
-    const [state, setState] = useState({
-        step: 0,
-        loading: false,
-        box_office: {},
-        mars: {},
-        netflix: {},
-        score: {},
-        award: {},
-        tag: {},
-        popular: {},
-        collection: {},
-    });
+    const [state, setState] = useState(initialState);
 
     const getDataAPI = useCallback(async () => {
         if (state.step <= 4) {
@@ -41,7 +44,7 @@ const Main = () => {
                 ...state,
                 [charId.id]: res.data[0],
                 step: state.step + 1,
-                loading: false,
+                isLoading: false,
             });
         }
     }, [state, charType]);
@@ -59,7 +62,7 @@ const Main = () => {
                 getDataAPI();
                 setState({
                     ...state,
-                    loading: true,
+                    isLoading: true,
                 });
             }
             window.removeEventListener("scroll", infiniteScroll);
@@ -67,11 +70,11 @@ const Main = () => {
     }, [getDataAPI, state]);
 
     useEffect(() => {
-        if (!state.loading) {
+        if (!state.isLoading) {
             window.addEventListener("scroll", infiniteScroll);
         }
         return () => window.removeEventListener("scroll", infiniteScroll);
-    }, [infiniteScroll, state.loading]);
+    }, [infiniteScroll, state.isLoading]);
 
     useEffect(() => {
         const fetchAPI = async () => {
@@ -82,11 +85,21 @@ const Main = () => {
                 box_office: res.data[0],
                 mars: res.data[1],
                 netflix: res.data[2],
+                isFetching: false,
             }));
         };
         fetchAPI();
+        return () => setState(initialState);
     }, [charType]);
-    console.log(state.collection);
+
+    if (state.isFetching) {
+        return (
+            <PageLoading>
+                <Loader />
+            </PageLoading>
+        );
+    }
+
     return (
         <Wrapper>
             <MainSectionRank data={state.box_office} />
@@ -97,7 +110,7 @@ const Main = () => {
             <MainSection data={state.popular} />
             <MainSectionCollection data={state.collection} />
             <MainSectionAward data={state.award} />
-            {state.loading && <Loader />}
+            {state.isLoading && <Loader />}
         </Wrapper>
     );
 };
@@ -138,4 +151,9 @@ const Wrapper = styled.div`
         margin-right: auto;
         margin-left: auto;
     }
+`;
+
+const PageLoading = styled.div`
+    height: 800px;
+    padding-top: 400px;
 `;
