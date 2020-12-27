@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Icon, Button } from "../../../../styles";
 
-const Bookmark = ({ data, status, onClickClose, onClickIcon }) => {
-    const [user] = useState("few");
+const Bookmark = ({ data, userData, onClickClose, onClickIcon }) => {
+    const { interestState, isLogin } = userData;
+
     const {
         contentInfo: { mainTitle, productionDate, category },
     } = data;
@@ -11,7 +12,7 @@ const Bookmark = ({ data, status, onClickClose, onClickIcon }) => {
     return (
         <ModalContainer onClick={onClickClose}>
             <ContentBox onClick={(e) => e.stopPropagation()}>
-                {!user ? (
+                {!isLogin ? (
                     <>
                         <Icon type="close" w="24px" h="24px" margin="10px 0" />
                         <div className="contents-info">
@@ -45,14 +46,14 @@ const Bookmark = ({ data, status, onClickClose, onClickIcon }) => {
                                 }`}</p>
                             </div>
                         </ContentHeader>
-                        <ContentRow status={status}>
+                        <ContentRow status={userData}>
                             <div
                                 className="contentRowLeft"
                                 onClick={() => onClickIcon("WISH")}
                             >
                                 <Icon
                                     type={
-                                        status === "WISH"
+                                        interestState === "WISH"
                                             ? "bookmarkRed"
                                             : "bookmark"
                                     }
@@ -68,7 +69,7 @@ const Bookmark = ({ data, status, onClickClose, onClickIcon }) => {
                             >
                                 <Icon
                                     type={
-                                        status === "WATCHING"
+                                        interestState === "WATCHING"
                                             ? "watchingBlue"
                                             : "watching"
                                     }

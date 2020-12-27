@@ -10,22 +10,38 @@ const ContentsHeader = ({ data, pageId }) => {
         contentInfo: { mainTitle, productionDate, category, countryCode, lank },
         scores: { average, totalCount },
         galleries,
-        context: { interestState },
+        context,
     } = data;
     const [isOpen, setOpen, onClickClose] = useOpen();
-    const [status, setStatus] = useState("");
+    const [userData, setUserData] = useState({
+        interestState: "",
+        score: "",
+        isLogin: false,
+    });
 
     useEffect(() => {
-        if (interestState) {
-            setStatus(interestState);
+        if (context) {
+            setUserData({
+                ...context,
+                isLogin: true,
+            });
         }
-    }, [interestState]);
-    console.log(status);
+    }, [context]);
+
     const handleClickOpen = () => {
-        if (!status) {
+        if (!userData.isLogin) {
+            // Open /
+            console.log("로그인 안됐음");
+            return setOpen(true);
+        }
+
+        if (!userData.interestState) {
             api.post(`/contents/${pageId}/interests`, { state: "WISH" })
                 .then((res) => {
-                    setStatus("WISH");
+                    setUserData((state) => ({
+                        ...state,
+                        interestState: "WISH",
+                    }));
                 })
                 .catch((err) => {
                     console.log(err);
@@ -36,10 +52,13 @@ const ContentsHeader = ({ data, pageId }) => {
     };
 
     const handleClickIcon = (type) => {
-        const state = status === type ? "" : type;
+        const state = userData.interestState === type ? "" : type;
         api.post(`/contents/${pageId}/interests`, { state })
             .then((res) => {
-                setStatus(state);
+                setUserData((state) => ({
+                    ...state,
+                    interestState: state,
+                }));
             })
             .catch((err) => {
                 console.log(err);
@@ -92,15 +111,18 @@ const ContentsHeader = ({ data, pageId }) => {
                         </div>
                         <ButtonContainer>
                             <ButtonBlock
-                                isClicked={!!status}
+                                isClicked={!!userData.interestState}
                                 onClick={handleClickOpen}
                             >
                                 <button className="btn-left">
                                     <div className="btn-left-content">
-                                        <IconSelector status={status} />
+                                        <IconSelector
+                                            status={userData.interestState}
+                                        />
 
                                         <div className="text">
-                                            {status === "WATCHING"
+                                            {userData.interestState ===
+                                            "WATCHING"
                                                 ? "보는중"
                                                 : "보고싶어요"}
                                         </div>
@@ -114,18 +136,22 @@ const ContentsHeader = ({ data, pageId }) => {
                                         viewBox="0 0 24 24"
                                     >
                                         <path
-                                            fill={!!status ? "#d9d9d9" : "#FFF"}
+                                            fill={
+                                                !!userData.interestState
+                                                    ? "#d9d9d9"
+                                                    : "#FFF"
+                                            }
                                             d="M12 16l6-6H6z"
                                         />
                                     </svg>
                                 </button>
                             </ButtonBlock>
                         </ButtonContainer>
-                        <Stars />
+                        <Stars score={userData.score} />
                         {isOpen && (
                             <Bookmark
                                 data={data}
-                                status={status}
+                                userData={userData}
                                 onClickClose={onClickClose}
                                 onClickIcon={handleClickIcon}
                             />

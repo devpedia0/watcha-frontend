@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import history from "../../history";
+import api from "../../services/api";
 
 const ratedTextMap = {
     0.0: "평가하기",
@@ -15,15 +17,16 @@ const ratedTextMap = {
     5.0: "최고에요!",
 };
 
-const Stars = () => {
-    // [ TODO ]
-    // fechtedRate props 받는걸로 변경
-    const [fetchedRate, setFetchedRate] = useState(4.0);
+const Stars = ({ score }) => {
+    const pathname = history.location.pathname;
+    const pageId = pathname.split("/")[2];
+    const [fetchedRate, setFetchedRate] = useState(0);
     const [rate, setRate] = useState(0);
 
     useEffect(() => {
-        setRate(fetchedRate);
-    }, [fetchedRate]);
+        setFetchedRate(score);
+        setRate(score);
+    }, [score]);
 
     const Star = ({ isRated }) => {
         return <span className={`${isRated ? "star_rated" : "star"}`}></span>;
@@ -38,9 +41,17 @@ const Stars = () => {
     };
 
     const handleClick = async () => {
-        // [ TODO ] API 통신
-        // await api.post('/rated', rate)
-        setFetchedRate(rate);
+        try {
+            if (rate === fetchedRate) {
+                await api.delete(`/contents/${pageId}/scores`);
+                setFetchedRate(0);
+            } else {
+                api.post(`/contents/${pageId}/scores`, { score: rate });
+                setFetchedRate(rate);
+            }
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (
