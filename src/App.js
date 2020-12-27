@@ -46,7 +46,7 @@ function App() {
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
-                    <Layout path="/contents" exact component={Contents} />
+                    <Layout path="/contents/:id" component={Contents} />
                     <Layout path="/decks/:id" component={Decks} />
                     <LayoutDetail path="/watcha/:id" component={Watcha} />
                     <LayoutDetail

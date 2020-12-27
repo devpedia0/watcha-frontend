@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const CardCollection = ({ item, onClick }) => {
+const CardCollection = ({ className, item, onClick }) => {
     return (
-        <Wrapper onClick={onClick}>
+        <Wrapper className={className} onClick={onClick}>
             <WrapperBox>
                 <ImageContainer>
                     <Image src={item.images[0] + "?w=280&h=400"} />
@@ -25,23 +25,10 @@ const Wrapper = styled.li`
     display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
-    width: 33.333333333333336%;
+    width: 100%;
     height: auto;
     padding: 0 4px;
     margin-bottom: 0px;
-
-    @media only screen and (min-width: 600px) {
-        width: 33.33333333%;
-    }
-
-    @media only screen and (min-width: 760px) {
-        width: 25%;
-        padding: 0 5px;
-    }
-    @media only screen and (min-width: 1100px) {
-        width: 20%;
-        padding: 0 8px;
-    }
 `;
 const WrapperBox = styled.div`
     cursor: pointer;
@@ -89,10 +76,11 @@ const ContentInfo = styled.div`
         font-weight: 500;
         letter-spacing: -0.3px;
         line-height: 22px;
-        white-space: nowrap;
+
         overflow: hidden;
         text-overflow: ellipsis;
         margin-bottom: 3px;
+        white-space: pre-wrap;
     }
 
     .yearAndNation {

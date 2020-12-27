@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 
 import styled from "styled-components";
-import { CardList, CardPoster, Loader } from "../../../components";
 import useInterSection from "../../../Hooks/useIntersection";
+import { CardList, CardPoster } from "../../../components";
+import { Loader } from "../../../styles";
+
 // import api from "../../services/api";
 const DecksRecommend = ({ posters }) => {
     const [state, setState] = useState({

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
-import { Loader } from "../../components";
+import { Loader } from "../../styles";
 import api from "../../services/api";
 import MainSection from "./MainSection/MainSection";
 import MainSectionRank from "./MainSection/MainSectionRank";
@@ -93,11 +93,7 @@ const Main = () => {
     }, [charType]);
 
     if (state.isFetching) {
-        return (
-            <PageLoading>
-                <Loader />
-            </PageLoading>
-        );
+        return <Loader height="800px" />;
     }
 
     return (
@@ -151,9 +147,4 @@ const Wrapper = styled.div`
         margin-right: auto;
         margin-left: auto;
     }
-`;
-
-const PageLoading = styled.div`
-    height: 800px;
-    padding-top: 400px;
 `;

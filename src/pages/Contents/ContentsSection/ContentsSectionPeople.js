@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CardListSlick, Card } from "../../../components";
-import { Divider } from "./ContentsSectionInfo";
+import { Divider } from "../../../styles";
 const item = {
     name: "name",
     description: "description",

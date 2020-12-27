@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
-import { CardList, CardPoster, Loader } from "..";
 import useInterSection from "../../Hooks/useIntersection";
+import { CardList, CardPoster } from "..";
+import { Loader } from "../../styles";
 import api from "../../services/api";
 
 const CardListInfinite = ({ posters, fetchUrl }) => {
@@ -56,16 +57,14 @@ const CardListInfinite = ({ posters, fetchUrl }) => {
             </CardList>
             {showMore && <Button onClick={handleClick}>더보기</Button>}
             <StyledLoader ref={loaderRef}>
-                {isFetching && <Loader />}
+                {isFetching && <Loader height="800px" />}
             </StyledLoader>
         </Wrppaer>
     );
 };
 
 export default CardListInfinite;
-const Wrppaer = styled.div`
-    padding: 0 20px;
-`;
+const Wrppaer = styled.div``;
 
 const StyledCard = styled(CardPoster)`
     width: 33.3333333%;

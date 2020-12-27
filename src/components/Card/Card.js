@@ -18,7 +18,7 @@ const Card = ({
                 width="50px"
                 height="50px"
                 radius={radius}
-                src={profileImagePath}
+                src={profileImagePath ? profileImagePath + "?w=100&h=100" : ""}
             />
             <div className="content">
                 <div className="text">

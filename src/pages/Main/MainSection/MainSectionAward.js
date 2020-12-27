@@ -18,7 +18,7 @@ const MainSectionAward = ({ data, sizeCard }) => {
                 sizeHeader="lg"
             >
                 {list.map((item, idx) => (
-                    <CardCollection
+                    <StyledCard
                         key={idx}
                         item={item}
                         size={sizeCard}
@@ -33,3 +33,16 @@ const MainSectionAward = ({ data, sizeCard }) => {
 export default MainSectionAward;
 
 const Wrapper = styled.div``;
+
+const StyledCard = styled(CardCollection)`
+    width: 33%;
+
+    @media only screen and (min-width: 760px) {
+        width: 25%;
+        padding: 0 5px;
+    }
+    @media only screen and (min-width: 1100px) {
+        width: 20%;
+        padding: 0 8px;
+    }
+`;

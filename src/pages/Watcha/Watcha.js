@@ -3,8 +3,9 @@ import styled from "styled-components";
 import history from "../../history";
 import api from "../../services/api";
 
-import { CardList, HeaderDetail, CardPoster, Loader } from "../../components";
 import useIntersection from "../../Hooks/useIntersection";
+import { CardList, HeaderDetail, CardPoster } from "../../components";
+import { Loader } from "../../styles";
 
 const Watcha = () => {
     const pathname = history.location.pathname;

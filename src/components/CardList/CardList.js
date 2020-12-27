@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const CardList = ({ title, count, addComponent, children }) => {
+const CardList = ({ className, title, count, addComponent, children }) => {
     return (
-        <Wrapper>
+        <Wrapper className={className}>
             <div className="header">
                 <h2>
                     {title}

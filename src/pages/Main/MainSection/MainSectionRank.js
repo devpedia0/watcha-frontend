@@ -10,7 +10,6 @@ const MainSectionRank = ({ data }) => {
     }
 
     const { title, description, poster, list } = data;
-
     return (
         <Wrapper>
             <CardListSlick
@@ -24,7 +23,7 @@ const MainSectionRank = ({ data }) => {
                         key={idx}
                         item={item}
                         rank={idx + 1}
-                        onClick={() => history.push("/contents")}
+                        onClick={() => history.push(`/contents/${item.id}`)}
                     />
                 ))}
             </CardListSlick>

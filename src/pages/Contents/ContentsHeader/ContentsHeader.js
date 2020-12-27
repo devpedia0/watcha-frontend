@@ -5,6 +5,11 @@ import Bookmark from "./Bookmark/Bookmark";
 import useOpen from "../../../Hooks/useOpen";
 
 const ContentsHeader = ({ data }) => {
+    const {
+        contentInfo: { mainTitle, productionDate, category, countryCode, lank },
+        scores: { average, totalCount },
+        galleries,
+    } = data;
     const [isOpen, setOpen, onClickClose] = useOpen();
 
     const [status, setStatus] = useState("");
@@ -26,7 +31,6 @@ const ContentsHeader = ({ data }) => {
         setStatus((state) => (state === type ? "" : type));
         onClickClose();
     };
-
     const img =
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605860774/brjxqof6s9jx6tlerasw.jpg";
     return (
@@ -34,7 +38,13 @@ const ContentsHeader = ({ data }) => {
             <Header>
                 <PosterBlock>
                     <div className="bg-left" />
-                    <Poster src={data.src}>
+                    <Poster
+                        src={
+                            galleries.length !== 0
+                                ? galleries[0] + "?h=720&w=1280"
+                                : ""
+                        }
+                    >
                         <div className="gradient-left" />
                         <div className="gradient-right" />
                     </Poster>
@@ -45,20 +55,25 @@ const ContentsHeader = ({ data }) => {
                     <div className="img-wrapper">
                         <img src={img} alt="" />
                     </div>
-                    <ul>
-                        <li>
-                            넷플릭스 TV 프로그램 순위 <em>3위</em>
-                        </li>
-                    </ul>
+                    {lank && (
+                        <ul>
+                            <li>
+                                넷플릭스 TV 프로그램 순위 <em>{lank}위</em>
+                            </li>
+                        </ul>
+                    )}
                 </LankingBlock>
+                )
             </Header>
             <Content>
                 <InfoBlock>
                     <div className="infoList">
-                        <div className="title">{data.title}</div>
-                        <div className="detail">{`${data.year} ・ ${data.category} ・ ${data.country}`}</div>
+                        <div className="title">{mainTitle}</div>
+                        <div className="detail">{`${
+                            productionDate ? productionDate.split("-")[0] : ""
+                        } ・ ${category} ・ ${countryCode}`}</div>
                         <div className="rating">
-                            평균 ★{data.rate} ({data.num})
+                            평균 ★{average.toFixed(1)} ({totalCount} 명)
                         </div>
                         <ButtonContainer>
                             <ButtonBlock
@@ -189,7 +204,7 @@ const Poster = styled.div`
     background-size: cover;
     background: ${(props) =>
         props.src
-            ? props.src
+            ? `url(${props.src}) center center / cover no-repeat`
             : `url("https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_720,q_80,w_1280/v1604542596/eataqg1dhtuczq95vgh4.jpg") center center / cover no-repeat`};
 
     .gradient-left {
