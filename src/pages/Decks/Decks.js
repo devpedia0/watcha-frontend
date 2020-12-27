@@ -2,31 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import history from "../../history";
 
-// import DecksRecommend from "./DecksRecommend/DecksRecommend";
 import api from "../../services/api";
 import { CardListInfinite } from "../../components";
-
-// const dummy = {
-//     id: "few",
-//     posterImagePath:
-//         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1466068952/oykv1z4xwesjvkvmpwya.jpg",
-//     isNetflixContent: true,
-//     isWatchaContent: true,
-//     mainTitle: "title",
-//     score: 3.2,
-// };
-// const dataDummy = {
-//     user: {
-//         name: "강탑구",
-//         img:
-//             "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1466068952/oykv1z4xwesjvkvmpwya.jpg",
-//     },
-//     title: "짜릿한 병맛을 원하는 그대에게",
-//     likes: 1950,
-//     comments: 13,
-//     contents: "요즘 대세는 병맛? 막나가는, 브레이크 없는 병맛의 질주",
-//     posters: [...new Array(12)].map((item) => dummy),
-// };
 
 const Decks = () => {
     const [data, setData] = useState({});
@@ -39,8 +16,6 @@ const Decks = () => {
             setData(res.data);
         };
         fetchData();
-
-        // setData(dataDummy);
     }, [pageId]);
 
     if (Object.keys(data).length === 0) return null;

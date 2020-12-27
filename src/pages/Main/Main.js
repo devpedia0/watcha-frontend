@@ -92,9 +92,7 @@ const Main = () => {
         return () => setState(initialState);
     }, [charType]);
 
-    if (state.isFetching) {
-        return <Loader height="800px" />;
-    }
+    if (state.isFetching) return <Loader height="800px" />;
 
     return (
         <Wrapper>

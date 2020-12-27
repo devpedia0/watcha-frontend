@@ -16,13 +16,13 @@ const Interest = ({ interestState, score }) => {
     switch (interestState) {
         case "WISH":
             return (
-                <div>
+                <>
                     <Icon type="bookmarkGray" w="16px" h="16px" />
                     보고싶어요
-                </div>
+                </>
             );
         default:
-            return <div className="score">★ {score}</div>;
+            return "★ " + (score || "3.0");
     }
 };
 
@@ -58,7 +58,9 @@ const CardComment = ({ className, item, onClick }) => {
                         />
                         <h2>{userName}</h2>
                     </div>
-                    <Interest interestState={interestState} score={score} />
+                    <div className="score">
+                        <Interest interestState={interestState} score={score} />
+                    </div>
                 </Header>
                 <Content className="content">
                     {showDescription

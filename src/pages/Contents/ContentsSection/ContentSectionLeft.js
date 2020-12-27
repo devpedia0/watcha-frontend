@@ -74,7 +74,9 @@ const ContentSectionLeft = ({ data, pageId }) => {
             <CardListSlick
                 title="코멘트"
                 count={comments.count}
-                addComponent={<Link href="/contents/comment">더보기</Link>}
+                addComponent={
+                    <Link href={`/contents/${pageId}/comments`}>더보기</Link>
+                }
             >
                 {comments.list.map((item, idx) => (
                     <StyledCard

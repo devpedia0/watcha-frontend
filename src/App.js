@@ -23,7 +23,7 @@ import MyMovie from "./pages/MyData/MyMovie";
 import MyTv from "./pages/MyData/MyTv";
 import MyBook from "./pages/MyData/MyBook";
 import ContentsInfo from "./pages/Contents/ContentsInfo";
-import ContentsComment from "./pages/Contents/ContentsComment";
+import Comment from "./pages/Comments/Comment";
 import Decks from "./pages/Decks/Decks";
 import Watcha from "./pages/Watcha/Watcha";
 import RatedMovie from "./pages/MyData/RatedMovie";
@@ -46,69 +46,25 @@ function App() {
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
-                    <Layout path="/contents/:id" component={Contents} />
+                    <Layout path="/contents/:id" exact component={Contents} />
+                    <Layout path="/contents/:id/comments" exact component={Comment} />
                     <Layout path="/decks/:id" component={Decks} />
                     <LayoutDetail path="/watcha/:id" component={Watcha} />
-                    <LayoutDetail
-                        path="/contents/overview"
-                        exact
-                        component={ContentsInfo}
-                    />
-                    <LayoutDetail
-                        path="/contents/comment"
-                        exact
-                        component={ContentsComment}
-                    />
+                    <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />
 
                     {/* Form Page */}
-                    <LayoutForm
-                        path="/admin/books"
-                        exact
-                        component={PageBoard}
-                    />
+                    <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
-                    <LayoutForm
-                        path="/admin/movies"
-                        exact
-                        component={PageBoard}
-                    />
-                    <LayoutForm
-                        path="/admin/movies/form"
-                        component={PageMovie}
-                    />
-                    <LayoutForm
-                        path="/admin/participants"
-                        exact
-                        component={PageBoard}
-                    />
-                    <LayoutForm
-                        path="/admin/participants/form"
-                        component={PageParticipant}
-                    />
-                    <LayoutForm
-                        path="/admin/tags"
-                        exact
-                        component={PageBoard}
-                    />
+                    <LayoutForm path="/admin/movies" exact component={PageBoard} />
+                    <LayoutForm path="/admin/movies/form" component={PageMovie} />
+                    <LayoutForm path="/admin/participants" exact component={PageBoard} />
+                    <LayoutForm path="/admin/participants/form" component={PageParticipant} />
+                    <LayoutForm path="/admin/tags" exact component={PageBoard} />
                     <LayoutForm path="/admin/tags/form" component={PageTag} />
-                    <LayoutForm
-                        path="/admin/tv_shows"
-                        exact
-                        component={PageBoard}
-                    />
-                    <LayoutForm
-                        path="/admin/tv_shows/form"
-                        component={PageTV}
-                    />
-                    <LayoutForm
-                        path="/admin/collections"
-                        exact
-                        component={PageBoard}
-                    />
-                    <LayoutForm
-                        path="/admin/collections/form"
-                        component={PageCollection}
-                    />
+                    <LayoutForm path="/admin/tv_shows" exact component={PageBoard} />
+                    <LayoutForm path="/admin/tv_shows/form" component={PageTV} />
+                    <LayoutForm path="/admin/collections" exact component={PageBoard} />
+                    <LayoutForm path="/admin/collections/form" component={PageCollection} />
                     <Redirect from="/admin" to="/admin/movies/form" />
                     <Redirect to="/" />
                 </Switch>

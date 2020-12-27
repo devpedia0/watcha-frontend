@@ -35,7 +35,7 @@ const Contents = () => {
         <Wrapper>
             <ContentsHeader data={state.data} />
             <Content>
-                <ContentSectionLeft data={state.data} />
+                <ContentSectionLeft data={state.data} pageId={pageId} />
                 <ContentsSectionRight data={state.data} />
 
                 <div className="bottom">
