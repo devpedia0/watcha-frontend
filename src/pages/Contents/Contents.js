@@ -11,7 +11,7 @@ import { CardListInfinite } from "../../components";
 import { Loader } from "../../styles";
 
 const Contents = () => {
-    const [state, setData] = useState({
+    const [state, setState] = useState({
         isFetching: true,
         data: {},
     });
@@ -21,7 +21,7 @@ const Contents = () => {
     useEffect(() => {
         const fetchData = async () => {
             const res = await api.get(`/contents/${pageId}`);
-            setData({
+            setState({
                 data: res.data,
                 isFetching: false,
             });
@@ -33,7 +33,7 @@ const Contents = () => {
     console.log(state.data);
     return (
         <Wrapper>
-            <ContentsHeader data={state.data} />
+            <ContentsHeader data={state.data} pageId={pageId} />
             <Content>
                 <ContentSectionLeft data={state.data} pageId={pageId} />
                 <ContentsSectionRight data={state.data} />

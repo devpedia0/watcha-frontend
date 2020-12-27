@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Icon, Button } from "../../../../styles";
 
-const Bookmark = ({ data, status, onClickClose, handleClick }) => {
+const Bookmark = ({ data, status, onClickClose, onClickIcon }) => {
     const [user] = useState("few");
+    const {
+        contentInfo: { mainTitle, productionDate, category },
+    } = data;
 
     return (
         <ModalContainer onClick={onClickClose}>
             <ContentBox onClick={(e) => e.stopPropagation()}>
-                {user ? (
+                {!user ? (
                     <>
                         <Icon type="close" w="24px" h="24px" margin="10px 0" />
                         <div className="contents-info">
@@ -29,20 +32,27 @@ const Bookmark = ({ data, status, onClickClose, handleClick }) => {
                 ) : (
                     <>
                         <ContentHeader>
-                            <img src={data.imgUrl} alt="" />
+                            <img
+                                src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605860774/brjxqof6s9jx6tlerasw.jpg"
+                                alt=""
+                            />
                             <div className="titleWrapper">
-                                <h2>{data.title}</h2>
-                                <p>{`${data.category} ・ ${data.year}`}</p>
+                                <h2>{mainTitle}</h2>
+                                <p>{`${category} ・ ${
+                                    productionDate
+                                        ? productionDate.split("-")[0]
+                                        : ""
+                                }`}</p>
                             </div>
                         </ContentHeader>
                         <ContentRow status={status}>
                             <div
                                 className="contentRowLeft"
-                                onClick={() => handleClick("wish")}
+                                onClick={() => onClickIcon("WISH")}
                             >
                                 <Icon
                                     type={
-                                        status === "wish"
+                                        status === "WISH"
                                             ? "bookmarkRed"
                                             : "bookmark"
                                     }
@@ -54,11 +64,11 @@ const Bookmark = ({ data, status, onClickClose, handleClick }) => {
                             </div>
                             <div
                                 className="contentRowRight"
-                                onClick={() => handleClick("watching")}
+                                onClick={() => onClickIcon("WATCHING")}
                             >
                                 <Icon
                                     type={
-                                        status === "watching"
+                                        status === "WATCHING"
                                             ? "watchingBlue"
                                             : "watching"
                                     }
@@ -78,7 +88,7 @@ const Bookmark = ({ data, status, onClickClose, handleClick }) => {
                                 margin="12px 0px"
                             />
                         </ContentButton>
-                        <ContentButton onClick={() => handleClick("")}>
+                        <ContentButton onClick={() => onClickIcon(null)}>
                             <span>관심없어요</span>
                             <Icon
                                 type="cancel"
@@ -222,7 +232,7 @@ const ContentRow = styled.div`
         cursor: pointer;
         border-right: 1px solid rgb(240, 240, 240);
         color: ${(props) =>
-            props.status === "wish" ? "rgb(255, 47, 110)" : "rgb(0, 0, 0)"};
+            props.status === "WISH" ? "rgb(255, 47, 110)" : "rgb(0, 0, 0)"};
     }
 
     .contentRowRight {
@@ -240,7 +250,7 @@ const ContentRow = styled.div`
         cursor: pointer;
 
         color: ${(props) =>
-            props.status === "watching" ? "RGB(0,160,255)" : "rgb(0, 0, 0)"};
+            props.status === "WATCHING" ? "RGB(0,160,255)" : "rgb(0, 0, 0)"};
     }
 `;
 
