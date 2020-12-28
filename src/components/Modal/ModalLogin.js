@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import history from "../../history";
 import useInputs from "../../Hooks/useInputs";
-import AuthService from "../../services/auth.service";
+import { useDispatch } from "react-redux";
+import authActions from "../../redux/actions/authActions";
 import ReactFacebookLogin from "../../services/ReactFacebookLogin";
 
 const initialValue = {
@@ -12,6 +12,7 @@ const initialValue = {
 };
 
 const Login = ({ setOpenModal }) => {
+    const dispatch = useDispatch();
     const { inputs, errors, onChange } = useInputs(initialValue);
 
     const handleSubmit = (e) => {
@@ -19,15 +20,8 @@ const Login = ({ setOpenModal }) => {
 
         if (errors["email"] || errors["password"]) return;
 
-        AuthService.login(inputs.email, inputs.password).then(
-            (response) => {
-                history.push("/");
-                setOpenModal("");
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        dispatch(authActions.login(inputs));
+        setOpenModal("");
     };
 
     return (

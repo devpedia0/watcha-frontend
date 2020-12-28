@@ -7,7 +7,7 @@ import MainSection from "./MainSection/MainSection";
 import MainSectionRank from "./MainSection/MainSectionRank";
 import MainSectionAward from "./MainSection/MainSectionAward";
 import MainSectionCollection from "./MainSection/MainSectionCollection";
-import SignUp from "../../components/Modal/ModalSignup";
+import { useSelector } from "react-redux";
 
 const steps = [
     { id: "score" },
@@ -32,6 +32,8 @@ const initialState = {
 };
 
 const Main = () => {
+    const user = useSelector((state) => state.auth);
+    console.log("z", user);
     const pathname = history.location.pathname;
     const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
     const [state, setState] = useState(initialState);

@@ -105,6 +105,6 @@ const errorMessageObj = {
     countryCode: "국가코드",
     originTitle: "원제목",
     bookRate: "예매율",
-    email: "이름",
+    email: "이메일",
     password: "비밀번호",
 };
