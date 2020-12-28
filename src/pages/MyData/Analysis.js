@@ -3,17 +3,15 @@ import styled from "styled-components";
 
 import api from "../../services/api";
 import MyTag from "./Tag/MyTag";
-import Chart from "../Detail/DetailSection/DetailSectionChart";
+import Chart from "../MyData/Chart";
 import ActorSection from "./ActorSection";
 import DirectorSection from "./DirectorSection";
 import FavCountry from "./FavCountry";
 import FavGenre from "./FavGenre";
-import { Divider } from "../../pages/Detail/DetailSection/DetailSectionInfo";
+import { Divider } from "../Contents/ContentsSection/ContentsSectionInfo";
 
 function Analysis() {
-
     const [userInfo, setUserInfo] = useState({});
-
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));

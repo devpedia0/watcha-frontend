@@ -16,7 +16,6 @@ export default function Header({ className }) {
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
-
     const [loginVisible, setLoginVisible] = useState(true);
     const [signUpVisible, setSignUpVisible] = useState(true);
 

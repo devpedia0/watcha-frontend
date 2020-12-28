@@ -117,7 +117,6 @@ export default function Marketing(props) {
                                 <li className="marketingList">
                                     <div className="listInner">
                                         <div className="innerTitle">SMS</div>
-
                                         <div className="extra">
                                             <ToggleBtn
                                                 aria-label="toggle"

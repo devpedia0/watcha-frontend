@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Divider } from "../../pages/Detail/DetailSection/DetailSectionInfo";
+import { Divider } from "../Contents/ContentsSection/ContentsSectionInfo";
 import { CardListSlick, CardPoster, Header, Card } from "../../components";
 import api from "../../services/api";
-import Demo from "./Demo";
 
 function Searches() {
     const [data, setData] = useState("");

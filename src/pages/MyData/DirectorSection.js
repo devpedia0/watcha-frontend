@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Divider } from "../../pages/Detail/DetailSection/DetailSectionInfo";
+// import { Divider } from "../../pages/Detail/DetailSection/DetailSectionInfo";
 import { CardListSlick, Card } from "../../components";
 
 const DirectorSection = ({ data }) => {
@@ -21,7 +21,7 @@ const DirectorSection = ({ data }) => {
                     />
                 ))}
             </CardListSlick>
-            <Divider />
+            {/* <Divider /> */}
         </Wrapper>
     );
 };

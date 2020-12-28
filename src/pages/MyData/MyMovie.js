@@ -4,9 +4,7 @@ import styled from "styled-components";
 import AuthService from "../../services/auth.service";
 import api from "../../services/api";
 
-
 import { CardListSlick, CardPoster, Header } from "../../components";
-
 
 export default function MyMovie() {
     const [rated, setRated] = useState({
@@ -36,8 +34,6 @@ export default function MyMovie() {
             console.log(response);
         };
         getDataAPI();
-
-    }, [id]);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -133,14 +129,6 @@ export default function MyMovie() {
                     </ul>
                 </nav>
             </Footer>
-
-            {/* <Footer>
-        <nav className="footerNav">
-          <ul className="navTabUl">
-            <li className="navItem"></li>
-          </ul>
-        </nav>
-      </Footer> */}
         </Page>
     );
 }
@@ -281,7 +269,6 @@ const Ul = styled.ul`
     }
 `;
 
-
 const Wrapper = styled.div`
     list-style: none;
     padding: 0px;
@@ -318,7 +305,6 @@ const StyledCard = styled(CardPoster)`
         width: 7.6923076923076925%;
     }
 `;
-
 
 const ContentRow = styled.div`
     margin: 0px 20px;

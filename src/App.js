@@ -29,11 +29,11 @@ import Watcha from './pages/Watcha/Watcha';
 import RatedMovie from "./pages/MyData/RatedMovie";
 
 import Searches from "./pages/Searches/Searches";
-import MyTv from "./pages/MyData/MyTv";
+
 import Wish from "./pages/WishPage/Wish";
-import MyBook from "./pages/MyData/MyBook";
-import DetailInfo from "./pages/Detail/DetailInfo";
-import DetailComment from "./pages/Detail/DetailComment";
+
+// import DetailInfo from "./pages/Detail/DetailInfo";
+// import DetailComment from "./pages/Detail/DetailComment";
 
 import Analysis from "./pages/MyData/Analysis";
 function App() {

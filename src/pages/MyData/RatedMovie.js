@@ -1,41 +1,39 @@
 import React from "react";
-// import React, { useState, useEffect } from "react";
+// { useState, useEffect }
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
 
 // import AuthService from "../../services/auth.service";
 
 export default function MyMovie() {
+    // const [rated, setRated] = useState({
+    //     movie: 0,
+    // });
 
-    const [rated, setRated] = useState({
-        movie: 0,
-    });
+    // const [wishes, setWishes] = useState({
+    //     movie: 0,
+    // });
 
-    const [wishes, setWishes] = useState({
-        movie: 0,
-    });
+    // const [watching, setWatching] = useState({
+    //     movie: 0,
+    // });
 
-    const [watching, setWatching] = useState({
-        movie: 0,
-    });
-
-    useEffect(() => {
-        const getData = async () => {
-            AuthService.getUserRating().then((response) => {
-                setRated({
-                    movie: response.data.movie.ratingCount,
-                });
-                setWishes({
-                    movie: response.data.movie.wishCount,
-                });
-                setWatching({
-                    movie: response.data.movie.watchingCount,
-                });
-            });
-        };
-        getData();
-    }, []);
-
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         AuthService.getUserRating().then((response) => {
+    //             setRated({
+    //                 movie: response.data.movie.ratingCount,
+    //             });
+    //             setWishes({
+    //                 movie: response.data.movie.wishCount,
+    //             });
+    //             setWatching({
+    //                 movie: response.data.movie.watchingCount,
+    //             });
+    //         });
+    //     };
+    //     getData();
+    // }, []);
 
     return (
         <Page>
@@ -71,244 +69,7 @@ export default function MyMovie() {
                     <div>
                         <section className="allScreen">
                             <div>
-                                <div className="margin">
-                                    <Ul>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                        <Li>
-                                            <a href="/" title="시실리 2km">
-                                                <div className="contentPosterBlock">
-                                                    <div className="lazyLoading">
-                                                        <img
-                                                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_700,q_80,w_490/v1466067591/ixulrejvpw9mzm9iuj0j.jpg"
-                                                            className="styledImg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="badge"
-                                                        alt="watcha!"
-                                                        src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png"
-                                                    ></div>
-                                                </div>
-                                                <div className="contentInfo">
-                                                    <div className="contentTitle">
-                                                        시실리 2km
-                                                    </div>
-                                                    <div className="contentRating">
-                                                        평가함 ★ 2.5
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </Li>
-                                    </Ul>
-                                </div>
+                                <div className="margin"></div>
                             </div>
                         </section>
                     </div>
