@@ -9,23 +9,46 @@ const Card = ({
     onClickDelete,
     selected,
     disabled,
+    score,
+    count,
+    productionDate,
+    countryCode,
     width,
+    analysis,
+    searches,
+    author,
 }) => {
-    const { name, description, profileImagePath } = item;
+    const {
+        name,
+        description,
+        profileImagePath,
+        posterImagePath,
+        mainTitle,
+    } = item;
     return (
         <Wrapper width={width}>
             <BoxImg
                 width="50px"
                 height="50px"
                 radius={radius}
-                src={profileImagePath}
+                src={(profileImagePath, posterImagePath)}
             />
             <div className="content">
                 <div className="text">
-                    <div className="title">{name}</div>
+                    <div className="title">{(name, mainTitle)}</div>
                     <div className="subTitle">{description}</div>
                 </div>
                 <div className="text">
+                    {analysis && (
+                        <span className="scoreCount">
+                            {score}점 • {count}편
+                        </span>
+                    )}
+                    {searches && (
+                        <span className="scoreCount">
+                            {productionDate} • {countryCode || author}
+                        </span>
+                    )}
                     {onClickDelete && (
                         <button
                             type="button"
@@ -59,14 +82,16 @@ const Wrapper = styled.div`
     align-items: center;
     padding: 0 8px;
     width: ${(props) => (props.width ? props.width : "100%")};
-
     .content {
         display: flex;
         justify-content: space-between;
         height: 100%;
         width: 100%;
-        border-bottom: 1px solid #f0f0f0;
         margin-left: 8px;
+        border-bottom: ${(props) =>
+            props.analysis
+                ? "none"
+                : "1px solid #f0f0f0"}; //선호배우 3번째마다 라인없게끔!
     }
     .text {
         display: flex;
@@ -83,7 +108,6 @@ const Wrapper = styled.div`
             text-overflow: ellipsis;
             margin-bottom: 2px;
         }
-
         .subTitle {
             color: rgb(140, 140, 140);
             font-size: 14px;
@@ -94,6 +118,13 @@ const Wrapper = styled.div`
             overflow: hidden;
             text-overflow: ellipsis;
             margin-top: 2px;
+        }
+        .scoreCount {
+            color: #787878;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            line-height: 19px;
         }
     }
 `;

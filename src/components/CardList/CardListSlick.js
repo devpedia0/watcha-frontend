@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-
+import { Link } from "react-router-dom";
 const CardListSlick = ({
     title,
     description,
@@ -11,6 +11,7 @@ const CardListSlick = ({
     collectionId,
     addComponent: AddComponent,
     children,
+    ratedMovie,
 }) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
@@ -69,7 +70,14 @@ const CardListSlick = ({
                             {title}
                             <span>{count}</span>
                         </div>
-                        <div className="titleRight">{AddComponent}</div>
+
+                        {ratedMovie ? (
+                            <Link className="toRated" to="/ratedMovie">
+                                {AddComponent}
+                            </Link>
+                        ) : (
+                            <div className="titleRight">{AddComponent}</div>
+                        )}
                     </div>
                 )}
             </Header>
@@ -104,31 +112,26 @@ export default CardListSlick;
 
 const Wrapper = styled.div`
     margin-bottom: 20px;
-
     @media only screen and (min-width: 719px) {
         margin-bottom: 30px;
     }
-
     @media only screen and (min-width: 1100px) {
         margin-bottom: 42px;
     }
 `;
 const Header = styled.div`
     white-space: nowrap;
-    max-width: 1320px;
+    /* max-width: 1320px; */
     padding: 12px 0px 14px;
     overflow: hidden;
     text-overflow: ellipsis;
-
     .titleBlockImg {
         display: flex;
     }
-
     .titleBlock {
         flex: 1;
         display: flex;
         justify-content: space-between;
-
         span {
             display: inline-block;
             color: rgb(160, 160, 160);
@@ -139,27 +142,23 @@ const Header = styled.div`
             margin: 12px 0px 12px 6px;
         }
     }
-
     img {
         width: 33px;
         height: 33px;
         border-radius: 50%;
         margin: 4px 10px 4px 0px;
         background-size: contain;
-
         @media only screen and (min-width: 719px) {
             width: 42px;
             height: 42px;
         }
     }
-
     .infoWrapper {
         flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
         max-width: calc(100% - 74px);
-
         p {
             color: rgb(116, 116, 123);
             font-size: 15px;
@@ -169,12 +168,10 @@ const Header = styled.div`
             margin-bottom: 1px;
         }
     }
-
     .title {
         justify-content: space-between;
         color: #292a32;
         font-weight: 700;
-
         ${(props) =>
             props.size === "lg"
                 ? css`
@@ -188,20 +185,23 @@ const Header = styled.div`
                       line-height: 28px;
                       margin: 8px 0;
                   `}
-
-        .titleRight {
-            float: right;
-        }
+    }
+    .titleRight {
+        float: right;
+    }
+    .toRated {
+        color: #ff2f6e;
+        text-decoration: none;
+        float: right;
+        padding-top: 17px;
     }
 `;
 
 const Content = styled.div`
     position: relative;
-
     .slickWrapper {
         overflow: hidden;
     }
-
     .slickBlock {
         width: 100%;
         padding: 0px;
@@ -210,7 +210,6 @@ const Content = styled.div`
         margin-bottom: 0px;
         margin: 0px -4px;
         transition: 500ms;
-
         &.horizon {
             list-style: none;
             padding: 0;
@@ -225,7 +224,6 @@ const Content = styled.div`
             margin-top: 4px;
             margin-bottom: 16px;
         }
-
         @media only screen and (min-width: 719px) {
             margin-right: 28px;
             margin-left: 20px;
@@ -252,7 +250,6 @@ const ArrowButton = styled.div`
     transition: all 300ms ease 0s;
     opacity: 0;
     align-items: flex-end;
-
     ::after {
         content: "";
         display: flex;
@@ -268,7 +265,6 @@ const ArrowButton = styled.div`
         height: 34px;
         cursor: pointer;
         transition: opacity 300ms ease 0s;
-
         ${(props) => {
             const url =
                 props.type === "right"
@@ -280,7 +276,6 @@ const ArrowButton = styled.div`
             `;
         }}
     }
-
     @media only screen and (min-width: 760px) {
         opacity: 1 !important;
     }

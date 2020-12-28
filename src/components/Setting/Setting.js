@@ -5,7 +5,8 @@ import Range from "../Modal/Range";
 import SelectCountry from "../../pages/LoginSignUp/Languages/SelectCountry";
 import LogOut from "../Modal/LogOut";
 import Secession from "../Modal/Secession";
-// import api from '../../services/api';
+
+
 import AuthService from "../../services/auth.service";
 
 export default function Setting(props) {
@@ -17,6 +18,7 @@ export default function Setting(props) {
     const [logOut, setLogOut] = useState(true);
     const [secession, setSecession] = useState(true);
     const [nation, setNation] = useState("대한민국");
+
 
     useEffect(() => {
         const getData = () => {
@@ -31,6 +33,9 @@ export default function Setting(props) {
             });
         };
         getData();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
     const marketingModal = () => {
@@ -73,10 +78,12 @@ export default function Setting(props) {
                                     aria-label="close"
                                 ></button>
                             </div>
+
                         </div>
                         <div className="largeTitleBlock">
                             <div className="largeTitle">설정</div>
                         </div>
+
                         <div className="smallTitle">설정</div>
                     </Header>
 

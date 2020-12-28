@@ -47,7 +47,10 @@ function MyPage(props) {
                 });
             })
         );
-    }, [desc]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
 
     const settingModal = () => {
         setSettingVisible({ settingVisible: !settingVisible });
@@ -88,15 +91,8 @@ function MyPage(props) {
                                                 <Link to="/analysis">
                                                     <A>
                                                         <ChartImage></ChartImage>
-                                                        <span
-                                                            style={{
-                                                                borderBottom:
-                                                                    "1px solid #ededed",
-                                                                padding:
-                                                                    "13px 0",
-                                                                flex: 1,
-                                                            }}
-                                                        >
+
+                                                        <span className="analysis">
                                                             취향분석
                                                         </span>
                                                     </A>
@@ -107,7 +103,7 @@ function MyPage(props) {
                                     <div style={{ margin: "0 20px" }}>
                                         <Ul>
                                             <Li>
-                                                <Link to="/MOVIES">
+                                                <Link to="/myMovie">
                                                     <Box
                                                         style={{
                                                             background:
@@ -407,6 +403,12 @@ const A = styled.a`
     line-height: 22px;
     text-decoration: none;
     height: 48px;
+
+    .analysis {
+        border-bottom: 1px solid #ededed;
+        padding: 13px 0;
+        flex: 1;
+    }
 `;
 
 const ChartImage = styled.span`

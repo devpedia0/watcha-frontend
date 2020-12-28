@@ -2,9 +2,6 @@ import React from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 const ReactFacebookLogin = (props) => {
-    // const [accessToken, setAccessToken] = useState("");
-    // const [email, setEmail] = useState(props.email);
-    // const [profileImg, setProfilImg] = useState(props.profileImg);
 
     const componentClicked = () => {
         console.log("Facebook Btn clicked!");

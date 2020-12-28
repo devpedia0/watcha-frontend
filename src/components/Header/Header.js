@@ -16,12 +16,11 @@ export default function Header({ className }) {
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
-    // const [countryCode, setCountryCode] = useState("KR");
-    const [countryCode] = useState("KR");
 
     const [loginVisible, setLoginVisible] = useState(true);
     const [signUpVisible, setSignUpVisible] = useState(true);
 
+    const countryCode = "KR";
     const onChangeEmailLogin = (e) => {
         let email = e.target.value;
         let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
