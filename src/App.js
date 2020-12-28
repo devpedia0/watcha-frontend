@@ -23,10 +23,10 @@ import MyMovie from "./pages/MyData/MyMovie";
 import RatedMovie from "./pages/MyData/RatedMovie";
 import Searches from "./pages/Searches/Searches";
 import MyTv from "./pages/MyData/MyTv";
+import Wish from "./pages/WishPage/Wish";
 import MyBook from "./pages/MyData/MyBook";
 import DetailInfo from "./pages/Detail/DetailInfo";
 import DetailComment from "./pages/Detail/DetailComment";
-
 import Analysis from "./pages/MyData/Analysis";
 function App() {
     return (
@@ -40,6 +40,7 @@ function App() {
                     <Route path="/ratedMovie" component={RatedMovie} />
                     <Route path="/searches" component={Searches} />
                     <Route path="/myTv" component={MyTv} />
+                    <Route path="/wish" component={Wish} />
                     <Route path="/myBook" component={MyBook} />
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />

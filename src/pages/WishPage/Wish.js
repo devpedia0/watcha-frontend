@@ -1,56 +1,54 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
-import AuthService from "../../services/auth.service";
 import api from "../../services/api";
+import WishModal from "../../components/Modal/WishModal";
 
-import { CardListSlick, CardPoster, Header } from "../../components";
+import { CardPoster, Header } from "../../components";
 
-export default function MyMovie() {
-    const [rated, setRated] = useState({
-        movie: 0,
-    });
-
-    const [wishes, setWishes] = useState({
-        movie: 0,
-    });
-
-    const [watching, setWatching] = useState({
-        movie: 0,
-    });
-
+export default function Wish() {
     const [state, setState] = useState([]);
-
+    const [wishVisible, setWishVisible] = useState(true);
+    const [order, setOrder] = useState("가나다 순");
     const id = JSON.parse(localStorage.getItem("id"));
     const contentType = "MOVIES";
 
+    // ?order=NEW&
+    // if (props.state) {
+    //     baseUrl = `/users/${id}/${contentType}/wishes?order=${props.state}&page=1&size=7`;
+    // } else {
+    //     baseUrl = `/users/${id}/${contentType}/wishes?page=1&size=7`;
+    // }
+
+    const orderRules = () => {
+        if (order === "가나다 순") {
+            const baseUrl = `/users/${id}/${contentType}/wishes?order=TITLE&page=1&size=7`;
+        } else if (order === "평점 순") {
+            const baseUrl = `/users/${id}/${contentType}/wishes?order=AVG_SCORE&page=1&size=7`;
+        } else if (order === "신작 순") {
+            const baseUrl = `/users/${id}/${contentType}/wishes?order=NEW&page=1&size=7`;
+        } else if (order === "구작 순") {
+            const baseUrl = `/users/${id}/${contentType}/wishes?order=OLD&page=1&size=7`;
+        }
+    };
+
     useEffect(() => {
         const getDataAPI = async () => {
-            const baseUrl = `/users/${id}/${contentType}/ratings`;
-            const response = await api.get(baseUrl + `?page=1&size=20`);
+            const baseUrl = `/users/${id}/${contentType}/wishes?page=1&size=7`;
+            const response = await api.get(baseUrl);
             setState(() => response.data);
-            console.log(response);
+            console.log(response, "1", state);
         };
         getDataAPI();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    });
 
     useEffect(() => {
-        const getData = async () => {
-            AuthService.getUserRating().then((response) => {
-                setRated({
-                    movie: response.data.movie.ratingCount,
-                });
-                setWishes({
-                    movie: response.data.movie.wishCount,
-                });
-                setWatching({
-                    movie: response.data.movie.watchingCount,
-                });
-            });
-        };
-        getData();
-    }, []);
+        console.log("order", order);
+    }, [order]);
+
+    const wishModal = () => {
+        setWishVisible({ wishVisible: !setWishVisible });
+    };
 
     return (
         <Page>
@@ -62,58 +60,33 @@ export default function MyMovie() {
                             <div className="btnIcon"></div>
                         </div>
                         <div className="largeTitleBlock">
-                            <div className="largeTitle">영화</div>
+                            <div className="largeTitle" onClick={orderRules}>
+                                보고싶어요
+                            </div>
                         </div>
-                        <div className="smallTitle">영화</div>
+                        <div className="smallTitle">보고싶어요</div>
                     </header>
                     <Content>
-                        <Ul>
-                            <Wrapper>
-                                <CardListSlick
-                                    title="평가"
-                                    count={rated.movie}
-                                    ratedMovie={"ratedMovie"}
-                                    sizeHeader="sm"
-                                    addComponent={<div>더보기</div>}
+                        <div className="filterBar">
+                            <div>
+                                <div
+                                    className="margin"
+                                    onClick={() => setWishVisible(!wishModal)}
                                 >
-                                    {state.map((item) => (
-                                        <StyledCard key={item.id} item={item} />
-                                    ))}
-                                </CardListSlick>
-                            </Wrapper>
+                                    <button className="downArrow">
+                                        <span className="dropDown"></span>
+                                        <span className="dropTitle">
+                                            {order}
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <Ul>
+                            {state.map((item) => (
+                                <StyledCard item={item} />
+                            ))}
                         </Ul>
-                        <hr className="divider" />
-                        <ContentRow>
-                            <ul className="visualUl">
-                                <li className="textList">
-                                    <div className="listInner">
-                                        <div className="listTitle">
-                                            <a
-                                                href="/wish"
-                                                className="localLink"
-                                            >
-                                                보고싶어요
-                                                <span className="number">
-                                                    {wishes.movie}
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="textList">
-                                    <div className="listInner">
-                                        <div className="listTitle">
-                                            <a href="/" className="localLink">
-                                                보는중
-                                                <span className="number">
-                                                    {watching.movie}
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </ContentRow>
                     </Content>
                 </section>
             </Section>
@@ -124,6 +97,13 @@ export default function MyMovie() {
                     </ul>
                 </nav>
             </Footer>
+            <>
+                <WishModal
+                    wishModal={wishModal}
+                    switchModal={wishVisible}
+                    setOrder={setOrder}
+                />
+            </>
         </Page>
     );
 }
@@ -227,8 +207,48 @@ const Section = styled.section`
 `;
 
 const Content = styled.section`
-    padding: 16px 0px 0px;
     display: block;
+    width: 100%;
+
+    .filterBar {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        background: rgb(251, 251, 251);
+        height: 48px;
+        bottom: -49px;
+        width: 100%;
+
+        .margin {
+            margin: 0px 20px;
+
+            .downArrow {
+                background: none;
+                padding: 0px;
+                border: none;
+                margin: 0px;
+                cursor: pointer;
+
+                .dropDown {
+                    display: inline-block;
+                    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjY2MyAxNS44N2wtNS40OTQtNWEuNS41IDAgMCAxIC4zMzctLjg3aDEwLjk4OGEuNS41IDAgMCAxIC4zMzcuODdsLTUuNDk0IDVhLjUuNSAwIDAgMS0uNjc0IDB6Ii8+Cjwvc3ZnPgo=)
+                        center center / contain no-repeat;
+                    width: 24px;
+                    height: 24px;
+                    vertical-align: top;
+                }
+
+                .dropTitle {
+                    color: rgb(0, 0, 0);
+                    font-size: 15px;
+                    font-weight: 400;
+                    letter-spacing: -0.5px;
+                    line-height: 30px;
+                    margin: 3px 0px 0px 2px;
+                }
+            }
+        }
+    }
     .divider {
         border-width: 0px 0px 1px;
         border-top-style: initial;
@@ -245,10 +265,12 @@ const Content = styled.section`
 `;
 
 const Ul = styled.ul`
+    display: block;
     list-style: none;
     padding: 0px;
     white-space: nowrap;
     margin: 0 20px;
+
     ::after {
         content: "";
         display: inline-block;
@@ -257,14 +279,14 @@ const Ul = styled.ul`
     }
 `;
 
-const Wrapper = styled.div`
-    list-style: none;
-    padding: 0px;
-    white-space: nowrap;
-    margin-bottom: 0px;
-`;
 const StyledCard = styled(CardPoster)`
-    width: 33.3333333%;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    width: 33.333333333333336%;
+    padding: 0 5px;
+    margin: 0 0 24px;
+
     @media (min-width: 520px) {
         width: 25%;
     }
@@ -291,52 +313,6 @@ const StyledCard = styled(CardPoster)`
     }
     @media (min-width: 1920px) {
         width: 7.6923076923076925%;
-    }
-`;
-
-const ContentRow = styled.div`
-    margin: 0px 20px;
-    .visualUl {
-        list-style: none;
-        padding: 0px;
-        margin: 16px 0px;
-        .textList {
-            text-align: left;
-            box-sizing: border-box;
-            min-height: 48px;
-            display: flex;
-            flex-direction: column;
-            color: rgb(0, 0, 0);
-            font-size: 17px;
-            font-weight: 400;
-            letter-spacing: -0.7px;
-            line-height: 22px;
-            .listInner {
-                display: flex;
-                flex: 1 1 0%;
-                -webkit-box-align: center;
-                align-items: center;
-                box-sizing: border-box;
-                min-height: 48px;
-                border-bottom: 1px solid rgb(234, 233, 232);
-                .listTitle {
-                    flex: 1 1 0%;
-                    white-space: pre-wrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    .localLink {
-                        color: rgb(0, 0, 0);
-                        text-decoration: none;
-                        display: block;
-                        padding: 13px 0px;
-                    }
-                    .number {
-                        float: right;
-                        color: rgb(160, 160, 160);
-                    }
-                }
-            }
-        }
     }
 `;
 
