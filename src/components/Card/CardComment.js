@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import api from "../../services/api";
+import history from "../../history";
 import { Icon } from "../../styles";
 
 const images = [
@@ -28,6 +30,7 @@ const Interest = ({ interestState, score }) => {
 
 const CardComment = ({ className, item, onClick }) => {
     const {
+        userId,
         userName,
         description,
         isSpoiler,
@@ -38,10 +41,32 @@ const CardComment = ({ className, item, onClick }) => {
         isLiked,
     } = item;
 
+    const pathname = history.location.pathname;
+    const pageId = pathname.split("/")[2];
+    const [like, setLike] = useState(false);
     const [showDescription, setDescription] = useState(true);
     useEffect(() => {
         setDescription(!isSpoiler);
     }, [isSpoiler]);
+
+    useEffect(() => {
+        setLike(isLiked);
+    }, [isLiked]);
+
+    const handleClickLike = async () => {
+        const baseUrl = `/contents/${pageId}/comments/${userId}/likes`;
+        try {
+            if (like) {
+                await api.delete(baseUrl);
+                setLike(false);
+            } else {
+                await api.post(baseUrl);
+                setLike(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <Wrapper className={className} onClick={onClick}>
@@ -78,7 +103,12 @@ const CardComment = ({ className, item, onClick }) => {
                     <em>{replyCount}</em>
                 </Like>
                 <Footer>
-                    <button className={isLiked ? "on" : ""}>좋아요</button>
+                    <button
+                        className={like ? "on" : ""}
+                        onClick={handleClickLike}
+                    >
+                        좋아요
+                    </button>
                 </Footer>
             </div>
         </Wrapper>

@@ -9,30 +9,70 @@ import ContentSectionCollection from "./ContentsSection/ContentSectionCollection
 
 import { CardListInfinite } from "../../components";
 import { Loader } from "../../styles";
+//import { ContentsHeader222, ContentsInfo } from "./Components";
 
 const Contents = () => {
+    const pathname = history.location.pathname;
+    const pageId = pathname.split("/")[2];
+    // const [modal, setModal] = useState("");
     const [state, setState] = useState({
         isFetching: true,
         data: {},
     });
-    const pathname = history.location.pathname;
-    const pageId = pathname.split("/")[2];
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await api.get(`/contents/${pageId}`);
-            setState({
-                data: res.data,
-                isFetching: false,
+        api.get(`/contents/${pageId}`)
+            .then((res) => {
+                setState({
+                    data: res.data,
+                    isFetching: false,
+                });
+            })
+            .catch((err) => {
+                console.error(err);
             });
-        };
-        fetchData();
     }, [pageId]);
+
+    // const handleModalOpen = (type) => setModal(type);
+    // const handleModalClose = () => setModal(false);
+    // const handleChangeStars = async (newScore) => {
+    //     if (!state.data.context) {
+    //         return setModal("needLogin");
+    //     }
+
+    //     try {
+    //         if (newScore === state.data.context.interestState) {
+    //             await api.delete(`/contents/${pageId}/scores`);
+    //             setState((state) => ({
+    //                 ...state,
+    //                 context: {
+    //                     ...state.context,
+    //                     score: 0,
+    //                 },
+    //             }));
+    //         } else {
+    //             api.post(`/contents/${pageId}/scores`, { score: newScore });
+    //             setState((state) => ({
+    //                 ...state,
+    //                 context: {
+    //                     ...state.context,
+    //                     score: newScore,
+    //                 },
+    //             }));
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
 
     if (state.isFetching) return <Loader height="800px" />;
     console.log(state.data);
     return (
         <Wrapper>
+            {/* <div className="content-header">
+                <ContentsHeader222 data={state.data} />
+                <ContentsInfo data={state.data} onOpenModal={handleModalOpen} />
+            </div> */}
             <ContentsHeader data={state.data} pageId={pageId} />
             <Content>
                 <ContentSectionLeft data={state.data} pageId={pageId} />
@@ -54,6 +94,13 @@ export default Contents;
 
 const Wrapper = styled.div`
     background: #f8f8f8;
+
+    .content-header {
+        background: #fff;
+        @media only screen and (min-width: 719px) {
+            border-bottom: 1px solid #e3e3e3;
+        }
+    }
 `;
 
 const Content = styled.div`

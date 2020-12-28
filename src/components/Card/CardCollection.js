@@ -67,7 +67,7 @@ const Image = styled.div`
 const ContentInfo = styled.div`
     text-align: left;
     width: calc(100% - 10px);
-    margin: 5px 10px 0 0;
+    margin: 5px 5px 0 5px;
     cursor: pointer;
 
     .contentTitle {

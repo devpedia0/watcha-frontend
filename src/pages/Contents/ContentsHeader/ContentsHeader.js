@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { Stars } from "../../../components";
+import { Stars, Svg } from "../../../components";
 import Bookmark from "./Bookmark/Bookmark";
 import useOpen from "../../../Hooks/useOpen";
 import api from "../../../services/api";
@@ -129,21 +129,15 @@ const ContentsHeader = ({ data, pageId }) => {
                                     </div>
                                 </button>
                                 <button className="btn-right">
-                                    <svg
-                                        fill=""
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            fill={
-                                                !!userData.interestState
-                                                    ? "#d9d9d9"
-                                                    : "#FFF"
-                                            }
-                                            d="M12 16l6-6H6z"
-                                        />
-                                    </svg>
+                                    <Svg
+                                        type={
+                                            userData.interestState
+                                                ? "arrowGray"
+                                                : "arrow"
+                                        }
+                                        w="24px"
+                                        h="24px"
+                                    />
                                 </button>
                             </ButtonBlock>
                         </ButtonContainer>

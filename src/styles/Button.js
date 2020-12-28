@@ -12,6 +12,10 @@ const Button = styled.button`
     background: ${(props) => (props.bg ? props.bg : "white")};
     color: ${(props) => (props.color ? props.color : "black")};
 
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.7px;
+    line-height: 22px;
     border: none;
     cursor: pointer;
     text-align: center;
@@ -21,6 +25,12 @@ const Button = styled.button`
         css`
             background: rgb(255, 47, 110);
             color: rgb(255, 255, 255);
+        `}
+    ${(props) =>
+        props.basic &&
+        css`
+            background: white;
+            border: 1px solid rgb(210, 210, 210);
         `}
 `;
 

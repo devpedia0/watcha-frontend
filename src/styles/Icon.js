@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const svg = {
+const iconOBj = {
     close:
         "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9IiNGRjJGNkUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgMTIgMTIpIj4KICAgICAgICA8cmVjdCB3aWR0aD0iMiIgaGVpZ2h0PSIxOCIgeD0iMTEiIHk9IjMiIHJ4PSIxIi8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjE4IiBoZWlnaHQ9IjIiIHg9IjMiIHk9IjExIiByeD0iMSIvPgogICAgPC9nPgo8L3N2Zz4K",
     bookmarkRed:
@@ -26,7 +26,7 @@ const Icon = styled.i`
     margin: ${(props) => (props.margin ? props.margin : 0)};
     background: ${(props) =>
         props.type
-            ? `url(${svg[props.type]}) center center / cover no-repeat;`
+            ? `url(${iconOBj[props.type]}) center center / cover no-repeat;`
             : ""};
 `;
 

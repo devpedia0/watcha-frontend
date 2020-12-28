@@ -56,7 +56,9 @@ const Stars = ({ score }) => {
 
     return (
         <StarContainer rate={rate}>
-            <div className="text">{ratedTextMap[fetchedRate]}</div>
+            <div className="text">
+                {ratedTextMap[fetchedRate] || "평가하기"}
+            </div>
 
             <div
                 className="star_block"
