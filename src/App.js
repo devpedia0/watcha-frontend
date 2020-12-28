@@ -1,7 +1,5 @@
-import "./App.css";
 import history from "./history";
 import React from "react";
-import "./App.css";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 import Layout from "./layouts/Layout";
@@ -48,6 +46,7 @@ function App() {
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/contents/:id" exact component={Contents} />
                     <Layout path="/contents/:id/comments" exact component={Comment} />
+                    <Layout path="/contents/:id/comments/:userId" exact component={Comment} />
                     <Layout path="/decks/:id" component={Decks} />
                     <LayoutDetail path="/watcha/:id" component={Watcha} />
                     <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />

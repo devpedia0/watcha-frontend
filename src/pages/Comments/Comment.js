@@ -9,6 +9,7 @@ import useIntersection from "../../Hooks/useIntersection";
 const ContentsComment = () => {
     const pathname = history.location.pathname;
     const pageId = pathname.split("/")[2];
+    const userId = pathname.split("/")[4];
 
     const [data, setData] = useState({
         list: [],
@@ -26,16 +27,27 @@ const ContentsComment = () => {
 
     useEffect(() => {
         setIntersecting(false);
-        api.get(`/contents/${pageId}/comments?page=1&size=${size}`).then(
-            (res) => {
+        api.get(
+            `/contents/${pageId}/comments${
+                userId ? "/" + userId : ""
+            }?page=1&size=${size}`
+        ).then((res) => {
+            if (Array.isArray(res.data)) {
                 setData((state) => ({
                     ...state,
                     list: res.data,
                     initFetch: true,
                 }));
+            } else {
+                setData((state) => ({
+                    ...state,
+                    list: [res.data],
+                    initFetch: true,
+                    fetchMore: false,
+                }));
             }
-        );
-    }, [pageId, size, setIntersecting]);
+        });
+    }, [pageId, size, userId, setIntersecting]);
 
     const fetchUrlNext = `/contents/${pageId}/comments?page=${page}&size=${size}`;
     useEffect(() => {
