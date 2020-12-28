@@ -10,11 +10,13 @@ export default function SelectCountry(props) {
         const getData = async () => {
             const response = await AuthService.getUserInfo();
             setToggle(() => response.data.countryCode);
+
             console.log("useEffect", toggle);
         };
         getData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     const changeUS = () => {
         const changeState = {

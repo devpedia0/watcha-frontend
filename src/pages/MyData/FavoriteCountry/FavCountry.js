@@ -12,9 +12,10 @@ function FavCountry() {
             console.log("favCountry", response);
             setCountryInfo(() => response.data.movie.country);
         };
-        console.log(countryInfo);
+
         getData();
     }, []);
+    console.log(countryInfo);
 
     return (
         <Favorite>
@@ -59,21 +60,21 @@ function FavCountry() {
                             {/* {countryInfo[3].description} */}
                             <span>
                                 {/* {/* {countryInfo[3].score}점 •{countryInfo[3].count} */}{" "}
-                                */} 편
+                                {/* } 편 */}
                             </span>
                         </li>
                         <li className="subList">
                             {/* {countryInfo[4].description} */}
                             <span>
                                 {/* {/* {countryInfo[4].score}점 •{countryInfo[4].count} */}{" "}
-                                */} 편
+                                편
                             </span>
                         </li>
                         <li className="subList">
                             {/* {countryInfo[5].description} */}
                             <span>
                                 {/* {/* {countryInfo[5].score}점 •{countryInfo[5].count} */}{" "}
-                                */} 편
+                                편
                             </span>
                         </li>
                     </ul>

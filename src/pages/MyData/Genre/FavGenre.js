@@ -12,10 +12,10 @@ function FavGenre() {
             console.log("FavGenre", response);
             setGenreInfo(() => response.data.movie.category);
         };
-        console.log("genre", genreInfo);
+
         getData();
     }, []);
-
+    console.log("genre", genreInfo);
     return (
         <Favorite>
             <header className="tagHeader">
@@ -32,7 +32,7 @@ function FavGenre() {
                                 </div>
                                 <div className="subTitle">
                                     {/* {/* {genreInfo[0].score}점 •{genreInfo[0].count} */}{" "}
-                                    */} 편
+                                    편
                                 </div>
                             </li>
                             <li className="statList">
@@ -41,7 +41,7 @@ function FavGenre() {
                                 </div>
                                 <div className="subTitle">
                                     {/* {/* {genreInfo[1].score}점 •{genreInfo[1].count} */}{" "}
-                                    */} 편
+                                    편
                                 </div>
                             </li>
                             <li className="statList">
@@ -50,7 +50,7 @@ function FavGenre() {
                                 </div>
                                 <div className="subTitle">
                                     {/* {/* {genreInfo[2].score}점 •{genreInfo[2].count} */}{" "}
-                                    */} 편
+                                    편
                                 </div>
                             </li>
                         </ul>
@@ -60,28 +60,24 @@ function FavGenre() {
                             {/* {genreInfo[3].description} */}
                             <span>
                                 {/* {/* {genreInfo[3].score}점 •{genreInfo[3].count}편 */}{" "}
-                                */}
                             </span>
                         </li>
                         <li className="subList">
                             {/* {genreInfo[4].description} */}
                             <span>
                                 {/* {/* {genreInfo[4].score}점 •{genreInfo[4].count}편 */}{" "}
-                                */}
                             </span>
                         </li>
                         <li className="subList">
                             {/* {genreInfo[5].description} */}
                             <span>
                                 {/* {/* {genreInfo[5].score}점 •{genreInfo[5].count}편 */}{" "}
-                                */}
                             </span>
                         </li>
                         <li className="subList">
                             {/* {genreInfo[6].description} */}
                             <span>
                                 {/* {/* {genreInfo[6].score}점 •{genreInfo[6].count}편 */}{" "}
-                                */}
                             </span>
                         </li>
                     </ul>

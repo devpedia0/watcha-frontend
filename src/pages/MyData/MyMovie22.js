@@ -1,64 +1,65 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
+// import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
 import { Link } from "react-router-dom";
-import AuthService from "../../services/auth.service";
-import api from "../../services/api";
-import history from "../../history";
-import DataSection from "./DataSection";
+// import AuthService from "../../services/auth.service";
+// import api from "../../services/api";
+// import history from "../../history";
+// import DataSection from "./DataSection";
 
-const id = JSON.parse(localStorage.getItem("id"));
+// const id = JSON.parse(localStorage.getItem("id"));
 
 export default function MyMovie() {
-    const [rated, setRated] = useState({
-        movie: 0,
-    });
+    // const [rated, setRated] = useState({
+    //     movie: 0,
+    // });
 
-    const [wishes, setWishes] = useState({
-        movie: 0,
-    });
+    // const [wishes, setWishes] = useState({
+    //     movie: 0,
+    // });
 
-    const [watching, setWatching] = useState({
-        movie: 0,
-    });
+    // const [watching, setWatching] = useState({
+    //     movie: 0,
+    // });
 
-    const [state, setState] = useState({
-        id: 0,
-        isNetflixContent: false,
-        isWatchaContent: false,
-        mainTitle: "",
-        score: 0,
-    });
+    // const [state, setState] = useState({
+    //     id: 0,
+    //     isNetflixContent: false,
+    //     isWatchaContent: false,
+    //     mainTitle: "",
+    //     score: 0,
+    // });
 
-    const pathname = history.location.pathname; //myMovie
-    const contentType = pathname === "/" ? "MOVIES" : pathname.split("/")[1];
+    //const pathname = history.location.pathname; //myMovie
+    //const contentType = pathname === "/" ? "MOVIES" : pathname.split("/")[1];
 
-    const getDataAPI = useCallback(async () => {
-        if (state.step <= 4) {
-            const baseUrl = `users/${id}/${contentType}/ratings`;
-            const res = await api.get(baseUrl + `?page=1&size=7`);
-            setState({
-                ...state,
-            });
-        }
-    }, [state, contentType]);
+    // const getDataAPI = useCallback(async () => {
+    //     if (state.step <= 4) {
+    //         const baseUrl = `users/${id}/${contentType}/ratings`;
+    //         const res = await api.get(baseUrl + `?page=1&size=7`);
+    //         setState({
+    //             ...state,
+    //         });
+    //     }
+    // }, [state, contentType]);
 
-    useEffect(() => {
-        const getData = async () => {
-            const response = AuthService.getUserRating().then((response) => {
-                setRated({
-                    movie: response.data.movie.ratingCount,
-                });
-                setWishes({
-                    movie: response.data.movie.wishCount,
-                });
-                setWatching({
-                    movie: response.data.movie.watchingCount,
-                });
-            });
-        };
-        getData();
-    }, []);
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const response = AuthService.getUserRating().then((response) => {
+    //             setRated({
+    //                 movie: response.data.movie.ratingCount,
+    //             });
+    //             setWishes({
+    //                 movie: response.data.movie.wishCount,
+    //             });
+    //             setWatching({
+    //                 movie: response.data.movie.watchingCount,
+    //             });
+    //         });
+    //     };
+    //     getData();
+    // }, []);
 
     return (
         <Page>
@@ -79,7 +80,7 @@ export default function MyMovie() {
                             <header className="ratingHeader">
                                 <h2 className="ratingTitle">평가</h2>
                                 <span className="titleNumber">
-                                    {rated.movie}
+                                    {/* {rated.movie} */}
                                 </span>
                                 <div className="topRight">
                                     <div className="viewMore">
@@ -146,7 +147,7 @@ export default function MyMovie() {
                                             <a href="/" className="localLink">
                                                 보고싶어요
                                                 <span className="number">
-                                                    {wishes.movie}
+                                                    {/* {wishes.movie} */}
                                                 </span>
                                             </a>
                                         </div>
@@ -158,7 +159,7 @@ export default function MyMovie() {
                                             <a href="/" className="localLink">
                                                 보는중
                                                 <span className="number">
-                                                    {watching.movie}
+                                                    {/* {watching.movie} */}
                                                 </span>
                                             </a>
                                         </div>
@@ -453,123 +454,123 @@ const Ul = styled.ul`
     }
 `;
 
-const Li = styled.li`
-    display: inline-block;
-    vertical-align: top;
-    box-sizing: border-box;
-    width: 33.333333333333336%;
-    padding: 0 5px;
-    margin: 0 0 24px;
+// const Li = styled.li`
+//     display: inline-block;
+//     vertical-align: top;
+//     box-sizing: border-box;
+//     width: 33.333333333333336%;
+//     padding: 0 5px;
+//     margin: 0 0 24px;
 
-    @media (min-width: 520px) {
-        width: 25%;
-    }
+//     @media (min-width: 520px) {
+//         width: 25%;
+//     }
 
-    @media (min-width: 680px) {
-        width: 20%;
-    }
+//     @media (min-width: 680px) {
+//         width: 20%;
+//     }
 
-    @media (min-width: 840px) {
-        width: 16.6667%;
-    }
+//     @media (min-width: 840px) {
+//         width: 16.6667%;
+//     }
 
-    @media (min-width: 960px) {
-        width: 14.2857%;
-    }
+//     @media (min-width: 960px) {
+//         width: 14.2857%;
+//     }
 
-    @media (min-width: 1100px) {
-        width: 12.5%;
-    }
+//     @media (min-width: 1100px) {
+//         width: 12.5%;
+//     }
 
-    .contentPosterBlock {
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding-bottom: 145.37037037037038%;
+//     .contentPosterBlock {
+//         position: relative;
+//         width: 100%;
+//         height: 0;
+//         padding-bottom: 145.37037037037038%;
 
-        .lazyLoading {
-            position: relative;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            box-sizing: border-box;
-            width: 100%;
-            height: 100%;
-            border: 1px solid #eae9e8;
-            border-radius: 5px;
-            background: #f8f8f8;
-            -webkit-transition: 300ms;
-            transition: 300ms;
+//         .lazyLoading {
+//             position: relative;
+//             overflow: hidden;
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             box-sizing: border-box;
+//             width: 100%;
+//             height: 100%;
+//             border: 1px solid #eae9e8;
+//             border-radius: 5px;
+//             background: #f8f8f8;
+//             -webkit-transition: 300ms;
+//             transition: 300ms;
 
-            .styledImg {
-                vertical-align: top;
-                width: 100%;
-                height: 100%;
-                opacity: 1;
-                object-fit: cover;
-                transition: opacity 420ms ease 0s;
-            }
-        }
+//             .styledImg {
+//                 vertical-align: top;
+//                 width: 100%;
+//                 height: 100%;
+//                 opacity: 1;
+//                 object-fit: cover;
+//                 transition: opacity 420ms ease 0s;
+//             }
+//         }
 
-        .badge {
-            display: block;
-            position: relative;
-            float: right;
-            background: url("https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png")
-                center center / 17px no-repeat rgb(255, 255, 255);
-            box-sizing: border-box;
-            width: 24px;
-            height: 24px;
-            padding: 4px 3px 3px 4px;
-            margin: 4px 4px 0px 0px;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 50%;
-            opacity: 1;
-            transition: opacity 300ms ease 0s;
+//         .badge {
+//             display: block;
+//             position: relative;
+//             float: right;
+//             background: url("https://an2-img.amz.wtchn.net/image/v1/updatable_images/2570/original/f72039e19e3d483c3c6d8178c526a1c979537975.png")
+//                 center center / 17px no-repeat rgb(255, 255, 255);
+//             box-sizing: border-box;
+//             width: 24px;
+//             height: 24px;
+//             padding: 4px 3px 3px 4px;
+//             margin: 4px 4px 0px 0px;
+//             border: 1px solid rgba(0, 0, 0, 0.07);
+//             border-radius: 50%;
+//             opacity: 1;
+//             transition: opacity 300ms ease 0s;
 
-            @media (min-width: 719px) {
-                margin: 6px 6px 0px 0px;
-                background-size: 20px;
-                width: 30px;
-                height: 30px;
-                padding: 4px;
-            }
-        }
-    }
+//             @media (min-width: 719px) {
+//                 margin: 6px 6px 0px 0px;
+//                 background-size: 20px;
+//                 width: 30px;
+//                 height: 30px;
+//                 padding: 4px;
+//             }
+//         }
+//     }
 
-    .contentInfo {
-        text-align: left;
-        width: calc(100% - 10px);
-        margin: 5px 10px 0 0;
+//     .contentInfo {
+//         text-align: left;
+//         width: calc(100% - 10px);
+//         margin: 5px 10px 0 0;
 
-        .contentTitle {
-            color: rgb(41, 42, 50);
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: -0.3px;
-            line-height: 22px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .contentRating {
-            color: rgb(255, 161, 54);
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: -0.2px;
-            line-height: 18px;
-            white-space: nowrap;
-            height: 18px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+//         .contentTitle {
+//             color: rgb(41, 42, 50);
+//             font-size: 16px;
+//             font-weight: 500;
+//             letter-spacing: -0.3px;
+//             line-height: 22px;
+//             white-space: nowrap;
+//             overflow: hidden;
+//             text-overflow: ellipsis;
+//         }
+//         .contentRating {
+//             color: rgb(255, 161, 54);
+//             font-size: 13px;
+//             font-weight: 400;
+//             letter-spacing: -0.2px;
+//             line-height: 18px;
+//             white-space: nowrap;
+//             height: 18px;
+//             overflow: hidden;
+//             text-overflow: ellipsis;
 
-            @media (min-width: 719px) {
-                margin-top: 2px;
-            }
-        }
-    }
-`;
+//             @media (min-width: 719px) {
+//                 margin-top: 2px;
+//             }
+//         }
+//     }
+// `;
 
 const ContentRow = styled.div`
     margin: 0px 20px;
@@ -620,43 +621,43 @@ const ContentRow = styled.div`
     }
 `;
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 0px);
-    margin-top: 74px;
-    max-width: 1320px;
-    margin-bottom: 20px;
-    margin-right: 15px;
-    margin-left: 15px;
-    @media only screen and (min-width: 600px) {
-        min-height: calc(100vh - 343px);
-        margin-top: 74px;
-    }
+// const Wrapper = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     min-height: calc(100vh - 0px);
+//     margin-top: 74px;
+//     max-width: 1320px;
+//     margin-bottom: 20px;
+//     margin-right: 15px;
+//     margin-left: 15px;
+//     @media only screen and (min-width: 600px) {
+//         min-height: calc(100vh - 343px);
+//         margin-top: 74px;
+//     }
 
-    @media only screen and (min-width: 719px) {
-        margin-bottom: 30px;
-        margin-right: 20px;
-        margin-left: 20px;
-    }
-    @media only screen and (min-width: 760px) {
-        margin-right: 3.5%;
-        margin-left: 3.5%;
-        margin-top: 80px;
-    }
-    @media only screen and (min-width: 1100px) {
-        margin-bottom: 42px;
-        margin-right: 60px;
-        margin-left: 60px;
-        margin-top: 86px;
-    }
-    @media only screen and (min-width: 1440px) {
-        margin-right: auto;
-        margin-left: auto;
-    }
+//     @media only screen and (min-width: 719px) {
+//         margin-bottom: 30px;
+//         margin-right: 20px;
+//         margin-left: 20px;
+//     }
+//     @media only screen and (min-width: 760px) {
+//         margin-right: 3.5%;
+//         margin-left: 3.5%;
+//         margin-top: 80px;
+//     }
+//     @media only screen and (min-width: 1100px) {
+//         margin-bottom: 42px;
+//         margin-right: 60px;
+//         margin-left: 60px;
+//         margin-top: 86px;
+//     }
+//     @media only screen and (min-width: 1440px) {
+//         margin-right: auto;
+//         margin-left: auto;
+//     }
 
-    // const Footer = styled.footer
-`;
+//     // const Footer = styled.footer
+// `;
 //   position: fixed;
 //   bottom: 0;
 //   z-index: 51;

@@ -2,18 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { CardListSlick, CardComment } from "../../../components";
 
-const ShowMore = ({ src }) => {
-    return <Link href={src}>더보기</Link>;
+const ShowMore = ({ href }) => {
+    return <Link href={href}>더보기</Link>;
 };
 
-const DetailSectionComment = ({ data }) => {
+const ContentsSectionComment = ({ data }) => {
     return (
         <Wrapper>
             <CardListSlick
                 title="코멘트"
                 count="10"
-                sizeHeader="sm"
-                addComponent={<ShowMore src="http://www.naver.com" />}
+                addComponent={<ShowMore href="http://www.naver.com" />}
             >
                 {[...new Array(10)].map((_, idx) => (
                     <StyledCard key={idx} />
@@ -24,7 +23,7 @@ const DetailSectionComment = ({ data }) => {
     );
 };
 
-export default React.memo(DetailSectionComment);
+export default React.memo(ContentsSectionComment);
 
 const Wrapper = styled.div`
     margin: 0 20px;

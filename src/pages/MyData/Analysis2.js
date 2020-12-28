@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import history from "../../history";
+// import history from "../../history";
 import api from "../../services/api";
-import AuthService from "../../services/auth.service";
+// import AuthService from "../../services/auth.service";
 import MyTag from "./Tag/MyTag";
 import Chart from "./Chart";
-import ActorSection from "./ActorSection";
+// import ActorSection from "./ActorSection";
 
 function Analysis() {
     const [userInfo, setUserInfo] = useState({
@@ -19,7 +19,8 @@ function Analysis() {
             totalRunningTimeInMinute: 0,
         },
     });
-    const [data, setData] = useState({});
+    // const [data, setData] = useState({});
+    const [data] = useState({});
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));

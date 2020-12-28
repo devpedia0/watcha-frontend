@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import history from "../../../history";
 
 import { CardListSlick, CardPoster } from "../../../components";
 
@@ -16,9 +17,15 @@ const MainSectionRank = ({ data }) => {
                 title={title}
                 description={description}
                 posterUrl={poster}
+                sizeHeader="lg"
             >
                 {list.map((item, idx) => (
-                    <StyledCard key={idx} item={item} rank={idx + 1} />
+                    <StyledCard
+                        key={idx}
+                        item={item}
+                        rank={idx + 1}
+                        onClick={() => history.push("/contents")}
+                    />
                 ))}
             </CardListSlick>
         </Wrapper>

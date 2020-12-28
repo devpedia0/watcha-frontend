@@ -22,7 +22,7 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
 
     useEffect(() => {
         const getApiData = async () => {
-            const recent = JSON.parse(localStorage.getItem("recent"));
+            const recent = JSON.parse(localStorage.getItem("recent")) || [];
             const res = await api.get("/public/contents/trending_words");
             setKeywords({
                 recent,
@@ -33,33 +33,43 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
         getApiData();
     }, []);
 
+    const handleDeleteRecentKeyword = () => {
+        localStorage.removeItem("recent");
+        setKeywords({
+            ...keywords,
+            recent: [],
+        });
+    };
     return (
-        <Wrap ref={searchRef}>
+        <Wrapper ref={searchRef}>
             <div className="keyword-recent">
-                <label>최근키워드</label>
+                <div className="keyword-recent-block">
+                    <label>최근키워드</label>
+                    <span onClick={handleDeleteRecentKeyword}>모두삭제</span>
+                </div>
                 {keywords.recent.map((item, idx) => (
                     <li key={idx}>{item}</li>
                 ))}
             </div>
             <div className="keword-hot">
-                <label>최근키워드</label>
+                <label>인기검색어</label>
                 {keywords.hot.map((item, idx) => (
                     <li key={idx}>{item}</li>
                 ))}
             </div>
-        </Wrap>
+        </Wrapper>
     );
 };
 
 export default ModalRecentKeyword;
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
     position: absolute;
     top: 55px;
     left: 0px;
     width: 100%;
     text-align: left;
-    padding: 0 10px;
+    padding: 0 12px;
     background: white;
     font-size: 14px;
     font-weight: 400;
@@ -86,5 +96,18 @@ const Wrap = styled.div`
     .keyword-recent {
         border-bottom: 1px solid #ebebeb;
         margin-bottom: 10px;
+    }
+
+    .keyword-recent-block {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            margin-top: 10px;
+            font-weight: 300;
+            font-size: 13px;
+            height: 30px;
+            cursor: pointer;
+        }
     }
 `;

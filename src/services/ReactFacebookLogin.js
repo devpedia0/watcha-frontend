@@ -2,6 +2,7 @@ import React from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 const ReactFacebookLogin = (props) => {
+
     const componentClicked = () => {
         console.log("Facebook Btn clicked!");
     };

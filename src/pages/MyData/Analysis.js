@@ -11,7 +11,9 @@ import FavGenre from "./FavGenre";
 import { Divider } from "../../pages/Detail/DetailSection/DetailSectionInfo";
 
 function Analysis() {
+
     const [userInfo, setUserInfo] = useState({});
+
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));

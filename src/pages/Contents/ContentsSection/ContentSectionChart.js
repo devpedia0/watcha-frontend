@@ -13,7 +13,7 @@ const Score = ({ score, total }) => {
     );
 };
 
-const DetailSectionInfo = ({ data }) => {
+const ContentSectionChart = ({ data }) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -76,7 +76,6 @@ const DetailSectionInfo = ({ data }) => {
         <Wrapper>
             <CardList
                 title="별점 그래프"
-                sizeHeader="sm"
                 addComponent={<Score score="4.0" total="1273" />}
             >
                 <Canvas>
@@ -91,7 +90,7 @@ const DetailSectionInfo = ({ data }) => {
     );
 };
 
-export default React.memo(DetailSectionInfo);
+export default React.memo(ContentSectionChart);
 
 const Wrapper = styled.div`
     margin: 0 20px;

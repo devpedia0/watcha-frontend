@@ -10,10 +10,11 @@ export default function Private(props) {
         const getData = async () => {
             const response = await AuthService.getUserInfo();
             setChecked(() => response.data.accessRange);
-            console.log("useEffect", checked); //PUBLIC
+
+            // console.log('useEffect', checked); //PUBLIC
         };
         getData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
     const handleChange = (e) => {

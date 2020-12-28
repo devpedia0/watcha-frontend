@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Chart from "chart.js";
-import { CardList } from "../../components";
 
 const DetailSectionInfo = ({ data }) => {
     const canvasRef = useRef(null);
@@ -86,22 +85,22 @@ const Divider = styled.div`
     margin: 20px 0 0;
     border-bottom: 1px solid #f0f0f0;
 `;
-const WrapperScore = styled.div`
-    color: #282828;
-    font-size: 17px;
-    font-weight: 400;
-    letter-spacing: -0.7px;
-    line-height: 22px;
-    text-align: right;
-    margin: 10px 0 0;
-    span {
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: -0.3px;
-        line-height: 19px;
-        color: #787878;
-    }
-`;
+// const WrapperScore = styled.div`
+//     color: #282828;
+//     font-size: 17px;
+//     font-weight: 400;
+//     letter-spacing: -0.7px;
+//     line-height: 22px;
+//     text-align: right;
+//     margin: 10px 0 0;
+//     span {
+//         font-size: 14px;
+//         font-weight: 400;
+//         letter-spacing: -0.3px;
+//         line-height: 19px;
+//         color: #787878;
+//     }
+// `;
 
 const Canvas = styled.div`
     max-width: 375px;

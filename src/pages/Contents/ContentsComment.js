@@ -2,30 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import { CardComment, HeaderDetail } from "../../components";
 
-const DetailInfo = () => {
+const ContentsComment = () => {
     return (
-        <Wrap>
+        <Wrapper>
             <HeaderDetail title="코멘트" />
             <Content>
                 {[...new Array(10)].map((_, idx) => (
                     <StyledCard key={idx} />
                 ))}
             </Content>
-        </Wrap>
+        </Wrapper>
     );
 };
 
-export default DetailInfo;
+export default ContentsComment;
 
-const Wrap = styled.div`
-    padding-top: 0px;
-    padding-bottom: 56px;
-
-    @media only screen and (min-width: 719px) {
-        padding-top: 62px;
-        padding-bottom: unset;
-    }
-`;
+const Wrapper = styled.div``;
 
 const Content = styled.div`
     max-width: 640px;

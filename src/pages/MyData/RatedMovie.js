@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
 
-import AuthService from "../../services/auth.service";
+// import AuthService from "../../services/auth.service";
 
 export default function MyMovie() {
+
     const [rated, setRated] = useState({
         movie: 0,
     });
@@ -33,6 +35,7 @@ export default function MyMovie() {
         };
         getData();
     }, []);
+
 
     return (
         <Page>
