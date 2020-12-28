@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import { CardListSlick, CardPoster } from "../../../components";
+import { CardListSlick, CardPoster } from "../../components";
 
-const MainSection = ({ data }) => {
+const TestSection = ({ data }) => {
     if (Object.keys(data).length === 0) {
         return null;
     }
@@ -25,7 +25,7 @@ const MainSection = ({ data }) => {
     );
 };
 
-export default MainSection;
+export default TestSection;
 
 const Wrapper = styled.div``;
 const StyledCard = styled(CardPoster)`

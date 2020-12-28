@@ -89,6 +89,7 @@ function MyPage(props) {
                                                 <Link to="/analysis">
                                                     <A>
                                                         <ChartImage></ChartImage>
+
                                                         <span className="analysis">
                                                             취향분석
                                                         </span>

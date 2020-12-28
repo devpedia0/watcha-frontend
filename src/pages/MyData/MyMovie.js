@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
+
 import AuthService from "../../services/auth.service";
 import api from "../../services/api";
 
@@ -27,11 +27,14 @@ export default function MyMovie() {
     useEffect(() => {
         const getDataAPI = async () => {
             const baseUrl = `/users/${id}/${contentType}/ratings`;
-            const response = await api.get(baseUrl + `?page=1&size=20`);
+
+            const response = await api.get(baseUrl + `?page=1&size=7`);
+
             setState(() => response.data);
             console.log(response);
         };
         getDataAPI();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -82,6 +85,7 @@ export default function MyMovie() {
                                 </CardListSlick>
                             </Wrapper>
                         </Ul>
+
                         <hr className="divider" />
                         <ContentRow>
                             <ul className="visualUl">
@@ -117,6 +121,7 @@ export default function MyMovie() {
                     </Content>
                 </section>
             </Section>
+
             <Footer>
                 <nav className="footerNav">
                     <ul className="navTabUl">
@@ -124,6 +129,14 @@ export default function MyMovie() {
                     </ul>
                 </nav>
             </Footer>
+
+            {/* <Footer>
+        <nav className="footerNav">
+          <ul className="navTabUl">
+            <li className="navItem"></li>
+          </ul>
+        </nav>
+      </Footer> */}
         </Page>
     );
 }
@@ -137,13 +150,16 @@ const Page = styled.div`
 const Section = styled.section`
     padding-top: 0px;
     padding-bottom: 56px;
+
     @media (min-width: 719px) {
         padding-top: 62px;
         padding-bottom: unset;
     }
+
     .mainContainer {
         padding: 88px 0px 0px;
         display: block;
+
         .header {
             display: block;
             position: fixed;
@@ -161,10 +177,12 @@ const Section = styled.section`
             top: 62px;
             text-align: left;
             height: auto;
+
             .backBtn {
                 display: flex;
                 -webkit-box-pack: justify;
                 justify-content: space-between;
+
                 .btnIcon {
                     background-position: initial;
                     background-size: initial;
@@ -193,6 +211,7 @@ const Section = styled.section`
                 margin: 0px 4px 10px;
                 opacity: 1;
                 transition: all 150ms ease 0s;
+
                 .largeTitle {
                     display: inline-block;
                     font-weight: 700;
@@ -205,6 +224,7 @@ const Section = styled.section`
                     text-overflow: ellipsis;
                 }
             }
+
             .smallTitle {
                 position: absolute;
                 top: 0px;
@@ -229,7 +249,7 @@ const Section = styled.section`
 const Content = styled.section`
     padding: 16px 0px 0px;
     display: block;
-    .divider {
+    <<<<<<< HEAD .divider {
         border-width: 0px 0px 1px;
         border-top-style: initial;
         border-right-style: initial;
@@ -296,10 +316,12 @@ const StyledCard = styled(CardPoster)`
 
 const ContentRow = styled.div`
     margin: 0px 20px;
+
     .visualUl {
         list-style: none;
         padding: 0px;
         margin: 16px 0px;
+
         .textList {
             text-align: left;
             box-sizing: border-box;
@@ -311,6 +333,7 @@ const ContentRow = styled.div`
             font-weight: 400;
             letter-spacing: -0.7px;
             line-height: 22px;
+
             .listInner {
                 display: flex;
                 flex: 1 1 0%;
@@ -375,3 +398,43 @@ const Footer = styled.footer`
         }
     }
 `;
+
+// const Footer = styled.footer
+//   position: fixed;
+//   bottom: 0;
+//   z-index: 51;
+//   background: #fff;
+//   box-sizing: border-box;
+//   width: 100%;
+//   border-top: 1px solid #d2d2d2;
+
+//   @media (min-width: 719px) {
+//     display: none;
+//   }
+
+//   .footerNav {
+//     box-sizing: border-box;
+//     height: 56px;
+//     padding: 8px 0 4px;
+
+//     .navTabUl {
+//       list-style: none;
+//       padding: 0;
+//       margin: 0;
+//       display: -webkit-box;
+//       display: -webkit-flex;
+//       display: -ms-flexbox;
+//       display: flex;
+//       height: 100%;
+//       overflow: hidden;
+
+//       .navItem {
+//         -webkit-flex: 1;
+//         -ms-flex: 1;
+//         flex: 1;
+//         text-align: center;
+//         height: 100%;
+//       }
+//     }
+//   }
+// `;

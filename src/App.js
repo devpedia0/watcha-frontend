@@ -77,6 +77,7 @@ function App() {
                         exact
                         component={PageBoard}
                     />
+                    git checkout -b searchPage origin/searchPage
                     <LayoutForm
                         path="/admin/participants/form"
                         component={PageParticipant}

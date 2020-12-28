@@ -1,36 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header/Header";
 
+import AuthService from "../../services/auth.service";
+
 export default function MyMovie() {
-    // const [rated, setRated] = useState({
-    //     movie: 0,
-    // });
+    const [rated, setRated] = useState({
+        movie: 0,
+    });
 
-    // const [wishes, setWishes] = useState({
-    //     movie: 0,
-    // });
+    const [wishes, setWishes] = useState({
+        movie: 0,
+    });
 
-    // const [watching, setWatching] = useState({
-    //     movie: 0,
-    // });
+    const [watching, setWatching] = useState({
+        movie: 0,
+    });
 
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         AuthService.getUserRating().then((response) => {
-    //             setRated({
-    //                 movie: response.data.movie.ratingCount,
-    //             });
-    //             setWishes({
-    //                 movie: response.data.movie.wishCount,
-    //             });
-    //             setWatching({
-    //                 movie: response.data.movie.watchingCount,
-    //             });
-    //         });
-    //     };
-    //     getData();
-    // }, []);
+    useEffect(() => {
+        const getData = async () => {
+            AuthService.getUserRating().then((response) => {
+                setRated({
+                    movie: response.data.movie.ratingCount,
+                });
+                setWishes({
+                    movie: response.data.movie.wishCount,
+                });
+                setWatching({
+                    movie: response.data.movie.watchingCount,
+                });
+            });
+        };
+        getData();
+    }, []);
 
     return (
         <Page>
