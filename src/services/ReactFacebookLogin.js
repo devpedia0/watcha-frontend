@@ -28,6 +28,7 @@ const ReactFacebookLogin = (props) => {
                         style={{
                             backgroundColor: "#3c5aa0",
                             color: "#fff",
+                            lineHeight: "44px",
                         }}
                         onClick={renderProps.onClick}
                     >

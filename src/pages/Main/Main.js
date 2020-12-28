@@ -7,6 +7,7 @@ import MainSection from "./MainSection/MainSection";
 import MainSectionRank from "./MainSection/MainSectionRank";
 import MainSectionAward from "./MainSection/MainSectionAward";
 import MainSectionCollection from "./MainSection/MainSectionCollection";
+import SignUp from "../../components/Modal/ModalSignup";
 
 const steps = [
     { id: "score" },
@@ -96,6 +97,7 @@ const Main = () => {
 
     return (
         <Wrapper>
+            {/* <SignUp /> */}
             <MainSectionRank data={state.box_office} />
             <MainSectionRank data={state.mars} />
             <MainSectionRank data={state.netflix} />
