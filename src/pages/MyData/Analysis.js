@@ -3,25 +3,15 @@ import styled from "styled-components";
 
 import api from "../../services/api";
 import MyTag from "./Tag/MyTag";
-import Chart from "./Chart";
-import ActorSection from "./Actor/ActorSection";
-import MakerSection from "./Maker/MakerSection";
-import FavCountry from "./FavoriteCountry/FavCountry";
-import FavGenre from "./Genre/FavGenre";
+import Chart from "../MyData/Chart";
+import ActorSection from "./ActorSection";
+import DirectorSection from "./DirectorSection";
+import FavCountry from "./FavCountry";
+import FavGenre from "./FavGenre";
+import { Divider } from "../../styles";
 
 function Analysis() {
-    const [userInfo, setUserInfo] = useState({
-        username: "",
-        rating: {
-            movieCount: 0,
-            tvShowCount: 0,
-            bookCount: 0,
-        },
-        movie: {
-            totalRunningTimeInMinute: 0,
-        },
-    });
-    // const [data, setData] = useState({}); //analysis에서  state값으로 나머지도 설정해서 하위 props로 데이터를 받아올지 지금처럼 하위 컴포넌트마다 데이터 가져올지
+    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));
@@ -33,12 +23,11 @@ function Analysis() {
         getData();
     }, []);
 
-    const averageData = userInfo.rating.average; //toFixed(1)
-    const average = averageData;
-
     const checkState = () => {
         console.log(userInfo);
     };
+
+    if (Object.keys(userInfo).length === 0) return null;
 
     return (
         <NavContainer>
@@ -119,6 +108,7 @@ function Analysis() {
                                                 </li>
                                             </Ul>
                                         </div>
+
                                         <Divider />
                                     </Margin>
                                 </div>
@@ -148,7 +138,9 @@ function Analysis() {
                                             <Ul>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {average}
+                                                        {userInfo.rating.average.toFixed(
+                                                            1
+                                                        )}
                                                     </div>
                                                     <div className="statSumSubTitle">
                                                         별점 평균
@@ -199,37 +191,68 @@ function Analysis() {
                                             <div>
                                                 <Margin>
                                                     <div className="tagBox">
-                                                        <MyTag />
+                                                        <MyTag
+                                                            text={
+                                                                userInfo.movie
+                                                                    .tag
+                                                                    .description
+                                                            }
+                                                            value={
+                                                                userInfo.movie
+                                                                    .tag.score
+                                                            }
+                                                        />
                                                     </div>
                                                 </Margin>
                                             </div>
                                         </div>
-                                        <Divider />
+
+                                        <hr className="hr" />
                                     </Margin>
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <ActorSection />
-                                    <Divider />
+                                    <ActorSection
+                                        data={
+                                            userInfo.movie
+                                                ? userInfo.movie.actor
+                                                : []
+                                        }
+                                    />
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <MakerSection />
-                                    <Divider />
+                                    <DirectorSection
+                                        data={
+                                            userInfo.movie
+                                                ? userInfo.movie.director
+                                                : []
+                                        }
+                                    />
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <FavCountry />
-                                    <Divider />
+                                    <FavCountry
+                                        data={
+                                            userInfo.movie
+                                                ? userInfo.movie.country
+                                                : []
+                                        }
+                                    />
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <FavGenre />
-                                    <Divider />
+                                    <FavGenre
+                                        data={
+                                            userInfo.movie
+                                                ? userInfo.movie.category
+                                                : []
+                                        }
+                                    />
                                 </div>
                             </section>
                             <section className="totalRunning">
@@ -279,11 +302,9 @@ const Favorite = styled.div`
         border: 1px solid;
         border-radius: 6px;
     }
-
     .favoriteBox {
         background: #fff;
         padding: 8px 0 0;
-
         .tagHeader {
             overflow: hidden;
             .tagTitle {
@@ -299,10 +320,8 @@ const Favorite = styled.div`
                 margin: 8px 0;
             }
         }
-
         .tagCloudContainer {
             margin: 12px 0 0;
-
             .tagBox {
                 display: -webkit-box;
                 display: -webkit-flex;
@@ -383,6 +402,11 @@ const Favorite = styled.div`
             margin: 0;
         }
     }
+    .hr {
+        border: 0;
+        border-bottom: 1px solid #f0f0f0;
+        margin: 24px 0 0;
+    }
 `;
 
 const NavContainer = styled.div`
@@ -392,7 +416,6 @@ const NavContainer = styled.div`
 
     .main {
         padding-bottom: 0;
-
         @media (min-width: 719px) {
             padding-bottom: unset;
         }
@@ -412,7 +435,6 @@ const NavContainer = styled.div`
 
                 .mainContainer {
                     margin: 0 auto;
-
                     @media (min-width: 719px) {
                         max-width: 640px;
                     }
@@ -558,7 +580,6 @@ const Rating = styled.div`
     .sectionRating {
         background: #fff;
         padding: 8px 0 0;
-
         .ratingHeader {
             overflow: hidden;
 
@@ -580,15 +601,12 @@ const Rating = styled.div`
             margin: 8px 0 0;
         }
     }
-
     .starAnalysis {
         background: #fff;
         padding: 8px 0 0;
         padding-bottom: 24px;
-
         .starHeader {
             overflow: hidden;
-
             .starTitle {
                 float: left;
                 color: #000;
@@ -602,7 +620,6 @@ const Rating = styled.div`
                 margin: 8px 0;
             }
         }
-
         .analysisSubTitle {
             color: #ff2f6e;
             font-size: 13px;
@@ -616,12 +633,10 @@ const Rating = styled.div`
             text-align: center;
             margin: 8px 0 24px;
         }
-
         .barContainer {
             max-width: 375px;
             margin: 58px auto 0;
             margin: 0 auto;
-
             .barBox {
                 display: -webkit-box;
                 display: -webkit-flex;
@@ -633,7 +648,6 @@ const Rating = styled.div`
                 align-items: flex-end;
                 text-align: center;
                 margin: 0 -1px;
-
                 .barArea {
                     -webkit-flex: 1;
                     -ms-flex: 1;
@@ -643,16 +657,13 @@ const Rating = styled.div`
                 }
             }
         }
-
         .starSumContainer {
             padding: 24px 0 0;
         }
-
         :last-child {
             margin: 0;
         }
     }
-
     @media (min-width: 1023px) {
         border: 1px solid;
         border-radius: 6px;
@@ -661,12 +672,6 @@ const Rating = styled.div`
 
 const Margin = styled.div`
     margin: 0 20px;
-`;
-
-const Divider = styled.div`
-    border: 0;
-    border-bottom: 1px solid #f0f0f0;
-    margin: 24px 0 0;
 `;
 
 const Ul = styled.ul`

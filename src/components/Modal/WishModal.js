@@ -1,87 +1,57 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import AuthService from "../../../services/auth.service";
-import api from "../../../services/api";
 
-export default function SelectCountry(props) {
-    const [toggle, setToggle] = useState("");
+export default function WishModal(props) {
+    const [state, setState] = useState("가나다 순");
+
+    const handleState = (e) => {
+        if (e.target.id === "1") {
+            setState("가나다 순");
+            console.log("h1", state);
+        } else if (e.target.id === "2") {
+            setState("평점 순");
+            console.log("h1", state);
+        } else if (e.target.id === "3") {
+            setState("신작 순");
+            console.log("h1", state);
+        } else if (e.target.id === "4") {
+            setState("구작 순");
+            console.log("h1", state);
+        }
+        // props.wishModal();
+    };
 
     useEffect(() => {
-        const getData = async () => {
-            const response = await AuthService.getUserInfo();
-            setToggle(() => response.data.countryCode);
-
-            console.log("useEffect", toggle);
-        };
-        getData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-
-    const changeUS = () => {
-        const changeState = {
-            countryCode: "US",
-        };
-        api.put("/users/settings", changeState).then((response) => {
-            if (response === 200) {
-                AuthService.getUserInfo().then((newData) => {
-                    console.log(newData.data.countryCode);
-                });
-            }
-            setToggle("US");
-        });
-    };
-
-    const changeKR = () => {
-        const changeState = {
-            countryCode: "KR",
-        };
-        api.put("/users/settings", changeState).then((response) => {
-            if (response === 200) {
-                AuthService.getUserInfo().then((newData) => {
-                    console.log(newData.data.countryCode);
-                });
-            }
-            setToggle("KR");
-        });
-    };
-
-    const changeJP = () => {
-        const changeState = {
-            countryCode: "JP",
-        };
-        api.put("/users/settings", changeState).then((response) => {
-            if (response === 200) {
-                AuthService.getUserInfo().then((newData) => {
-                    console.log(newData.data.countryCode);
-                });
-            }
-            setToggle("JP");
-        });
-    };
+        props.setOrder(state);
+    }, [state]);
 
     return (
-        <BackScreen className={props.switchModal ? "hideLangForm" : ""}>
+        <BackScreen className={props.switchModal ? "hideForm" : ""}>
             <ModalContainer>
-                <Background onClick={props.languageModal} />
+                <Background onClick={props.wishModal} />
                 <div className="halfBottomModal">
                     <Header title="선택">
-                        <div className="leftBtn" onClick={props.languageModal}>
+                        <div className="leftBtn" onClick={props.wishModal}>
                             <button ariaLabel="xBtn" className="xBtn" />
                         </div>
-                        <HeaderTitle>국가</HeaderTitle>
+                        <HeaderTitle>보고싶어요</HeaderTitle>
                     </Header>
                     <LanguageContainer>
                         <div>
                             <div className="containerMargin">
                                 <LanguageUl>
-                                    <li onClick={changeUS} className="language">
+                                    <li
+                                        onClick={handleState}
+                                        className="language"
+                                    >
                                         <div className="languageInner">
-                                            <div className="title">미국</div>
+                                            <div className="title" id="1">
+                                                가나다 순
+                                            </div>
                                             <div className="extra">
                                                 <span
                                                     className={
-                                                        toggle === "US"
+                                                        state === "가나다 순"
                                                             ? "checker"
                                                             : ""
                                                     }
@@ -89,16 +59,18 @@ export default function SelectCountry(props) {
                                             </div>
                                         </div>
                                     </li>
-
-                                    <li className="language" onClick={changeKR}>
+                                    <li
+                                        onClick={handleState}
+                                        className="language"
+                                    >
                                         <div className="languageInner">
-                                            <div className="title">
-                                                대한민국
+                                            <div className="title" id="2">
+                                                평점 순
                                             </div>
                                             <div className="extra">
                                                 <span
                                                     className={
-                                                        toggle === "KR"
+                                                        state === "평점 순"
                                                             ? "checker"
                                                             : ""
                                                     }
@@ -106,14 +78,37 @@ export default function SelectCountry(props) {
                                             </div>
                                         </div>
                                     </li>
-
-                                    <li className="language" onClick={changeJP}>
+                                    <li
+                                        onClick={handleState}
+                                        className="language"
+                                    >
                                         <div className="languageInner">
-                                            <div className="title">일본</div>
+                                            <div className="title" id="3">
+                                                신작 순
+                                            </div>
                                             <div className="extra">
                                                 <span
                                                     className={
-                                                        toggle === "JP"
+                                                        state === "신작 순"
+                                                            ? "checker"
+                                                            : ""
+                                                    }
+                                                ></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li
+                                        onClick={handleState}
+                                        className="language"
+                                    >
+                                        <div className="languageInner">
+                                            <div className="title" id="4">
+                                                구작 순
+                                            </div>
+                                            <div className="extra">
+                                                <span
+                                                    className={
+                                                        state === "구작 순"
                                                             ? "checker"
                                                             : ""
                                                     }
@@ -138,9 +133,9 @@ const BackScreen = styled.div`
     right: 0px;
     bottom: 0px;
     left: 0px;
-    z-index: 350;
+    z-index: 100;
     overflow: hidden scroll;
-    &.hideLangForm {
+    &.hideForm {
         display: none;
     }
 `;
@@ -151,7 +146,7 @@ const ModalContainer = styled.div`
     right: 0px;
     bottom: 0px;
     left: 0px;
-    z-index: 400;
+
     background: rgba(0, 0, 0, 0.56);
     @media (min-width: 719px) {
         text-align: center;
@@ -172,7 +167,7 @@ const ModalContainer = styled.div`
         height: 100%;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
         overflow: hidden;
-        z-index: 500;
+        z-index: 300;
         @media (min-width: 719px) {
             display: inline-block;
             position: relative;
@@ -193,7 +188,7 @@ const Background = styled.div`
     left: 0px;
     right: 0px;
     bottom: 0px;
-    z-index: 450;
+    z-index: 100;
     @media (min-width: 719px) {
         text-align: center;
         padding: 20px 0px;
@@ -203,7 +198,7 @@ const Background = styled.div`
 
 const Header = styled.header`
     left: 0px;
-    z-index: 500;
+
     background: rgb(255, 255, 255);
     font-size: 17px;
     font-weight: 700;

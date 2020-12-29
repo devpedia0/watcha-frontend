@@ -25,7 +25,13 @@ import Comment from "./pages/Comments/Comment";
 import Decks from "./pages/Decks/Decks";
 import Watcha from "./pages/Watcha/Watcha";
 import RatedMovie from "./pages/MyData/RatedMovie";
-// import Search from "./pages/Search/Search";
+
+import Searches from "./pages/Searches/Searches";
+
+import Wish from "./pages/WishPage/Wish";
+
+// import DetailInfo from "./pages/Detail/DetailInfo";
+// import DetailComment from "./pages/Detail/DetailComment";
 
 import Analysis from "./pages/MyData/Analysis";
 function App() {
@@ -38,8 +44,9 @@ function App() {
                     <Route path="/myMovie" component={MyMovie} />
                     <Route path="/analysis" component={Analysis} />
                     <Route path="/ratedMovie" component={RatedMovie} />
-                    {/* <Route path="/searches" component={Search} /> */}
+                    <Route path="/searches" component={Searches} />
                     <Route path="/myTv" component={MyTv} />
+                    <Route path="/wish" component={Wish} />
                     <Route path="/myBook" component={MyBook} />
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
@@ -54,11 +61,12 @@ function App() {
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
-                    <LayoutForm path="/admin/movies" exact component={PageBoard} />
+    <LayoutForm path="/admin/movies" exact component={PageBoard} />
                     <LayoutForm path="/admin/movies/form" component={PageMovie} />
                     <LayoutForm path="/admin/participants" exact component={PageBoard} />
                     <LayoutForm path="/admin/participants/form" component={PageParticipant} />
                     <LayoutForm path="/admin/tags" exact component={PageBoard} />
+
                     <LayoutForm path="/admin/tags/form" component={PageTag} />
                     <LayoutForm path="/admin/tv_shows" exact component={PageBoard} />
                     <LayoutForm path="/admin/tv_shows/form" component={PageTV} />
