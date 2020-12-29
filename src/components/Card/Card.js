@@ -11,19 +11,22 @@ const Card = ({
     disabled,
     width,
 }) => {
-    const { name, description, profileImagePath } = item;
+    const { name, role, characterName, profileImagePath } = item;
     return (
         <Wrapper width={width}>
             <BoxImg
                 width="50px"
                 height="50px"
                 radius={radius}
-                src={profileImagePath}
+                src={profileImagePath ? profileImagePath + "?w=100&h=100" : ""}
             />
             <div className="content">
                 <div className="text">
                     <div className="title">{name}</div>
-                    <div className="subTitle">{description}</div>
+                    <div className="subTitle">
+                        {role}
+                        {characterName && " | " + characterName}
+                    </div>
                 </div>
                 <div className="text">
                     {onClickDelete && (
@@ -75,7 +78,7 @@ const Wrapper = styled.div`
         .title {
             color: #1e1e1e;
             font-size: 17px;
-            font-weight: 400;
+            font-weight: 500;
             letter-spacing: -0.7px;
             line-height: 22px;
             white-space: nowrap;

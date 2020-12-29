@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import history from "../../history";
 
 const HeaderDetail = ({ title }) => {
     const [scrolling, setScrolling] = useState(false);
@@ -21,7 +22,7 @@ const HeaderDetail = ({ title }) => {
     return (
         <Wrapper>
             <HeaderBlock>
-                <span className="icon-back" />
+                <span className="icon-back" onClick={() => history.goBack()} />
                 <p className={!scrolling ? "off" : ""}>{title}</p>
             </HeaderBlock>
 

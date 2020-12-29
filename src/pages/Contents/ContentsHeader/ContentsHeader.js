@@ -1,8 +1,70 @@
-import React from "react";
-import styled from "styled-components";
-import { ModalBookmark, Stars } from "../../../components";
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import { Stars, Svg } from "../../../components";
+import Bookmark from "./Bookmark/Bookmark";
+import useOpen from "../../../Hooks/useOpen";
+import api from "../../../services/api";
 
-const ContentsHeader = ({ data }) => {
+const ContentsHeader = ({ data, pageId }) => {
+    const {
+        contentInfo: { mainTitle, productionDate, category, countryCode, lank },
+        scores: { average, totalCount },
+        galleries,
+        context,
+    } = data;
+    const [isOpen, setOpen, onClickClose] = useOpen();
+    const [userData, setUserData] = useState({
+        interestState: "",
+        score: "",
+        isLogin: false,
+    });
+
+    useEffect(() => {
+        if (context) {
+            setUserData({
+                ...context,
+                isLogin: true,
+            });
+        }
+    }, [context]);
+
+    const handleClickOpen = () => {
+        if (!userData.isLogin) {
+            // Open /
+            console.log("로그인 안됐음");
+            return setOpen(true);
+        }
+
+        if (!userData.interestState) {
+            api.post(`/contents/${pageId}/interests`, { state: "WISH" })
+                .then((res) => {
+                    setUserData((state) => ({
+                        ...state,
+                        interestState: "WISH",
+                    }));
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            setOpen(true);
+        }
+    };
+
+    const handleClickIcon = (type) => {
+        const state = userData.interestState === type ? "" : type;
+        api.post(`/contents/${pageId}/interests`, { state })
+            .then((res) => {
+                setUserData((state) => ({
+                    ...state,
+                    interestState: state,
+                }));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        onClickClose();
+    };
     const img =
         "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1605860774/brjxqof6s9jx6tlerasw.jpg";
     return (
@@ -10,7 +72,13 @@ const ContentsHeader = ({ data }) => {
             <Header>
                 <PosterBlock>
                     <div className="bg-left" />
-                    <Poster src={data.src}>
+                    <Poster
+                        src={
+                            galleries.length !== 0
+                                ? galleries[0] + "?h=720&w=1280"
+                                : ""
+                        }
+                    >
                         <div className="gradient-left" />
                         <div className="gradient-right" />
                     </Poster>
@@ -21,23 +89,67 @@ const ContentsHeader = ({ data }) => {
                     <div className="img-wrapper">
                         <img src={img} alt="" />
                     </div>
-                    <ul>
-                        <li>
-                            넷플릭스 TV 프로그램 순위 <em>3위</em>
-                        </li>
-                    </ul>
+                    {lank && (
+                        <ul>
+                            <li>
+                                넷플릭스 TV 프로그램 순위 <em>{lank}위</em>
+                            </li>
+                        </ul>
+                    )}
                 </LankingBlock>
+                )
             </Header>
             <Content>
                 <InfoBlock>
                     <div className="infoList">
-                        <div className="title">{data.title}</div>
-                        <div className="detail">{`${data.year} ・ ${data.category} ・ ${data.country}`}</div>
+                        <div className="title">{mainTitle}</div>
+                        <div className="detail">{`${
+                            productionDate ? productionDate.split("-")[0] : ""
+                        } ・ ${category} ・ ${countryCode}`}</div>
                         <div className="rating">
-                            평균 ★{data.rate} ({data.num})
+                            평균 ★{average.toFixed(1)} ({totalCount} 명)
                         </div>
-                        <ModalBookmark data={data} />
-                        <Stars />
+                        <ButtonContainer>
+                            <ButtonBlock
+                                isClicked={!!userData.interestState}
+                                onClick={handleClickOpen}
+                            >
+                                <button className="btn-left">
+                                    <div className="btn-left-content">
+                                        <IconSelector
+                                            status={userData.interestState}
+                                        />
+
+                                        <div className="text">
+                                            {userData.interestState ===
+                                            "WATCHING"
+                                                ? "보는중"
+                                                : "보고싶어요"}
+                                        </div>
+                                    </div>
+                                </button>
+                                <button className="btn-right">
+                                    <Svg
+                                        type={
+                                            userData.interestState
+                                                ? "arrowGray"
+                                                : "arrow"
+                                        }
+                                        w="24px"
+                                        h="24px"
+                                    />
+                                </button>
+                            </ButtonBlock>
+                        </ButtonContainer>
+                        <Stars score={userData.score} />
+                        {isOpen && (
+                            <Bookmark
+                                data={data}
+                                userData={userData}
+                                onClickClose={onClickClose}
+                                onClickIcon={handleClickIcon}
+                            />
+                        )}
                     </div>
                 </InfoBlock>
             </Content>
@@ -127,7 +239,7 @@ const Poster = styled.div`
     background-size: cover;
     background: ${(props) =>
         props.src
-            ? props.src
+            ? `url(${props.src}) center center / cover no-repeat`
             : `url("https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_720,q_80,w_1280/v1604542596/eataqg1dhtuczq95vgh4.jpg") center center / cover no-repeat`};
 
     .gradient-left {
@@ -364,4 +476,122 @@ const InfoBlock = styled.div`
     @media only screen and (min-width: 1023px) {
         max-width: 960px;
     }
+`;
+
+const ButtonContainer = styled.div`
+    margin: 19px 0 14px;
+
+    @media only screen and (min-width: 719px) {
+        float: left;
+        margin: 39px 21px 0 0;
+    }
+    @media only screen and (min-width: 1023px) {
+        float: left;
+        margin: 39px 30px 0 0;
+    }
+`;
+
+const ButtonBlock = styled.div`
+    background: ${(props) => (props.isClicked ? "#f6f6f6" : "#ff2f6e")};
+    border: ${(props) => (props.isClicked ? "1px solid #ebebeb" : "")};
+    display: flex;
+    vertical-align: top;
+    box-sizing: border-box;
+    width: 254px;
+    height: 40px;
+    border-radius: 6px;
+
+    margin: 0 auto;
+    overflow: hidden;
+
+    .btn-left {
+        background: none;
+        padding: 0;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+        flex: 1;
+        color: ${(props) => (props.isClicked ? "#000" : "#f6f6f6")};
+        text-align: center;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.7px;
+        line-height: 22px;
+        height: 100%;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+
+        .btn-left-content {
+            display: flex;
+            position: relative;
+            left: -8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &:hover {
+            ${(props) =>
+                !props.isClicked &&
+                css`
+                    span {
+                        transform: rotate(90deg);
+                    }
+                `}
+        }
+    }
+
+    .btn-right {
+        background: none;
+        padding: 0;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+        box-sizing: border-box;
+        width: 51px;
+        height: 100%;
+        padding: 8px 0;
+        border-left: ${(props) => (props.isClicked ? "#f6f6f6" : "#e71252")};
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        cursor: pointer;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            transition: 300ms ease;
+        }
+
+        &:hover {
+            svg {
+                transform: translateY(4px);
+            }
+        }
+    }
+
+    @media only screen and (min-width: 719px) {
+        width: 213px;
+    }
+    @media only screen and (min-width: 1023px) {
+        width: 254px;
+    }
+`;
+
+const IconSelector = styled.span`
+    display: inline-block;
+    background: ${(props) =>
+        props.status === "WISH"
+            ? "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iI0ZGMkY2RSI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik01LjgzNCAyNi4xOTFjMCAuNzg4LjY0NiAxLjMzNiAxLjMzOCAxLjMzNi4yNiAwIC41MjctLjA3OC43NjgtLjI1TDE2IDIxLjUzOGw4LjA2IDUuNzRjLjI0Mi4xNzEuNTA4LjI1Ljc2OS4yNS42OTIgMCAxLjMzOC0uNTQ5IDEuMzM4LTEuMzM3VjguNjNhLjUuNSAwIDAgMC0uNS0uNUg2LjMzNGEuNS41IDAgMCAwLS41LjV2MTcuNTYyek0yNi4xNjcgNC4yOTRjMC0uNzM2LS41OTctMS4zMzMtMS4zMzMtMS4zMzNINy4xNjdjLS43MzYgMC0xLjMzMy41OTYtMS4zMzMgMS4zMzNWNi4xM2EuNS41IDAgMCAwIC41LjVoMTkuMzMzYS41LjUgMCAwIDAgLjUtLjVWNC4yOTR6Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K) center center / contain no-repeat"
+            : props.status === "WATCHING"
+            ? "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgZmlsbD0iIzAwQTBGRiI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNiAxMi43NUEzLjI1NCAzLjI1NCAwIDAgMCAxMi43NSAxNmEuNzUuNzUgMCAwIDEtMS41IDBBNC43NTYgNC43NTYgMCAwIDEgMTYgMTEuMjVhLjc1Ljc1IDAgMCAxIDAgMS41bTAtMi42NjdBNS45MjQgNS45MjQgMCAwIDAgMTAuMDgzIDE2IDUuOTI0IDUuOTI0IDAgMCAwIDE2IDIxLjkxNyA1LjkyNCA1LjkyNCAwIDAgMCAyMS45MTYgMTYgNS45MjQgNS45MjQgMCAwIDAgMTYgMTAuMDgzIi8+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNiAyMy40MTZjLTQuMDkgMC03LjQxNy0zLjMyNy03LjQxNy03LjQxNyAwLTQuMDg5IDMuMzI3LTcuNDE2IDcuNDE3LTcuNDE2UzIzLjQxNiAxMS45MSAyMy40MTYgMTZjMCA0LjA5LTMuMzI3IDcuNDE3LTcuNDE2IDcuNDE3bTE1LjA2LTguNjU0QzI4LjM0IDguOTg0IDIyLjYyMSA1IDE2IDUgOS4zNzggNSAzLjY2MSA4Ljk4NC45NCAxNC43NjJhMi45MzQgMi45MzQgMCAwIDAgMCAyLjQ3NUMzLjY2MSAyMy4wMTUgOS4zNzggMjcgMTYgMjdjNi42MjEgMCAxMi4zNC0zLjk4NCAxNS4wNi05Ljc2MmEyLjkzNCAyLjkzNCAwIDAgMCAwLTIuNDc1Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K) center center / contain no-repeat"
+            : "url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogc2tldGNodG9vbCA1MC4yICg1NTA0NykgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+NjMwMjYxNEEtQzhBMy00MkMwLTlDQzctQTBEQzNDOEM1NTVDPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBza2V0Y2h0b29sLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJJY29ucy0mYW1wOy1Bc3NldHMiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJJY29uLS8tSWNBZGRXaGl0ZSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUtMyIgeD0iMTEiIHk9IjQuNSIgd2lkdGg9IjIiIGhlaWdodD0iMTUiIHJ4PSIxIj48L3JlY3Q+CiAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUtMy1Db3B5IiB4PSI0LjUiIHk9IjExIiB3aWR0aD0iMTUiIGhlaWdodD0iMiIgcng9IjEiPjwvcmVjdD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==) no-repeat center"};
+
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    margin: 0 6px 0 0;
+    -webkit-transition: 300ms;
+    transition: 300ms;
 `;

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
-import { Loader } from "../../components";
+import { Loader } from "../../styles";
 import api from "../../services/api";
 import MainSection from "./MainSection/MainSection";
 import MainSectionRank from "./MainSection/MainSectionRank";
 import MainSectionAward from "./MainSection/MainSectionAward";
 import MainSectionCollection from "./MainSection/MainSectionCollection";
+import { useSelector } from "react-redux";
 
 const steps = [
     { id: "score" },
@@ -16,21 +17,26 @@ const steps = [
     { id: "award" },
 ];
 
+const initialState = {
+    step: 0,
+    isFetching: true,
+    isLoading: false,
+    box_office: {},
+    mars: {},
+    netflix: {},
+    score: {},
+    award: {},
+    tag: {},
+    popular: {},
+    collection: {},
+};
+
 const Main = () => {
+    const user = useSelector((state) => state.auth);
+    console.log("z", user);
     const pathname = history.location.pathname;
     const charType = pathname === "/" ? "movies" : pathname.split("/")[1];
-    const [state, setState] = useState({
-        step: 0,
-        loading: false,
-        box_office: {},
-        mars: {},
-        netflix: {},
-        score: {},
-        award: {},
-        tag: {},
-        popular: {},
-        collection: {},
-    });
+    const [state, setState] = useState(initialState);
 
     const getDataAPI = useCallback(async () => {
         if (state.step <= 4) {
@@ -41,7 +47,7 @@ const Main = () => {
                 ...state,
                 [charId.id]: res.data[0],
                 step: state.step + 1,
-                loading: false,
+                isLoading: false,
             });
         }
     }, [state, charType]);
@@ -59,7 +65,7 @@ const Main = () => {
                 getDataAPI();
                 setState({
                     ...state,
-                    loading: true,
+                    isLoading: true,
                 });
             }
             window.removeEventListener("scroll", infiniteScroll);
@@ -67,11 +73,11 @@ const Main = () => {
     }, [getDataAPI, state]);
 
     useEffect(() => {
-        if (!state.loading) {
+        if (!state.isLoading) {
             window.addEventListener("scroll", infiniteScroll);
         }
         return () => window.removeEventListener("scroll", infiniteScroll);
-    }, [infiniteScroll, state.loading]);
+    }, [infiniteScroll, state.isLoading]);
 
     useEffect(() => {
         const fetchAPI = async () => {
@@ -82,13 +88,18 @@ const Main = () => {
                 box_office: res.data[0],
                 mars: res.data[1],
                 netflix: res.data[2],
+                isFetching: false,
             }));
         };
         fetchAPI();
+        return () => setState(initialState);
     }, [charType]);
+
+    if (state.isFetching) return <Loader height="800px" />;
 
     return (
         <Wrapper>
+            {/* <SignUp /> */}
             <MainSectionRank data={state.box_office} />
             <MainSectionRank data={state.mars} />
             <MainSectionRank data={state.netflix} />
@@ -97,7 +108,7 @@ const Main = () => {
             <MainSection data={state.popular} />
             <MainSectionCollection data={state.collection} />
             <MainSectionAward data={state.award} />
-            {state.loading && <Loader />}
+            {state.isLoading && <Loader />}
         </Wrapper>
     );
 };

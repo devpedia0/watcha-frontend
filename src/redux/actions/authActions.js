@@ -1,28 +1,31 @@
-import { AUTH_LOGIN, AUTH_SIGNUP, AUTH_LOGOUT } from "../types";
-// import api from "../../services/api";
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_INIT } from "../types";
+import history from "../../history";
+import api from "../../services/api";
+import AuthService from "../../services/auth.service";
 
-const signin = () => async (dispatch) => {
+const initUser = (id) => async (dispatch) => {
     try {
-        // const res = await api.post("/auth/signin", {
-        //     email: "gkb10a@gmail.com",
-        //     password: "1234",
-        // });
-
+        const res = await api.get(`/users/${id}`);
         dispatch({
-            type: AUTH_LOGIN,
-            payload: "",
+            type: AUTH_INIT,
+            payload: res.data,
         });
+    } catch (e) {}
+};
+
+const login = (inputs) => async (dispatch) => {
+    try {
+        const { email, password } = inputs;
+        const res = await AuthService.login(email, password);
+        const id = res.headers.id;
+
+        dispatch(initUser(id));
+        history.push("/");
     } catch (e) {
         console.log(e.response);
     }
     return {
         type: AUTH_LOGIN,
-    };
-};
-
-const signup = () => {
-    return {
-        type: AUTH_SIGNUP,
     };
 };
 
@@ -33,8 +36,8 @@ const logout = () => {
 };
 
 const authActions = {
-    signin,
-    signup,
+    initUser,
+    login,
     logout,
 };
 

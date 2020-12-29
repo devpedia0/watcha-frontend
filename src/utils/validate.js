@@ -38,6 +38,14 @@ export const validate = (name, value) => {
 
         case "":
             return checkEmail(value) && "이메일 형식에 맞게 작성해주세요.";
+        case "name":
+            return value.length <= 1 && "이름을 입력해주세요";
+
+        case "password":
+            return value.length <= 3 && "비밀번호를 3자리 이상 입력해주세요";
+        case "email":
+            let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+            return !regExp.test(value) && "이메일 양식에 맞게 작성해주세요.";
 
         case "bookRate":
         case "page":
@@ -97,4 +105,6 @@ const errorMessageObj = {
     countryCode: "국가코드",
     originTitle: "원제목",
     bookRate: "예매율",
+    email: "이메일",
+    password: "비밀번호",
 };

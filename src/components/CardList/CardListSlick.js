@@ -8,7 +8,7 @@ const CardListSlick = ({
     count,
     sizeHeader,
     horizon,
-    collectionId,
+    userId,
     addComponent: AddComponent,
     children,
 }) => {
@@ -52,16 +52,22 @@ const CardListSlick = ({
     return (
         <Wrapper>
             <Header size={sizeHeader}>
-                {collectionId ? (
-                    <div className="titleBlockImg">
-                        <img src={posterUrl} alt="" />
-                        <div className="infoWrapper">
-                            <p>{title}</p>
-                            <div className="titleBlock">
-                                <div className="title">{description}</div>
-                                <div className="titleRight">{AddComponent}</div>
+                {userId ? (
+                    <div className="title-block">
+                        <a
+                            className="user-info"
+                            href={`/myPage/${userId}`}
+                            alt=""
+                        >
+                            <img className="user-img" src={posterUrl} alt="" />
+                            <div className="infoWrapper">
+                                <p>{title}</p>
+                                <div className="titleBlock">
+                                    <div className="title">{description}</div>
+                                </div>
                             </div>
-                        </div>
+                        </a>
+                        <div className="titleRight">{AddComponent}</div>
                     </div>
                 ) : (
                     <div className="titleBlock">
@@ -120,7 +126,12 @@ const Header = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
 
-    .titleBlockImg {
+    .title-block {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .user-info {
         display: flex;
     }
 
@@ -140,7 +151,7 @@ const Header = styled.div`
         }
     }
 
-    img {
+    .user-img {
         width: 33px;
         height: 33px;
         border-radius: 50%;

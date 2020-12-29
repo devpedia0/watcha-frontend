@@ -1,31 +1,114 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import api from "../../services/api";
+import history from "../../history";
+import { Icon } from "../../styles";
 
-const CardComment = ({ className }) => {
+const images = [
+    "https://images.watcha.net/user/768238/small/9681b5d769447364bd9cbe78d225acbdc38116dc.jpg",
+    "https://images.watcha.net/user/1262803/small/3b36ee1183a7870b4b77db7512d5b86e1f146b5f.jpg",
+    "https://images.watcha.net/user/400256/small/53f9a1ac521723eccdc06b80fe364b41d5c482b9.jpg",
+    "https://images.watcha.net/user/145298/small/c7284d4b70f01cfed809ab77694f2499cf46eec5.jpg",
+    "https://images.watcha.net/user/130008/small/213298ad9b141f27931d087f70a7c2a97b9d12df.png",
+    "https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_100,w_100/v1583633236/kw9yp7rnvqjni4vf3lsr.jpg",
+    "https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_100,w_100/v1530721104/ppvhnli1tpbuuursaxm6.jpg",
+];
+
+const Interest = ({ interestState, score }) => {
+    switch (interestState) {
+        case "WISH":
+            return (
+                <>
+                    <Icon type="bookmarkGray" w="16px" h="16px" />
+                    보고싶어요
+                </>
+            );
+        default:
+            return "★ " + (score || "3.0");
+    }
+};
+
+const CardComment = ({ className, item, onClick }) => {
+    const {
+        userId,
+        userName,
+        description,
+        isSpoiler,
+        replyCount,
+        likeCount,
+        interestState,
+        score,
+        isLiked,
+    } = item;
+
+    const pathname = history.location.pathname;
+    const pageId = pathname.split("/")[2];
+    const [like, setLike] = useState(false);
+    const [showDescription, setDescription] = useState(true);
+    useEffect(() => {
+        setDescription(!isSpoiler);
+    }, [isSpoiler]);
+
+    useEffect(() => {
+        setLike(isLiked);
+    }, [isLiked]);
+
+    const handleClickLike = async () => {
+        const baseUrl = `/contents/${pageId}/comments/${userId}/likes`;
+        try {
+            if (like) {
+                await api.delete(baseUrl);
+                setLike(false);
+            } else {
+                await api.post(baseUrl);
+                setLike(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
-        <Wrapper className={className}>
+        <Wrapper className={className} onClick={onClick}>
             <div className="card-block">
                 <Header>
                     <div className="title">
                         <img
                             alt=""
-                            src="https://images.watcha.net/user/768238/small/9681b5d769447364bd9cbe78d225acbdc38116dc.jpg"
+                            src={
+                                images[
+                                    Math.floor(Math.random(1) * images.length)
+                                ]
+                            }
                         />
-                        <h2>이동진 평론가</h2>
+                        <h2>{userName}</h2>
                     </div>
-                    <div className="score">★ 3.0</div>
+                    <div className="score">
+                        <Interest interestState={interestState} score={score} />
+                    </div>
                 </Header>
                 <Content className="content">
-                    한정적으로 설정한 뒤 구석구석 찔러가며 깔끔하게 득점한다.
+                    {showDescription
+                        ? description
+                        : "스포일러가 있어요!!"(
+                              <span onClick={() => setDescription(true)}>
+                                  보기
+                              </span>
+                          )}
                 </Content>
                 <Like>
                     <span className="icon-like" />
-                    <em>191</em>
+                    <em>{likeCount}</em>
                     <span className="icon-comment" />
-                    <em>3</em>
+                    <em>{replyCount}</em>
                 </Like>
                 <Footer>
-                    <button>좋아요</button>
+                    <button
+                        className={like ? "on" : ""}
+                        onClick={handleClickLike}
+                    >
+                        좋아요
+                    </button>
                 </Footer>
             </div>
         </Wrapper>
@@ -119,6 +202,11 @@ const Content = styled.div`
     opacity: 1;
     transition: opacity 400ms ease 0s;
     line-height: 1.5;
+
+    span {
+        color: #ff0558;
+        font-weight: 500;
+    }
 `;
 
 const Like = styled.div`
@@ -185,5 +273,11 @@ const Footer = styled.div`
         line-height: 22px;
         padding: 2px 8px;
         cursor: poiner;
+    }
+
+    button.on {
+        background: rgb(255, 47, 110);
+        color: rgb(255, 255, 255);
+        border-radius: 3px;
     }
 `;

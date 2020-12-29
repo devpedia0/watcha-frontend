@@ -10,7 +10,13 @@ export { default as CardComment } from "./Card/CardComment";
 // CardList
 export { default as CardList } from "./CardList/CardList";
 export { default as CardListForm } from "./CardList/CardListForm";
+export { default as CardListInfinite } from "./CardList/CardListInfinite";
 export { default as CardListSlick } from "./CardList/CardListSlick";
+// Charts
+export { default as BarChart } from "./Chart/BarChart";
+// Common
+export { default as Svg } from "./Common/Svg";
+
 // Footer
 export { default as Footer } from "./Footer/Footer";
 // Form
@@ -33,7 +39,7 @@ export { default as Loader } from "./Loader/Loader";
 export { default as Modal } from "./Modal/Modal";
 export { default as ModalParticipant } from "./Modal/ModalParticipant";
 export { default as ModalTag } from "./Modal/ModalTag";
-export { default as ModalBookmark } from "./Modal/ModalBookmark";
+export { default as ModalWrapper } from "./Modal/ModalWrapper";
 // Setting
 export { default as Setting } from "./Setting/Setting";
 // Stars

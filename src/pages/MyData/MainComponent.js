@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
-import { Loader } from "../../components";
+import { Loader } from "../../styles";
 import api from "../../services/api";
 import TestSection from "./TestSection";
 

@@ -1,118 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import history from "../../history";
-
-import Login from "../../pages/LoginSignUp/Login";
-import SignUp from "../../pages/LoginSignUp/SignUp";
-
-import AuthService from "../../services/auth.service";
+import ModalSignup from "../Modal/ModalSignup";
+import ModalLogin from "../Modal/ModalLogin";
 import Search from "./Search/Search";
 
 export default function Header({ className }) {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-
-    // const [countryCode, setCountryCode] = useState("KR");
-    const [countryCode] = useState("KR");
-
-    const [loginVisible, setLoginVisible] = useState(true);
-    const [signUpVisible, setSignUpVisible] = useState(true);
-
-    const onChangeEmailLogin = (e) => {
-        let email = e.target.value;
-        let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-        if (regExp.test(email) === false) {
-            setEmailError("정확하지 않은 이메일 입니다.");
-        } else {
-            setEmailError(null);
-        }
-
-        setEmail(email);
-    };
-
-    const onChangeEmailSignUp = (e) => {
-        let email = e.target.value;
-        let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-        if (regExp.test(email) === false) {
-            setEmailError("정확하지 않은 이메일 입니다.");
-        } else {
-            setEmailError(null);
-        }
-
-        AuthService.checkEmail(email).then((response) => {
-            if (response.data.exist === true) {
-                setEmailError("이미 가입된 이메일입니다.");
-            } else {
-                setEmailError(null);
-            }
-        });
-
-        setEmail(email);
-    };
-
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        if (password.length < 4) {
-            setPasswordError("정확하지 않은 비밀번호 입니다.");
-        } else if (password.length > 3) {
-            setPasswordError(null);
-        }
-        setPassword(password);
-    };
-
-    const onChangeName = (e) => {
-        const name = e.target.value;
-        setName(name);
-    };
-
-    const handleLogin = (e) => {
-        e.preventDefault();
-
-        if (email.includes("@") && password.length > 3) {
-            AuthService.login(email, password).then(
-                (response) => {
-                    console.log("loginResponse", response);
-                    history.push("/");
-                    setLoginVisible({ loginVisible: !loginVisible });
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        }
-    };
-
-    const handleSignUp = (e) => {
-        e.preventDefault();
-
-        if (
-            (countryCode.length === 2,
-            email.includes("@") && password.length > 3,
-            name.length > 1)
-        ) {
-            AuthService.register(countryCode, name, email, password).then(
-                (response) => {
-                    console.log("registerResponse", response);
-                    history.push("/user");
-                    setSignUpVisible({ signUpVisible: !signUpVisible });
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        }
-    };
-    const loginModal = () => {
-        setLoginVisible({ loginVisible: !loginVisible });
-    };
-
-    const signUpModal = () => {
-        setSignUpVisible({ signUpVisible: !signUpVisible });
-    };
+    const [openModal, setOpenModal] = useState("");
 
     return (
         <Wrapper className={className}>
@@ -173,7 +67,7 @@ export default function Header({ className }) {
                         <LiButton>
                             <button
                                 className="signin"
-                                onClick={() => setLoginVisible(!loginModal)}
+                                onClick={() => setOpenModal("login")}
                             >
                                 로그인
                             </button>
@@ -182,9 +76,7 @@ export default function Header({ className }) {
                             <div>
                                 <button
                                     className="signup"
-                                    onClick={() =>
-                                        setSignUpVisible(!signUpModal)
-                                    }
+                                    onClick={() => setOpenModal("signup")}
                                 >
                                     회원가입
                                 </button>
@@ -193,33 +85,12 @@ export default function Header({ className }) {
                     </>
                 )}
             </Nav>
-            <>
-                <Login
-                    loginModal={loginModal}
-                    switchModal={loginVisible}
-                    handleLogin={handleLogin}
-                    onChangeEmail={onChangeEmailLogin}
-                    onChangePassword={onChangePassword}
-                    email={email}
-                    password={password}
-                    emailError={emailError}
-                    passwordError={passwordError}
-                />
-                <SignUp
-                    signUpModal={signUpModal}
-                    switchModal={signUpVisible}
-                    handleSignUp={handleSignUp}
-                    onChangeName={onChangeName}
-                    onChangeEmail={onChangeEmailSignUp}
-                    onChangePassword={onChangePassword}
-                    name={name}
-                    email={email}
-                    emailError={emailError}
-                    password={password}
-                    passwordError={passwordError}
-                />
-                {/* <MyPage name={name} /> */}
-            </>
+            {openModal === "signup" && (
+                <ModalSignup setOpenModal={setOpenModal} />
+            )}
+            {openModal === "login" && (
+                <ModalLogin setOpenModal={setOpenModal} />
+            )}
         </Wrapper>
     );
 }

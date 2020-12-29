@@ -1,7 +1,5 @@
-import "./App.css";
 import history from "./history";
 import React from "react";
-import "./App.css";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 import Layout from "./layouts/Layout";
@@ -9,23 +7,23 @@ import LayoutDetail from "./layouts/LayoutDetail";
 import LayoutForm from "./layouts/LayoutForm";
 // pages
 import Main from "./pages/Main/Main";
-import Contents from './pages/Contents/Contents'
+import Contents from "./pages/Contents/Contents";
 import Team from "./pages/Team/Team";
 import MyPage from "./pages/MyPage/MyPage";
-import PageBoard from './pages/Form/PageBoard';
-import PageMovie from './pages/Form/PageMovie';
-import PageTV from './pages/Form/PageTV';
-import PageBook from './pages/Form/PageBook';
-import PageTag from './pages/Form/PageTag';
-import PageParticipant from './pages/Form/PageParticipant';
-import PageCollection from './pages/Form/PageCollection';
-import MyMovie from './pages/MyData/MyMovie';
-import MyTv from './pages/MyData/MyTv';
-import MyBook from './pages/MyData/MyBook';
-import ContentsInfo from './pages/Contents/ContentsInfo';
-import ContentsComment from './pages/Contents/ContentsComment';
-import Decks from './pages/Decks/Decks';
-import Watcha from './pages/Watcha/Watcha';
+import PageBoard from "./pages/Form/PageBoard";
+import PageMovie from "./pages/Form/PageMovie";
+import PageTV from "./pages/Form/PageTV";
+import PageBook from "./pages/Form/PageBook";
+import PageTag from "./pages/Form/PageTag";
+import PageParticipant from "./pages/Form/PageParticipant";
+import PageCollection from "./pages/Form/PageCollection";
+import MyMovie from "./pages/MyData/MyMovie";
+import MyTv from "./pages/MyData/MyTv";
+import MyBook from "./pages/MyData/MyBook";
+import ContentsInfo from "./pages/Contents/ContentsInfo";
+import Comment from "./pages/Comments/Comment";
+import Decks from "./pages/Decks/Decks";
+import Watcha from "./pages/Watcha/Watcha";
 import RatedMovie from "./pages/MyData/RatedMovie";
 // import Search from "./pages/Search/Search";
 
@@ -46,11 +44,12 @@ function App() {
                     <Layout path="/" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
-                    <Layout path="/contents" exact component={Contents} />
+                    <Layout path="/contents/:id" exact component={Contents} />
+                    <Layout path="/contents/:id/comments" exact component={Comment} />
+                    <Layout path="/contents/:id/comments/:userId" exact component={Comment} />
                     <Layout path="/decks/:id" component={Decks} />
-                    <LayoutDetail path="/watcha/:id" component={Watcha}/>
-                    <LayoutDetail path="/contents/overview" exact component={ContentsInfo}/>
-                    <LayoutDetail path="/contents/comment" exact component={ContentsComment}/>
+                    <LayoutDetail path="/watcha/:id" component={Watcha} />
+                    <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />
 
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />

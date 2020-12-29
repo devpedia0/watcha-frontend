@@ -2,49 +2,24 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import history from "../../history";
 
-import DecksRecommend from "./DecksRecommend/DecksRecommend";
 import api from "../../services/api";
-
-const dummy = {
-    id: "few",
-    posterImagePath:
-        "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1466068952/oykv1z4xwesjvkvmpwya.jpg",
-    isNetflixContent: true,
-    isWatchaContent: true,
-    mainTitle: "title",
-    score: 3.2,
-};
-const dataDummy = {
-    user: {
-        name: "강탑구",
-        img:
-            "https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1466068952/oykv1z4xwesjvkvmpwya.jpg",
-    },
-    title: "짜릿한 병맛을 원하는 그대에게",
-    likes: 1950,
-    comments: 13,
-    contents: "요즘 대세는 병맛? 막나가는, 브레이크 없는 병맛의 질주",
-    posters: [...new Array(12)].map((item) => dummy),
-};
+import { CardListInfinite } from "../../components";
 
 const Decks = () => {
-    const [state, setState] = useState({
-        posters: [],
-    });
+    const [data, setData] = useState({});
     const pathname = history.location.pathname;
     const pageId = pathname.split("/")[2];
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await api.get(`/public/awards/${pageId}?size=12`);
-            //setState(res.data);
-            console.log(res.data);
+            const res = await api.get(`/public/collections/${pageId}?size=12`);
+            setData(res.data);
         };
         fetchData();
-
-        setState(dataDummy);
     }, [pageId]);
-    console.log(state);
+
+    if (Object.keys(data).length === 0) return null;
+
     return (
         <Wrapper>
             <div className="deck-container">
@@ -54,8 +29,9 @@ const Decks = () => {
                             <li key={idx}>
                                 <img
                                     src={
-                                        state.posters[idx]
-                                            ? state.posters[idx].posterImagePath
+                                        data.list[idx]
+                                            ? data.list[idx].posterImagePath +
+                                              "?w=280&h=400"
                                             : ""
                                     }
                                     alt=""
@@ -64,19 +40,25 @@ const Decks = () => {
                         ))}
                     </ul>
                     <div className="deck-header-user">
-                        <img src={state.user?.img} alt="" />
-                        <span>{state.user?.name}</span>
+                        <img
+                            src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1466068952/oykv1z4xwesjvkvmpwya.jpg"
+                            alt=""
+                        />
+                        <span>{data.userName}</span>
                     </div>
                 </DeckHeader>
                 <DeckContent>
-                    <h1>{state.title}</h1>
+                    <h1>{data.title}</h1>
                     <ul>
-                        <li>좋아요: {state.likes}</li>
-                        <li>| 댓글: {state.comments}</li>
+                        <li>좋아요: {data.likes || 1950}</li>
+                        <li>| 댓글: {data.comments || 13}</li>
                     </ul>
-                    <p>{state.contents}</p>
+                    <p>{data.description}</p>
                 </DeckContent>
-                <DecksRecommend posters={state.posters} />
+                <CardListInfinite
+                    posters={data.list}
+                    fetchUrl={`/public/collections/${pageId}/contents`}
+                />
             </div>
         </Wrapper>
     );
