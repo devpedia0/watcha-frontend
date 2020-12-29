@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { useDispatch } from "react-redux";
-import { contentActions } from "../../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { contentActions, modalActions } from "../../../../redux/actions";
 
 import { ModalWrapper, Svg } from "../../../../components";
 import { Icon } from "../../../../styles";
 
 const ModalComment = ({ title, onCloseModal }) => {
     const dispatch = useDispatch();
+    const {
+        userData: { commentDescription },
+    } = useSelector((state) => state.content);
     const [input, setInput] = useState("");
+
+    useEffect(() => {
+        setInput(commentDescription || "");
+    }, [commentDescription]);
 
     const handleClickSubmit = async () => {
         if (!input) return;
-        dispatch(contentActions.comment(input));
+        dispatch(contentActions.createComment(input));
+        dispatch(modalActions.closeModal());
     };
 
     return (
@@ -28,7 +36,7 @@ const ModalComment = ({ title, onCloseModal }) => {
                 />
                 <h3>{title}</h3>
                 <span className={input ? "on" : ""} onClick={handleClickSubmit}>
-                    코멘트작성
+                    {commentDescription ? "코멘트수정" : "코멘트작성"}
                 </span>
             </Header>
             <SectionSNS>

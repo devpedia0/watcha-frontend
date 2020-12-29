@@ -23,9 +23,13 @@ import { contentActions, modalActions } from "../../redux/actions";
 
 const Contents = () => {
     const dispatch = useDispatch();
-    const { data, isFetching } = useSelector((state) => state.content);
-    const modal = useSelector((state) => state.modal);
+    const {
+        data,
+        userData: { interestState, score },
+        isFetching,
+    } = useSelector((state) => state.content);
 
+    const modal = useSelector((state) => state.modal);
     useEffect(() => {
         dispatch(contentActions.fetch());
 
@@ -47,7 +51,9 @@ const Contents = () => {
             </div>
             <Content>
                 <div className="content-left">
-                    <ContentsWrite onChangeModal={handleChangeModal} />
+                    {(!!interestState || !!score) && (
+                        <ContentsWrite onChangeModal={handleChangeModal} />
+                    )}
                     <div className="content-left-section">
                         <ContentsInfo />
                         <ContentsPeople />

@@ -1,5 +1,7 @@
 import axios from "axios";
 import history from "../history";
+import { modalActions } from "../redux/actions";
+import store from "../redux/store";
 
 const token = JSON.parse(localStorage.getItem("accessToken"));
 const _refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
@@ -28,8 +30,7 @@ api.interceptors.response.use(
             // 리프레시 토큰 오류
             const requestUrl = error.response.config.url;
             if (requestUrl === "/auth/token") {
-                alert("다시 로그인해주세요.");
-                return history.push("/");
+                return store.dispatch(modalActions.setModal("login"));
             }
 
             // 엑세스 토큰 재발급
@@ -45,8 +46,7 @@ api.interceptors.response.use(
                 })
                 // 리프레시 토큰 오류
                 .catch((err) => {
-                    alert("다시 로그인해 주세요.");
-                    return history.push("/");
+                    return store.dispatch(modalActions.setModal("login"));
                 });
         }
 

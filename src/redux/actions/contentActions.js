@@ -3,16 +3,16 @@ import {
     CONTENT_INITIALIZE,
     CONTENT_INTEREST_STATE,
     CONTENT_COMMENT,
+    CONTENT_COMMENT_DELETE,
+    CONTENT_COMMENT_EDIT,
     CONTENT_STAR,
     CONTENT_STAR_DELETE,
 } from "../types";
 import api from "../../services/api";
-import history from "../../history";
 import { getPageId } from "../../utils/helperFunc";
 
 const fetch = () => async (dispatch) => {
     try {
-        console.log(history);
         const res = await api.get(`/contents/${getPageId()}`);
 
         dispatch({
@@ -42,7 +42,7 @@ const changeInterestState = (state) => async (dispatch) => {
     }
 };
 
-const comment = (description) => async (dispatch) => {
+const createComment = (description) => async (dispatch) => {
     try {
         await api.post(`/contents/${getPageId()}/comments`, {
             description,
@@ -51,6 +51,31 @@ const comment = (description) => async (dispatch) => {
         dispatch({
             type: CONTENT_COMMENT,
             payload: description,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const editComment = (description) => async (dispatch) => {
+    try {
+        await api.put(`/contents/${getPageId()}/comments`, {
+            description,
+        });
+        dispatch({
+            type: CONTENT_COMMENT_EDIT,
+            payload: description,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const deleteComment = () => async (dispatch) => {
+    try {
+        await api.delete(`/contents/${getPageId()}/comments`);
+        dispatch({
+            type: CONTENT_COMMENT_DELETE,
         });
     } catch (err) {
         console.log(err);
@@ -84,7 +109,9 @@ const contentActions = {
     fetch,
     initialize,
     changeInterestState,
-    comment,
+    createComment,
+    editComment,
+    deleteComment,
     setStar,
     deleteStar,
 };

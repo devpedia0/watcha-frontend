@@ -3,6 +3,8 @@ import {
     CONTENT_INITIALIZE,
     CONTENT_INTEREST_STATE,
     CONTENT_COMMENT,
+    CONTENT_COMMENT_DELETE,
+    CONTENT_COMMENT_EDIT,
     CONTENT_STAR,
     CONTENT_STAR_DELETE,
 } from "../types";
@@ -50,6 +52,22 @@ const contentReducers = (state = INITIAL_STATE, action = {}) => {
                 userData: {
                     ...state.userData,
                     commentDescription: action.payload,
+                },
+            };
+        case CONTENT_COMMENT_EDIT:
+            return {
+                ...state,
+                userData: {
+                    ...state.userData,
+                    commentDescription: action.payload,
+                },
+            };
+        case CONTENT_COMMENT_DELETE:
+            return {
+                ...state,
+                userData: {
+                    ...state.userData,
+                    commentDescription: "",
                 },
             };
         case CONTENT_STAR:

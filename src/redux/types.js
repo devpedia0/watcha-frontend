@@ -19,5 +19,7 @@ export const CONTENT_INIT = "content/CONTENT_INIT";
 export const CONTENT_INITIALIZE = "content/CONTENT_INITIALIZE";
 export const CONTENT_INTEREST_STATE = "content/CONTENT_INTEREST_STATE";
 export const CONTENT_COMMENT = "content/CONTENT_COMMENT";
+export const CONTENT_COMMENT_EDIT = "content/CONTENT_COMMENT_EDIT";
+export const CONTENT_COMMENT_DELETE = "content/CONTENT_COMMENT_DELETE";
 export const CONTENT_STAR = "content/CONTENT_STAR";
 export const CONTENT_STAR_DELETE = "content/CONTENT_STAR_DELETE";
