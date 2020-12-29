@@ -14,7 +14,7 @@ const initialValue = {
     countryCode: "KR",
 };
 
-export default function ModalSignup({ setOpenModal }) {
+export default function ModalSignup({ onChangeModal }) {
     const [lanVisible, setLanVisible] = useState(true);
     const { inputs, errors, setErrors, onChange } = useInputs(initialValue);
 
@@ -50,7 +50,7 @@ export default function ModalSignup({ setOpenModal }) {
                 (response) => {
                     console.log("registerResponse", response);
                     history.push("/user");
-                    setOpenModal("");
+                    onChangeModal("");
                 },
                 (error) => {
                     console.log(error);
@@ -62,7 +62,7 @@ export default function ModalSignup({ setOpenModal }) {
     return (
         <BackScreen>
             <Modal>
-                <Background onClick={() => setOpenModal("")} />
+                <Background onClick={() => onChangeModal("")} />
                 <SignUpForm>
                     <SignUpFormInner>
                         <Header>
@@ -197,7 +197,7 @@ export default function ModalSignup({ setOpenModal }) {
                             </Form>
                             <AlReady>
                                 이미 가입하셨나요?
-                                <Btn onClick={() => setOpenModal("login")}>
+                                <Btn onClick={() => onChangeModal("login")}>
                                     로그인
                                 </Btn>
                             </AlReady>

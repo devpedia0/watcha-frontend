@@ -11,3 +11,6 @@ export const FORM_INIT = "form/FORM_INIT";
 export const FORM_CHANGE = "form/FORM_CHANGE";
 export const FORM_SUBMIT = "form/FORM_SUBMIT";
 export const FORM_INITIALIZE = "form/FORM_INITIALIZE";
+
+export const MODAL_CHANGE = "form/MODAL_CHANGE";
+export const MODAL_CLOSE = "form/MODAL_CLOSE";

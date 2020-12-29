@@ -11,7 +11,7 @@ const initialValue = {
     password: "",
 };
 
-const Login = ({ setOpenModal }) => {
+const Login = ({ onChangeModal }) => {
     const dispatch = useDispatch();
     const { inputs, errors, onChange } = useInputs(initialValue);
 
@@ -21,13 +21,13 @@ const Login = ({ setOpenModal }) => {
         if (errors["email"] || errors["password"]) return;
 
         dispatch(authActions.login(inputs));
-        setOpenModal("");
+        onChangeModal("");
     };
 
     return (
         <BackScreen>
             <Modal>
-                <Background onClick={() => setOpenModal("")} />
+                <Background onClick={() => onChangeModal("")} />
                 <LoginForm>
                     <LoginFormInner>
                         <Header>
@@ -122,7 +122,7 @@ const Login = ({ setOpenModal }) => {
                                         계정이 없으신가요?
                                         <Btn
                                             onClick={() =>
-                                                setOpenModal("signup")
+                                                onChangeModal("signup")
                                             }
                                         >
                                             회원가입
