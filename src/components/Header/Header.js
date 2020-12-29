@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import ModalSignup from "../Modal/ModalSignup";
-import ModalLogin from "../Modal/ModalLogin";
+import ModalSignup from "./ModalSignup/ModalSignup";
+import ModalLogin from "./ModalLogin/ModalLogin";
 import Search from "./Search/Search";
 import { useSelector, useDispatch } from "react-redux";
 import modalActions from "../../redux/actions/modalActions";
@@ -11,7 +11,6 @@ export default function Header({ className }) {
     const dispatch = useDispatch();
     const modal = useSelector((state) => state.modal);
 
-    // const [openModal, setOpenModal] = useState("");
     const handleChangeModal = (modal) => {
         dispatch(modalActions.setModal(modal));
     };

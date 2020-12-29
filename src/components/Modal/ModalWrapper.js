@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const ModalWrapper = ({ width, onClickClose, children }) => {
+const ModalWrapper = ({ width, onCloseModal, children }) => {
     return (
-        <Wraper onClick={onClickClose}>
+        <Wraper onClick={onCloseModal}>
             <InnerWrapper width={width} onClick={(e) => e.stopPropagation()}>
                 {children}
             </InnerWrapper>

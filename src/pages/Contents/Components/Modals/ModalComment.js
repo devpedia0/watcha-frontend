@@ -1,34 +1,30 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import api from "../../../../services/api";
+
+import { useDispatch } from "react-redux";
+import { contentActions } from "../../../../redux/actions";
 
 import { ModalWrapper, Svg } from "../../../../components";
 import { Icon } from "../../../../styles";
 
-const ModalComment = ({ title, pageId, onClickClose }) => {
+const ModalComment = ({ title, onCloseModal }) => {
+    const dispatch = useDispatch();
     const [input, setInput] = useState("");
 
     const handleClickSubmit = async () => {
         if (!input) return;
-        try {
-            await api.post(`/contents/${pageId}/comments`, {
-                description: input,
-            });
-            setInput("");
-            onClickClose();
-        } catch (err) {
-            console.log(err);
-        }
+        dispatch(contentActions.comment(input));
     };
+
     return (
-        <ModalWrapper width="640px" onClickClose={onClickClose}>
+        <ModalWrapper width="640px" onCloseModal={onCloseModal}>
             <Header>
                 <Icon
                     type="close"
                     w="24px"
                     h="24px"
                     margin="auto 0"
-                    onClick={onClickClose}
+                    onClick={onCloseModal}
                 />
                 <h3>{title}</h3>
                 <span className={input ? "on" : ""} onClick={handleClickSubmit}>

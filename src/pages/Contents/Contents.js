@@ -1,91 +1,88 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import history from "../../history";
-import api from "../../services/api";
-import ContentsHeader from "./ContentsHeader/ContentsHeader";
-import ContentSectionLeft from "./ContentsSection/ContentSectionLeft";
-import ContentsSectionRight from "./ContentsSection/ContentsSectionRight";
-import ContentSectionCollection from "./ContentsSection/ContentSectionCollection";
 
-import { CardListInfinite } from "../../components";
+import {
+    ContentsHeader,
+    ContentsHeaderInfo,
+    ContentsWrite,
+    ContentsInfo,
+    ModalNeedLogin,
+    ModalInterest,
+    ModalComment,
+    ContentsPeople,
+    ContentsGraph,
+    ContentsComments,
+    ContentCollection,
+    ContentsSidebar,
+    ContentsPoster,
+} from "./Components";
 import { Loader } from "../../styles";
-//import { ContentsHeader222, ContentsInfo } from "./Components";
+
+import { useSelector, useDispatch } from "react-redux";
+import { contentActions, modalActions } from "../../redux/actions";
 
 const Contents = () => {
-    const pathname = history.location.pathname;
-    const pageId = pathname.split("/")[2];
-    // const [modal, setModal] = useState("");
-    const [state, setState] = useState({
-        isFetching: true,
-        data: {},
-    });
+    const dispatch = useDispatch();
+    const { data, isFetching } = useSelector((state) => state.content);
+    const modal = useSelector((state) => state.modal);
 
     useEffect(() => {
-        api.get(`/contents/${pageId}`)
-            .then((res) => {
-                setState({
-                    data: res.data,
-                    isFetching: false,
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }, [pageId]);
+        dispatch(contentActions.fetch());
 
-    // const handleModalOpen = (type) => setModal(type);
-    // const handleModalClose = () => setModal(false);
-    // const handleChangeStars = async (newScore) => {
-    //     if (!state.data.context) {
-    //         return setModal("needLogin");
-    //     }
+        return () => dispatch(contentActions.initialize());
+    }, [dispatch]);
 
-    //     try {
-    //         if (newScore === state.data.context.interestState) {
-    //             await api.delete(`/contents/${pageId}/scores`);
-    //             setState((state) => ({
-    //                 ...state,
-    //                 context: {
-    //                     ...state.context,
-    //                     score: 0,
-    //                 },
-    //             }));
-    //         } else {
-    //             api.post(`/contents/${pageId}/scores`, { score: newScore });
-    //             setState((state) => ({
-    //                 ...state,
-    //                 context: {
-    //                     ...state.context,
-    //                     score: newScore,
-    //                 },
-    //             }));
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
+    const handleCloseModal = () => dispatch(modalActions.closeModal());
+    const handleChangeModal = (newModal) => {
+        dispatch(modalActions.setModal(newModal));
+    };
 
-    if (state.isFetching) return <Loader height="800px" />;
-    console.log(state.data);
+    if (isFetching) return <Loader height="800px" />;
+
     return (
         <Wrapper>
-            {/* <div className="content-header">
-                <ContentsHeader222 data={state.data} />
-                <ContentsInfo data={state.data} onOpenModal={handleModalOpen} />
-            </div> */}
-            <ContentsHeader data={state.data} pageId={pageId} />
+            <div className="content-header">
+                <ContentsHeader />
+                <ContentsHeaderInfo />
+            </div>
             <Content>
-                <ContentSectionLeft data={state.data} pageId={pageId} />
-                <ContentsSectionRight data={state.data} />
+                <div className="content-left">
+                    <ContentsWrite onChangeModal={handleChangeModal} />
+                    <div className="content-left-section">
+                        <ContentsInfo />
+                        <ContentsPeople />
+                        <ContentsGraph />
+                        <ContentsComments />
+                    </div>
+                </div>
+
+                <ContentsSidebar />
 
                 <div className="bottom">
-                    <ContentSectionCollection data={state.data} />
-                    <CardListInfinite
-                        posters={state.data.similar}
-                        fetchUrl={`/contents/${pageId}/similar`}
-                    />
+                    <ContentCollection />
+                    <ContentsPoster />
                 </div>
             </Content>
+
+            {modal === "interest" && (
+                <ModalInterest
+                    onCloseModal={handleCloseModal}
+                    onChangeModal={handleChangeModal}
+                />
+            )}
+            {(modal === "needLoginScore" || modal === "needLoginInterest") && (
+                <ModalNeedLogin
+                    onCloseModal={handleCloseModal}
+                    onChangeModal={handleChangeModal}
+                />
+            )}
+
+            {modal === "comment" && (
+                <ModalComment
+                    title={data.contentInfo.mainTitle}
+                    onCloseModal={handleCloseModal}
+                />
+            )}
         </Wrapper>
     );
 };
@@ -99,6 +96,53 @@ const Wrapper = styled.div`
         background: #fff;
         @media only screen and (min-width: 719px) {
             border-bottom: 1px solid #e3e3e3;
+        }
+    }
+
+    .content-left {
+        @media only screen and (min-width: 719px) {
+            float: left;
+            width: 100%;
+            margin: 0;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            float: left;
+            width: 640px;
+        }
+    }
+
+    .content-right {
+        padding: 0 20px;
+        background: #fff;
+        border-color: #e3e3e3 !important;
+        overflow: hidden;
+
+        @media only screen and (min-width: 719px) {
+            float: left;
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            float: right;
+            width: 320px;
+            border: 1px solid;
+            border-radius: 6px;
+        }
+    }
+
+    .content-left-section {
+        padding: 0 20px;
+        background: #fff;
+        border-color: #e3e3e3 !important;
+        overflow: hidden;
+
+        @media only screen and (min-width: 1023px) {
+            border-right: 1px solid;
+            border-left: 1px solid;
+            border-top: 1px solid;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
         }
     }
 `;

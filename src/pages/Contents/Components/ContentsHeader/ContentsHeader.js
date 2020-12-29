@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-const ContentsHeader = ({ data }) => {
+const ContentsHeader = () => {
     const {
-        contentInfo: { posterImagePath, rank },
-        galleries,
-    } = data;
+        data: {
+            contentInfo: { posterImagePath, rank },
+            galleries,
+        },
+    } = useSelector((state) => state.content);
 
     return (
         <Wrapper>

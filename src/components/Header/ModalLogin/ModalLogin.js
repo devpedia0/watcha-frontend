@@ -1,224 +1,149 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import history from "../../history";
-import useInputs from "../../Hooks/useInputs";
-import AuthService from "../../services/auth.service";
-import SelectForm from "../../pages/LoginSignUp/Languages/SelectForm";
-
-import ReactFacebookLogin from "../../services/ReactFacebookLogin";
+import useInputs from "../../../Hooks/useInputs";
+import { useDispatch } from "react-redux";
+import authActions from "../../../redux/actions/authActions";
+import ReactFacebookLogin from "../../../services/ReactFacebookLogin";
 
 const initialValue = {
     name: "",
     email: "",
     password: "",
-    countryCode: "KR",
 };
 
-export default function ModalSignup({ onChangeModal }) {
-    const [lanVisible, setLanVisible] = useState(true);
-    const { inputs, errors, setErrors, onChange } = useInputs(initialValue);
+const Login = ({ onChangeModal }) => {
+    const dispatch = useDispatch();
+    const { inputs, errors, onChange } = useInputs(initialValue);
 
-    const languageModal = () => {
-        setLanVisible({ lanVisible: !lanVisible });
-    };
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (name === "email" && !errors["email"]) {
-            AuthService.checkEmail(value).then((response) => {
-                if (response.data.exist === true) {
-                    setErrors({ email: "이미 가입된 이메일입니다." });
-                }
-            });
-        }
-        onChange(e);
-    };
-
-    const handleClickSumit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (
-            (inputs.countryCode.length === 2,
-            inputs.email.includes("@") && inputs.password.length > 3,
-            inputs.name.length > 1)
-        ) {
-            AuthService.register(
-                inputs.countryCode,
-                inputs.name,
-                inputs.email,
-                inputs.password
-            ).then(
-                (response) => {
-                    console.log("registerResponse", response);
-                    history.push("/user");
-                    onChangeModal("");
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        }
+        if (errors["email"] || errors["password"]) return;
+
+        dispatch(authActions.login(inputs));
+        onChangeModal("");
     };
 
     return (
         <BackScreen>
             <Modal>
                 <Background onClick={() => onChangeModal("")} />
-                <SignUpForm>
-                    <SignUpFormInner>
+                <LoginForm>
+                    <LoginFormInner>
                         <Header>
                             <Logo />
                         </Header>
-                        <H2>회원가입</H2>
+                        <H2>로그인</H2>
+                        <div>
+                            <div>
+                                <Content>
+                                    <form onSubmit={handleSubmit}>
+                                        <Area>
+                                            <IdPw
+                                                className={
+                                                    errors["email"]
+                                                        ? "labelWrong"
+                                                        : "label"
+                                                }
+                                            >
+                                                <input
+                                                    type="text"
+                                                    name="email"
+                                                    value={inputs.email}
+                                                    onChange={onChange}
+                                                    label="이메일"
+                                                    placeholder="이메일"
+                                                    autoComplete="off"
+                                                    className={
+                                                        inputs.email
+                                                            ? "check"
+                                                            : "none"
+                                                    }
+                                                />
+                                                <div className="delBtn">
+                                                    <span className="delIcon" />
+                                                </div>
 
-                        <Content>
-                            <Form>
-                                <div className="area">
-                                    <NameIdPw
-                                        className={
-                                            errors["name"]
-                                                ? "labelWrong"
-                                                : "label"
-                                        }
-                                    >
-                                        <input
-                                            onChange={handleChange}
-                                            value={inputs.name}
-                                            name="name"
-                                            label="이름"
-                                            placeholder="이름"
-                                            autoComplete="off"
-                                            type="text"
-                                            className={
-                                                inputs.name ? "check" : "none"
+                                                <div className="checkIcon" />
+                                            </IdPw>
+                                            <div
+                                                style={{
+                                                    color: "red",
+                                                    fontSize: 12,
+                                                }}
+                                            >
+                                                {errors["email"]}
+                                            </div>
+                                        </Area>
+                                        <Area>
+                                            <IdPw
+                                                className={
+                                                    errors["password"]
+                                                        ? "labelWrong"
+                                                        : "label"
+                                                }
+                                            >
+                                                <input
+                                                    value={inputs.password}
+                                                    onChange={onChange}
+                                                    name="password"
+                                                    label="비밀번호"
+                                                    placeholder="비밀번호"
+                                                    autoComplete="off"
+                                                    type="password"
+                                                    className={
+                                                        inputs.password
+                                                            ? "check"
+                                                            : "none"
+                                                    }
+                                                />
+
+                                                <div className="checkIcon" />
+                                            </IdPw>
+                                            <div
+                                                style={{
+                                                    color: "red",
+                                                    fontSize: 12,
+                                                }}
+                                            >
+                                                {errors["password"]}
+                                            </div>
+                                        </Area>
+                                        <LoginBtn onClick={handleSubmit}>
+                                            로그인
+                                        </LoginBtn>
+                                    </form>
+
+                                    <Find>
+                                        <Btn>비밀번호를 잊어버리셨나요?</Btn>
+                                    </Find>
+
+                                    <Register>
+                                        계정이 없으신가요?
+                                        <Btn
+                                            onClick={() =>
+                                                onChangeModal("signup")
                                             }
-                                        />
+                                        >
+                                            회원가입
+                                        </Btn>
+                                    </Register>
+                                    <Hr />
 
-                                        <div className="checkIcon" />
-                                    </NameIdPw>
-                                </div>
-                                <div className="area">
-                                    <NameIdPw
-                                        className={
-                                            errors["email"]
-                                                ? "labelWrong"
-                                                : "label"
-                                        }
-                                    >
-                                        <input
-                                            value={inputs.email}
-                                            onChange={handleChange}
-                                            name="email"
-                                            label="이메일"
-                                            placeholder="이메일"
-                                            autoComplete="off"
-                                            type="email"
-                                            className={
-                                                inputs.email ? "check" : "none"
-                                            }
-                                        />
-
-                                        <div className="checkIcon" />
-                                    </NameIdPw>
-                                    <div
-                                        style={{
-                                            color: "red",
-                                            fontSize: 12,
-                                        }}
-                                    >
-                                        {errors["email"]}
-                                    </div>
-                                </div>
-                                <div className="area">
-                                    <NameIdPw
-                                        className={
-                                            errors["password"]
-                                                ? "labelWrong"
-                                                : "label"
-                                        }
-                                    >
-                                        <input
-                                            value={inputs.password}
-                                            onChange={handleChange}
-                                            name="password"
-                                            label="비밀번호"
-                                            placeholder="비밀번호"
-                                            autoComplete="off"
-                                            type="password"
-                                            className={
-                                                inputs.password
-                                                    ? "check"
-                                                    : "none"
-                                            }
-                                        />
-
-                                        <div className="checkIcon" />
-                                    </NameIdPw>
-                                    <div
-                                        style={{
-                                            color: "red",
-                                            fontSize: 12,
-                                        }}
-                                    >
-                                        {errors["password"]}
-                                    </div>
-                                </div>
-
-                                <Language
-                                    type="button"
-                                    onClick={() => setLanVisible(!lanVisible)}
-                                >
-                                    <CountryIcon />
-                                    한국어 (대한민국)
-                                    <LanguageCode
-                                        id="sign_up_languageCode"
-                                        name="languageCode"
-                                        type="hidden"
-                                        label=""
-                                        placeholder=""
-                                        value="ko"
-                                    />
-                                    <CountryCode
-                                        id="sign_up_countryCode"
-                                        name="countryCode"
-                                        type="hidden"
-                                        label=""
-                                        placeholder=""
-                                        value="KR"
-                                    />
-                                    <ArrowIcon />
-                                </Language>
-
-                                <SignUpBtn
-                                    type="button"
-                                    onClick={handleClickSumit}
-                                >
-                                    회원가입
-                                </SignUpBtn>
-                            </Form>
-                            <AlReady>
-                                이미 가입하셨나요?
-                                <Btn onClick={() => onChangeModal("login")}>
-                                    로그인
-                                </Btn>
-                            </AlReady>
-                            <Hr />
-                            <Facebook>
-                                <ReactFacebookLogin />
-                            </Facebook>
-                        </Content>
-                    </SignUpFormInner>
-                </SignUpForm>
-
-                {!lanVisible && (
-                    <SelectForm
-                        languageModal={languageModal}
-                        switchModal={lanVisible}
-                    />
-                )}
+                                    <Facebook>
+                                        <ReactFacebookLogin />
+                                    </Facebook>
+                                </Content>
+                            </div>
+                        </div>
+                    </LoginFormInner>
+                </LoginForm>
             </Modal>
         </BackScreen>
     );
-}
+};
+
+export default Login;
 
 const BackScreen = styled.div`
     display: block;
@@ -230,7 +155,7 @@ const BackScreen = styled.div`
     z-index: 50;
     background: rgba(0, 0, 0, 0.56);
     overflow: hidden scroll;
-    &.hideSignUp {
+    &.hideLogin {
         display: none;
     }
 `;
@@ -276,7 +201,7 @@ const Background = styled.div`
     }
 `;
 
-const SignUpForm = styled.div`
+const LoginForm = styled.div`
     display: relative;
     background: rgb(255, 255, 255);
     width: 100%;
@@ -297,7 +222,7 @@ const SignUpForm = styled.div`
     }
 `;
 
-const SignUpFormInner = styled.div`
+const LoginFormInner = styled.div`
     padding: 32px 0px 48px;
 `;
 
@@ -321,21 +246,18 @@ const H2 = styled.h2`
     line-height: 22px;
     font-weight: 700;
     text-align: center;
-    margin: 24px 0px 20px;
+    margin: 24px 0px 24px;
 `;
 
 const Content = styled.div`
     margin: 0px 20px;
 `;
 
-const Form = styled.form`
-    .area {
-        padding: 4px 0px;
-        overflow: hidden;
-    }
+const Area = styled.div`
+    padding: 4px 0px;
 `;
 
-const NameIdPw = styled.label`
+const IdPw = styled.label`
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -346,6 +268,7 @@ const NameIdPw = styled.label`
     background: rgb(245, 245, 245);
     cursor: default;
     flex: 1 1 0%;
+    width: 335px;
     input {
         text-align: left;
         background: transparent;
@@ -442,54 +365,23 @@ const NameIdPw = styled.label`
             }
         }
     }
+    &.delBtn {
+        display: inline-flex;
+        align-items: center;
+        width: 24px;
+        height: 100%;
+        &.delIcon {
+            display: inline-block;
+            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjIwOCAxMS40TDkuMzggOC41N2wtLjgwOS44MDkgMi44MjkgMi44MjgtMi44MjkgMi44MjguODA5LjgwOSAyLjgyOC0yLjgyOSAyLjgyOCAyLjgyOS44MDktLjgwOS0yLjgyOS0yLjgyOCAyLjgyOS0yLjgyOC0uODA5LS44MDktMi44MjggMi44Mjl6TTEyIDIwYTggOCAwIDEgMSAwLTE2IDggOCAwIDAgMSAwIDE2eiIvPgo8L3N2Zz4K")
+                center center / cover no-repeat;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+    }
 `;
 
-const Language = styled.button`
-    background: none;
-    padding: 0px;
-    border: none;
-    margin: 0px;
-    display: flex;
-    align-items: center;
-    color: rgb(74, 74, 74);
-    font-size: 15px;
-    font-weight: 400;
-    letter-spacing: -0.5px;
-    line-height: 20px;
-    text-decoration: underline;
-    cursor: pointer;
-`;
-
-const CountryIcon = styled.span`
-    display: inline-block;
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGQ9Ik0xOC4xOTIgMTIuNDc3Yy0uMTA0IDMuNzY5LTEuNDU4IDcuMi0zLjU2MiA5LjE4OEExMC4wMTcgMTAuMDE3IDAgMCAwIDIyIDEyLjQ3N2gtMy44MDh6bS01LjcxNSAwVjIyaC4wNDVjMi41NTctMS4yOTUgNC41OC01LjExNiA0LjcxNi05LjUyM2gtNC43NjF6bS01LjcxNiAwYy4xMzcgNC40MDcgMi4xNiA4LjIyOCA0LjcxNyA5LjUyM2guMDQ1di05LjUyM0g2Ljc2MXptLTQuNzYxIDBhMTAuMDE3IDEwLjAxNyAwIDAgMCA3LjM3IDkuMTg4Yy0yLjEwNC0xLjk4OC0zLjQ1OC01LjQyLTMuNTYyLTkuMTg4SDJ6TTE0LjYzIDIuMzM2YzIuMTAyIDEuOTg4IDMuNDU2IDUuNDIyIDMuNTYyIDkuMTg3SDIyYTEwLjAxNyAxMC4wMTcgMCAwIDAtNy4zNy05LjE4N3ptLTUuMjYgMEExMC4wMTcgMTAuMDE3IDAgMCAwIDIgMTEuNTIzaDMuODA4Yy4xMDYtMy43NjUgMS40Ni03LjE5OSAzLjU2Mi05LjE4N3pNMTIuNDc3IDJ2OS41MjNoNC43NjFDMTcuMSA3LjExNCAxNS4wNzQgMy4yOTEgMTIuNTE0IDJoLS4wMzd6bS0uOTkxIDBDOC45MjYgMy4yOSA2LjkgNy4xMTQgNi43NiAxMS41MjNoNC43NjJWMmgtLjAzN3oiLz4KICAgIDwvZz4KPC9zdmc+Cg==")
-        center center / contain no-repeat;
-    width: 24px;
-    height: 24px;
-    margin: 0px 12px 0px 0px;
-`;
-
-const LanguageCode = styled.input`
-    font-size: 100%;
-    line-height: normal;
-    overflow: visible;
-`;
-const CountryCode = styled.input`
-    font-size: 100%;
-    line-height: normal;
-    overflow: visible;
-`;
-
-const ArrowIcon = styled.span`
-    display: inline-block;
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiNBMEEwQTAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjY2MyAxNS44N2wtNS40OTQtNWEuNS41IDAgMCAxIC4zMzctLjg3aDEwLjk4OGEuNS41IDAgMCAxIC4zMzcuODdsLTUuNDk0IDVhLjUuNSAwIDAgMS0uNjc0IDB6Ii8+Cjwvc3ZnPgo=")
-        center center / contain no-repeat;
-    width: 24px;
-    height: 24px;
-    margin: 0px 0px 0px 6px;
-`;
-
-const SignUpBtn = styled.button`
+const LoginBtn = styled.button`
     padding: 0px;
     border: none;
     cursor: pointer;
@@ -503,14 +395,13 @@ const SignUpBtn = styled.button`
     font-size: 100%;
 `;
 
-const AlReady = styled.div`
+const Find = styled.div`
     font-size: 15px;
     font-weight: 400;
     letter-spacing: -0.5px;
     line-height: 20px;
     text-align: center;
-    color: rgb(140, 140, 140);
-    margin: 20px 0px 0px;
+    margin: 20px 0px 14px;
 `;
 
 const Btn = styled.button`
@@ -521,7 +412,15 @@ const Btn = styled.button`
     cursor: pointer;
     color: rgb(255, 47, 110);
     font-size: 100%;
-    line-height: normal;
+`;
+
+const Register = styled.div`
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    line-height: 20px;
+    color: rgb(140, 140, 140);
+    text-align: center;
 `;
 
 const Hr = styled.hr`
