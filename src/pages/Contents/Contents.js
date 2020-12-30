@@ -40,7 +40,7 @@ const Contents = () => {
     const handleChangeModal = (newModal) => {
         dispatch(modalActions.setModal(newModal));
     };
-
+    console.log(data);
     if (isFetching) return <Loader height="800px" />;
 
     return (

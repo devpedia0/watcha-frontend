@@ -25,9 +25,8 @@ import Comment from "./pages/Comments/Comment";
 import Decks from "./pages/Decks/Decks";
 import Watcha from "./pages/Watcha/Watcha";
 import RatedMovie from "./pages/MyData/RatedMovie";
-
+import Book from './pages/Book/Book';
 import Searches from "./pages/Searches/Searches";
-
 import Wish from "./pages/WishPage/Wish";
 
 // import DetailInfo from "./pages/Detail/DetailInfo";
@@ -57,8 +56,10 @@ function App() {
                     <Layout path="/contents/:id/comments/:userId" exact component={Comment} />
                     <Layout path="/decks/:id" component={Decks} />
                     <Layout path="/people/:id" component={People} />
+                    <Layout path="/people/:id" component={People} />
                     <LayoutDetail path="/watcha/:id" component={Watcha} />
                     <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />
+                    <LayoutDetail path="/contents/:id/book/:contentId" exact component={Book} />
 
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
