@@ -26,12 +26,8 @@ ol, ul, li {
   list-style: none;
 }
 
-a,
-a:visited {
-  color: black; 
-  text-decoration: none; 
-  outline: none;
-}
+
+
 
 .ReactModal__Body--open {
   overflow-y: hidden;
@@ -46,8 +42,10 @@ a:visited {
 button:focus {outline:0;}
 input:focus{outline: 0;}
 textarea:focus{outline: 0;}
-a:hover { text-decoration: none; color: inherit;}
-
-`;
-
+a, a:hover, a:active { text-decoration: none; color: inherit; }
+a:visited {
+  text-decoration: none; 
+  outline: none;
+}
+`
 export default GlobalStyle;

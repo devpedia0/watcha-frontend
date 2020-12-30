@@ -7,34 +7,6 @@ import { contentActions } from "../../redux/actions";
 import { Loader } from "../../styles";
 import { changeDataFormat } from "../../utils/helperFunc";
 
-const dataDummy = [
-    {
-        title: "원제",
-        content: "Harry Potter and the Chamber of Secrets",
-    },
-    {
-        title: "제작 연도",
-        content: "2002",
-    },
-    {
-        title: "국가",
-        content: "영국,미국,독일",
-    },
-    {
-        title: "장르",
-        content: "모험/가족/판타지/미스터리",
-    },
-    {
-        title: "상영시간",
-        content: "2시간 42분",
-    },
-    {
-        title: "내용",
-        content:
-            "해리 포터에겐 이번 여름방학이 별로 즐겁질 못했다. 마법이라면 질색을 하는 페투니아 이모와 버논 이모부의 구박도 그렇지만, 무엇보다 속상한 건 단짝이었던 론 위즐리와 헤르미온느 그레인저가 그 사이 자신을 까맣게 잊었는지 자신의 편지에 답장 한 통 없다는 것. 그러던 어느날 꼬마 집요정 도비가 해리의 침실에 나타나 뜻밖의 얘기를 한다. 호그와트 마법학교로 돌아가면 무서운 일을 당할 거라는 것. 도비는 해리를 학교에 못 가게 하려고 자신이 여태까지 론과 헤르미온느의 답장을 가로채 왔음을 고백한다. 그러나 도비와 더즐리 가족의 방해에도 불구, 해리는 론과 그의 형제들이 타고 온 하늘을 나는 자동차를 타고 이모집을 탈출, 따뜻한 가족애가 넘치는 론 위즐리의 집으로 간다.",
-    },
-];
-
 const ContentsInfo = () => {
     const dispatch = useDispatch();
     const {

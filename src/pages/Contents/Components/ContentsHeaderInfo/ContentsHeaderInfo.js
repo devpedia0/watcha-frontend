@@ -8,7 +8,14 @@ const ContentsInfo = () => {
     const dispatch = useDispatch();
     const {
         data: {
-            contentInfo: { mainTitle, productionDate, category, countryCode },
+            contentInfo: {
+                mainTitle,
+                subTitle,
+                productionDate,
+                category,
+                countryCode,
+                page,
+            },
             scores: { average, totalCount },
         },
         userData: { interestState, isLogin },
@@ -28,9 +35,12 @@ const ContentsInfo = () => {
         <Wrapper>
             <div className="infoList">
                 <div className="title">{mainTitle}</div>
-                <div className="detail">{`${
-                    productionDate ? productionDate.split("-")[0] : ""
-                } ・ ${category} ・ ${countryCode}`}</div>
+                <div className="detail">
+                    {productionDate ? productionDate.split("-")[0] : ""}
+                    {category ? " ・ " + category : ""}
+                    {countryCode ? " ・ " + countryCode : ""}
+                    {page ? " ・ " + page + "p" : ""}
+                </div>
                 <div className="rating">
                     평균 ★{average.toFixed(1)} ({totalCount} 명)
                 </div>

@@ -32,17 +32,20 @@ const People = () => {
     return (
         <Wrapper>
             <div className="people-header">
-                <BoxImg
-                    width="84px"
-                    height="84px"
-                    mr="15px"
-                    radius="6px"
-                    src={info.profileImagePath + "?w=100&h=100"}
-                />
-                <div className="people-info">
-                    <h2>{info.name}</h2>
-                    <p>{info.job}</p>
+                <div className="people-block">
+                    <BoxImg
+                        width="84px"
+                        height="84px"
+                        mr="15px"
+                        radius="6px"
+                        src={info.profileImagePath + "?w=100&h=100"}
+                    />
+                    <div className="people-info">
+                        <h2>{info.name}</h2>
+                        <p>{info.job}</p>
+                    </div>
                 </div>
+                <div className="people-description">{info.description}</div>
             </div>
             <CardList>
                 {data.map((item, idx) => (
@@ -67,12 +70,14 @@ const Wrapper = styled.div`
     }
 
     .people-header {
+        border-bottom: 1px solid ${(props) => props.theme.line};
+        padding-bottom: 20px;
+    }
+
+    .people-block {
         display: flex;
         align-items: center;
         margin: 22px 0 0px;
-        padding-bottom: 20px;
-
-        border-bottom: 1px solid ${(props) => props.theme.line};
     }
 
     .people-info {
@@ -89,6 +94,13 @@ const Wrapper = styled.div`
             line-height: 18px;
             margin-top: 2px;
         }
+    }
+
+    .people-description {
+        margin-top: 16px;
+        color: rgb(120, 120, 120);
+        font-weight: 400;
+        white-space: normal;
     }
 `;
 
