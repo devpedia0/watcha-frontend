@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import ModalSignup from "../Modal/ModalSignup";
-import ModalLogin from "../Modal/ModalLogin";
+import ModalSignup from "./ModalSignup/ModalSignup";
+import ModalLogin from "./ModalLogin/ModalLogin";
 import Search from "./Search/Search";
+import { useSelector, useDispatch } from "react-redux";
+import modalActions from "../../redux/actions/modalActions";
 
 export default function Header({ className }) {
-    const [openModal, setOpenModal] = useState("");
+    const dispatch = useDispatch();
+    const modal = useSelector((state) => state.modal);
+
+    const handleChangeModal = (modal) => {
+        dispatch(modalActions.setModal(modal));
+    };
 
     return (
         <Wrapper className={className}>
@@ -67,7 +74,7 @@ export default function Header({ className }) {
                         <LiButton>
                             <button
                                 className="signin"
-                                onClick={() => setOpenModal("login")}
+                                onClick={() => handleChangeModal("login")}
                             >
                                 로그인
                             </button>
@@ -76,7 +83,7 @@ export default function Header({ className }) {
                             <div>
                                 <button
                                     className="signup"
-                                    onClick={() => setOpenModal("signup")}
+                                    onClick={() => handleChangeModal("signup")}
                                 >
                                     회원가입
                                 </button>
@@ -85,11 +92,11 @@ export default function Header({ className }) {
                     </>
                 )}
             </Nav>
-            {openModal === "signup" && (
-                <ModalSignup setOpenModal={setOpenModal} />
+            {modal === "signup" && (
+                <ModalSignup onChangeModal={handleChangeModal} />
             )}
-            {openModal === "login" && (
-                <ModalLogin setOpenModal={setOpenModal} />
+            {modal === "login" && (
+                <ModalLogin onChangeModal={handleChangeModal} />
             )}
         </Wrapper>
     );

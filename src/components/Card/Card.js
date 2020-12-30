@@ -17,11 +17,12 @@ const Card = ({
     analysis,
     searches,
     author,
+    onClick,
 }) => {
     const { name, role, characterName, profileImagePath } = item;
 
     return (
-        <Wrapper width={width}>
+        <Wrapper width={width} onClick={onClick}>
             <BoxImg
                 width="50px"
                 height="50px"
@@ -80,6 +81,7 @@ const Wrapper = styled.div`
     align-items: center;
     padding: 0 8px;
     width: ${(props) => (props.width ? props.width : "100%")};
+    cursor: pointer;
     .content {
         display: flex;
         justify-content: space-between;

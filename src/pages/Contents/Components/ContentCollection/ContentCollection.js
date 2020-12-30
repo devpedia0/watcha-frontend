@@ -1,18 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-import { CardListSlick, CardCollection } from "../../../components";
-import { Divider } from "../../../styles";
+import { useSelector } from "react-redux";
 
-const ContentSectionCollection = ({ data }) => {
-    const {
-        collections: { count, list },
-    } = data;
+import { CardListSlick, CardCollection } from "../../../../components";
+import { Divider } from "../../../../styles";
+import history from "../../../../history";
+
+const ContentCollection = () => {
+    const { data } = useSelector((state) => state.content);
+    const { count, list } = data.collections;
+
     return (
         <Wrapper>
             <CardListSlick title="이 작품이 담긴 컬렉션" count={count}>
                 {list.map((item, idx) => (
-                    <StyledCard key={idx} item={item} size="sm" />
+                    <StyledCard
+                        key={idx}
+                        item={item}
+                        size="sm"
+                        onClick={() => history.push(`/decks/${item.id}`)}
+                    />
                 ))}
             </CardListSlick>
             <Divider />
@@ -20,7 +28,7 @@ const ContentSectionCollection = ({ data }) => {
     );
 };
 
-export default React.memo(ContentSectionCollection);
+export default React.memo(ContentCollection);
 
 const Wrapper = styled.div``;
 

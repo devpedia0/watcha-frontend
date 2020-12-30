@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { CardList, CardListSlick } from "../../../components";
+import { useSelector } from "react-redux";
+import { CardList, CardListSlick } from "../../../../components";
 
 const images = {
     watcha: {
@@ -35,11 +36,13 @@ const CardWatchPlace = ({ data }) => {
     );
 };
 
-const ContentsSectionRight = ({ data }) => {
+const ContentsSidebar = () => {
     const {
-        contentInfo: { isNetflixContent, isWatchaContent },
-        galleries,
-    } = data;
+        data: {
+            contentInfo: { isNetflixContent, isWatchaContent },
+            galleries,
+        },
+    } = useSelector((state) => state.content);
 
     return (
         <>
@@ -88,7 +91,7 @@ const ContentsSectionRight = ({ data }) => {
     );
 };
 
-export default React.memo(ContentsSectionRight);
+export default React.memo(ContentsSidebar);
 
 const Wrapper = styled.div`
     padding: 0 20px;

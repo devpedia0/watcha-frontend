@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import history from "../../history";
-import api from "../../services/api";
+
+import { useDispatch, useSelector } from "react-redux";
+import { contentActions } from "../../redux/actions";
 
 const ratedTextMap = {
     0.0: "평가하기",
@@ -17,48 +18,38 @@ const ratedTextMap = {
     5.0: "최고에요!",
 };
 
-const Stars = ({ score }) => {
-    const pathname = history.location.pathname;
-    const pageId = pathname.split("/")[2];
-    const [fetchedRate, setFetchedRate] = useState(0);
-    const [rate, setRate] = useState(0);
+const Star = ({ isRated }) => {
+    return <span className={`${isRated ? "star_rated" : "star"}`}></span>;
+};
+
+const Stars = () => {
+    const dispatch = useDispatch();
+    const [mouseRate, setMouseRate] = useState(0);
+    const {
+        userData: { score },
+    } = useSelector((state) => state.content);
 
     useEffect(() => {
-        setFetchedRate(score);
-        setRate(score);
+        setMouseRate(score);
     }, [score]);
 
-    const Star = ({ isRated }) => {
-        return <span className={`${isRated ? "star_rated" : "star"}`}></span>;
-    };
-
     const handleMouseMove = (e) => {
-        setRate((Math.floor((e.nativeEvent.layerX / 40) * 2) + 1) / 2);
+        setMouseRate((Math.floor((e.nativeEvent.layerX / 40) * 2) + 1) / 2);
     };
 
     const handleMouseLeave = () => {
-        setRate(fetchedRate || 0);
+        setMouseRate(score || 0);
     };
 
     const handleClick = async () => {
-        try {
-            if (rate === fetchedRate) {
-                await api.delete(`/contents/${pageId}/scores`);
-                setFetchedRate(0);
-            } else {
-                api.post(`/contents/${pageId}/scores`, { score: rate });
-                setFetchedRate(rate);
-            }
-        } catch (e) {
-            console.log(e);
-        }
+        return mouseRate === score
+            ? dispatch(contentActions.deleteStar())
+            : dispatch(contentActions.setStar(mouseRate));
     };
 
     return (
-        <StarContainer rate={rate}>
-            <div className="text">
-                {ratedTextMap[fetchedRate] || "평가하기"}
-            </div>
+        <StarContainer rate={mouseRate}>
+            <div className="text">{ratedTextMap[score] || "평가하기"}</div>
 
             <div
                 className="star_block"

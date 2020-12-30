@@ -3,6 +3,7 @@ import styled from "styled-components";
 import api from "../../services/api";
 import history from "../../history";
 import { Icon } from "../../styles";
+import { getPageId } from "../../utils/helperFunc";
 
 const images = [
     "https://images.watcha.net/user/768238/small/9681b5d769447364bd9cbe78d225acbdc38116dc.jpg",
@@ -67,11 +68,11 @@ const CardComment = ({ className, item, onClick }) => {
             console.log(err);
         }
     };
-
+    console.log("zzzz", item);
     return (
         <Wrapper className={className} onClick={onClick}>
             <div className="card-block">
-                <Header>
+                <Header onClick={() => history.push(`/mypage/${item.userId}`)}>
                     <div className="title">
                         <img
                             alt=""
@@ -87,14 +88,30 @@ const CardComment = ({ className, item, onClick }) => {
                         <Interest interestState={interestState} score={score} />
                     </div>
                 </Header>
-                <Content className="content">
-                    {showDescription
-                        ? description
-                        : "스포일러가 있어요!!"(
-                              <span onClick={() => setDescription(true)}>
-                                  보기
-                              </span>
-                          )}
+                <Content
+                    className="content"
+                    onClick={() =>
+                        history.push(
+                            `/contents/${getPageId()}/comments/${item.userId}`
+                        )
+                    }
+                >
+                    {showDescription ? (
+                        <a
+                            href={`/contents/${getPageId()}/comments/${
+                                item.userId
+                            }`}
+                            alt=""
+                        >
+                            {description}
+                        </a>
+                    ) : (
+                        "스포일러가 있어요!!"(
+                            <span onClick={() => setDescription(true)}>
+                                보기
+                            </span>
+                        )
+                    )}
                 </Content>
                 <Like>
                     <span className="icon-like" />
@@ -136,6 +153,7 @@ const Header = styled.div`
     display: flex;
     border-bottom: 1px solid #e5e5e5;
     overflow: hidden;
+    cursor: pointer;
 
     .title {
         flex: 1;
@@ -198,11 +216,14 @@ const Content = styled.div`
     position: relative;
     height: 120px;
     margin: 12px 0 15px;
-    white-space: pre-wrap;
-    opacity: 1;
-    transition: opacity 400ms ease 0s;
     line-height: 1.5;
+    overflow: hidden;
 
+    a {
+        white-space: pre-wrap;
+        opacity: 1;
+        transition: opacity 400ms ease 0s;
+    }
     span {
         color: #ff0558;
         font-weight: 500;

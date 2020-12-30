@@ -28,7 +28,9 @@ ol, ul, li {
 
 a,
 a:visited {
-  text-decoration: none;
+  color: black; 
+  text-decoration: none; 
+  outline: none;
 }
 
 .ReactModal__Body--open {

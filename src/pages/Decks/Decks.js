@@ -55,10 +55,12 @@ const Decks = () => {
                     </ul>
                     <p>{data.description}</p>
                 </DeckContent>
-                <CardListInfinite
-                    posters={data.list}
-                    fetchUrl={`/public/collections/${pageId}/contents`}
-                />
+                <DeckContent>
+                    <CardListInfinite
+                        posters={data.list}
+                        fetchUrl={`/public/collections/${pageId}/contents`}
+                    />
+                </DeckContent>
             </div>
         </Wrapper>
     );
