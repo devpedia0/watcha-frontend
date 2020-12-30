@@ -23,7 +23,7 @@ const MainSection = ({ data }) => {
                     <StyledCard
                         key={idx}
                         item={item}
-                        onClick={() => history.push("/contents")}
+                        onClick={() => history.push(`/contents/${item.id}`)}
                     />
                 ))}
             </CardListSlick>

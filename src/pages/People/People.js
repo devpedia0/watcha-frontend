@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { BoxImg, CardList, CardPoster } from "../../components";
+
+import { useDispatch, useSelector } from "react-redux";
+import { peopleActions } from "../../redux/actions";
+import useIntersection from "../../Hooks/useIntersection";
+import { BoxImg, CardList, CardPoster, Loader } from "../../components";
 
 const People = () => {
-    const list = [];
+    const dispatch = useDispatch();
+    const { info, data, initFetch, isFetching, fetchMore } = useSelector(
+        (state) => state.people
+    );
+
+    useEffect(() => {
+        dispatch(peopleActions.init());
+        return () => dispatch(peopleActions.initialize());
+    }, [dispatch]);
+
+    const loaderRef = useRef();
+    const [isIntersecting, setIntersecting] = useIntersection(
+        loaderRef,
+        initFetch
+    );
+    console.log(info);
+    console.log(data);
+    useEffect(() => {
+        if (isIntersecting && fetchMore) {
+            dispatch(peopleActions.fetchMore());
+        }
+    }, [isIntersecting, fetchMore, dispatch]);
     return (
         <Wrapper>
             <div className="people-header">
@@ -12,18 +37,21 @@ const People = () => {
                     height="84px"
                     mr="15px"
                     radius="6px"
-                    src="https://an2-img.amz.wtchn.net/image/v1/people/medium/97d6c1ebe08b45dc2c61.jpg?v=1606730243"
+                    src={info.profileImagePath + "?w=100&h=100"}
                 />
                 <div className="people-info">
-                    <h2>마이크 뉴웰</h2>
-                    <p>감독</p>
+                    <h2>{info.name}</h2>
+                    <p>{info.job}</p>
                 </div>
             </div>
             <CardList>
-                {list.map((item, idx) => (
+                {data.map((item, idx) => (
                     <StyledCard key={idx} item={item} />
                 ))}
             </CardList>
+            <StyledLoader ref={loaderRef}>
+                {isFetching && <Loader />}
+            </StyledLoader>
         </Wrapper>
     );
 };
@@ -68,7 +96,28 @@ const StyledCard = styled(CardPoster)`
     width: 33.3333333%;
     margin-bottom: 30px;
 
-    @media only screen and (min-width: 719px) {
+    @media only screen and (min-width: 520px) {
         width: 25%;
     }
+    @media only screen and (min-width: 680px) {
+        width: 16.666%;
+    }
+    @media only screen and (min-width: 840px) {
+        width: 16.666%;
+    }
+
+    @media only screen and (min-width: 960px) {
+        width: 14.285%;
+    }
+
+    @media only screen and (min-width: 1100px) {
+        width: 12.5%;
+    }
+    @media only screen and (min-width: 1200px) {
+        width: 11.111111%;
+    }
+`;
+
+const StyledLoader = styled.div`
+    height: 50px;
 `;

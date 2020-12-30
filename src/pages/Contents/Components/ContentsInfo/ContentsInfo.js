@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CardList } from "../../../../components";
 import { useSelector } from "react-redux";
 import { Divider } from "../../../../styles";
+import { changeDataFormat, getPageId } from "../../../../utils/helperFunc";
 
 const ContentsInfo = () => {
     const {
@@ -21,7 +22,11 @@ const ContentsInfo = () => {
         <>
             <CardList
                 title="기본정보"
-                addComponent={<Link href="/contents/overview">더보기</Link>}
+                addComponent={
+                    <Link href={`/contents/${getPageId()}/overview`}>
+                        더보기
+                    </Link>
+                }
             >
                 <CardInfo>
                     <div className="summary">
@@ -33,9 +38,7 @@ const ContentsInfo = () => {
                         <br />
                         <span>
                             {runningTime
-                                ? `${parseInt(runningTime / 60)}시간 ${
-                                      runningTime % 60
-                                  }분`
+                                ? changeDataFormat("runningTime", runningTime)
                                 : ""}
                         </span>
                     </div>

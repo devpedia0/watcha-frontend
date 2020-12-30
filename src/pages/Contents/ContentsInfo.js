@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { HeaderDetail } from "../../components";
+
+import { useSelector, useDispatch } from "react-redux";
+import { contentActions } from "../../redux/actions";
+import { Loader } from "../../styles";
+import { changeDataFormat } from "../../utils/helperFunc";
 
 const dataDummy = [
     {
@@ -31,20 +36,45 @@ const dataDummy = [
 ];
 
 const ContentsInfo = () => {
+    const dispatch = useDispatch();
+    const {
+        data: { contentInfo },
+        isFetching,
+    } = useSelector((state) => state.content);
+
+    useEffect(() => {
+        dispatch(contentActions.fetch());
+
+        return () => dispatch(contentActions.initialize());
+    }, [dispatch]);
+
+    if (isFetching) return <Loader height="800px" />;
+
+    const contentList = {
+        originTitle: "원제",
+        productionDate: "제작 연도",
+        countryCode: "국가",
+        category: "장르",
+        runningTime: "상영시간",
+        description: "내용",
+    };
     return (
         <Wrapper>
             <HeaderDetail title="기본 정보" />
             <Content>
-                <ul>
-                    {dataDummy.map((item) => (
-                        <div className="content-list">
-                            <div className="content-title">{item.title}</div>
-                            <div className="content-content">
-                                {item.content}
+                {Object.keys(contentList).map(
+                    (key) =>
+                        contentInfo[key] && (
+                            <div key={key} className="content-list">
+                                <div className="content-title">
+                                    {contentList[key]}
+                                </div>
+                                <div className="content-content">
+                                    {changeDataFormat(key, contentInfo[key])}
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </ul>
+                        )
+                )}
             </Content>
         </Wrapper>
     );
@@ -55,15 +85,12 @@ export default ContentsInfo;
 const Wrapper = styled.div``;
 
 const Content = styled.div`
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 728px;
+    margin: 12px auto 0;
     padding-top: 88px;
-
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        max-width: 728px;
-        margin: 12px auto 0;
-    }
 
     .content-list {
         display: flex;

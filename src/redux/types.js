@@ -23,3 +23,13 @@ export const CONTENT_COMMENT_EDIT = "content/CONTENT_COMMENT_EDIT";
 export const CONTENT_COMMENT_DELETE = "content/CONTENT_COMMENT_DELETE";
 export const CONTENT_STAR = "content/CONTENT_STAR";
 export const CONTENT_STAR_DELETE = "content/CONTENT_STAR_DELETE";
+
+export const COMMENT_INIT = "comment/COMMENT_INIT";
+export const COMMENT_INITIALIZE = "comment/COMMENT_INITIALIZE";
+export const COMMENT_FETCH_DATA = "comment/COMMENT_FETCH_DATA";
+export const COMMENT_FETCHING = "comment/COMMENT_FETCHING";
+
+export const PEOPLE_INIT = "comment/PEOPLE_INIT";
+export const PEOPLE_INITIALIZE = "comment/PEOPLE_INITIALIZE";
+export const PEOPLE_FETCH_DATA = "comment/PEOPLE_FETCH_DATA";
+export const PEOPLE_FETCHING = "comment/PEOPLE_FETCHING";

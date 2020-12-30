@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
-function useIntersection(ref) {
+function useIntersection(ref, initFetch) {
     // State and setter for storing whether element is visible
     const [isIntersecting, setIntersecting] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                entry.intersectionRatio > 0
+                entry.intersectionRatio > 0 && initFetch
                     ? setIntersecting(true)
                     : setIntersecting(false);
             },
@@ -24,7 +24,7 @@ function useIntersection(ref) {
         return () => {
             observer.unobserve(elem);
         };
-    }, [ref]);
+    }, [ref, initFetch]);
 
     return [isIntersecting, setIntersecting];
 }
