@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import { CardListSlick, CardCollection } from "../../../../components";
 import { Divider } from "../../../../styles";
+import history from "../../../../history";
 
 const ContentCollection = () => {
     const { data } = useSelector((state) => state.content);
@@ -14,7 +15,12 @@ const ContentCollection = () => {
         <Wrapper>
             <CardListSlick title="이 작품이 담긴 컬렉션" count={count}>
                 {list.map((item, idx) => (
-                    <StyledCard key={idx} item={item} size="sm" />
+                    <StyledCard
+                        key={idx}
+                        item={item}
+                        size="sm"
+                        onClick={() => history.push(`/decks/${item.id}`)}
+                    />
                 ))}
             </CardListSlick>
             <Divider />

@@ -25,7 +25,7 @@ const Contents = () => {
     const dispatch = useDispatch();
     const {
         data,
-        userData: { interestState, score },
+        userData: { interestState, score, isLogin },
         isFetching,
     } = useSelector((state) => state.content);
 
@@ -51,7 +51,7 @@ const Contents = () => {
             </div>
             <Content>
                 <div className="content-left">
-                    {(!!interestState || !!score) && (
+                    {isLogin && (!!interestState || !!score) && (
                         <ContentsWrite onChangeModal={handleChangeModal} />
                     )}
                     <div className="content-left-section">

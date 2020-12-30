@@ -34,6 +34,7 @@ import Wish from "./pages/WishPage/Wish";
 // import DetailComment from "./pages/Detail/DetailComment";
 
 import Analysis from "./pages/MyData/Analysis";
+import People from "./pages/People/People";
 function App() {
     return (
         <div className="App">
@@ -55,13 +56,14 @@ function App() {
                     <Layout path="/contents/:id/comments" exact component={Comment} />
                     <Layout path="/contents/:id/comments/:userId" exact component={Comment} />
                     <Layout path="/decks/:id" component={Decks} />
+                    <Layout path="/people/:id" component={People} />
                     <LayoutDetail path="/watcha/:id" component={Watcha} />
                     <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />
 
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
-    <LayoutForm path="/admin/movies" exact component={PageBoard} />
+                    <LayoutForm path="/admin/movies" exact component={PageBoard} />
                     <LayoutForm path="/admin/movies/form" component={PageMovie} />
                     <LayoutForm path="/admin/participants" exact component={PageBoard} />
                     <LayoutForm path="/admin/participants/form" component={PageParticipant} />

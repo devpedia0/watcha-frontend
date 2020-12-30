@@ -22,17 +22,7 @@ const ContentsInfo = () => {
                 }
             >
                 {list.map((item, idx) => (
-                    <StyledCard
-                        key={idx}
-                        item={item}
-                        onClick={() =>
-                            history.push(
-                                `/contents/${getPageId()}/comments/${
-                                    item.userId
-                                }`
-                            )
-                        }
-                    />
+                    <StyledCard key={idx} item={item} />
                 ))}
             </CardListSlick>
             <Divider />

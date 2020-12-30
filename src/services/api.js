@@ -30,6 +30,7 @@ api.interceptors.response.use(
             // 리프레시 토큰 오류
             const requestUrl = error.response.config.url;
             if (requestUrl === "/auth/token") {
+                localStorage.clear();
                 return store.dispatch(modalActions.setModal("login"));
             }
 
