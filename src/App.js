@@ -69,7 +69,6 @@ function App() {
                     <LayoutForm path="/admin/participants" exact component={PageBoard} />
                     <LayoutForm path="/admin/participants/form" component={PageParticipant} />
                     <LayoutForm path="/admin/tags" exact component={PageBoard} />
-
                     <LayoutForm path="/admin/tags/form" component={PageTag} />
                     <LayoutForm path="/admin/tv_shows" exact component={PageBoard} />
                     <LayoutForm path="/admin/tv_shows/form" component={PageTV} />
