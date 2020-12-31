@@ -1,11 +1,12 @@
 import {
-    COMMENT_INIT,
-    COMMENT_INITIALIZE,
-    COMMENT_FETCH_DATA,
-    COMMENT_FETCHING,
+    DETAIL_INIT,
+    DETAIL_INITIALIZE,
+    DETAIL_FETCHING,
+    DETAIL_FETCH_DATA,
 } from "../types";
 
 const INITIAL_STATE = {
+    info: {},
     data: [],
     initFetch: false,
     isFetching: false,
@@ -14,25 +15,17 @@ const INITIAL_STATE = {
     size: 10,
 };
 
-const commentReducers = (state = INITIAL_STATE, action = {}) => {
+const detailReducers = (state = INITIAL_STATE, action = {}) => {
     switch (action.type) {
-        case COMMENT_INIT:
+        case DETAIL_INIT:
             return {
                 ...state,
                 ...action.payload,
                 page: state.page + 1,
                 initFetch: true,
             };
-        case COMMENT_INITIALIZE:
-            return INITIAL_STATE;
 
-        case COMMENT_FETCHING:
-            return {
-                ...state,
-                isFetching: true,
-            };
-
-        case COMMENT_FETCH_DATA:
+        case DETAIL_FETCH_DATA:
             return {
                 ...state,
                 data: [...state.data, ...action.payload],
@@ -40,9 +33,18 @@ const commentReducers = (state = INITIAL_STATE, action = {}) => {
                 isFetching: false,
                 fetchMore: action.payload.length < state.size ? false : true,
             };
+
+        case DETAIL_INITIALIZE:
+            return INITIAL_STATE;
+
+        case DETAIL_FETCHING:
+            return {
+                ...state,
+                isFetching: true,
+            };
         default:
             return state;
     }
 };
 
-export default commentReducers;
+export default detailReducers;

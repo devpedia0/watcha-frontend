@@ -5,8 +5,7 @@ import formReducers from "./formReducers";
 import boardReducers from "./boardReducers";
 import modalReducers from "./modalReducers";
 import contentReducers from "./contentReducers";
-import commentReducers from "./commentReducers";
-import peopleReducers from "./peopleReducers";
+import detailReducers from "./detailReducers";
 
 export default combineReducers({
     auth: authReducers,
@@ -14,6 +13,5 @@ export default combineReducers({
     board: boardReducers,
     modal: modalReducers,
     content: contentReducers,
-    comment: commentReducers,
-    people: peopleReducers,
+    detail: detailReducers,
 });

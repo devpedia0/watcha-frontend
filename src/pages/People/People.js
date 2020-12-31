@@ -2,31 +2,27 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
-import { peopleActions } from "../../redux/actions";
+import { detailActions } from "../../redux/actions";
 import useIntersection from "../../Hooks/useIntersection";
 import { BoxImg, CardList, CardPoster, Loader } from "../../components";
 
 const People = () => {
     const dispatch = useDispatch();
     const { info, data, initFetch, isFetching, fetchMore } = useSelector(
-        (state) => state.people
+        (state) => state.detail
     );
 
     useEffect(() => {
-        dispatch(peopleActions.init());
-        return () => dispatch(peopleActions.initialize());
+        dispatch(detailActions.initPeople());
+        return () => dispatch(detailActions.initialize());
     }, [dispatch]);
 
     const loaderRef = useRef();
-    const [isIntersecting, setIntersecting] = useIntersection(
-        loaderRef,
-        initFetch
-    );
-    console.log(info);
-    console.log(data);
+    const [isIntersecting] = useIntersection(loaderRef, initFetch);
+
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            dispatch(peopleActions.fetchMore());
+            dispatch(detailActions.fetchMorePeople());
         }
     }, [isIntersecting, fetchMore, dispatch]);
     return (

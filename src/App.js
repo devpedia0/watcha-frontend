@@ -56,10 +56,10 @@ function App() {
                     <Layout path="/contents/:id/comments/:userId" exact component={Comment} />
                     <Layout path="/decks/:id" component={Decks} />
                     <Layout path="/people/:id" component={People} />
-                    <Layout path="/people/:id" component={People} />
                     <LayoutDetail path="/watcha/:id" component={Watcha} />
                     <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />
                     <LayoutDetail path="/contents/:id/book/:contentId" exact component={Book} />
+
 
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
@@ -69,6 +69,7 @@ function App() {
                     <LayoutForm path="/admin/participants" exact component={PageBoard} />
                     <LayoutForm path="/admin/participants/form" component={PageParticipant} />
                     <LayoutForm path="/admin/tags" exact component={PageBoard} />
+
                     <LayoutForm path="/admin/tags/form" component={PageTag} />
                     <LayoutForm path="/admin/tv_shows" exact component={PageBoard} />
                     <LayoutForm path="/admin/tv_shows/form" component={PageTV} />

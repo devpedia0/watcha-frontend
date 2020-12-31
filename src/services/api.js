@@ -9,7 +9,7 @@ const _refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
 // => "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2Nzk1Iiwicm9sZXMiOlsiVVNFUiJdLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA3NzYwNDI1LCJpYXQiOjE2MDc3NTY4MjV9.jPx5bngGV7tMYSXTT9MwxLzo3KW2qvUZV_wqERwOw5s"
 
 const api = axios.create({
-    baseURL: "http://222.111.195.42:8080",
+    baseURL: "https://devpedia.site",
     headers: {
         // Authorization: `${token}`,
         "Access-Control-Allow-Origin": "*",
