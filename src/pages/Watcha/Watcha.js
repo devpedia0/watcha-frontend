@@ -1,58 +1,48 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import history from "../../history";
-import api from "../../services/api";
+
+import { useDispatch, useSelector } from "react-redux";
+import { detailActions } from "../../redux/actions";
 
 import useIntersection from "../../Hooks/useIntersection";
 import { CardList, HeaderDetail, CardPoster } from "../../components";
 import { Loader } from "../../styles";
 
 const Watcha = () => {
-    const pathname = history.location.pathname;
-    const pageId = pathname.split("/")[2];
+    const dispatch = useDispatch();
+    const { info, data, initFetch, isFetching, fetchMore } = useSelector(
+        (state) => state.detail
+    );
+
+    useEffect(() => {
+        dispatch(detailActions.initWatcha());
+        return () => dispatch(detailActions.initialize());
+    }, [dispatch]);
+
     const loaderRef = useRef();
-    const isIntersecting = useIntersection(loaderRef);
-    const [data, setData] = useState({
-        isFetching: true,
-        list: [],
-        page: 2,
-        size: 20,
-    });
+    const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
-        api.get(`/public/awards/${pageId}?size=20`).then((res) => {
-            setData((state) => ({
-                ...state,
-                ...res.data,
-            }));
-        });
-    }, [pageId]);
-
-    useEffect(() => {
-        if (!isIntersecting || data.page === 0) return;
-        setData((state) => ({ ...state, isFetching: true }));
-        api.get(
-            `/public/awards/${pageId}/contents?page=${data.page}&size=${data.size}`
-        ).then((res) => {
-            setData((state) => ({
-                ...state,
-                list: [...state.list, ...res.data],
-                isFetching: false,
-                page: res.data < state.size ? 0 : data.page + 1,
-            }));
-        });
-    }, [isIntersecting, pageId, data.page, data.size]);
+        if (isIntersecting && fetchMore) {
+            dispatch(detailActions.fetchMoreWatcha());
+        }
+    }, [isIntersecting, fetchMore, dispatch]);
 
     return (
         <Wrapper>
-            <HeaderDetail title={data.title} />
-            <CardList>
-                {data.list.map((item, idx) => (
-                    <StyledCard key={idx} item={item} />
-                ))}
-            </CardList>
+            <HeaderDetail title={info.title} />
+            {!initFetch ? (
+                <Loader height="800px" />
+            ) : (
+                <CardList>
+                    {data.map((item, idx) => (
+                        <StyledCard key={idx} item={item} />
+                    ))}
+                </CardList>
+            )}
+
             <StyledLoader ref={loaderRef}>
-                {data.isFetching && <Loader />}
+                {isFetching && <Loader />}
             </StyledLoader>
         </Wrapper>
     );

@@ -16,6 +16,7 @@ import {
     ContentsSidebar,
     ContentsPoster,
 } from "./Components";
+import { ScrollTop } from "../../components";
 import { Loader } from "../../styles";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -45,6 +46,7 @@ const Contents = () => {
 
     return (
         <Wrapper>
+            <ScrollTop />
             <div className="content-header">
                 <ContentsHeader />
                 <ContentsHeaderInfo />

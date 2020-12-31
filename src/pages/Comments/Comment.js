@@ -5,29 +5,26 @@ import { Loader } from "../../styles";
 import useIntersection from "../../Hooks/useIntersection";
 
 import { useDispatch, useSelector } from "react-redux";
-import { commentActions } from "../../redux/actions";
+import { detailActions } from "../../redux/actions";
 
 const ContentsComment = () => {
     const dispatch = useDispatch();
     const { data, initFetch, isFetching, fetchMore } = useSelector(
-        (state) => state.comment
+        (state) => state.detail
     );
 
     const loaderRef = useRef();
-    const [isIntersecting, setIntersecting] = useIntersection(
-        loaderRef,
-        initFetch
-    );
+    const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
-        dispatch(commentActions.init());
+        dispatch(detailActions.initComment());
 
-        return () => dispatch(commentActions.initialize());
-    }, [setIntersecting, dispatch]);
+        return () => dispatch(detailActions.initialize());
+    }, [dispatch]);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            dispatch(commentActions.fetchMore());
+            dispatch(detailActions.fetchMoreComment());
         }
     }, [isIntersecting, fetchMore, dispatch]);
 

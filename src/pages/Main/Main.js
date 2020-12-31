@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
+import { ScrollTop } from "../../components";
 import { Loader } from "../../styles";
 import api from "../../services/api";
 import MainSection from "./MainSection/MainSection";
@@ -96,7 +97,7 @@ const Main = () => {
 
     return (
         <Wrapper>
-            {/* <SignUp /> */}
+            <ScrollTop />
             <MainSectionRank data={state.box_office} />
             <MainSectionRank data={state.mars} />
             <MainSectionRank data={state.netflix} />

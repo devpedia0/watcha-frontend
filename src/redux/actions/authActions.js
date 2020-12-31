@@ -3,12 +3,12 @@ import history from "../../history";
 import api from "../../services/api";
 import AuthService from "../../services/auth.service";
 
-const initUser = (id) => async (dispatch) => {
+const initUser = (userId) => async (dispatch) => {
     try {
-        const res = await api.get(`/users/${id}`);
+        const res = await api.get(`/users/${userId}`);
         dispatch({
             type: AUTH_INIT,
-            payload: res.data,
+            payload: { ...res.data, userId },
         });
     } catch (e) {}
 };
