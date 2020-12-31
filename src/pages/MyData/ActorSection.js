@@ -29,5 +29,5 @@ const ActorSection = ({ data }) => {
 export default React.memo(ActorSection);
 
 const Wrapper = styled.div`
-    margin: 0 20px;
+    margin-left: 20px;
 `;

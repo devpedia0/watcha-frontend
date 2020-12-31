@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReactWordcloud from "react-wordcloud";
 import api from "../../../services/api";
+import dummy from "./dummyTag";
 
 const options = {
-    colors: ["#ff2f6e"],
-    enableTooltip: false,
+    // colors: ["#ff2f6e"],
     deterministic: true,
-    fontSizes: [17, 17],
+    fontSizes: [13, 17],
     fontStyle: "normal",
     fontWeight: "bold",
     padding: 10,
@@ -14,24 +14,23 @@ const options = {
     transitionDuration: 0,
 };
 
+const callback = {
+    getWordColor: (word) =>
+        word.value > 4 ? "rgb(255, 47, 110)" : "rgb(255, 47, 110, 0.5)",
+};
+
 export default function MyTag() {
-
-    const [tags, setTags] = useState({}); // api key 값 바꿔달라고 하기
-
+    const [tags, setTags] = useState([]);
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("id"));
         const getData = async () => {
             const response = await api.get(`/users/${id}/analysis`);
 
-
-            // console.log("useEffect", response);
             setTags(() => response.data.movie.tag);
-
         };
-        // console.log(tags);
         getData();
-    });
+    }, []);
 
     const newArray = tags.map((item) => {
         return { text: item.description, value: item.score };
@@ -39,7 +38,11 @@ export default function MyTag() {
 
     return (
         <div style={{ height: 300, width: 300 }}>
-            <ReactWordcloud options={options} words={newArray} />
+            <ReactWordcloud
+                options={options}
+                callbacks={callback}
+                words={newArray}
+            />
         </div>
     );
 }

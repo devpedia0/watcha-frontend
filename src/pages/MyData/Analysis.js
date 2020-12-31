@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import api from "../../services/api";
 import MyTag from "./Tag/MyTag";
-import Chart from "../MyData/Chart";
+import BarChart from "../../components/Chart/BarChart";
 import ActorSection from "./ActorSection";
 import DirectorSection from "./DirectorSection";
 import FavCountry from "./FavCountry";
@@ -129,11 +129,9 @@ function Analysis() {
                                             대중의 평가에 잘 휘둘리지 않는
                                             '지조파'
                                         </h3>
-                                        <div className="barContainer">
-                                            <div className="barBox">
-                                                <Chart />
-                                            </div>
-                                        </div>
+                                        <BarChart
+                                            data={userInfo.rating.distribution}
+                                        />
                                         <div className="starSumContainer">
                                             <Ul>
                                                 <li className="statList">
@@ -211,50 +209,56 @@ function Analysis() {
                                     </Margin>
                                 </div>
                             </section>
-                            <section className="favoriteBox">
-                                <div>
-                                    <ActorSection
-                                        data={
-                                            userInfo.movie
-                                                ? userInfo.movie.actor
-                                                : []
-                                        }
-                                    />
-                                </div>
-                            </section>
-                            <section className="favoriteBox">
-                                <div>
-                                    <DirectorSection
-                                        data={
-                                            userInfo.movie
-                                                ? userInfo.movie.director
-                                                : []
-                                        }
-                                    />
-                                </div>
-                            </section>
-                            <section className="favoriteBox">
-                                <div>
-                                    <FavCountry
-                                        data={
-                                            userInfo.movie
-                                                ? userInfo.movie.country
-                                                : []
-                                        }
-                                    />
-                                </div>
-                            </section>
-                            <section className="favoriteBox">
-                                <div>
-                                    <FavGenre
-                                        data={
-                                            userInfo.movie
-                                                ? userInfo.movie.category
-                                                : []
-                                        }
-                                    />
-                                </div>
-                            </section>
+                            {/* <section className="favoriteBox">
+                                <div> */}
+                            {userInfo.movie.actor.length >= 1 ? (
+                                <ActorSection
+                                    data={
+                                        userInfo.movie
+                                            ? userInfo.movie.actor
+                                            : []
+                                    }
+                                />
+                            ) : null}
+                            {/* </div>
+                            </section> */}
+                            {/* <section className="favoriteBox">
+                                <div> */}
+                            {userInfo.movie.director.length >= 1 ? (
+                                <DirectorSection
+                                    data={
+                                        userInfo.movie
+                                            ? userInfo.movie.director
+                                            : []
+                                    }
+                                />
+                            ) : null}
+                            {/* </div>
+                            </section> */}
+                            {/* <section className="favoriteBox">
+                                <div> */}
+                            {userInfo.movie.country.length >= 1 ? (
+                                <FavCountry
+                                    data={
+                                        userInfo.movie
+                                            ? userInfo.movie.country
+                                            : []
+                                    }
+                                />
+                            ) : null}
+                            {/* </div>
+                            </section> */}
+                            {/* <section className="favoriteBox">
+                                <div> */}
+                            <FavGenre
+                                data={
+                                    userInfo.movie
+                                        ? userInfo.movie.category
+                                        : []
+                                }
+                            />
+                            {/* </div> */}
+                            {/* </section> */}
                             <section className="totalRunning">
                                 <div>
                                     <Margin>
