@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import AuthService from "../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
+import { getPageId } from "../../utils/helperFunc";
 
 function MyPage(props) {
     const [settingVisible, setSettingVisible] = useState(true);
@@ -26,6 +27,7 @@ function MyPage(props) {
     useEffect(() => {
         AuthService.getUserInfo().then(
             (response) => {
+                console.log(response);
                 setName(response.data.name);
                 if (response.data.description !== null) {
                     setDesc(response.data.description);
@@ -86,7 +88,9 @@ function MyPage(props) {
                                         </ProfileHeader>
                                         <ul>
                                             <Type>
-                                                <Link to="/analysis">
+                                                <Link
+                                                    to={`/user/${getPageId()}/analysis`}
+                                                >
                                                     <A>
                                                         <ChartImage></ChartImage>
 
@@ -101,7 +105,9 @@ function MyPage(props) {
                                     <div style={{ margin: "0 20px" }}>
                                         <Ul>
                                             <Li>
-                                                <Link to="/myMovie">
+                                                <Link
+                                                    to={`/user/${getPageId()}/contents/movies`}
+                                                >
                                                     <Box
                                                         style={{
                                                             background:
@@ -141,7 +147,9 @@ function MyPage(props) {
                                                 </Link>
                                             </Li>
                                             <Li>
-                                                <Link to="/myTv">
+                                                <Link
+                                                    to={`/user/${getPageId()}/contents/tv_shows`}
+                                                >
                                                     <Box
                                                         style={{
                                                             background:
@@ -183,7 +191,9 @@ function MyPage(props) {
                                                 </Link>
                                             </Li>
                                             <Li>
-                                                <Link to="/myBook">
+                                                <Link
+                                                    to={`/user/${getPageId()}/contents/books`}
+                                                >
                                                     <Box
                                                         style={{
                                                             background:

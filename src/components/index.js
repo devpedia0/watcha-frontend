@@ -16,7 +16,7 @@ export { default as CardListSlick } from "./CardList/CardListSlick";
 export { default as BarChart } from "./Chart/BarChart";
 // Common
 export { default as Svg } from "./Common/Svg";
-
+export { default as ScrollTop } from "./Common/ScrollTop";
 // Footer
 export { default as Footer } from "./Footer/Footer";
 // Form

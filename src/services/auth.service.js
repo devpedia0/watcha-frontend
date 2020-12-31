@@ -1,4 +1,5 @@
 import api from "./api";
+import { getPageId } from "../utils/helperFunc";
 
 const id = JSON.parse(localStorage.getItem("id"));
 const contentType = ["MOVIES", "BOOKS", "TV_SHOWS"];
@@ -85,7 +86,7 @@ const facebookLogin = (accessToken) => {
 };
 
 const getUserInfo = () => {
-    return api.get(`/users/${id}`).then((response) => {
+    return api.get(`/users/${getPageId()}`).then((response) => {
         if (response) {
             return response;
         }
@@ -93,7 +94,7 @@ const getUserInfo = () => {
 };
 
 const getUserRating = () => {
-    return api.get(`/users/${id}/ratings`).then((response) => {
+    return api.get(`/users/${getPageId()}/ratings`).then((response) => {
         if (response) {
             return response;
         }
@@ -108,7 +109,7 @@ const setUserInfo = () => {
 
 const getUserRatingDetail = () => {
     return api
-        .get(`/users/${id}/${contentType[0]}/ratings`)
+        .get(`/users/${getPageId()}/${contentType[0]}/ratings`)
         .then((response) => {
             if (response) {
                 return response;

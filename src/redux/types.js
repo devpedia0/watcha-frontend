@@ -23,3 +23,8 @@ export const CONTENT_COMMENT_EDIT = "content/CONTENT_COMMENT_EDIT";
 export const CONTENT_COMMENT_DELETE = "content/CONTENT_COMMENT_DELETE";
 export const CONTENT_STAR = "content/CONTENT_STAR";
 export const CONTENT_STAR_DELETE = "content/CONTENT_STAR_DELETE";
+
+export const DETAIL_INIT = "comment/DETAIL_INIT";
+export const DETAIL_INITIALIZE = "comment/DETAIL_INITIALIZE";
+export const DETAIL_FETCH_DATA = "comment/DETAIL_FETCH_DATA";
+export const DETAIL_FETCHING = "comment/DETAIL_FETCHING";

@@ -16,6 +16,7 @@ import {
     ContentsSidebar,
     ContentsPoster,
 } from "./Components";
+import { ScrollTop } from "../../components";
 import { Loader } from "../../styles";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -40,11 +41,12 @@ const Contents = () => {
     const handleChangeModal = (newModal) => {
         dispatch(modalActions.setModal(newModal));
     };
-
+    console.log(data);
     if (isFetching) return <Loader height="800px" />;
 
     return (
         <Wrapper>
+            <ScrollTop />
             <div className="content-header">
                 <ContentsHeader />
                 <ContentsHeaderInfo />

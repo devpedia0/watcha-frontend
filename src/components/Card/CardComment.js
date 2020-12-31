@@ -68,7 +68,7 @@ const CardComment = ({ className, item, onClick }) => {
             console.log(err);
         }
     };
-    console.log("zzzz", item);
+
     return (
         <Wrapper className={className} onClick={onClick}>
             <div className="card-block">
@@ -106,11 +106,12 @@ const CardComment = ({ className, item, onClick }) => {
                             {description}
                         </a>
                     ) : (
-                        "스포일러가 있어요!!"(
+                        <>
+                            스포일러가 있어요!!
                             <span onClick={() => setDescription(true)}>
                                 보기
                             </span>
-                        )
+                        </>
                     )}
                 </Content>
                 <Like>

@@ -10,6 +10,7 @@ import modalActions from "../../redux/actions/modalActions";
 export default function Header({ className }) {
     const dispatch = useDispatch();
     const modal = useSelector((state) => state.modal);
+    const { userId } = useSelector((state) => state.auth);
 
     const handleChangeModal = (modal) => {
         dispatch(modalActions.setModal(modal));
@@ -52,7 +53,7 @@ export default function Header({ className }) {
 
                 <Search />
 
-                {localStorage.getItem("accessToken") ? (
+                {userId ? (
                     <>
                         <LiButton>
                             <div>
@@ -60,7 +61,9 @@ export default function Header({ className }) {
                             </div>
                         </LiButton>
                         <LiButton
-                            onClick={() => (window.location.href = "/myPage")}
+                            onClick={() =>
+                                (window.location.href = `/user/${userId}`)
+                            }
                         >
                             <div>
                                 <div className="profileBtn">
@@ -187,6 +190,7 @@ const LiButton = styled.li`
     flex-shrink: 0;
     .estimate {
         color: rgb(116, 116, 123);
+        background: none;
         font-size: 14px;
         letter-spacing: -0.3px;
     }
