@@ -52,9 +52,15 @@ export default function MyContents() {
                             <CardListSlick
                                 title="평가"
                                 count={userData.ratingCount}
-                                ratedMovie={"ratedMovie"}
                                 sizeHeader="sm"
-                                addComponent={<div>더보기</div>}
+                                addComponent={
+                                    <a
+                                        className="toRated"
+                                        href={`/user/${userId}/detail/ratedMovie`}
+                                    >
+                                        더보기
+                                    </a>
+                                }
                             >
                                 {contents.map((item) => (
                                     <StyledCard key={item.id} item={item} />
@@ -69,7 +75,10 @@ export default function MyContents() {
                             <li className="textList">
                                 <div className="listInner">
                                     <div className="listTitle">
-                                        <a href="/wish" className="localLink">
+                                        <a
+                                            href={`/user/${userId}/detail/wish`}
+                                            className="localLink"
+                                        >
                                             보고싶어요
                                             <span className="number">
                                                 {userData.wishCount}
@@ -81,7 +90,10 @@ export default function MyContents() {
                             <li className="textList">
                                 <div className="listInner">
                                     <div className="listTitle">
-                                        <a href="/" className="localLink">
+                                        <a
+                                            href={`/user/${userId}/detail/watching`}
+                                            className="localLink"
+                                        >
                                             보는중
                                             <span className="number">
                                                 {userData.watchingCount}
@@ -225,6 +237,13 @@ const Wrapper = styled.div`
     padding: 0px;
     white-space: nowrap;
     margin-bottom: 0px;
+
+    .toRated {
+        color: #ff2f6e;
+        text-decoration: none;
+        float: right;
+        padding-top: 17px;
+    }
 `;
 const StyledCard = styled(CardPoster)`
     width: 33.3333333%;

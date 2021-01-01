@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
 const CardListSlick = ({
     title,
     description,
@@ -11,7 +10,6 @@ const CardListSlick = ({
     userId,
     addComponent: AddComponent,
     children,
-    ratedMovie,
 }) => {
     const slider = useRef();
     const [buttonCtrl, setButtonCtrl] = useState({
@@ -57,7 +55,7 @@ const CardListSlick = ({
                     <div className="title-block">
                         <a
                             className="user-info"
-                            href={`/myPage/${userId}`}
+                            href={`/user/${userId}`}
                             alt=""
                         >
                             <img className="user-img" src={posterUrl} alt="" />
@@ -77,13 +75,7 @@ const CardListSlick = ({
                             <span>{count}</span>
                         </div>
 
-                        {ratedMovie ? (
-                            <Link className="toRated" to="/ratedMovie">
-                                {AddComponent}
-                            </Link>
-                        ) : (
-                            <div className="titleRight">{AddComponent}</div>
-                        )}
+                        <div className="titleRight">{AddComponent}</div>
                     </div>
                 )}
             </Header>
@@ -200,12 +192,6 @@ const Header = styled.div`
     }
     .titleRight {
         float: right;
-    }
-    .toRated {
-        color: #ff2f6e;
-        text-decoration: none;
-        float: right;
-        padding-top: 17px;
     }
 `;
 

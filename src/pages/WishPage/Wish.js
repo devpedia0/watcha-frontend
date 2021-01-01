@@ -36,15 +36,14 @@ export default function Wish() {
             const baseUrl = `/users/${id}/${contentType}/wishes?page=1&size=7`;
             const response = await api.get(baseUrl);
             setState(() => response.data);
-            console.log(response, "1", state);
         };
         getDataAPI();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
 
-    useEffect(() => {
-        console.log("order", order);
-    }, [order]);
+    // useEffect(() => {
+    //     console.log("order", order);
+    // }, [order]);
 
     const wishModal = () => {
         setWishVisible({ wishVisible: !setWishVisible });

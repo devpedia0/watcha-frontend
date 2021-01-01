@@ -5,8 +5,11 @@ import AuthService from "../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
 import { getPageId } from "../../utils/helperFunc";
 
-function MyPage(props) {
-    console.log(props.isLogin);
+import { useSelector } from "react-redux";
+
+function MyPage() {
+    const { userId } = useSelector((state) => state.auth);
+
     const [settingVisible, setSettingVisible] = useState(true);
     const [name, setName] = useState("데브피디아");
     const [desc, setDesc] = useState("프로필이 없습니다.");
@@ -63,11 +66,13 @@ function MyPage(props) {
                         <Outer>
                             <div>
                                 <Bg>
-                                    <SettingIcon
-                                        onClick={() =>
-                                            setSettingVisible(!settingModal)
-                                        }
-                                    />
+                                    {getPageId() === userId && (
+                                        <SettingIcon
+                                            onClick={() =>
+                                                setSettingVisible(!settingModal)
+                                            }
+                                        />
+                                    )}
                                 </Bg>
                                 <Profile>
                                     <ProfileHeader>

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import history from "../../../../history";
 import { getPageId } from "../../../../utils/helperFunc";
 import { useSelector } from "react-redux";
 

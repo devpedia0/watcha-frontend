@@ -23,7 +23,7 @@ export default function WishModal(props) {
 
     useEffect(() => {
         props.setOrder(state);
-    }, [state]);
+    }, [props, state]);
 
     return (
         <BackScreen className={props.switchModal ? "hideForm" : ""}>
