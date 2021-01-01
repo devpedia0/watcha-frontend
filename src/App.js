@@ -17,9 +17,7 @@ import PageBook from "./pages/Form/PageBook";
 import PageTag from "./pages/Form/PageTag";
 import PageParticipant from "./pages/Form/PageParticipant";
 import PageCollection from "./pages/Form/PageCollection";
-import MyMovie from "./pages/MyData/MyMovie";
-import MyTv from "./pages/MyData/MyTv";
-import MyBook from "./pages/MyData/MyBook";
+import MyContents from "./pages/MyData/MyContents";
 import ContentsInfo from "./pages/Contents/ContentsInfo";
 import Comment from "./pages/Comments/Comment";
 import Decks from "./pages/Decks/Decks";
@@ -28,9 +26,6 @@ import RatedMovie from "./pages/MyData/RatedMovie";
 import Book from './pages/Book/Book';
 import Searches from "./pages/Searches/Searches";
 import Wish from "./pages/WishPage/Wish";
-
-// import DetailInfo from "./pages/Detail/DetailInfo";
-// import DetailComment from "./pages/Detail/DetailComment";
 
 import Analysis from "./pages/MyData/Analysis";
 import People from "./pages/People/People";
@@ -42,11 +37,11 @@ function App() {
                     <Route path="/team" component={Team} />
                     <Route path="/searches" component={Searches} />
 
-                    <Route path="/user/:id" exact component={MyPage} />
+                    <Layout path="/user/:id" exact component={MyPage} />
                     <Route path="/user/:id/analysis" exact component={Analysis} />
-                    <Route path="/user/:id/contents/movies" exact component={MyMovie} />
-                    <Route path="/user/:id/contents/books" exact component={MyBook} />
-                    <Route path="/user/:id/contents/tv_shows" exact component={MyTv} />
+                    <LayoutDetail path="/user/:id/contents/movies" exact component={MyContents} />
+                    <LayoutDetail path="/user/:id/contents/books" exact component={MyContents} />
+                    <LayoutDetail path="/user/:id/contents/tv_shows" exact component={MyContents} />
                     <Route path="/user/:id/detail/ratedMovie" exact component={RatedMovie} />
                     <Route path="/user/:id/detail/wish" exact component={Wish} />
                     {/* <Route path="/user/:id/detail/watching" exact component={MyPage} /> */}

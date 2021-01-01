@@ -20,15 +20,15 @@ export default function Wish() {
     // }
 
     const orderRules = () => {
-        if (order === "가나다 순") {
-            const baseUrl = `/users/${id}/${contentType}/wishes?order=TITLE&page=1&size=7`;
-        } else if (order === "평점 순") {
-            const baseUrl = `/users/${id}/${contentType}/wishes?order=AVG_SCORE&page=1&size=7`;
-        } else if (order === "신작 순") {
-            const baseUrl = `/users/${id}/${contentType}/wishes?order=NEW&page=1&size=7`;
-        } else if (order === "구작 순") {
-            const baseUrl = `/users/${id}/${contentType}/wishes?order=OLD&page=1&size=7`;
-        }
+        // if (order === "가나다 순") {
+        //     const baseUrl = `/users/${id}/${contentType}/wishes?order=TITLE&page=1&size=7`;
+        // } else if (order === "평점 순") {
+        //     const baseUrl = `/users/${id}/${contentType}/wishes?order=AVG_SCORE&page=1&size=7`;
+        // } else if (order === "신작 순") {
+        //     const baseUrl = `/users/${id}/${contentType}/wishes?order=NEW&page=1&size=7`;
+        // } else if (order === "구작 순") {
+        //     const baseUrl = `/users/${id}/${contentType}/wishes?order=OLD&page=1&size=7`;
+        // }
     };
 
     useEffect(() => {

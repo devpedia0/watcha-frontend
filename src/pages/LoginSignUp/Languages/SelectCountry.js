@@ -17,7 +17,6 @@ export default function SelectCountry(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
     const changeUS = () => {
         const changeState = {
             countryCode: "US",
@@ -67,7 +66,7 @@ export default function SelectCountry(props) {
                 <div className="halfBottomModal">
                     <Header title="선택">
                         <div className="leftBtn" onClick={props.languageModal}>
-                            <button ariaLabel="xBtn" className="xBtn" />
+                            <button aria-label="xBtn" className="xBtn" />
                         </div>
                         <HeaderTitle>국가</HeaderTitle>
                     </Header>

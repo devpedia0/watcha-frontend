@@ -1,153 +1,104 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import AuthService from "../../services/auth.service";
 import api from "../../services/api";
+import history from "../../history";
+import { CardListSlick, CardPoster, HeaderDetail } from "../../components";
 
-import { CardListSlick, CardPoster, Header } from "../../components";
+const formatObj = {
+    movies: {
+        title: "영화",
+        apiKey: "movie",
+    },
+    books: {
+        title: "책",
+        apiKey: "book",
+    },
+    tv_shows: {
+        title: "TV 프로그램",
+        apiKey: "tvShow",
+    },
+};
 
-export default function MyMovie() {
-    const [rated, setRated] = useState({
-        movie: 0,
-    });
+export default function MyContents() {
+    const pathSplit = history.location.pathname.split("/");
+    const userId = pathSplit[2];
+    const contentType = pathSplit[4];
 
-    const [wishes, setWishes] = useState({
-        movie: 0,
-    });
-
-    const [watching, setWatching] = useState({
-        movie: 0,
-    });
-
-    const [state, setState] = useState([]);
-
-    const id = JSON.parse(localStorage.getItem("id"));
-    const contentType = "MOVIES";
-
-    useEffect(() => {
-        const getDataAPI = async () => {
-            const baseUrl = `/users/${id}/${contentType}/ratings`;
-
-            const response = await api.get(baseUrl + `?page=1&size=7`);
-
-            setState(() => response.data);
-            console.log(response);
-        };
-        getDataAPI();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const [contents, setContents] = useState([]);
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
-        const getData = async () => {
-            AuthService.getUserRating().then((response) => {
-                setRated({
-                    movie: response.data.movie.ratingCount,
-                });
-                setWishes({
-                    movie: response.data.movie.wishCount,
-                });
-                setWatching({
-                    movie: response.data.movie.watchingCount,
-                });
-            });
-        };
-        getData();
-    }, []);
+        const baseUrl = `/users/${userId}/${contentType}/ratings`;
+        api.get(baseUrl + `?page=1&size=7`).then((res) => {
+            setContents(() => res.data);
+        });
+    }, [userId, contentType]);
+
+    useEffect(() => {
+        const apiKey = formatObj[contentType].apiKey;
+        AuthService.getUserRating().then((res) => {
+            setUserData(res.data[apiKey]);
+        });
+    }, [contentType]);
 
     return (
-        <Page>
-            <Header />
-            <Section>
-                <section className="mainContainer">
-                    <header className="header">
-                        <div className="backBtn">
-                            <div className="btnIcon"></div>
-                        </div>
-                        <div className="largeTitleBlock">
-                            <div className="largeTitle">영화</div>
-                        </div>
-                        <div className="smallTitle">영화</div>
-                    </header>
-                    <Content>
-                        <Ul>
-                            <Wrapper>
-                                <CardListSlick
-                                    title="평가"
-                                    count={rated.movie}
-                                    ratedMovie={"ratedMovie"}
-                                    sizeHeader="sm"
-                                    addComponent={<div>더보기</div>}
-                                >
-                                    {state.map((item) => (
-                                        <StyledCard key={item.id} item={item} />
-                                    ))}
-                                </CardListSlick>
-                            </Wrapper>
-                        </Ul>
+        <Section>
+            <section className="mainContainer">
+                <HeaderDetail title={formatObj[contentType].title} />
+                <Content>
+                    <Ul>
+                        <Wrapper>
+                            <CardListSlick
+                                title="평가"
+                                count={userData.ratingCount}
+                                ratedMovie={"ratedMovie"}
+                                sizeHeader="sm"
+                                addComponent={<div>더보기</div>}
+                            >
+                                {contents.map((item) => (
+                                    <StyledCard key={item.id} item={item} />
+                                ))}
+                            </CardListSlick>
+                        </Wrapper>
+                    </Ul>
 
-                        <hr className="divider" />
-                        <ContentRow>
-                            <ul className="visualUl">
-                                <li className="textList">
-                                    <div className="listInner">
-                                        <div className="listTitle">
-                                            <a
-                                                href="/wish"
-                                                className="localLink"
-                                            >
-                                                보고싶어요
-                                                <span className="number">
-                                                    {wishes.movie}
-                                                </span>
-                                            </a>
-                                        </div>
+                    <hr className="divider" />
+                    <ContentRow>
+                        <ul className="visualUl">
+                            <li className="textList">
+                                <div className="listInner">
+                                    <div className="listTitle">
+                                        <a href="/wish" className="localLink">
+                                            보고싶어요
+                                            <span className="number">
+                                                {userData.wishCount}
+                                            </span>
+                                        </a>
                                     </div>
-                                </li>
-                                <li className="textList">
-                                    <div className="listInner">
-                                        <div className="listTitle">
-                                            <a href="/" className="localLink">
-                                                보는중
-                                                <span className="number">
-                                                    {watching.movie}
-                                                </span>
-                                            </a>
-                                        </div>
+                                </div>
+                            </li>
+                            <li className="textList">
+                                <div className="listInner">
+                                    <div className="listTitle">
+                                        <a href="/" className="localLink">
+                                            보는중
+                                            <span className="number">
+                                                {userData.watchingCount}
+                                            </span>
+                                        </a>
                                     </div>
-                                </li>
-                            </ul>
-                        </ContentRow>
-                    </Content>
-                </section>
-            </Section>
-
-            <Footer>
-                <nav className="footerNav">
-                    <ul className="navTabUl">
-                        <li className="navItem"></li>
-                    </ul>
-                </nav>
-            </Footer>
-        </Page>
+                                </div>
+                            </li>
+                        </ul>
+                    </ContentRow>
+                </Content>
+            </section>
+        </Section>
     );
 }
 
-const Page = styled.div`
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-`;
-
 const Section = styled.section`
-    padding-top: 0px;
-    padding-bottom: 56px;
-
-    @media (min-width: 719px) {
-        padding-top: 62px;
-        padding-bottom: unset;
-    }
-
     .mainContainer {
         padding: 88px 0px 0px;
         display: block;
@@ -241,7 +192,7 @@ const Section = styled.section`
 const Content = styled.section`
     padding: 16px 0px 0px;
     display: block;
-    <<<<<<< HEAD .divider {
+    .divider {
         border-width: 0px 0px 1px;
         border-top-style: initial;
         border-right-style: initial;
@@ -354,79 +305,3 @@ const ContentRow = styled.div`
         }
     }
 `;
-
-const Footer = styled.footer`
-    position: fixed;
-    bottom: 0;
-    z-index: 51;
-    background: #fff;
-    box-sizing: border-box;
-    width: 100%;
-    border-top: 1px solid #d2d2d2;
-    @media (min-width: 719px) {
-        display: none;
-    }
-    .footerNav {
-        box-sizing: border-box;
-        height: 56px;
-        padding: 8px 0 4px;
-        .navTabUl {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            height: 100%;
-            overflow: hidden;
-            .navItem {
-                -webkit-flex: 1;
-                -ms-flex: 1;
-                flex: 1;
-                text-align: center;
-                height: 100%;
-            }
-        }
-    }
-`;
-
-// const Footer = styled.footer
-//   position: fixed;
-//   bottom: 0;
-//   z-index: 51;
-//   background: #fff;
-//   box-sizing: border-box;
-//   width: 100%;
-//   border-top: 1px solid #d2d2d2;
-
-//   @media (min-width: 719px) {
-//     display: none;
-//   }
-
-//   .footerNav {
-//     box-sizing: border-box;
-//     height: 56px;
-//     padding: 8px 0 4px;
-
-//     .navTabUl {
-//       list-style: none;
-//       padding: 0;
-//       margin: 0;
-//       display: -webkit-box;
-//       display: -webkit-flex;
-//       display: -ms-flexbox;
-//       display: flex;
-//       height: 100%;
-//       overflow: hidden;
-
-//       .navItem {
-//         -webkit-flex: 1;
-//         -ms-flex: 1;
-//         flex: 1;
-//         text-align: center;
-//         height: 100%;
-//       }
-//     }
-//   }
-// `;
