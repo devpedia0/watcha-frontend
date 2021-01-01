@@ -10,8 +10,6 @@ export default function Private(props) {
         const getData = async () => {
             const response = await AuthService.getUserInfo();
             setChecked(() => response.data.accessRange);
-
-            // console.log('useEffect', checked); //PUBLIC
         };
         getData();
     }, []);

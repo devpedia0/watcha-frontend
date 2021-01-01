@@ -9,23 +9,16 @@ import DirectorSection from "./DirectorSection";
 import FavCountry from "./FavCountry";
 import FavGenre from "./FavGenre";
 import { Divider } from "../../styles";
+import { getPageId } from "../../utils/helperFunc";
 
 function Analysis() {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
-        const id = JSON.parse(localStorage.getItem("id"));
-        const getData = async () => {
-            const response = await api.get(`/users/${id}/analysis`);
-            console.log("useEffect", response);
-            setUserInfo(() => response.data);
-        };
-        getData();
+        api.get(`/users/${getPageId()}/analysis`).then((res) => {
+            setUserInfo(() => res.data);
+        });
     }, []);
-
-    const checkState = () => {
-        console.log(userInfo);
-    };
 
     if (Object.keys(userInfo).length === 0) return null;
 
@@ -48,10 +41,7 @@ function Analysis() {
                                         <div className="roundedImage">
                                             <div className="profileImage"></div>
                                         </div>
-                                        <div
-                                            className="userName"
-                                            onClick={checkState}
-                                        >
+                                        <div className="userName">
                                             {userInfo.userName}
                                         </div>
                                     </h1>
