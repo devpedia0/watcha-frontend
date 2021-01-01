@@ -4,7 +4,7 @@ import { CardListSlick, Card } from "../../../../components";
 import history from "../../../../history";
 import { Divider } from "../../../../styles";
 
-const ContentsInfo = () => {
+const ContentsPeople = () => {
     const {
         data: { participants },
     } = useSelector((state) => state.content);
@@ -15,9 +15,16 @@ const ContentsInfo = () => {
                 {participants.map((item, idx) => (
                     <Card
                         key={idx}
-                        item={item}
                         width="49%"
                         radius="20%"
+                        imageUrl={item.profileImagePath}
+                        title={item.name}
+                        subTitle={
+                            item.role +
+                            (item.characterName
+                                ? " | " + item.characterName
+                                : "")
+                        }
                         onClick={() => {
                             history.push(`/people/${item.id}`);
                         }}
@@ -29,4 +36,4 @@ const ContentsInfo = () => {
     );
 };
 
-export default ContentsInfo;
+export default ContentsPeople;

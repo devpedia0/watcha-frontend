@@ -198,56 +198,56 @@ function Analysis() {
                                     </Margin>
                                 </div>
                             </section>
-                            {/* <section className="favoriteBox">
-                                <div> */}
-                            {userInfo.movie.actor.length >= 1 ? (
-                                <ActorSection
-                                    data={
-                                        userInfo.movie
-                                            ? userInfo.movie.actor
-                                            : []
-                                    }
-                                />
-                            ) : null}
-                            {/* </div>
-                            </section> */}
-                            {/* <section className="favoriteBox">
-                                <div> */}
-                            {userInfo.movie.director.length >= 1 ? (
-                                <DirectorSection
-                                    data={
-                                        userInfo.movie
-                                            ? userInfo.movie.director
-                                            : []
-                                    }
-                                />
-                            ) : null}
-                            {/* </div>
-                            </section> */}
-                            {/* <section className="favoriteBox">
-                                <div> */}
-                            {userInfo.movie.country.length >= 1 ? (
-                                <FavCountry
-                                    data={
-                                        userInfo.movie
-                                            ? userInfo.movie.country
-                                            : []
-                                    }
-                                />
-                            ) : null}
-                            {/* </div>
-                            </section> */}
-                            {/* <section className="favoriteBox">
-                                <div> */}
-                            <FavGenre
-                                data={
-                                    userInfo.movie
-                                        ? userInfo.movie.category
-                                        : []
-                                }
-                            />
-                            {/* </div> */}
-                            {/* </section> */}
+                            <section className="favoriteBox">
+                                <div>
+                                    {userInfo.movie.actor.length >= 1 ? (
+                                        <ActorSection
+                                            data={
+                                                userInfo.movie
+                                                    ? userInfo.movie.actor
+                                                    : []
+                                            }
+                                        />
+                                    ) : null}
+                                </div>
+                            </section>
+                            <section className="favoriteBox">
+                                <div>
+                                    {userInfo.movie.director.length >= 1 ? (
+                                        <DirectorSection
+                                            data={
+                                                userInfo.movie
+                                                    ? userInfo.movie.director
+                                                    : []
+                                            }
+                                        />
+                                    ) : null}
+                                </div>
+                            </section>
+                            <section className="favoriteBox">
+                                <div>
+                                    {userInfo.movie.country.length >= 1 ? (
+                                        <FavCountry
+                                            data={
+                                                userInfo.movie
+                                                    ? userInfo.movie.country
+                                                    : []
+                                            }
+                                        />
+                                    ) : null}
+                                </div>
+                            </section>
+                            <section className="favoriteBox">
+                                <div>
+                                    <FavGenre
+                                        data={
+                                            userInfo.movie
+                                                ? userInfo.movie.category
+                                                : []
+                                        }
+                                    />
+                                </div>
+                            </section>
                             <section className="totalRunning">
                                 <div>
                                     <Margin>

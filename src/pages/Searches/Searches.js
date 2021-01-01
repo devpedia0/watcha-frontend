@@ -5,7 +5,6 @@ import { CardListSlick, CardPoster, Header, Card } from "../../components";
 import api from "../../services/api";
 import history from "../../history";
 import queryString from "query-string";
-
 function Searches() {
     const query = queryString.parse(history.location.search).query;
 
@@ -13,7 +12,7 @@ function Searches() {
         data: {},
         isFetching: true,
     });
-    console.log(state);
+
     useEffect(() => {
         setState({ data: {}, isFetching: true });
         api.get(`/public/searches?query=${query}`)
@@ -34,7 +33,7 @@ function Searches() {
     }
 
     if (state.isFetching) return <Loader height="800px" />;
-
+    console.log(state.data.movies);
     return (
         <Page>
             <Header />
@@ -61,12 +60,18 @@ function Searches() {
                             {state.data.movies.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    countryCode={item.countryCode}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.posterImagePath}
+                                    title={item.mainTitle}
+                                    subTitle={
+                                        item.productionDate?.split("-")[0] +
+                                        (item.countryCode
+                                            ? " • " + item.countryCode
+                                            : "") +
+                                        (item.author ? " • " + item.author : "")
+                                    }
+                                    AddComponent={<ScoreCount></ScoreCount>}
                                 />
                             ))}
                         </CardListSlick>
@@ -85,12 +90,17 @@ function Searches() {
                             {state.data.tvShows.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    countryCode={item.countryCode}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.posterImagePath}
+                                    title={item.mainTitle}
+                                    subTitle={
+                                        item.productionDate?.split("-")[0] +
+                                        (item.countryCode
+                                            ? " • " + item.countryCode
+                                            : "") +
+                                        (item.author ? " • " + item.author : "")
+                                    }
                                 />
                             ))}
                         </CardListSlick>
@@ -109,12 +119,17 @@ function Searches() {
                             {state.data.books.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    author={item.author}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.posterImagePath}
+                                    title={item.mainTitle}
+                                    subTitle={
+                                        item.productionDate?.split("-")[0] +
+                                        (item.countryCode
+                                            ? " • " + item.countryCode
+                                            : "") +
+                                        (item.author ? " • " + item.author : "")
+                                    }
                                 />
                             ))}
                         </CardListSlick>
@@ -133,12 +148,13 @@ function Searches() {
                             {state.data.users.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    countryCode={item.countryCode}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.profileImagePath}
+                                    title={item.name}
+                                    subTitle={
+                                        item.description ? item.description : ""
+                                    }
                                 />
                             ))}
                         </CardListSlick>
@@ -392,4 +408,12 @@ const StyledCard = styled(CardPoster)`
     @media (min-width: 1920px) {
         width: 7.6923076923076925%;
     }
+`;
+
+const ScoreCount = styled.span`
+    color: #787878;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+    line-height: 19px;
 `;

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 function FavCountry({ data }) {
+    console.log(data);
     return (
         <Favorite>
             <header className="tagHeader">
@@ -42,21 +43,24 @@ function FavCountry({ data }) {
                     </div>
                     <ul className="subContainer">
                         <li className="subList">
-                            {data[3].description}
+                            {data[3]?.description}
                             <span>
-                                {data[3].score.toFixed(1)}점 • {data[3].count}편
+                                {data[3]?.score.toFixed(1)}점 • {data[3]?.count}
+                                편
+                            </span>
+                        </li>
+                        <li className="subList">
+                            {data[4]?.description}
+                            <span>
+                                {data[4]?.score.toFixed(1)}점 • {data[4]?.count}
+                                편
                             </span>
                         </li>
                         <li className="subList">
                             {data[4].description}
                             <span>
-                                {data[4].score.toFixed(1)}점 • {data[4].count}편
-                            </span>
-                        </li>
-                        <li className="subList">
-                            {data[4].description}
-                            <span>
-                                {data[4].score.toFixed(1)}점 • {data[4].count}편
+                                {data[4]?.score.toFixed(1)}점 • {data[4]?.count}
+                                편
                             </span>
                         </li>
                     </ul>

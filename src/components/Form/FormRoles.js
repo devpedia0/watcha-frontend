@@ -1,21 +1,17 @@
-import React from 'react';
-
-import useInputs from '../../Hooks/useInputs';
-
+import React from "react";
+import styled from "styled-components";
+import useInputs from "../../Hooks/useInputs";
 import ModalParticipant from "../Modal/ModalParticipant";
 import FormSection from "../Form/FormSection";
 import Card from "../Card/Card";
 
-
 const initialValue = {
-  role: '',
-  characterName: '',
-  participantId: '',
+    role: "",
+    characterName: "",
+    participantId: "",
 };
 
 const FormRoles = ({ roles, setRoles }) => {
-
-
     const { inputs, setInputs, onChange } = useInputs(initialValue);
 
     const handleClickSave = () => {
@@ -53,15 +49,27 @@ const FormRoles = ({ roles, setRoles }) => {
             <br />
             {roles.map((item, idx) => (
                 <Card
-                    radius="50%"
                     key={idx}
-                    item={item}
-                    onClickDelete={handleClickDelete}
+                    radius="50%"
+                    imageUrl={item.profileImagePath}
+                    title={item.name}
+                    subTitle={
+                        item.role +
+                        (item.characterName ? " | " + item.characterName : "")
+                    }
+                    AddComponent={
+                        <button
+                            type="button"
+                            className="btn"
+                            onClick={() => handleClickDelete(item.id)}
+                        >
+                            삭제
+                        </button>
+                    }
                 />
             ))}
         </FormSection>
     );
-
 };
 
 export default React.memo(FormRoles);
