@@ -115,7 +115,6 @@ const fetchMoreWatcha = () => async (dispatch, getState) => {
                 page + 1
             }&size=${size}`
         );
-        console.log(res.data);
         dispatch({
             type: DETAIL_FETCH_DATA,
             payload: res.data,

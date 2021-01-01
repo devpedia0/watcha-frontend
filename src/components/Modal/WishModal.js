@@ -23,7 +23,7 @@ export default function WishModal(props) {
 
     useEffect(() => {
         props.setOrder(state);
-    }, [state]);
+    }, [props, state]);
 
     return (
         <BackScreen className={props.switchModal ? "hideForm" : ""}>
@@ -32,7 +32,7 @@ export default function WishModal(props) {
                 <div className="halfBottomModal">
                     <Header title="선택">
                         <div className="leftBtn" onClick={props.wishModal}>
-                            <button ariaLabel="xBtn" className="xBtn" />
+                            <button aria-label="xBtn" className="xBtn" />
                         </div>
                         <HeaderTitle>보고싶어요</HeaderTitle>
                     </Header>

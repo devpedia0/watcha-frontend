@@ -14,48 +14,17 @@ export default function Private(props) {
             // console.log('useEffect', checked); //PUBLIC
         };
         getData();
-
     }, []);
 
-    const handleChange = (e) => {
-        if (e.target.id === "1") {
-            const changeState = {
-                accessRange: "PUBLIC",
-            };
-            api.put("/users/settings", changeState).then((response) => {
-                if (response.status === 200) {
-                    AuthService.getUserInfo().then((newData) => {
-                        console.log(newData.data.accessRange);
-                    });
-                }
-                setChecked("PUBLIC");
-            });
-        } else if (e.target.id === "2") {
-            const changeState = {
-                accessRange: "FRIEND",
-            };
-
-            api.put("/users/settings", changeState).then((response) => {
-                if (response.status === 200) {
-                    AuthService.getUserInfo().then((newData) => {
-                        console.log(newData.data.accessRange);
-                    });
-                }
-                setChecked("FRIEND");
-            });
-        } else if (e.target.id === "3") {
-            const changeState = {
-                accessRange: "PRIVATE",
-            };
-            api.put("/users/settings", changeState).then((response) => {
-                if (response.status === 200) {
-                    AuthService.getUserInfo().then((newData) => {
-                        console.log(newData.data.accessRange);
-                    });
-                }
-                setChecked("PRIVATE");
-            });
-        }
+    const handleChange = (accessRange) => {
+        api.put("/users/settings", { accessRange }).then((response) => {
+            if (response.status === 200) {
+                AuthService.getUserInfo().then((newData) => {
+                    console.log(newData.data.accessRange);
+                });
+            }
+            setChecked(accessRange);
+        });
     };
 
     return (
@@ -79,11 +48,13 @@ export default function Private(props) {
                         <div>
                             <div className="containerMargin">
                                 <VisualUl>
-                                    <li className="list">
+                                    <li
+                                        className="list"
+                                        onClick={() => handleChange("PUBLIC")}
+                                    >
                                         <div className="radioContainer">
                                             <span
                                                 id="1"
-                                                onClick={handleChange}
                                                 className={
                                                     checked === "PUBLIC"
                                                         ? "radioImg active"
@@ -102,10 +73,12 @@ export default function Private(props) {
                                         </div>
                                     </li>
 
-                                    <li className="list">
+                                    <li
+                                        className="list"
+                                        onClick={() => handleChange("FRIEND")}
+                                    >
                                         <div className="radioContainer">
                                             <span
-                                                onClick={handleChange}
                                                 id="2"
                                                 className={
                                                     checked === "FRIEND"
@@ -125,10 +98,12 @@ export default function Private(props) {
                                         </div>
                                     </li>
 
-                                    <li className="list">
+                                    <li
+                                        className="list"
+                                        onClick={() => handleChange("PRIVATE")}
+                                    >
                                         <div className="radioContainer">
                                             <span
-                                                onClick={handleChange}
                                                 id="3"
                                                 className={
                                                     checked === "PRIVATE"
