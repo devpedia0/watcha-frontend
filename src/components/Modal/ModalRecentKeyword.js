@@ -4,6 +4,7 @@ import api from "../../services/api";
 
 const ModalRecentKeyword = ({ open, onClickClose }) => {
     const searchRef = useRef();
+
     const [keywords, setKeywords] = useState({
         recent: [],
         hot: [],
@@ -11,26 +12,25 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
 
     useEffect(() => {
         const searchElem = searchRef.current;
-        const handleClickOutside = ({ target }) => {
+        const eventModalClose = ({ target }) => {
             if (open && !searchElem.contains(target)) onClickClose();
         };
-        window.addEventListener("click", handleClickOutside);
-        return () => {
-            window.removeEventListener("click", handleClickOutside);
-        };
+        window.addEventListener("click", eventModalClose);
+        return () => window.removeEventListener("click", eventModalClose);
     }, [open, onClickClose]);
 
     useEffect(() => {
-        const getApiData = async () => {
-            const recent = JSON.parse(localStorage.getItem("recent")) || [];
-            const res = await api.get("/public/contents/trending_words");
-            setKeywords({
-                recent,
-                hot: res.data,
+        const recentKeywords = JSON.parse(localStorage.getItem("recent")) || [];
+        api.get("/public/contents/trending_words")
+            .then((res) => {
+                setKeywords({
+                    recent: recentKeywords,
+                    hot: res.data,
+                });
+            })
+            .catch((err) => {
+                console.err(err);
             });
-        };
-
-        getApiData();
     }, []);
 
     const handleDeleteRecentKeyword = () => {
@@ -48,13 +48,17 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
                     <span onClick={handleDeleteRecentKeyword}>모두삭제</span>
                 </div>
                 {keywords.recent.map((item, idx) => (
-                    <li key={idx}>{item}</li>
+                    <a key={idx} href={`/searches?query=${item}`} alt="">
+                        <li>{item}</li>
+                    </a>
                 ))}
             </div>
             <div className="keword-hot">
                 <label>인기검색어</label>
                 {keywords.hot.map((item, idx) => (
-                    <li key={idx}>{item}</li>
+                    <a key={idx} href={`/searches?query=${item}`} alt="">
+                        <li>{item}</li>
+                    </a>
                 ))}
             </div>
         </Wrapper>

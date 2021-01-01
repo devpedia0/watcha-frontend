@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import api from "../../services/api";
 import MyTag from "./Tag/MyTag";
 import BarChart from "../../components/Chart/BarChart";

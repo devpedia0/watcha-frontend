@@ -21,8 +21,6 @@ const ContentsInfo = () => {
         return () => dispatch(contentActions.initialize());
     }, [dispatch]);
 
-    if (isFetching) return <Loader height="800px" />;
-
     const pageObj = {
         contents: "목차",
         description: "출판사 제공 책소개",
@@ -36,6 +34,8 @@ const ContentsInfo = () => {
             </span>
         );
     });
+
+    if (isFetching) return <Loader height="800px" />;
 
     return (
         <Wrapper>

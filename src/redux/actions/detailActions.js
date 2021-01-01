@@ -59,6 +59,14 @@ const initWatcha = () => async (dispatch) => {
     }
 };
 
+const init = (fetchUrl, size) => async (dispatch) => {
+    try {
+        let res = await api.get(fetchUrl + `?size=${size}`);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 const initialize = () => async (dispatch) => {
     try {
         dispatch({
