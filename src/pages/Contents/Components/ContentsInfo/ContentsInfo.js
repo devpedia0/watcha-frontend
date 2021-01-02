@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import history from "../../../../history";
 import { CardList } from "../../../../components";
 import { useSelector } from "react-redux";
 import { Divider } from "../../../../styles";

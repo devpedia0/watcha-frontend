@@ -10,7 +10,6 @@ const ContentsInfo = () => {
         data: {
             contentInfo: {
                 mainTitle,
-                subTitle,
                 productionDate,
                 category,
                 countryCode,
