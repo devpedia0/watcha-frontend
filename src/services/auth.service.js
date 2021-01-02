@@ -1,7 +1,6 @@
 import api from "./api";
 import { getPageId } from "../utils/helperFunc";
 
-const id = JSON.parse(localStorage.getItem("id"));
 const contentType = ["MOVIES", "BOOKS", "TV_SHOWS"];
 
 const register = (countryCode, name, email, password) => {

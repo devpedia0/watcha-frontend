@@ -3,16 +3,14 @@ import styled from "styled-components";
 import Setting from "./Components/Setting/Setting";
 import AuthService from "../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
-import { getPageId } from "../../utils/helperFunc";
+import { getPageId, randomUserImg } from "../../utils/helperFunc";
 
-import { useSelector } from "react-redux";
-
-function UserMyPage() {
-    const { userId } = useSelector((state) => state.auth);
+function UserMyPage({ match }) {
+    const userId = match.params.userId;
 
     const [settingVisible, setSettingVisible] = useState(true);
-    const [name, setName] = useState("데브피디아");
-    const [desc, setDesc] = useState("프로필이 없습니다.");
+    const [name, setName] = useState("");
+    const [desc, setDesc] = useState("");
 
     const [rated, setRated] = useState({
         book: 0,
@@ -77,7 +75,9 @@ function UserMyPage() {
                                 <Profile>
                                     <ProfileHeader>
                                         <Image>
-                                            <Portrait></Portrait>
+                                            <Portrait
+                                                src={randomUserImg()}
+                                            ></Portrait>
                                         </Image>
                                         <NickName>
                                             <H1>{name}</H1>
@@ -108,7 +108,7 @@ function UserMyPage() {
                                     <Ul>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/contents/movies`}
+                                                to={`/user/${getPageId()}/movies`}
                                             >
                                                 <Box
                                                     style={{
@@ -147,7 +147,7 @@ function UserMyPage() {
                                         </Li>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/contents/tv_shows`}
+                                                to={`/user/${getPageId()}/tv_shows`}
                                             >
                                                 <Box
                                                     style={{
@@ -188,7 +188,7 @@ function UserMyPage() {
                                         </Li>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/contents/books`}
+                                                to={`/user/${getPageId()}/books`}
                                             >
                                                 <Box
                                                     style={{
@@ -352,8 +352,7 @@ const Image = styled.div`
 `;
 
 const Portrait = styled.div`
-    background: url(https:/d3sz5r0rl9fxuc.cloudfront.net/assets/default/user/photo_file_name_small-bc8b334acec6a4e386249dedf9e763b5e6aff523fa85cc29211f22e6bed540df.jpg)
-        no-repeat center;
+    background: url(${(props) => props.src}) no-repeat center;
     background-size: contain;
     width: 100%;
     height: 100%;

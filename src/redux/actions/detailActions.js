@@ -1,16 +1,16 @@
 import api from "../../services/api";
+import { makeUrlQuery } from "../../utils/helperFunc";
 import {
     DETAIL_INIT,
     DETAIL_INITIALIZE,
     DETAIL_FETCHING,
     DETAIL_FETCH_DATA,
 } from "../types";
-import { getPageId, getUserId } from "../../utils/helperFunc";
 
-const initPeople = () => async (dispatch) => {
+const initPeople = (pageId) => async (dispatch) => {
     try {
         let size = 20;
-        let res = await api.get(`participants/${getPageId()}?size=${size}`);
+        let res = await api.get(`participants/${pageId}?size=${size}`);
         let { contents, ...info } = res.data;
 
         dispatch({
@@ -18,14 +18,14 @@ const initPeople = () => async (dispatch) => {
             payload: { info, data: contents, size },
         });
     } catch (err) {
-        console.log(err);
+        console.log(err.response);
     }
 };
 
-const initComment = () => async (dispatch) => {
+const initComment = (pageId, userId) => async (dispatch) => {
     try {
         let size = 10;
-        let fetchUrl = `/contents/${getPageId()}/comments${getUserId()}`;
+        let fetchUrl = `/contents/${pageId}/comments${userId}`;
         let res = await api.get(`${fetchUrl}?page=1&size=${size}`);
 
         let data = res.data;
@@ -40,14 +40,14 @@ const initComment = () => async (dispatch) => {
             payload: { data, fetchMore, size },
         });
     } catch (err) {
-        console.log(err);
+        console.log(err.response);
     }
 };
 
-const initWatcha = () => async (dispatch) => {
+const initWatcha = (pageId) => async (dispatch) => {
     try {
         let size = 20;
-        let res = await api.get(`/public/awards/${getPageId()}?size=${size}`);
+        let res = await api.get(`/public/awards/${pageId}?size=${size}`);
         let { list, ...info } = res.data;
 
         dispatch({
@@ -55,15 +55,19 @@ const initWatcha = () => async (dispatch) => {
             payload: { info, data: list, size },
         });
     } catch (err) {
-        console.log(err);
+        console.log(err.response);
     }
 };
-
-const init = (fetchUrl, size) => async (dispatch) => {
+const initContentRated = (fetchUrl, size) => async (dispatch) => {
     try {
-        let res = await api.get(fetchUrl + `?size=${size}`);
+        let res = await api.get(makeUrlQuery(fetchUrl, { size, page: 1 }));
+
+        dispatch({
+            type: DETAIL_INIT,
+            payload: { data: res.data, size },
+        });
     } catch (err) {
-        console.log(err);
+        console.log(err.response);
     }
 };
 
@@ -73,62 +77,24 @@ const initialize = () => async (dispatch) => {
             type: DETAIL_INITIALIZE,
         });
     } catch (err) {
-        console.log(err);
+        console.log(err.response);
     }
 };
 
-const fetchMorePeople = () => async (dispatch, getState) => {
+const fetchMore = (fetchUrl) => async (dispatch, getState) => {
     try {
         dispatch({ type: DETAIL_FETCHING });
 
         let { page, size } = getState().detail;
         const res = await api.get(
-            `/participants/${getPageId()}/contents?page=${
-                page + 1
-            }&size=${size}`
+            makeUrlQuery(fetchUrl, { size, page: page + 1 })
         );
         dispatch({
             type: DETAIL_FETCH_DATA,
             payload: res.data,
         });
     } catch (err) {
-        console.log(err);
-    }
-};
-
-const fetchMoreComment = () => async (dispatch, getState) => {
-    try {
-        dispatch({ type: DETAIL_FETCHING });
-
-        let { page, size } = getState().detail;
-        const res = await api.get(
-            `/contents/${getPageId()}/comments?page=${page + 1}&size=${size}`
-        );
-        dispatch({
-            type: DETAIL_FETCH_DATA,
-            payload: res.data,
-        });
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-const fetchMoreWatcha = () => async (dispatch, getState) => {
-    try {
-        dispatch({ type: DETAIL_FETCHING });
-
-        let { page, size } = getState().detail;
-        const res = await api.get(
-            `/public/awards/${getPageId()}/contents?page=${
-                page + 1
-            }&size=${size}`
-        );
-        dispatch({
-            type: DETAIL_FETCH_DATA,
-            payload: res.data,
-        });
-    } catch (err) {
-        console.log(err);
+        console.log(err.response);
     }
 };
 
@@ -136,10 +102,9 @@ const datailActions = {
     initPeople,
     initComment,
     initWatcha,
+    initContentRated,
     initialize,
-    fetchMorePeople,
-    fetchMoreComment,
-    fetchMoreWatcha,
+    fetchMore,
 };
 
 export default datailActions;

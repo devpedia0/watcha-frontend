@@ -1,42 +1,48 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import useIntersection from "../../Hooks/useIntersection";
+import useIntersection from "../../../../Hooks/useIntersection";
 import { useDispatch, useSelector } from "react-redux";
-import { detailActions } from "../../redux/actions";
-import { CardList, HeaderDetail, CardPoster } from "../../components";
-import { Loader } from "../../styles";
+import { detailActions } from "../../../../redux/actions";
+import { CardList, CardPoster } from "../../../../components";
+import { Loader } from "../../../../styles";
+import history from "../../../../history";
 
-const Watcha = ({ match }) => {
-    const pageId = match.params.pageId;
+const RatedTotal = ({ match, selected }) => {
+    const { userId, contentType } = match.params;
+
     const dispatch = useDispatch();
-    const { info, data, initFetch, isFetching, fetchMore } = useSelector(
+    const { data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
     );
 
     useEffect(() => {
-        dispatch(detailActions.initWatcha(pageId));
+        const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
+        dispatch(detailActions.initContentRated(fetchUrl, 20));
         return () => dispatch(detailActions.initialize());
-    }, [dispatch, pageId]);
+    }, [dispatch, userId, contentType, selected]);
 
     const loaderRef = useRef();
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            const fetchUrl = `/public/awards/${pageId}/contents`;
+            const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
             dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch, pageId]);
+    }, [isIntersecting, fetchMore, dispatch, userId, contentType, selected]);
 
     return (
         <Wrapper>
-            <HeaderDetail title={info.title} />
             {!initFetch ? (
                 <Loader height="800px" />
             ) : (
                 <CardList>
                     {data.map((item, idx) => (
-                        <StyledCard key={idx} item={item} />
+                        <StyledCard
+                            key={idx}
+                            item={item}
+                            onClick={() => history.push(`/contents/${item.id}`)}
+                        />
                     ))}
                 </CardList>
             )}
@@ -48,11 +54,13 @@ const Watcha = ({ match }) => {
     );
 };
 
-export default Watcha;
+export default RatedTotal;
 
 const Wrapper = styled.div`
-    margin: 50px 20px;
+    margin: 200px 20px;
+    background: ${(props) => props.theme.bgGray};
 `;
+
 const StyledCard = styled(CardPoster)`
     width: 33.3333333%;
     margin-bottom: 30px;

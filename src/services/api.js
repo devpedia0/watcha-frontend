@@ -1,5 +1,4 @@
 import axios from "axios";
-import history from "../history";
 import { modalActions } from "../redux/actions";
 import store from "../redux/store";
 
@@ -24,10 +23,7 @@ api.interceptors.response.use(
         return response;
     },
     function (error) {
-        console.log(error);
         if (error.response.data.status === 401 && error.response) {
-            //console.log("토큰값 에러", error.response.data.error);
-
             // 리프레시 토큰 오류
             const requestUrl = error.response.config.url;
             if (requestUrl === "/auth/token") {

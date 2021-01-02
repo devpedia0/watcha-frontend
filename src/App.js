@@ -7,7 +7,6 @@ import LayoutDetail from "./layouts/LayoutDetail";
 import LayoutForm from "./layouts/LayoutForm";
 // pages
 import Main from "./pages/Main/Main";
-import Contents from "./pages/Contents/Contents";
 import Team from "./pages/Team/Team";
 
 import PageBoard from "./pages/Form/PageBoard";
@@ -18,8 +17,10 @@ import PageTag from "./pages/Form/PageTag";
 import PageParticipant from "./pages/Form/PageParticipant";
 import PageCollection from "./pages/Form/PageCollection";
 
+import Contents from "./pages/Contents/Contents";
 import ContentsInfo from "./pages/Contents/ContentsInfo";
-import Comment from "./pages/Comments/Comment";
+import ContentsComment from "./pages/Contents/ContentsComment";
+import ContentsBook from './pages/Contents/ContentsBook';
 
 import Decks from './pages/Detail/Decks';
 import Watcha from "./pages/Detail/Watcha";
@@ -27,10 +28,9 @@ import People from "./pages/Detail/People";
 
 import UserMyPage from "./pages/User/UserMyPage";
 import UserContents from "./pages/User/UserContents";
-import UserContentsDetail from "./pages/User/UserContentsDetail";
+import UserContentsRated from "./pages/User/UserContentsRated";
 import UserAnalysis from "./pages/User/UserAnalysis";
 
-import Book from './pages/Contents/ContentsBook';
 import Searches from "./pages/Searches/Searches";
 import Wish from "./pages/User/Wish";
 
@@ -48,24 +48,21 @@ function App() {
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     {/* User Page */}
-                    <Layout path="/user/:id" exact component={UserMyPage} />
-                    <Route path="/user/:id/analysis" exact component={UserAnalysis} />
-                    <LayoutDetail path="/user/:id/contents/movies" exact component={UserContents} />
-                    <LayoutDetail path="/user/:id/contents/books" exact component={UserContents} />
-                    <LayoutDetail path="/user/:id/contents/tv_shows" exact component={UserContents} />
-                    <Route path="/user/:id/detail/ratedMovie" exact component={UserContentsDetail} />
-                    <Route path="/user/:id/detail/wish" exact component={Wish} />
-                    {/* <Route path="/user/:id/detail/watching" exact component={MyPage} /> */}
+                    <Layout path="/user/:userId" exact component={UserMyPage} />
+                    <Route path="/user/:userId/analysis" exact component={UserAnalysis} />
+                    <LayoutDetail path="/user/:userId/:contentType" exact component={UserContents} />
+                    <Layout path="/user/:userId/:contentType/rated" exact component={UserContentsRated} />
+                    <Route path="/user/:userId/:contentType/wish" exact component={Wish} />
                     {/* Contents Page */}
-                    <Layout path="/contents/:id" exact component={Contents} />
-                    <Layout path="/contents/:id/comments" exact component={Comment} />
-                    <Layout path="/contents/:id/comments/:userId" exact component={Comment} />
-                    <LayoutDetail path="/contents/:id/overview" exact component={ContentsInfo} />
-                    <LayoutDetail path="/contents/:id/book/:contentId" exact component={Book} />
+                    <Layout path="/contents/:pageId" exact component={Contents} />
+                    <Layout path="/contents/:pageId/comments" exact component={ContentsComment} />
+                    <Layout path="/contents/:pageId/comments/:userId" exact component={ContentsComment} />
+                    <LayoutDetail path="/contents/:pageId/overview" exact component={ContentsInfo} />
+                    <LayoutDetail path="/contents/:pageId/book/:contentId" exact component={ContentsBook} />
                     {/* Detail Page*/}
-                    <Layout path="/detail/decks/:id" component={Decks} />
-                    <Layout path="/detail/people/:id" component={People} />
-                    <LayoutDetail path="/detail/watcha/:id" component={Watcha} />
+                    <Layout path="/detail/decks/:pageId" component={Decks} />
+                    <Layout path="/detail/people/:pageId" component={People} />
+                    <LayoutDetail path="/detail/watcha/:pageId" component={Watcha} />
                     {/* Form Page */}
                     <LayoutForm path="/admin/books" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
