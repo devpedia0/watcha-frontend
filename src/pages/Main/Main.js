@@ -124,7 +124,6 @@ const Wrapper = styled.div`
     margin-left: 15px;
     @media only screen and (min-width: 600px) {
         min-height: calc(100vh - 343px);
-        margin-top: 74px;
     }
 
     @media only screen and (min-width: 719px) {

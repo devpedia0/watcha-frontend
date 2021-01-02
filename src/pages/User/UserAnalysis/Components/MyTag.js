@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactWordcloud from "react-wordcloud";
-import api from "../../../services/api";
-import dummy from "./dummyTag";
+import api from "../../../../services/api";
 
 const options = {
     // colors: ["#ff2f6e"],

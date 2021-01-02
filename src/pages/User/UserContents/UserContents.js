@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import AuthService from "../../services/auth.service";
-import api from "../../services/api";
-import history from "../../history";
-import { CardListSlick, CardPoster, HeaderDetail } from "../../components";
+import AuthService from "../../../services/auth.service";
+import api from "../../../services/api";
+import history from "../../../history";
+import { CardListSlick, CardPoster, HeaderDetail } from "../../../components";
 
 const formatObj = {
     movies: {
@@ -20,7 +20,7 @@ const formatObj = {
     },
 };
 
-export default function MyContents() {
+export default function UserContents() {
     const pathSplit = history.location.pathname.split("/");
     const userId = pathSplit[2];
     const contentType = pathSplit[4];

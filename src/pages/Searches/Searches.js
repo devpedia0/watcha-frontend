@@ -71,7 +71,6 @@ function Searches() {
                                             : "") +
                                         (item.author ? " • " + item.author : "")
                                     }
-                                    AddComponent={<ScoreCount></ScoreCount>}
                                 />
                             ))}
                         </CardListSlick>
@@ -408,12 +407,4 @@ const StyledCard = styled(CardPoster)`
     @media (min-width: 1920px) {
         width: 7.6923076923076925%;
     }
-`;
-
-const ScoreCount = styled.span`
-    color: #787878;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: -0.3px;
-    line-height: 19px;
 `;

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import api from "../../services/api";
-import MyTag from "./Tag/MyTag";
-import BarChart from "../../components/Chart/BarChart";
-import ActorSection from "./ActorSection";
-import DirectorSection from "./DirectorSection";
-import FavCountry from "./FavCountry";
-import FavGenre from "./FavGenre";
-import { Divider } from "../../styles";
-import { getPageId } from "../../utils/helperFunc";
+import api from "../../../services/api";
+import MyTag from "./Components/MyTag";
 
-function Analysis() {
+import ActorSection from "./Components/ActorSection";
+import DirectorSection from "./Components/DirectorSection";
+import FavCountry from "./Components/FavCountry";
+import FavGenre from "./Components/FavGenre";
+import BarChart from "../../../components/Chart/BarChart";
+import { Divider } from "../../../styles";
+import { getPageId } from "../../../utils/helperFunc";
+
+function UserAnalysis() {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
@@ -282,7 +283,7 @@ function Analysis() {
     );
 }
 
-export default Analysis;
+export default UserAnalysis;
 
 const Favorite = styled.div`
     background: #fff;

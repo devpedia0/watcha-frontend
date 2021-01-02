@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-// import { Divider } from "../../pages/Detail/DetailSection/DetailSectionInfo";
-import { CardListSlick, Card } from "../../components";
+import { Divider } from "../../../../styles";
+import { CardListSlick, Card } from "../../../../components";
 // ★
-const DirectorSection = ({ data }) => {
+const ActorSection = ({ data }) => {
     return (
         <Wrapper>
-            <CardListSlick title="선호감독" horizon>
+            <CardListSlick title="선호배우" horizon>
                 {data.map((item, idx) => (
                     <Card
                         key={idx}
@@ -29,15 +29,15 @@ const DirectorSection = ({ data }) => {
                     />
                 ))}
             </CardListSlick>
-            {/* <Divider /> */}
+            <Divider />
         </Wrapper>
     );
 };
 
-export default React.memo(DirectorSection);
+export default React.memo(ActorSection);
 
 const Wrapper = styled.div`
-    margin: 0 20px;
+    margin-left: 20px;
 `;
 
 const ScoreCount = styled.span`

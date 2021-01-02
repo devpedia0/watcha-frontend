@@ -1,11 +1,11 @@
 import React from "react";
 // { useState, useEffect }
 import styled from "styled-components";
-import Header from "../../components/Header/Header";
+import Header from "../../../components/Header/Header";
 
 // import AuthService from "../../services/auth.service";
 
-export default function MyMovie() {
+export default function UserContentsDetail() {
     // const [rated, setRated] = useState({
     //     movie: 0,
     // });

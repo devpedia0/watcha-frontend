@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Setting from "../../components/Setting/Setting";
-import AuthService from "../../services/auth.service";
+import Setting from "../../../components/Setting/Setting";
+import AuthService from "../../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
-import { getPageId } from "../../utils/helperFunc";
+import { getPageId } from "../../../utils/helperFunc";
 
 import { useSelector } from "react-redux";
 
-function MyPage() {
+function UserMyPage() {
     const { userId } = useSelector((state) => state.auth);
 
     const [settingVisible, setSettingVisible] = useState(true);
@@ -242,7 +242,7 @@ function MyPage() {
     );
 }
 
-export default withRouter(MyPage);
+export default withRouter(UserMyPage);
 
 const Content = styled.div`
     padding-top: 0;
