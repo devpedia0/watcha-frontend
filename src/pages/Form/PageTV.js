@@ -2,7 +2,6 @@ import React from "react";
 import useInputs from "../../Hooks/useInputs";
 import LayoutForm from "../../layouts/LayoutForm";
 import {
-
     FormSection,
     File,
     Input,
@@ -10,9 +9,9 @@ import {
     YearPicker,
     Textarea,
     RadioYN,
-    FormRoles,
-    FormTags,
 } from "../../components";
+import FormRoles from "./Components/FormRoles/FormRoles";
+import FormTags from "./Components/FormTags/FormTags";
 
 const initialValue = {
     file: "",
@@ -47,7 +46,6 @@ const PageTV = () => {
         onSubmitFile("/admin/tv_shows", sendData, "poster");
     };
 
-
     return (
         <LayoutForm>
             <FormSection title="TV 추가">
@@ -75,7 +73,6 @@ const PageTV = () => {
                             onChange={onChange}
                             error={errors.category}
                         />
-
 
                         <YearPicker
                             title="제작연도"

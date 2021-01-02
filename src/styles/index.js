@@ -4,3 +4,4 @@ export { default as Divider } from "./Divider";
 export { default as Loader } from "./Loader";
 export { default as GlobalStyle } from "./GlobalStyle";
 export { default as theme } from "./theme";
+export { default as BoxImg } from "./BoxImg";

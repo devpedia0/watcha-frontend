@@ -3,7 +3,7 @@ import styled from "styled-components";
 import history from "../../../history";
 import useInputs from "../../../Hooks/useInputs";
 import AuthService from "../../../services/auth.service";
-import SelectForm from "../../../pages/LoginSignUp/Languages/SelectForm";
+import SelectForm from "./SelectForm/SelectForm";
 
 import ReactFacebookLogin from "../../../services/ReactFacebookLogin";
 

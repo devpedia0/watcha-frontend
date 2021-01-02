@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import BoxImg from "../Box/BoxImg";
+import BoxImg from "../../styles/BoxImg";
 
 const Card = ({
     className,

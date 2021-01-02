@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import BoxImg from "../Box/BoxImg";
+import BoxImg from "../../styles/BoxImg";
 
 const File = ({ name, value, onChange, multiple }) => {
     const imgRef = useRef();

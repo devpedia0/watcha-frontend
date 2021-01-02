@@ -26,7 +26,7 @@ const ContentsPeople = () => {
                                 : "")
                         }
                         onClick={() => {
-                            history.push(`/people/${item.id}`);
+                            history.push(`/detail/people/${item.id}`);
                         }}
                     />
                 ))}

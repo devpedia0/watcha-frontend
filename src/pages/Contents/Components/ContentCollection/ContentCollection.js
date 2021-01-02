@@ -19,7 +19,7 @@ const ContentCollection = () => {
                         key={idx}
                         item={item}
                         size="sm"
-                        onClick={() => history.push(`/decks/${item.id}`)}
+                        onClick={() => history.push(`/detail/decks/${item.id}`)}
                     />
                 ))}
             </CardListSlick>

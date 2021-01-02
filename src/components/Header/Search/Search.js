@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ModalRecentKeyword from "../../Modal/ModalRecentKeyword";
+import ModalRecentKeyword from "./ModalRecentKeyword/ModalRecentKeyword";
 import history from "../../../history";
 import { Icon } from "../../../styles";
 

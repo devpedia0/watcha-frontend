@@ -1,4 +1,3 @@
-
 import React from "react";
 import useInputs from "../../Hooks/useInputs";
 
@@ -6,10 +5,8 @@ import { FormSection, File, Input, Textarea } from "../../components";
 
 const initialValue = {
     file: "",
-    // id: "",
     job: "",
     name: "",
-    //profileImagePath: "",
     description: "",
 };
 
@@ -17,9 +14,6 @@ const PageParticipant = () => {
     const { inputs, errors, onChange, onSubmitFile } = useInputs(initialValue);
 
     const handleSubmit = () => {
-        // if (!inputs.file) {
-        //     alert("파일을 추가해주세요.");
-        // }
         onSubmitFile("/admin/participants", inputs, "profile");
     };
 
