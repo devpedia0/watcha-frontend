@@ -3,9 +3,7 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import { contentActions, modalActions } from "../../../../redux/actions";
-
-import { BoxImg } from "../../../../components";
-import { Button, Icon } from "../../../../styles";
+import { Button, Icon, BoxImg } from "../../../../styles";
 
 const ContentsWrite = ({ onChangeModal }) => {
     const dispatch = useDispatch();

@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import history from "../../history";
-
 import siteConfig from "../../utils/siteConfig";
-
-// redux
 import { useDispatch, useSelector } from "react-redux";
 import boardActions from "../../redux/actions/boardActions";
-import { BoxImg } from "../../components";
+import { BoxImg } from "../../styles";
 
 const PageBoard = () => {
     const pageId = history.location.pathname.split("/")[2];

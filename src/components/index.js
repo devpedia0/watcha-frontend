@@ -1,6 +1,3 @@
-// Box
-export { default as BoxForm } from "./Box/BoxForm";
-export { default as BoxImg } from "./Box/BoxImg";
 // Card
 export { default as Card } from "./Card/Card";
 export { default as CardCollection } from "./Card/CardCollection";
@@ -12,11 +9,12 @@ export { default as CardList } from "./CardList/CardList";
 export { default as CardListForm } from "./CardList/CardListForm";
 export { default as CardListInfinite } from "./CardList/CardListInfinite";
 export { default as CardListSlick } from "./CardList/CardListSlick";
-// Charts
-export { default as BarChart } from "./Chart/BarChart";
 // Common
+export { default as BarChart } from "./Common/BarChart";
 export { default as Svg } from "./Common/Svg";
 export { default as ScrollTop } from "./Common/ScrollTop";
+export { default as Stars } from "./Common/Stars";
+export { default as ModalWrapper } from "./Common/ModalWrapper";
 // Footer
 export { default as Footer } from "./Footer/Footer";
 // Form
@@ -28,19 +26,6 @@ export { default as FormSection } from "./Form/FormSection";
 export { default as SelectCtg } from "./Form/SelectCtg";
 export { default as RadioYN } from "./Form/RadioYN";
 export { default as YearPicker } from "./Form/YearPicker";
-export { default as FormRoles } from "./Form/FormRoles";
-export { default as FormTags } from "./Form/FormTags";
 // Header
 export { default as Header } from "./Header/Header";
 export { default as HeaderDetail } from "./Header/HeaderDetail";
-// Loader
-export { default as Loader } from "./Loader/Loader";
-// Modal
-export { default as Modal } from "./Modal/Modal";
-export { default as ModalParticipant } from "./Modal/ModalParticipant";
-export { default as ModalTag } from "./Modal/ModalTag";
-export { default as ModalWrapper } from "./Modal/ModalWrapper";
-// Setting
-export { default as Setting } from "./Setting/Setting";
-// Stars
-export { default as Stars } from "./Stars/Stars";

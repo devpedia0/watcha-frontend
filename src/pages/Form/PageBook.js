@@ -1,6 +1,5 @@
 import React from "react";
 import useInputs from "../../Hooks/useInputs";
-// import LayoutForm from "../../layouts/LayoutForm";
 import {
     FormSection,
     File,
@@ -8,9 +7,9 @@ import {
     SelectCtg,
     YearPicker,
     Textarea,
-    FormRoles,
-    FormTags,
 } from "../../components";
+import FormRoles from "./Components/FormRoles/FormRoles";
+import FormTags from "./Components/FormTags/FormTags";
 
 const initialValue = {
     file: "",
@@ -125,7 +124,6 @@ const PageBook = () => {
                 setRoles={setInputs}
                 error={errors.roles}
             />
-
 
             <FormTags
                 tags={inputs.tags}

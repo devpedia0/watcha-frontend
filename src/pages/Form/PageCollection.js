@@ -1,8 +1,8 @@
 import React from "react";
 import useInputs from "../../Hooks/useInputs";
 
-
-import { FormRoles, FormSection, Input, Textarea } from "../../components";
+import { FormSection, Input, Textarea } from "../../components";
+import FormRoles from "./Components/FormRoles/FormRoles";
 
 const initialValue = {
     user_id: "",
@@ -18,11 +18,9 @@ const PageCollection = () => {
         initialValue
     );
 
-
     const handleSubmit = () => {
         onSubmit(pathname, inputs);
     };
-
 
     return (
         <FormSection title="컬렉션추가">
@@ -63,7 +61,6 @@ const PageCollection = () => {
             </button>
         </FormSection>
     );
-
 };
 
 export default PageCollection;

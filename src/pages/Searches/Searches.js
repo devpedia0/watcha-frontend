@@ -1,35 +1,39 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Divider } from "../../styles";
+import { Divider, Loader } from "../../styles";
 import { CardListSlick, CardPoster, Header, Card } from "../../components";
 import api from "../../services/api";
-
+import history from "../../history";
+import queryString from "query-string";
 function Searches() {
-    const [data, setData] = useState("");
-    const [userInfo, setUserInfo] = useState({});
+    const query = queryString.parse(history.location.search).query;
+
+    const [state, setState] = useState({
+        data: {},
+        isFetching: true,
+    });
 
     useEffect(() => {
-        const fetchData = async () => {
-            const baseUrl = `/public/searches`;
-            const response = await api.get(baseUrl + `?query=%EB%82%98`);
-            setData(() => response.data);
-            console.log(data, "state");
-        };
-        console.log(data, "searchData");
-        fetchData();
-    }, []);
-    useEffect(() => {
-        const id = JSON.parse(localStorage.getItem("id"));
-        const getData = async () => {
-            const response = await api.get(`/users/${id}/analysis`);
-            console.log("useEffect", response);
-            setUserInfo(() => response.data);
-        };
-        getData();
-    }, []);
+        setState({ data: {}, isFetching: true });
+        api.get(`/public/searches?query=${query}`)
+            .then((res) => {
+                setState({
+                    data: res.data,
+                    isFetching: false,
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, [query]);
 
-    if (Object.keys(data).length === 0) return null;
+    if (!query) {
+        alert("검색내용을 입력해주세요.");
+        return history.goBack();
+    }
 
+    if (state.isFetching) return <Loader height="800px" />;
+    console.log(state.data.movies);
     return (
         <Page>
             <Header />
@@ -37,7 +41,7 @@ function Searches() {
                 <section className="section">
                     <Wrapper>
                         <CardListSlick title="상위 검색 결과" sizeHeader="sm">
-                            {data.topResults.map((item) => (
+                            {state.data.topResults.map((item) => (
                                 <StyledCard key={item.id} item={item} />
                             ))}
                         </CardListSlick>
@@ -53,15 +57,20 @@ function Searches() {
                             ratedMovie="ratedMovie"
                             horizon
                         >
-                            {data.movies.map((item) => (
+                            {state.data.movies.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    countryCode={item.countryCode}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.posterImagePath}
+                                    title={item.mainTitle}
+                                    subTitle={
+                                        item.productionDate?.split("-")[0] +
+                                        (item.countryCode
+                                            ? " • " + item.countryCode
+                                            : "") +
+                                        (item.author ? " • " + item.author : "")
+                                    }
                                 />
                             ))}
                         </CardListSlick>
@@ -77,15 +86,20 @@ function Searches() {
                             ratedMovie="ratedMovie"
                             horizon
                         >
-                            {data.tvShows.map((item) => (
+                            {state.data.tvShows.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    countryCode={item.countryCode}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.posterImagePath}
+                                    title={item.mainTitle}
+                                    subTitle={
+                                        item.productionDate?.split("-")[0] +
+                                        (item.countryCode
+                                            ? " • " + item.countryCode
+                                            : "") +
+                                        (item.author ? " • " + item.author : "")
+                                    }
                                 />
                             ))}
                         </CardListSlick>
@@ -101,15 +115,20 @@ function Searches() {
                             ratedMovie={"ratedMovie"}
                             horizon
                         >
-                            {data.books.map((item) => (
+                            {state.data.books.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    author={item.author}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.posterImagePath}
+                                    title={item.mainTitle}
+                                    subTitle={
+                                        item.productionDate?.split("-")[0] +
+                                        (item.countryCode
+                                            ? " • " + item.countryCode
+                                            : "") +
+                                        (item.author ? " • " + item.author : "")
+                                    }
                                 />
                             ))}
                         </CardListSlick>
@@ -125,15 +144,16 @@ function Searches() {
                             ratedMovie={"ratedMovie"}
                             horizon
                         >
-                            {data.users.map((item) => (
+                            {state.data.users.map((item) => (
                                 <Card
                                     key={item.id}
-                                    productionDate={item.productionDate}
-                                    countryCode={item.countryCode}
-                                    item={item}
-                                    width="33%"
-                                    searches="searches"
                                     radius="4%"
+                                    width="33%"
+                                    imageUrl={item.profileImagePath}
+                                    title={item.name}
+                                    subTitle={
+                                        item.description ? item.description : ""
+                                    }
                                 />
                             ))}
                         </CardListSlick>

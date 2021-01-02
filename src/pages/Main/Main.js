@@ -4,10 +4,10 @@ import history from "../../history";
 import { ScrollTop } from "../../components";
 import { Loader } from "../../styles";
 import api from "../../services/api";
-import MainSection from "./MainSection/MainSection";
-import MainSectionRank from "./MainSection/MainSectionRank";
-import MainSectionAward from "./MainSection/MainSectionAward";
-import MainSectionCollection from "./MainSection/MainSectionCollection";
+import MainSection from "./Components/MainSection";
+import MainSectionRank from "./Components/MainSectionRank";
+import MainSectionAward from "./Components/MainSectionAward";
+import MainSectionCollection from "./Components/MainSectionCollection";
 
 const steps = [
     { id: "score" },
@@ -124,7 +124,6 @@ const Wrapper = styled.div`
     margin-left: 15px;
     @media only screen and (min-width: 600px) {
         min-height: calc(100vh - 343px);
-        margin-top: 74px;
     }
 
     @media only screen and (min-width: 719px) {

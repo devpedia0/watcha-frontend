@@ -86,7 +86,9 @@ const ContentsInfo = () => {
                     <CardList
                         title="저자소개"
                         addComponent={
-                            <Link href={`/people/${authorId}`}>더보기</Link>
+                            <Link href={`/detail/people/${authorId}`}>
+                                더보기
+                            </Link>
                         }
                     >
                         <CardInfo>

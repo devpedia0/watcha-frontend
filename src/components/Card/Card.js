@@ -1,73 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import BoxImg from "../Box/BoxImg";
+import BoxImg from "../../styles/BoxImg";
 
 const Card = ({
+    className,
     radius,
-    item,
-    onClickSelect,
-    onClickDelete,
-    selected,
-    disabled,
-    score,
-    count,
-    productionDate,
-    countryCode,
     width,
-    analysis,
-    searches,
-    author,
+    imageUrl,
+    title,
+    subTitle,
+    AddComponent,
     onClick,
 }) => {
-    const { name, role, characterName, profileImagePath } = item;
-
     return (
-        <Wrapper width={width} onClick={onClick}>
+        <Wrapper className={className} width={width} onClick={onClick}>
             <BoxImg
                 width="50px"
                 height="50px"
                 radius={radius}
-                src={profileImagePath ? profileImagePath + "?w=100&h=100" : ""}
+                src={imageUrl ? imageUrl + "?w=100&h=100" : ""}
             />
             <div className="content">
                 <div className="text">
-                    <div className="title">{name}</div>
-                    <div className="subTitle">
-                        {role}
-                        {characterName && " | " + characterName}
-                    </div>
+                    <div className="title">{title}</div>
+                    <div className="subTitle">{subTitle}</div>
                 </div>
-                <div className="text">
-                    {analysis && (
-                        <span className="scoreCount">
-                            {score}점 • {count}편
-                        </span>
-                    )}
-                    {searches && (
-                        <span className="scoreCount">
-                            {productionDate} • {countryCode || author}
-                        </span>
-                    )}
-                    {onClickDelete && (
-                        <button
-                            type="button"
-                            className="btn"
-                            onClick={() => onClickDelete(item.id)}
-                        >
-                            삭제
-                        </button>
-                    )}
-                    {onClickSelect && (
-                        <button
-                            type="button"
-                            className={`btn ${selected && "btn-success"}`}
-                            onClick={() => onClickSelect(item)}
-                            disabled={disabled}
-                        >
-                            {disabled ? "추가완료" : "선택"}
-                        </button>
-                    )}
-                </div>
+                <div className="text">{AddComponent}</div>
             </div>
         </Wrapper>
     );
@@ -118,13 +76,6 @@ const Wrapper = styled.div`
             overflow: hidden;
             text-overflow: ellipsis;
             margin-top: 2px;
-        }
-        .scoreCount {
-            color: #787878;
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: -0.3px;
-            line-height: 19px;
         }
     }
 `;

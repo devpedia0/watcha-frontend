@@ -8,9 +8,9 @@ import {
     YearPicker,
     Textarea,
     RadioYN,
-    FormRoles,
-    FormTags,
 } from "../../components";
+import FormRoles from "./Components/FormRoles/FormRoles";
+import FormTags from "./Components/FormTags/FormTags";
 
 const initialValue = {
     file: "",

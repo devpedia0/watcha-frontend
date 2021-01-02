@@ -1,11 +1,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ModalRecentKeyword from "../../Modal/ModalRecentKeyword";
+import ModalRecentKeyword from "./ModalRecentKeyword/ModalRecentKeyword";
+import history from "../../../history";
+import { Icon } from "../../../styles";
 
 const Search = () => {
     const [open, setOepn] = useState(false);
+    const [input, setInput] = useState("");
     const handleClickOpen = () => setOepn(true);
     const handleClickClose = () => setOepn(false);
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            let recent = JSON.parse(localStorage.getItem("recent")) || [];
+            if (recent.indexOf(input) > -1) {
+                recent = [input, ...recent.filter((item) => item !== recent)];
+            } else {
+                recent = [input, ...recent];
+            }
+            localStorage.setItem("recent", JSON.stringify(recent.slice(0, 5)));
+            history.push(`/searches?query=${input}`);
+        }
+    };
 
     return (
         <Wrapper onClick={handleClickOpen}>
@@ -13,7 +29,18 @@ const Search = () => {
                 <input
                     placeholder="작품 제목, 배우, 감독을 검색해보세요."
                     autoComplete="off"
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    value={input}
                 />
+                {input && (
+                    <Icon
+                        type="closeCircle"
+                        w="22px"
+                        h="22px"
+                        onClick={() => setInput("")}
+                    />
+                )}
             </div>
             {open && (
                 <ModalRecentKeyword
