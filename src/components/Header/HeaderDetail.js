@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import history from "../../history";
 
-const HeaderDetail = ({ title }) => {
+const HeaderDetail = ({ className, title, AddComponent }) => {
     const [scrolling, setScrolling] = useState(false);
 
     const scrollEvent = useCallback(() => {
@@ -20,15 +20,16 @@ const HeaderDetail = ({ title }) => {
         return () => window.removeEventListener("scroll", scrollEvent);
     }, [scrollEvent]);
     return (
-        <Wrapper>
+        <Wrapper className={className}>
             <HeaderBlock>
                 <span className="icon-back" onClick={() => history.goBack()} />
                 <p className={!scrolling ? "off" : ""}>{title}</p>
             </HeaderBlock>
-
             {!scrolling && (
                 <div className={`scrolling ${scrolling && "off"}`}>{title}</div>
             )}
+
+            {AddComponent}
         </Wrapper>
     );
 };
@@ -47,12 +48,12 @@ const Wrapper = styled.div`
     line-height: 22px;
     width: 100%;
     height: 44px;
-    padding: 0 16px;
     border-bottom: 1px solid #e3e3e3;
     text-align: left;
     height: auto;
 
     .scrolling {
+        padding: 0 16px;
         display: inline-block;
         font-size: 33px;
         font-weight: 700;
@@ -78,7 +79,7 @@ const Wrapper = styled.div`
 
 const HeaderBlock = styled.div`
     display: flex;
-
+    padding: 0 16px;
     .icon-back {
         background: none;
         padding: 0;

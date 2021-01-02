@@ -10,7 +10,9 @@ const initUser = (userId) => async (dispatch) => {
             type: AUTH_INIT,
             payload: { ...res.data, userId },
         });
-    } catch (e) {}
+    } catch (e) {
+        console.log(e.response);
+    }
 };
 
 const login = (inputs) => async (dispatch) => {

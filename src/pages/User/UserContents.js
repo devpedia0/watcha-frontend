@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AuthService from "../../services/auth.service";
 import api from "../../services/api";
-import history from "../../history";
 import { CardListSlick, CardPoster, HeaderDetail } from "../../components";
 
 const formatObj = {
@@ -20,17 +19,15 @@ const formatObj = {
     },
 };
 
-export default function UserContents() {
-    const pathSplit = history.location.pathname.split("/");
-    const userId = pathSplit[2];
-    const contentType = pathSplit[4];
+const UserContents = ({ match }) => {
+    const { userId, contentType } = match.params;
 
     const [contents, setContents] = useState([]);
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
         const baseUrl = `/users/${userId}/${contentType}/ratings`;
-        api.get(baseUrl + `?page=1&size=7`).then((res) => {
+        api.get(baseUrl + `?page=1&size=10`).then((res) => {
             setContents(() => res.data);
         });
     }, [userId, contentType]);
@@ -56,7 +53,7 @@ export default function UserContents() {
                                 addComponent={
                                     <a
                                         className="toRated"
-                                        href={`/user/${userId}/detail/ratedMovie`}
+                                        href={`/user/${userId}/${contentType}/rated`}
                                     >
                                         더보기
                                     </a>
@@ -76,7 +73,7 @@ export default function UserContents() {
                                 <div className="listInner">
                                     <div className="listTitle">
                                         <a
-                                            href={`/user/${userId}/detail/wish`}
+                                            href={`/user/${userId}/${contentType}/wish`}
                                             className="localLink"
                                         >
                                             보고싶어요
@@ -108,7 +105,9 @@ export default function UserContents() {
             </section>
         </Section>
     );
-}
+};
+
+export default UserContents;
 
 const Section = styled.section`
     .mainContainer {

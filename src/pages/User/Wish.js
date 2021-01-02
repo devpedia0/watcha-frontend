@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import api from "../../services/api";
-import WishModal from "./Components/WishModal/WishModal";
+import ModalWish from "./Components/Modals/ModalWish";
 
 import { CardPoster, Header } from "../../components";
 
@@ -97,7 +97,7 @@ export default function Wish() {
                 </nav>
             </Footer>
             <>
-                <WishModal
+                <ModalWish
                     wishModal={wishModal}
                     switchModal={wishVisible}
                     setOrder={setOrder}

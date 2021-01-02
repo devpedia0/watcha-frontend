@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { CardListSlick, CardComment } from "../../../../components";
 import { Divider } from "../../../../styles";
 
-const ContentsInfo = () => {
+const ContentsCommentsList = () => {
     const { data } = useSelector((state) => state.content);
     const { count, list } = data.comments;
     return (
@@ -29,7 +29,7 @@ const ContentsInfo = () => {
     );
 };
 
-export default ContentsInfo;
+export default ContentsCommentsList;
 
 const Link = styled.a`
     float: right;

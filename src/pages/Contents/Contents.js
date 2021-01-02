@@ -11,7 +11,7 @@ import {
     ModalComment,
     ContentsPeople,
     ContentsGraph,
-    ContentsComments,
+    ContentsCommentsList,
     ContentCollection,
     ContentsSidebar,
     ContentsPoster,
@@ -41,7 +41,7 @@ const Contents = () => {
     const handleChangeModal = (newModal) => {
         dispatch(modalActions.setModal(newModal));
     };
-    console.log(data);
+
     if (isFetching) return <Loader height="800px" />;
 
     return (
@@ -60,7 +60,7 @@ const Contents = () => {
                         <ContentsInfo />
                         <ContentsPeople />
                         <ContentsGraph />
-                        <ContentsComments />
+                        <ContentsCommentsList />
                     </div>
                 </div>
 

@@ -1,31 +1,32 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-
+import useIntersection from "../../Hooks/useIntersection";
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../redux/actions";
-import useIntersection from "../../Hooks/useIntersection";
 import { CardList, HeaderDetail, CardPoster } from "../../components";
 import { Loader } from "../../styles";
 
-const Watcha = () => {
+const Watcha = ({ match }) => {
+    const pageId = match.params.pageId;
     const dispatch = useDispatch();
     const { info, data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
     );
 
     useEffect(() => {
-        dispatch(detailActions.initWatcha());
+        dispatch(detailActions.initWatcha(pageId));
         return () => dispatch(detailActions.initialize());
-    }, [dispatch]);
+    }, [dispatch, pageId]);
 
     const loaderRef = useRef();
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            dispatch(detailActions.fetchMoreWatcha());
+            const fetchUrl = `/public/awards/${pageId}/contents`;
+            dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch]);
+    }, [isIntersecting, fetchMore, dispatch, pageId]);
 
     return (
         <Wrapper>

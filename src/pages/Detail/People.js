@@ -7,25 +7,27 @@ import useIntersection from "../../Hooks/useIntersection";
 import { CardList, CardPoster } from "../../components";
 import { BoxImg, Loader } from "../../styles";
 
-const People = () => {
+const People = ({ match }) => {
+    const pageId = match.params.pageId;
     const dispatch = useDispatch();
     const { info, data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
     );
 
     useEffect(() => {
-        dispatch(detailActions.initPeople());
+        dispatch(detailActions.initPeople(pageId));
         return () => dispatch(detailActions.initialize());
-    }, [dispatch]);
+    }, [dispatch, pageId]);
 
     const loaderRef = useRef();
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            dispatch(detailActions.fetchMorePeople());
+            const fetchUrl = `/participants/${pageId}/contents`;
+            dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch]);
+    }, [isIntersecting, fetchMore, dispatch, pageId]);
     return (
         <Wrapper>
             <div className="people-header">

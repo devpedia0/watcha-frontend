@@ -3,7 +3,7 @@ export { default as ContentsHeaderInfo } from "./ContentsHeaderInfo/ContentsHead
 export { default as ContentsWrite } from "./ContentsWrite/ContentsWrite";
 export { default as ContentsInfo } from "./ContentsInfo/ContentsInfo";
 export { default as ContentsGraph } from "./ContentsGraph/ContentsGraph";
-export { default as ContentsComments } from "./ContentsComments/ContentsComments";
+export { default as ContentsCommentsList } from "./ContentsCommentsList/ContentsCommentsList";
 export { default as ContentsPeople } from "./ContentsPeople/ContentsPeople";
 export { default as ContentCollection } from "./ContentCollection/ContentCollection";
 export { default as ContentsSidebar } from "./ContentsSidebar/ContentsSidebar";

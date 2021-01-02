@@ -7,7 +7,8 @@ import useIntersection from "../../Hooks/useIntersection";
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../redux/actions";
 
-const ContentsComment = () => {
+const ContentsComment = ({ match }) => {
+    const { pageId, userId } = match.params;
     const dispatch = useDispatch();
     const { data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
@@ -17,16 +18,17 @@ const ContentsComment = () => {
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
-        dispatch(detailActions.initComment());
+        dispatch(detailActions.initComment(pageId, userId));
 
         return () => dispatch(detailActions.initialize());
-    }, [dispatch]);
+    }, [dispatch, pageId, userId]);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            dispatch(detailActions.fetchMoreComment());
+            const fetchUrl = `/contents/${pageId}/comments`;
+            dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch]);
+    }, [isIntersecting, fetchMore, dispatch, pageId]);
 
     return (
         <Wrapper>
