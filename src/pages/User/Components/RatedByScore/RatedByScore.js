@@ -22,7 +22,7 @@ const RatedByScore = ({ match, selected }) => {
             });
         });
     }, [userId, contentType]);
-    console.log(state);
+
     if (state.isFetching) return <Loader height="800px" />;
 
     return (
@@ -53,22 +53,34 @@ const RatedByScore = ({ match, selected }) => {
 export default RatedByScore;
 
 const Wrapper = styled.div`
-    margin: 200px 20px;
-    background: ${(props) => props.theme.bgGray};
+    padding: 220px 20px;
 `;
-
 const StyledCard = styled(CardPoster)`
     width: 33.3333333%;
+    margin: 0 5px;
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 520px) {
         width: 25%;
     }
-    @media only screen and (min-width: 760px) {
+    @media only screen and (min-width: 680px) {
         width: 20%;
-        padding: 0 5px;
+    }
+    @media only screen and (min-width: 840px) {
+        width: 16.6667%;
+    }
+    @media only screen and (min-width: 960px) {
+        width: 14.28%;
     }
     @media only screen and (min-width: 1100px) {
-        width: 16.6667%;
-        padding: 0 8px;
+        width: 12.5%;
+    }
+    @media only screen and (min-width: 1200px) {
+        width: 11.1111%;
+    }
+    @media only screen and (min-width: 1360px) {
+        width: 10%;
+    }
+    @media only screen and (min-width: 1600px) {
+        width: 9.1%;
     }
 `;

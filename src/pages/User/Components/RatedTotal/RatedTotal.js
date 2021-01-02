@@ -57,7 +57,7 @@ const RatedTotal = ({ match, selected }) => {
 export default RatedTotal;
 
 const Wrapper = styled.div`
-    margin: 200px 20px;
+    padding: 200px 20px;
     background: ${(props) => props.theme.bgGray};
 `;
 

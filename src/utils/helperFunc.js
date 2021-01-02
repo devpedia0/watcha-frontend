@@ -46,7 +46,7 @@ export const randomUserImg = () => {
 export const makeUrlQuery = (fetchUrl, params) => {
     let result = fetchUrl;
     Object.keys(params).forEach((key) => {
-        if (fetchUrl.indexOf("?") > -1) {
+        if (result.indexOf("?") > -1) {
             result += `&${key}=${params[key]}`;
         } else {
             result += `?${key}=${params[key]}`;

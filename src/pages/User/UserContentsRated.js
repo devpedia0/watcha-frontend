@@ -40,16 +40,18 @@ const UserContentsRated = ({ match }) => {
                                 별점 순
                             </li>
                         </ButtonsWrapper>
-                        <SelectWrapper
-                            onClick={() =>
-                                dispatch(modalActions.setModal("select"))
-                            }
-                        >
-                            <span className="dropDown"></span>
-                            <span className="dropTitle">
-                                {translateObj[selected]}
-                            </span>
-                        </SelectWrapper>
+                        {page === "TOTAL" && (
+                            <SelectWrapper
+                                onClick={() =>
+                                    dispatch(modalActions.setModal("select"))
+                                }
+                            >
+                                <span className="dropDown"></span>
+                                <span className="dropTitle">
+                                    {translateObj[selected]}
+                                </span>
+                            </SelectWrapper>
+                        )}
                     </>
                 }
             />
@@ -74,7 +76,7 @@ const UserContentsRated = ({ match }) => {
 export default UserContentsRated;
 
 const Wrapper = styled.div`
-    margin: 200px 20px;
+    padding: 0px 20px;
     background: ${(props) => props.theme.bgGray};
 `;
 const StyledHeader = styled(HeaderDetail)`
@@ -91,6 +93,7 @@ const ButtonsWrapper = styled.ul`
     width: 100%;
     height: 48px;
     padding: 0px 16px;
+    border-bottom: 1px solid ${(props) => props.theme.line};
 
     @media (min-width: 719px) {
         width: 335px;
@@ -126,9 +129,7 @@ const SelectWrapper = styled.div`
     border: none;
     margin: 0px;
     height: 50px;
-
     cursor: pointer;
-    border-top: 1px solid ${(props) => props.theme.line};
     display: flex;
     align-items: center;
 
