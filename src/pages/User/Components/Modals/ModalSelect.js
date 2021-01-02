@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import { useDispatch, useSelector } from "react-redux";
 import { contentActions, modalActions } from "../../../../redux/actions";
-
-import { ModalWrapper, Svg } from "../../../../components";
+import { ModalWrapper } from "../../../../components";
 import { Icon } from "../../../../styles";
 
-const ModalSelect = ({ title, onCloseModal }) => {
+const ModalSelect = ({ title, selected, onCloseModal, onClickRow }) => {
     const dispatch = useDispatch();
     const {
         userData: { commentDescription },
@@ -18,14 +16,13 @@ const ModalSelect = ({ title, onCloseModal }) => {
         setInput(commentDescription || "");
     }, [commentDescription]);
 
-    const handleClickSubmit = async () => {
-        if (!input) return;
-        dispatch(contentActions.createComment(input));
+    const handleClickRow = async (rowId) => {
+        onClickRow(rowId);
         dispatch(modalActions.closeModal());
     };
 
     return (
-        <ModalWrapper width="640px" onCloseModal={onCloseModal}>
+        <ModalWrapper width="375px" height="540px" onCloseModal={onCloseModal}>
             <Header>
                 <Icon
                     type="close"
@@ -35,21 +32,23 @@ const ModalSelect = ({ title, onCloseModal }) => {
                     onClick={onCloseModal}
                 />
                 <h3>{title}</h3>
-                <span className={input ? "on" : ""} onClick={handleClickSubmit}>
-                    {commentDescription ? "코멘트수정" : "코멘트작성"}
-                </span>
             </Header>
-            <SectionSNS>
-                <span>SNS</span>
-                <div className="svg-box">
-                    <Svg type="twitter" w="22px" h="18px" />
-                </div>
-            </SectionSNS>
-            <TextArea
-                placeholder="이 작품에 대한 생각을 자유롭게 표현해주세요."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-            />
+            <ContentRow onClick={() => handleClickRow("AVG_SCORE")}>
+                평점 순
+                {selected === "AVG_SCORE" && (
+                    <Icon type="check" w="24px" h="24px" />
+                )}
+            </ContentRow>
+            <ContentRow onClick={() => handleClickRow("TITLE")}>
+                가나다 순
+                {selected === "TITLE" && (
+                    <Icon type="check" w="24px" h="24px" />
+                )}
+            </ContentRow>
+            <ContentRow onClick={() => handleClickRow("NEW")}>
+                개봉일 순
+                {selected === "NEW" && <Icon type="check" w="24px" h="24px" />}
+            </ContentRow>
         </ModalWrapper>
     );
 };
@@ -59,7 +58,7 @@ export default ModalSelect;
 const Header = styled.div`
     background: rgb(255, 255, 255);
     font-size: 17px;
-    font-weight: 700;
+
     letter-spacing: -0.5px;
     line-height: 22px;
     width: 100%;
@@ -74,44 +73,15 @@ const Header = styled.div`
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-    }
-
-    span {
-        float: right;
-        line-height: 44px;
-        font-weight: 400;
-        color: rgb(210, 210, 210);
-
-        &.on {
-            cursor: pointer;
-            color: RGB(255, 5, 88);
-        }
+        font-weight: 800;
     }
 `;
 
-const SectionSNS = styled.div`
+const ContentRow = styled.div`
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 48px;
-    border-bottom: 1px solid rgb(240, 240, 240);
-
-    .svg-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 32px;
-        height: 32px;
-        border: 1px solid rgb(210, 210, 210);
-        border-radius: 6px;
-    }
-`;
-
-const TextArea = styled.textarea`
-    border: none;
-    height: 400px;
-    width: 100%;
-    margin-top: 30px;
-    font-size: 17px;
-    font-weight: 400;
+    border-bottom: 1px solid ${(props) => props.theme.line};
+    cursor: pointer;
 `;

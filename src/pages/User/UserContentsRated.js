@@ -2,34 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import useIntersection from "../../Hooks/useIntersection";
 import { useDispatch, useSelector } from "react-redux";
-import { detailActions } from "../../redux/actions";
+import { detailActions, modalActions } from "../../redux/actions";
 import { CardList, HeaderDetail, CardPoster } from "../../components";
 import { Loader } from "../../styles";
+import ModalSelect from "./Components/Modals/ModalSelect";
+
+const translateObj = {
+    AVG_SCORE: "평점 순",
+    TITLE: "가나다 순",
+    NEW: "개봉일 순",
+};
 
 const UserContentsRated = ({ match }) => {
     const { userId, contentType } = match.params;
     const [page, setPage] = useState("total");
+    const [selected, setSelected] = useState("AVG_SCORE");
 
     const dispatch = useDispatch();
+    const modal = useSelector((state) => state.modal);
     const { data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
     );
 
     useEffect(() => {
-        const fetchUrl = `/users/${userId}/${contentType}/ratings`;
+        const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
         dispatch(detailActions.initContentRated(fetchUrl, 20));
         return () => dispatch(detailActions.initialize());
-    }, [dispatch, userId, contentType]);
+    }, [dispatch, userId, contentType, selected]);
 
     const loaderRef = useRef();
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            const fetchUrl = `/users/${userId}/${contentType}/ratings`;
+            const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
             dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch, userId, contentType]);
+    }, [isIntersecting, fetchMore, dispatch, userId, contentType, selected]);
 
     return (
         <Wrapper>
@@ -41,9 +50,15 @@ const UserContentsRated = ({ match }) => {
                             <li className="type">전체</li>
                             <li className="type">별점 순</li>
                         </ButtonsWrapper>
-                        <SelectWrapper>
+                        <SelectWrapper
+                            onClick={() =>
+                                dispatch(modalActions.setModal("select"))
+                            }
+                        >
                             <span className="dropDown"></span>
-                            <span className="dropTitle">담은 순</span>
+                            <span className="dropTitle">
+                                {translateObj[selected]}
+                            </span>
                         </SelectWrapper>
                     </>
                 }
@@ -61,46 +76,18 @@ const UserContentsRated = ({ match }) => {
             <StyledLoader ref={loaderRef}>
                 {isFetching && <Loader />}
             </StyledLoader>
+
+            {modal === "select" && (
+                <ModalSelect
+                    title="평가한 작품들"
+                    selected={selected}
+                    onClickRow={(ctg) => setSelected(ctg)}
+                    onCloseModal={() => dispatch(modalActions.closeModal())}
+                />
+            )}
         </Wrapper>
     );
 };
-
-/* <Section>
-            <div className="header">
-                <header className="headerTitle">
-                    <div className="backBtn">
-                        <div className="btnIcon"></div>
-                    </div>
-                    <div className="largeTitleBlock">
-                        <div className="largeTitle">평가한 작품들</div>
-                    </div>
-                    <div className="smallTitle">평가한 작품들</div>
-                </header>
-                <ul className="category">
-                    <li className="type">전체</li>
-                    <li className="type">별점 순</li>
-                </ul>
-                <div className="filterBar">
-                    <div>
-                        <div className="margin">
-                            <button className="downArrow">
-                                <span className="dropDown"></span>
-                                <span className="dropTitle">담은 순</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <Content>
-                <div>
-                    <section className="allScreen">
-                        <div>
-                            <div className="margin"></div>
-                        </div>
-                    </section>
-                </div>
-            </Content>
-        </Section> */
 
 export default UserContentsRated;
 

@@ -42,3 +42,15 @@ export const changeDataFormat = (key, value) => {
 export const randomUserImg = () => {
     return images[Math.floor(Math.random(1) * images.length)];
 };
+
+export const makeUrlQuery = (fetchUrl, params) => {
+    let result = fetchUrl;
+    Object.keys(params).forEach((key) => {
+        if (fetchUrl.indexOf("?") > -1) {
+            result += `&${key}=${params[key]}`;
+        } else {
+            result += `?${key}=${params[key]}`;
+        }
+    });
+    return result;
+};

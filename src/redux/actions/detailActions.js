@@ -1,4 +1,5 @@
 import api from "../../services/api";
+import { makeUrlQuery } from "../../utils/helperFunc";
 import {
     DETAIL_INIT,
     DETAIL_INITIALIZE,
@@ -59,7 +60,7 @@ const initWatcha = (pageId) => async (dispatch) => {
 };
 const initContentRated = (fetchUrl, size) => async (dispatch) => {
     try {
-        let res = await api.get(`${fetchUrl}?page=1&size=${size}`);
+        let res = await api.get(makeUrlQuery(fetchUrl, { size, page: 1 }));
 
         dispatch({
             type: DETAIL_INIT,
@@ -80,27 +81,14 @@ const initialize = () => async (dispatch) => {
     }
 };
 
-const fetchMorePeople = (fetchUrl) => async (dispatch, getState) => {
-    try {
-        dispatch({ type: DETAIL_FETCHING });
-
-        let { page, size } = getState().detail;
-        const res = await api.get(`${fetchUrl}?page=${page + 1}&size=${size}`);
-        dispatch({
-            type: DETAIL_FETCH_DATA,
-            payload: res.data,
-        });
-    } catch (err) {
-        console.log(err.response);
-    }
-};
-
 const fetchMore = (fetchUrl) => async (dispatch, getState) => {
     try {
         dispatch({ type: DETAIL_FETCHING });
 
         let { page, size } = getState().detail;
-        const res = await api.get(`${fetchUrl}?page=${page + 1}&size=${size}`);
+        const res = await api.get(
+            makeUrlQuery(fetchUrl, { size, page: page + 1 })
+        );
         dispatch({
             type: DETAIL_FETCH_DATA,
             payload: res.data,
@@ -117,7 +105,6 @@ const datailActions = {
     initContentRated,
     initialize,
     fetchMore,
-    fetchMorePeople,
 };
 
 export default datailActions;
