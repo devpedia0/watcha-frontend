@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { getPageId } from "../../../../utils/helperFunc";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { CardListSlick, CardComment } from "../../../../components";
 import { Divider } from "../../../../styles";
 
 const ContentsCommentsList = () => {
+    const pageId = useParams().pageId;
     const { data } = useSelector((state) => state.content);
     const { count, list } = data.comments;
     return (
@@ -15,9 +16,7 @@ const ContentsCommentsList = () => {
                 title="코멘트"
                 count={count}
                 addComponent={
-                    <Link href={`/contents/${getPageId()}/comments`}>
-                        더보기
-                    </Link>
+                    <Link href={`/contents/${pageId}/comments`}>더보기</Link>
                 }
             >
                 {list.map((item, idx) => (

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 function FavCountry({ data }) {
-    console.log(data);
     return (
         <Favorite>
             <header className="tagHeader">

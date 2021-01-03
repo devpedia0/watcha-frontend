@@ -5,6 +5,7 @@ import useInterSection from "../../Hooks/useIntersection";
 import { CardList, CardPoster } from "..";
 import { Loader } from "../../styles";
 import api from "../../services/api";
+import history from "../../history";
 
 const CardListInfinite = ({ posters, fetchUrl }) => {
     const loaderRef = useRef();
@@ -52,7 +53,13 @@ const CardListInfinite = ({ posters, fetchUrl }) => {
         <Wrppaer>
             <CardList title="작품들">
                 {list.map((item, idx) => (
-                    <StyledCard key={idx} item={item} />
+                    <StyledCard
+                        key={idx}
+                        item={item}
+                        onClick={() =>
+                            history.push(`/detail/watcha/${item.id}`)
+                        }
+                    />
                 ))}
             </CardList>
             {showMore && <Button onClick={handleClick}>더보기</Button>}

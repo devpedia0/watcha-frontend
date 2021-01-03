@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Setting from "./Components/Setting/Setting";
 import AuthService from "../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
-import { getPageId, randomUserImg } from "../../utils/helperFunc";
+import { randomUserImg } from "../../utils/helperFunc";
 
 function UserMyPage({ match }) {
     const userId = match.params.userId;
@@ -27,7 +27,6 @@ function UserMyPage({ match }) {
     useEffect(() => {
         AuthService.getUserInfo().then(
             (response) => {
-                console.log(response);
                 setName(response.data.name);
                 if (response.data.description !== null) {
                     setDesc(response.data.description);
@@ -64,13 +63,11 @@ function UserMyPage({ match }) {
                         <Outer>
                             <div>
                                 <Bg>
-                                    {getPageId() === userId && (
-                                        <SettingIcon
-                                            onClick={() =>
-                                                setSettingVisible(!settingModal)
-                                            }
-                                        />
-                                    )}
+                                    <SettingIcon
+                                        onClick={() =>
+                                            setSettingVisible(!settingModal)
+                                        }
+                                    />
                                 </Bg>
                                 <Profile>
                                     <ProfileHeader>

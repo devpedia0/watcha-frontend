@@ -19,8 +19,8 @@ const fetch = (pathname) => async (dispatch) => {
                 data: res.data,
             },
         });
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        console.error(err.response);
     }
 };
 

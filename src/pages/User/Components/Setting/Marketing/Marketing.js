@@ -356,7 +356,7 @@ const ToggleBtn = styled.button`
     display: inline-block;
     position: relative;
     font-size: 100%;
-    lone-height: normal;
+    line-height: normal;
     .bar {
         display: inline-block;
         vertical-align: top;

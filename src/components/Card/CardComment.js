@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import api from "../../services/api";
 import history from "../../history";
 import { Icon } from "../../styles";
-import { getPageId, randomUserImg } from "../../utils/helperFunc";
+import { randomUserImg } from "../../utils/helperFunc";
 
 const Interest = ({ interestState, score }) => {
     switch (interestState) {
@@ -32,10 +33,10 @@ const CardComment = ({ className, item, onClick }) => {
         isLiked,
     } = item;
 
-    const pathname = history.location.pathname;
-    const pageId = pathname.split("/")[2];
+    const { pageId } = useParams();
     const [like, setLike] = useState(false);
     const [showDescription, setDescription] = useState(true);
+
     useEffect(() => {
         setDescription(!isSpoiler);
     }, [isSpoiler]);
@@ -55,14 +56,14 @@ const CardComment = ({ className, item, onClick }) => {
                 setLike(true);
             }
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
 
     return (
         <Wrapper className={className} onClick={onClick}>
             <div className="card-block">
-                <Header onClick={() => history.push(`/mypage/${item.userId}`)}>
+                <Header onClick={() => history.push(`/mypage/${userId}`)}>
                     <div className="title">
                         <img alt="" src={randomUserImg()} />
                         <h2>{userName}</h2>
@@ -74,16 +75,12 @@ const CardComment = ({ className, item, onClick }) => {
                 <Content
                     className="content"
                     onClick={() =>
-                        history.push(
-                            `/contents/${getPageId()}/comments/${item.userId}`
-                        )
+                        history.push(`/contents/${pageId}/comments/${userId}`)
                     }
                 >
                     {showDescription ? (
                         <a
-                            href={`/contents/${getPageId()}/comments/${
-                                item.userId
-                            }`}
+                            href={`/contents/${pageId}/comments/${item.userId}`}
                             alt=""
                         >
                             {description}

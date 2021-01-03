@@ -20,7 +20,7 @@ const fetch = () => async (dispatch) => {
             payload: res.data,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 
@@ -38,7 +38,7 @@ const changeInterestState = (state) => async (dispatch) => {
             payload: state,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 
@@ -53,7 +53,7 @@ const createComment = (description) => async (dispatch) => {
             payload: description,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 
@@ -67,7 +67,7 @@ const editComment = (description) => async (dispatch) => {
             payload: description,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 
@@ -78,7 +78,7 @@ const deleteComment = () => async (dispatch) => {
             type: CONTENT_COMMENT_DELETE,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 
@@ -90,7 +90,7 @@ const setStar = (score) => async (dispatch) => {
             payload: score,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 
@@ -101,7 +101,7 @@ const deleteStar = () => async (dispatch) => {
             type: CONTENT_STAR_DELETE,
         });
     } catch (err) {
-        console.log(err);
+        console.error(err.response);
     }
 };
 

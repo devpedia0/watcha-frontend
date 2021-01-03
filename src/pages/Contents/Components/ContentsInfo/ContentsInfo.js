@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { CardList } from "../../../../components";
 import { useSelector } from "react-redux";
 import { Divider } from "../../../../styles";
-import { changeDataFormat, getPageId } from "../../../../utils/helperFunc";
+import { changeDataFormat } from "../../../../utils/helperFunc";
 
 const ContentsInfo = () => {
     const {
@@ -25,14 +26,13 @@ const ContentsInfo = () => {
             },
         },
     } = useSelector((state) => state.content);
+    const pageId = useParams().pageId;
     return (
         <Wrapper>
             <CardList
                 title="기본정보"
                 addComponent={
-                    <Link href={`/contents/${getPageId()}/overview`}>
-                        더보기
-                    </Link>
+                    <Link href={`/contents/${pageId}/overview`}>더보기</Link>
                 }
             >
                 <CardInfo>
@@ -55,7 +55,7 @@ const ContentsInfo = () => {
             </CardList>
             <Divider />
             {contents && (
-                <a href={`/contents/${getPageId()}/book/contents`}>
+                <a href={`/contents/${pageId}/book/contents`}>
                     <div className="book-contents">목차</div>
                 </a>
             )}
@@ -64,9 +64,7 @@ const ContentsInfo = () => {
                     <CardList
                         title="출판사 제공 책소개"
                         addComponent={
-                            <Link
-                                href={`/contents/${getPageId()}/book/elaboration`}
-                            >
+                            <Link href={`/contents/${pageId}/book/elaboration`}>
                                 더보기
                             </Link>
                         }

@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { contentActions, modalActions } from "../../../../redux/actions";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../../../redux/actions";
 import { ModalWrapper } from "../../../../components";
 import { Icon } from "../../../../styles";
 
 const ModalSelect = ({ title, selected, onCloseModal, onClickRow }) => {
     const dispatch = useDispatch();
-    const {
-        userData: { commentDescription },
-    } = useSelector((state) => state.content);
-    const [input, setInput] = useState("");
-
-    useEffect(() => {
-        setInput(commentDescription || "");
-    }, [commentDescription]);
 
     const handleClickRow = async (rowId) => {
         onClickRow(rowId);

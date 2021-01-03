@@ -23,7 +23,7 @@ function Searches() {
                 });
             })
             .catch((err) => {
-                console.error(err);
+                console.error(err.response);
             });
     }, [query]);
 
@@ -33,7 +33,7 @@ function Searches() {
     }
 
     if (state.isFetching) return <Loader height="800px" />;
-    console.log(state.data.movies);
+
     return (
         <Page>
             <Header />
