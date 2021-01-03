@@ -22,7 +22,7 @@ const ModalNeedLogin = ({ onChangeModal, onCloseModal }) => {
 
     return (
         <ModalWrapper width="" onCloseModal={onCloseModal}>
-            <Icon type="close" w="24px" h="24px" margin="10px 0" />
+            <Icon type="close" w="24px" h="24px" m="10px 0" />
             <ContentInfo>
                 <Icon type={categoryObj[modal].icon} w="88px" h="88px" />
                 <p>{categoryObj[modal].description}</p>

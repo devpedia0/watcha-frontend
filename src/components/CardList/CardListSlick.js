@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 const CardListSlick = ({
     title,
@@ -8,17 +8,24 @@ const CardListSlick = ({
     sizeHeader,
     horizon,
     userId,
+    fetchMore,
+    onClickfetch = () => {},
     addComponent: AddComponent,
     children,
 }) => {
     const slider = useRef();
+    const [scollCtrl, setScrollCtrl] = useState({
+        leftWidth: 0,
+        slideWidth: 0,
+    });
     const [buttonCtrl, setButtonCtrl] = useState({
         posX: 0,
         left: false,
         right: true,
+        show: true,
     });
 
-    const handleClickButton = (type) => {
+    useEffect(() => {
         const childNum = slider.current.children.length;
         const childWidth = slider.current.children[0].clientWidth;
         const slideWidth = slider.current.offsetWidth;
@@ -28,10 +35,19 @@ const CardListSlick = ({
             : childNum * childWidth;
 
         let leftWidth = childTotalWidth - curWidth;
+        setScrollCtrl({ leftWidth, slideWidth });
+        setButtonCtrl((state) => ({
+            ...state,
+            right: fetchMore || 50 < leftWidth,
+        }));
+    }, [buttonCtrl.posX, horizon, fetchMore]);
+
+    const handleClickButton = (type) => {
+        const { leftWidth, slideWidth } = scollCtrl;
 
         let newPosX;
         if (type === "right") {
-            if (leftWidth > slideWidth) {
+            if (leftWidth > slideWidth || fetchMore) {
                 newPosX = buttonCtrl.posX + slideWidth;
             } else newPosX = buttonCtrl.posX + leftWidth;
         } else {
@@ -40,12 +56,17 @@ const CardListSlick = ({
                     ? 0
                     : buttonCtrl.posX - slideWidth;
         }
-
         setButtonCtrl({
             posX: newPosX,
             left: newPosX > 0,
-            right: newPosX < childTotalWidth - slideWidth,
+            right: fetchMore || 50 < leftWidth - slideWidth,
         });
+    };
+
+    const handleMouseOver = () => {
+        if (!buttonCtrl.show) {
+            setButtonCtrl({ ...buttonCtrl, show: true });
+        }
     };
 
     return (
@@ -55,7 +76,7 @@ const CardListSlick = ({
                     <div className="title-block">
                         <a
                             className="user-info"
-                            href={`/user/${userId}`}
+                            href={`/users/${userId}`}
                             alt=""
                         >
                             <img className="user-img" src={posterUrl} alt="" />
@@ -79,7 +100,12 @@ const CardListSlick = ({
                     </div>
                 )}
             </Header>
-            <Content>
+            <Content
+                onMouseOver={handleMouseOver}
+                onMouseLeave={() =>
+                    setButtonCtrl({ ...buttonCtrl, show: false })
+                }
+            >
                 <div className="slickWrapper">
                     <div
                         className={`slickBlock ${horizon && "horizon"}`}
@@ -92,13 +118,16 @@ const CardListSlick = ({
                     </div>
                     <ArrowButton
                         type="left"
-                        show={buttonCtrl.left}
+                        show={buttonCtrl.show && buttonCtrl.left}
                         onClick={() => handleClickButton("left")}
                     />
                     <ArrowButton
                         type="right"
-                        show={buttonCtrl.right}
-                        onClick={() => handleClickButton("right")}
+                        show={buttonCtrl.show && buttonCtrl.right}
+                        onClick={() => {
+                            onClickfetch();
+                            handleClickButton("right");
+                        }}
                     />
                 </div>
             </Content>

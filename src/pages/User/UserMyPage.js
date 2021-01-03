@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Setting from "./Components/Setting/Setting";
 import AuthService from "../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
-import { getPageId, randomUserImg } from "../../utils/helperFunc";
+import { randomUserImg } from "../../utils/helperFunc";
 
 function UserMyPage({ match }) {
     const [settingVisible, setSettingVisible] = useState(true);
@@ -12,6 +12,7 @@ function UserMyPage({ match }) {
     const userId = match.params;
 
     useEffect(() => {
+
         AuthService.getUserInfo().then((res) => {
             setUserData(res.data);
         });
@@ -35,13 +36,11 @@ function UserMyPage({ match }) {
                         <Outer>
                             <div>
                                 <Bg>
-                                    {getPageId() === userId && (
-                                        <SettingIcon
-                                            onClick={() =>
-                                                setSettingVisible(!settingModal)
-                                            }
-                                        />
-                                    )}
+                                    <SettingIcon
+                                        onClick={() =>
+                                            setSettingVisible(!settingModal)
+                                        }
+                                    />
                                 </Bg>
                                 <Profile>
                                     <ProfileHeader>
@@ -64,7 +63,7 @@ function UserMyPage({ match }) {
                                     <ul>
                                         <Type>
                                             <Link
-                                                to={`/user/${getPageId()}/analysis`}
+                                                to={`/users/${userId}/analysis`}
                                             >
                                                 <A>
                                                     <ChartImage />
@@ -80,7 +79,7 @@ function UserMyPage({ match }) {
                                     <Ul>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/movies`}
+                                                to={`/users/${userId}/movies`}
                                             >
                                                 <Box
                                                     style={{
@@ -124,7 +123,7 @@ function UserMyPage({ match }) {
                                         </Li>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/tv_shows`}
+                                                to={`/users/${userId}/tv_shows`}
                                             >
                                                 <Box
                                                     style={{
@@ -169,9 +168,7 @@ function UserMyPage({ match }) {
                                             </Link>
                                         </Li>
                                         <Li>
-                                            <Link
-                                                to={`/user/${getPageId()}/books`}
-                                            >
+                                            <Link to={`/users/${userId}/books`}>
                                                 <Box
                                                     style={{
                                                         background:

@@ -1,63 +1,68 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import useIntersection from "../../../../Hooks/useIntersection";
+import useIntersection from "../../Hooks/useIntersection";
 import { useDispatch, useSelector } from "react-redux";
-import { detailActions } from "../../../../redux/actions";
-import { CardList, CardPoster } from "../../../../components";
-import { Loader } from "../../../../styles";
-import history from "../../../../history";
+import { detailActions } from "../../redux/actions";
+import { HeaderDetail } from "../../components";
+import { CardList, CardPoster } from "../../components";
+import { Loader } from "../../styles";
+import history from "../../history";
+import { translate } from "../../utils/helperFunc";
 
-const RatedTotal = ({ match, selected }) => {
-    const { userId, contentType } = match.params;
-
+const UserRatedMore = ({ match }) => {
+    const { contentType, scoreId } = match.params;
     const dispatch = useDispatch();
+    const fetchUrl = match.url;
     const { data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
     );
 
     useEffect(() => {
-        const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
         dispatch(detailActions.initContentRated(fetchUrl, 20));
         return () => dispatch(detailActions.initialize());
-    }, [dispatch, userId, contentType, selected]);
+    }, [dispatch, fetchUrl]);
 
     const loaderRef = useRef();
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
             dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch, userId, contentType, selected]);
+    }, [isIntersecting, fetchMore, dispatch, fetchUrl]);
 
     return (
-        <Wrapper>
-            {!initFetch ? (
-                <Loader height="800px" />
-            ) : (
-                <CardList>
-                    {data.map((item, idx) => (
-                        <StyledCard
-                            key={idx}
-                            item={item}
-                            onClick={() => history.push(`/contents/${item.id}`)}
-                        />
-                    ))}
-                </CardList>
-            )}
+        <>
+            <HeaderDetail title={`${scoreId}점 준 ${translate(contentType)}`} />
+            <Wrapper>
+                {!initFetch ? (
+                    <Loader height="800px" />
+                ) : (
+                    <CardList>
+                        {data.map((item, idx) => (
+                            <StyledCard
+                                key={idx}
+                                item={item}
+                                onClick={() =>
+                                    history.push(`/contents/${item.id}`)
+                                }
+                            />
+                        ))}
+                    </CardList>
+                )}
 
-            <StyledLoader ref={loaderRef}>
-                {isFetching && <Loader />}
-            </StyledLoader>
-        </Wrapper>
+                <StyledLoader ref={loaderRef}>
+                    {isFetching && <Loader />}
+                </StyledLoader>
+            </Wrapper>
+        </>
     );
 };
 
-export default RatedTotal;
+export default UserRatedMore;
 
 const Wrapper = styled.div`
-    margin: 200px 20px;
+    padding: 50px 20px;
     background: ${(props) => props.theme.bgGray};
 `;
 

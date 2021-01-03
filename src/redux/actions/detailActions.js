@@ -18,14 +18,16 @@ const initPeople = (pageId) => async (dispatch) => {
             payload: { info, data: contents, size },
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
     }
 };
 
 const initComment = (pageId, userId) => async (dispatch) => {
     try {
         let size = 10;
-        let fetchUrl = `/contents/${pageId}/comments${userId}`;
+        let fetchUrl = `/contents/${pageId}/comments${
+            userId ? "/" + userId : ""
+        }`;
         let res = await api.get(`${fetchUrl}?page=1&size=${size}`);
 
         let data = res.data;
@@ -40,7 +42,7 @@ const initComment = (pageId, userId) => async (dispatch) => {
             payload: { data, fetchMore, size },
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
     }
 };
 
@@ -55,19 +57,18 @@ const initWatcha = (pageId) => async (dispatch) => {
             payload: { info, data: list, size },
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
     }
 };
 const initContentRated = (fetchUrl, size) => async (dispatch) => {
     try {
         let res = await api.get(makeUrlQuery(fetchUrl, { size, page: 1 }));
-
         dispatch({
             type: DETAIL_INIT,
             payload: { data: res.data, size },
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
     }
 };
 
@@ -77,7 +78,7 @@ const initialize = () => async (dispatch) => {
             type: DETAIL_INITIALIZE,
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
     }
 };
 
@@ -94,7 +95,7 @@ const fetchMore = (fetchUrl) => async (dispatch, getState) => {
             payload: res.data,
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
     }
 };
 

@@ -77,15 +77,17 @@ const ContentsSidebar = () => {
                     <CardWatchPlace data={images.tving} />
                     <CardWatchPlace data={images.wave} />
                 </CardList>
-                <CardListSlick title="갤러리">
-                    {galleries.map((item, idx) => (
-                        <CardGallery key={idx}>
-                            <div className="img-block">
-                                <img src={item} alt="" />
-                            </div>
-                        </CardGallery>
-                    ))}
-                </CardListSlick>
+                {galleries[0] && (
+                    <CardListSlick title="갤러리">
+                        {galleries.map((item, idx) => (
+                            <CardGallery key={idx}>
+                                <div className="img-block">
+                                    <img src={item} alt="" />
+                                </div>
+                            </CardGallery>
+                        ))}
+                    </CardListSlick>
+                )}
             </Wrapper>
         </>
     );

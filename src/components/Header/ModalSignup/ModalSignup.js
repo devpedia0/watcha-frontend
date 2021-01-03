@@ -48,12 +48,11 @@ export default function ModalSignup({ onChangeModal }) {
                 inputs.password
             ).then(
                 (response) => {
-                    console.log("registerResponse", response);
                     history.push("/user");
                     onChangeModal("");
                 },
-                (error) => {
-                    console.log(error);
+                (err) => {
+                    console.error(err);
                 }
             );
         }

@@ -90,7 +90,7 @@ const Main = () => {
             }));
         };
         fetchAPI();
-        return () => setState(initialState);
+        // return () => setState(initialState);
     }, [charType]);
 
     if (state.isFetching) return <Loader height="800px" />;

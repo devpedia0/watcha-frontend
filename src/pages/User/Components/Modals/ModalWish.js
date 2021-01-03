@@ -7,16 +7,12 @@ export default function WishModal(props) {
     const handleState = (e) => {
         if (e.target.id === "1") {
             setState("가나다 순");
-            console.log("h1", state);
         } else if (e.target.id === "2") {
             setState("평점 순");
-            console.log("h1", state);
         } else if (e.target.id === "3") {
             setState("신작 순");
-            console.log("h1", state);
         } else if (e.target.id === "4") {
             setState("구작 순");
-            console.log("h1", state);
         }
         // props.wishModal();
     };

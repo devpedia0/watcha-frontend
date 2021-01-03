@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import AuthService from "../../services/auth.service";
 import api from "../../services/api";
 import { CardListSlick, CardPoster, HeaderDetail } from "../../components";
 
@@ -21,23 +20,23 @@ const formatObj = {
 
 const UserContents = ({ match }) => {
     const { userId, contentType } = match.params;
-
     const [contents, setContents] = useState([]);
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
-        const baseUrl = `/users/${userId}/${contentType}/ratings`;
-        api.get(baseUrl + `?page=1&size=10`).then((res) => {
+        const fetchUrl = `/users/${userId}/${contentType}/ratings`;
+        api.get(fetchUrl + `?page=1&size=10`).then((res) => {
             setContents(() => res.data);
         });
     }, [userId, contentType]);
 
     useEffect(() => {
         const apiKey = formatObj[contentType].apiKey;
-        AuthService.getUserRating().then((res) => {
+        const fetchUrl = `/users/${userId}/ratings`;
+        api.get(fetchUrl).then((res) => {
             setUserData(res.data[apiKey]);
         });
-    }, [contentType]);
+    }, [userId, contentType]);
 
     return (
         <Section>
@@ -53,7 +52,7 @@ const UserContents = ({ match }) => {
                                 addComponent={
                                     <a
                                         className="toRated"
-                                        href={`/user/${userId}/${contentType}/rated`}
+                                        href={`/users/${userId}/${contentType}/ratings`}
                                     >
                                         더보기
                                     </a>
@@ -73,7 +72,7 @@ const UserContents = ({ match }) => {
                                 <div className="listInner">
                                     <div className="listTitle">
                                         <a
-                                            href={`/user/${userId}/${contentType}/wish`}
+                                            href={`/users/${userId}/${contentType}/wishes`}
                                             className="localLink"
                                         >
                                             보고싶어요
@@ -88,7 +87,7 @@ const UserContents = ({ match }) => {
                                 <div className="listInner">
                                     <div className="listTitle">
                                         <a
-                                            href={`/user/${userId}/detail/watching`}
+                                            href={`/users/${userId}/${contentType}/watchings`}
                                             className="localLink"
                                         >
                                             보는중

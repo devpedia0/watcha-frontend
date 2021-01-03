@@ -10,8 +10,8 @@ const initUser = (userId) => async (dispatch) => {
             type: AUTH_INIT,
             payload: { ...res.data, userId },
         });
-    } catch (e) {
-        console.log(e.response);
+    } catch (err) {
+        console.error(err.response);
     }
 };
 
@@ -23,8 +23,8 @@ const login = (inputs) => async (dispatch) => {
 
         dispatch(initUser(id));
         history.push("/");
-    } catch (e) {
-        console.log(e.response);
+    } catch (err) {
+        console.error(err.response);
     }
     return {
         type: AUTH_LOGIN,

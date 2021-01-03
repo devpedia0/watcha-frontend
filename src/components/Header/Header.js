@@ -62,7 +62,7 @@ export default function Header({ className }) {
                         </LiButton>
                         <LiButton
                             onClick={() =>
-                                (window.location.href = `/user/${userId}`)
+                                (window.location.href = `/users/${userId}`)
                             }
                         >
                             <div>

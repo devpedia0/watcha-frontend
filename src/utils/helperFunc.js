@@ -46,11 +46,24 @@ export const randomUserImg = () => {
 export const makeUrlQuery = (fetchUrl, params) => {
     let result = fetchUrl;
     Object.keys(params).forEach((key) => {
-        if (fetchUrl.indexOf("?") > -1) {
+        if (result.indexOf("?") > -1) {
             result += `&${key}=${params[key]}`;
         } else {
             result += `?${key}=${params[key]}`;
         }
     });
     return result;
+};
+
+export const translate = (key) => {
+    const translateObj = {
+        avg_score: "평점 순",
+        title: "가나다 순",
+        new: "개봉일 순",
+        tv_shows: "TV 프로그램",
+        books: "책",
+        movies: "영화",
+    };
+
+    return translateObj[key.toLowerCase()];
 };

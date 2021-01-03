@@ -38,12 +38,10 @@ const useInputs = (initialValue) => {
                 return;
             }
 
-            const res = await api.post(pathname, data);
-            console.log(res);
+            await api.post(pathname, data);
             // history.goBack();
-        } catch (e) {
-            console.log(e);
-            console.log(e.response);
+        } catch (err) {
+            console.error(err.response);
         }
     }, []);
 
@@ -66,17 +64,14 @@ const useInputs = (initialValue) => {
                 })
             );
 
-            // const res = await api.post(pathname, formData);
+            await api.post(pathname, formData);
             // await api.post(pathname, formData, {
             //     headers: {
             //         "Content-Type": "multipart/form-data",
             //     },
             // });
-            //console.log(res);
-            //history.goBack();
-        } catch (e) {
-            console.log(e);
-            console.log(e.response);
+        } catch (err) {
+            console.error(err.response);
         }
     }, []);
 

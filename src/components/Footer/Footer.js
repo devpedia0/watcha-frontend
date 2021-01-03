@@ -13,8 +13,8 @@ export default function Footer({ className }) {
             try {
                 const res = await api.get("public/contents/scores/count");
                 setData(res.data.totalCount);
-            } catch (e) {
-                console.log(e);
+            } catch (err) {
+                console.error(err.response);
             }
         };
         getApiData();

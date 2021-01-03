@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../redux/actions";
-import { HeaderDetail, CardPoster } from "../../components";
+import { HeaderDetail } from "../../components";
 import ModalSelect from "./Components/Modals/ModalSelect";
-import RatedByScore from "./Components/RatedByScore/RatedByScore";
-import RatedTotal from "./Components/RatedTotal/RatedTotal";
+import OrderByScore from "./Components/OrderByScore/OrderByScore";
+import OrderByTotal from "./Components/OrderByTotal/OrderByTotal";
+import { translate } from "../../utils/helperFunc";
 
-const translateObj = {
-    AVG_SCORE: "평점 순",
-    TITLE: "가나다 순",
-    NEW: "개봉일 순",
-};
-
-const UserContentsRated = ({ match }) => {
-    const [page, setPage] = useState("TOTAL");
+const UserRated = ({ match }) => {
+    const { userId, contentType, statusId } = match.params;
+    const [page, setPage] = useState("");
     const [selected, setSelected] = useState("AVG_SCORE");
+
+    useEffect(() => {
+        setPage(statusId);
+    }, [statusId]);
 
     const dispatch = useDispatch();
     const modal = useSelector((state) => state.modal);
@@ -26,37 +26,46 @@ const UserContentsRated = ({ match }) => {
                 title="평가한 작품들"
                 AddComponent={
                     <>
-                        <ButtonsWrapper>
-                            <li
-                                className={page === "TOTAL" ? "on" : ""}
-                                onClick={() => setPage("TOTAL")}
+                        {(page === "orderByScore" || page === "ratings") && (
+                            <ButtonsWrapper>
+                                <li
+                                    className={page === "ratings" ? "on" : ""}
+                                    onClick={() => setPage("ratings")}
+                                >
+                                    전체
+                                </li>
+                                <li
+                                    className={
+                                        page === "orderByScore" ? "on" : ""
+                                    }
+                                    onClick={() => setPage("orderByScore")}
+                                >
+                                    별점 순
+                                </li>
+                            </ButtonsWrapper>
+                        )}
+                        {page !== "orderByScore" && (
+                            <SelectWrapper
+                                onClick={() =>
+                                    dispatch(modalActions.setModal("select"))
+                                }
                             >
-                                전체
-                            </li>
-                            <li
-                                className={page === "RATING" ? "on" : ""}
-                                onClick={() => setPage("RATING")}
-                            >
-                                별점 순
-                            </li>
-                        </ButtonsWrapper>
-                        <SelectWrapper
-                            onClick={() =>
-                                dispatch(modalActions.setModal("select"))
-                            }
-                        >
-                            <span className="dropDown"></span>
-                            <span className="dropTitle">
-                                {translateObj[selected]}
-                            </span>
-                        </SelectWrapper>
+                                <span className="dropDown"></span>
+                                <span className="dropTitle">
+                                    {translate[selected]}
+                                </span>
+                            </SelectWrapper>
+                        )}
                     </>
                 }
             />
-            {page === "TOTAL" ? (
-                <RatedTotal match={match} selected={selected} />
+            {page === "orderByScore" ? (
+                <OrderByScore
+                    match={match}
+                    fetchUrl={`/users/${userId}/${contentType}/ratings`}
+                />
             ) : (
-                <RatedByScore match={match} selected={selected} />
+                <OrderByTotal fetchUrl={`${match.url}?order=${selected}`} />
             )}
 
             {modal === "select" && (
@@ -71,10 +80,10 @@ const UserContentsRated = ({ match }) => {
     );
 };
 
-export default UserContentsRated;
+export default UserRated;
 
 const Wrapper = styled.div`
-    margin: 200px 20px;
+    padding: 0px 20px;
     background: ${(props) => props.theme.bgGray};
 `;
 const StyledHeader = styled(HeaderDetail)`
@@ -91,6 +100,7 @@ const ButtonsWrapper = styled.ul`
     width: 100%;
     height: 48px;
     padding: 0px 16px;
+    border-bottom: 1px solid ${(props) => props.theme.line};
 
     @media (min-width: 719px) {
         width: 335px;
@@ -126,9 +136,7 @@ const SelectWrapper = styled.div`
     border: none;
     margin: 0px;
     height: 50px;
-
     cursor: pointer;
-    border-top: 1px solid ${(props) => props.theme.line};
     display: flex;
     align-items: center;
 
