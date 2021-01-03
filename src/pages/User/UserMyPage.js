@@ -4,15 +4,16 @@ import Setting from "./Components/Setting/Setting";
 import AuthService from "../../services/auth.service";
 import { withRouter, Link } from "react-router-dom";
 import { randomUserImg } from "../../utils/helperFunc";
+import { useSelector } from "react-redux";
 
 function UserMyPage({ match }) {
     const [settingVisible, setSettingVisible] = useState(true);
     const [userData, setUserData] = useState({});
     const [rate, setRate] = useState({});
-    const userId = match.params;
+    const userId = match.params.userId;
+    const authUserId = useSelector((state) => state.auth).userId;
 
     useEffect(() => {
-
         AuthService.getUserInfo().then((res) => {
             setUserData(res.data);
         });
@@ -36,11 +37,13 @@ function UserMyPage({ match }) {
                         <Outer>
                             <div>
                                 <Bg>
-                                    <SettingIcon
-                                        onClick={() =>
-                                            setSettingVisible(!settingModal)
-                                        }
-                                    />
+                                    {userId === authUserId && (
+                                        <SettingIcon
+                                            onClick={() =>
+                                                setSettingVisible(!settingModal)
+                                            }
+                                        />
+                                    )}
                                 </Bg>
                                 <Profile>
                                     <ProfileHeader>
