@@ -6,54 +6,27 @@ import { withRouter, Link } from "react-router-dom";
 import { randomUserImg } from "../../utils/helperFunc";
 
 function UserMyPage({ match }) {
-    const userId = match.params.userId;
-
     const [settingVisible, setSettingVisible] = useState(true);
-    const [name, setName] = useState("");
-    const [desc, setDesc] = useState("");
-
-    const [rated, setRated] = useState({
-        book: 0,
-        tvShow: 0,
-        movie: 0,
-    });
-
-    const [wishes, setWishes] = useState({
-        book: 0,
-        tvShow: 0,
-        movie: 0,
-    });
+    const [userData, setUserData] = useState({});
+    const [rate, setRate] = useState({});
+    const userId = match.params;
 
     useEffect(() => {
-        AuthService.getUserInfo().then(
-            (response) => {
-                setName(response.data.name);
-                if (response.data.description !== null) {
-                    setDesc(response.data.description);
-                } else if (response.data.description === null) {
-                    return desc;
-                }
-            },
 
-            AuthService.getUserRating().then((response) => {
-                setRated({
-                    book: response.data.book.ratingCount,
-                    tvShow: response.data.tvShow.ratingCount,
-                    movie: response.data.movie.ratingCount,
-                });
-                setWishes({
-                    book: response.data.book.wishCount,
-                    tvShow: response.data.tvShow.wishCount,
-                    movie: response.data.movie.wishCount,
-                });
-            })
-        );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        AuthService.getUserInfo().then((res) => {
+            setUserData(res.data);
+        });
+
+        AuthService.getUserRating().then((res) => {
+            setRate(res.data);
+        });
     }, []);
 
     const settingModal = () => {
         setSettingVisible({ settingVisible: !settingVisible });
     };
+
+    if (Object.keys(rate).length === 0) return null;
 
     return (
         <Content>
@@ -77,11 +50,13 @@ function UserMyPage({ match }) {
                                             ></Portrait>
                                         </Image>
                                         <NickName>
-                                            <H1>{name}</H1>
+                                            <H1>{userData.name}</H1>
                                         </NickName>
                                         <Desc>
                                             <div className="descInner">
-                                                {desc}
+                                                {userData.desc
+                                                    ? userData.desc
+                                                    : "프로필이 없습니다."}
                                             </div>
                                         </Desc>
                                     </ProfileHeader>
@@ -91,8 +66,7 @@ function UserMyPage({ match }) {
                                                 to={`/users/${userId}/analysis`}
                                             >
                                                 <A>
-                                                    <ChartImage></ChartImage>
-
+                                                    <ChartImage />
                                                     <span className="analysis">
                                                         취향분석
                                                     </span>
@@ -127,13 +101,18 @@ function UserMyPage({ match }) {
                                                         >
                                                             ★
                                                             <Star>
-                                                                {rated.movie}
+                                                                {
+                                                                    rate.movie
+                                                                        .ratingCount
+                                                                }
                                                             </Star>
                                                             <Clip>
-                                                                보고싶어요{" "}
+                                                                보고싶어요
                                                                 <strong>
                                                                     {
-                                                                        wishes.movie
+                                                                        rate
+                                                                            .movie
+                                                                            .wishCount
                                                                     }
                                                                 </strong>
                                                             </Clip>
@@ -168,13 +147,18 @@ function UserMyPage({ match }) {
                                                         >
                                                             ★
                                                             <Star>
-                                                                {rated.tvShow}
+                                                                {
+                                                                    rate.tvShow
+                                                                        .ratingCount
+                                                                }
                                                             </Star>
                                                             <Clip>
                                                                 보고싶어요{" "}
                                                                 <strong>
                                                                     {
-                                                                        wishes.tvShow
+                                                                        rate
+                                                                            .tvShow
+                                                                            .wishCount
                                                                     }
                                                                 </strong>
                                                             </Clip>
@@ -205,13 +189,18 @@ function UserMyPage({ match }) {
                                                         >
                                                             ★
                                                             <Star>
-                                                                {rated.book}
+                                                                {
+                                                                    rate.book
+                                                                        .ratingCount
+                                                                }
                                                             </Star>
                                                             <Clip>
                                                                 읽고 싶어요{" "}
                                                                 <strong>
                                                                     {
-                                                                        wishes.book
+                                                                        rate
+                                                                            .book
+                                                                            .wishCount
                                                                     }
                                                                 </strong>
                                                             </Clip>
