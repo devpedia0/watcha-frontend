@@ -8,10 +8,16 @@ const CardListSlick = ({
     sizeHeader,
     horizon,
     userId,
+    fetchMore,
+    onClickfetch = () => {},
     addComponent: AddComponent,
     children,
 }) => {
     const slider = useRef();
+    const [scollCtrl, setScrollCtrl] = useState({
+        leftWidth: 0,
+        slideWidth: 0,
+    });
     const [buttonCtrl, setButtonCtrl] = useState({
         posX: 0,
         left: false,
@@ -20,22 +26,6 @@ const CardListSlick = ({
     });
 
     useEffect(() => {
-        if (buttonCtrl.posX !== 0) return;
-        const childNum = slider.current.children.length;
-        const childWidth = slider.current.children[0].clientWidth;
-        const slideWidth = slider.current.offsetWidth;
-        const childTotalWidth = horizon
-            ? Math.ceil(childNum / 3) * childWidth
-            : childNum * childWidth;
-
-        let leftWidth = childTotalWidth - slideWidth;
-        setButtonCtrl((state) => ({
-            ...state,
-            right: leftWidth > 50,
-        }));
-    }, [buttonCtrl.posX, horizon]);
-
-    const handleClickButton = (type) => {
         const childNum = slider.current.children.length;
         const childWidth = slider.current.children[0].clientWidth;
         const slideWidth = slider.current.offsetWidth;
@@ -45,10 +35,19 @@ const CardListSlick = ({
             : childNum * childWidth;
 
         let leftWidth = childTotalWidth - curWidth;
+        setScrollCtrl({ leftWidth, slideWidth });
+        setButtonCtrl((state) => ({
+            ...state,
+            right: fetchMore || 50 < leftWidth,
+        }));
+    }, [buttonCtrl.posX, horizon, fetchMore]);
+
+    const handleClickButton = (type) => {
+        const { leftWidth, slideWidth } = scollCtrl;
 
         let newPosX;
         if (type === "right") {
-            if (leftWidth > slideWidth) {
+            if (leftWidth > slideWidth || fetchMore) {
                 newPosX = buttonCtrl.posX + slideWidth;
             } else newPosX = buttonCtrl.posX + leftWidth;
         } else {
@@ -57,11 +56,10 @@ const CardListSlick = ({
                     ? 0
                     : buttonCtrl.posX - slideWidth;
         }
-
         setButtonCtrl({
             posX: newPosX,
             left: newPosX > 0,
-            right: 50 < leftWidth - slideWidth,
+            right: fetchMore || 50 < leftWidth - slideWidth,
         });
     };
 
@@ -126,7 +124,10 @@ const CardListSlick = ({
                     <ArrowButton
                         type="right"
                         show={buttonCtrl.show && buttonCtrl.right}
-                        onClick={() => handleClickButton("right")}
+                        onClick={() => {
+                            onClickfetch();
+                            handleClickButton("right");
+                        }}
                     />
                 </div>
             </Content>

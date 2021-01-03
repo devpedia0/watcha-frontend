@@ -7,6 +7,8 @@ import {
     CONTENT_COMMENT_EDIT,
     CONTENT_STAR,
     CONTENT_STAR_DELETE,
+    CONTENT_FETCH_COMMENT,
+    CONTENT_FETCH_COLLECTION,
 } from "../types";
 
 const INITIAL_STATE = {
@@ -30,7 +32,21 @@ const contentReducers = (state = INITIAL_STATE, action = {}) => {
                 : INITIAL_STATE.userData;
 
             return {
-                data: action.payload,
+                data: {
+                    ...action.payload,
+                    comments: {
+                        ...action.payload.comments,
+                        page: 1,
+                        size: action.payload.comments.list.length,
+                        fetchMore: true,
+                    },
+                    collections: {
+                        ...action.payload.collections,
+                        page: 1,
+                        size: action.payload.collections.list.length,
+                        fetchMore: true,
+                    },
+                },
                 isFetching: false,
                 userData: userData,
             };
@@ -86,6 +102,38 @@ const contentReducers = (state = INITIAL_STATE, action = {}) => {
                     score: 0,
                 },
             };
+
+        case CONTENT_FETCH_COMMENT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    comments: {
+                        ...state.data.comments,
+                        ...action.payload,
+                        list: [
+                            ...state.data.comments.list,
+                            ...action.payload.list,
+                        ],
+                    },
+                },
+            };
+        case CONTENT_FETCH_COLLECTION:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    collections: {
+                        ...state.data.collections,
+                        ...action.payload,
+                        list: [
+                            ...state.data.collections.list,
+                            ...action.payload.list,
+                        ],
+                    },
+                },
+            };
+
         default:
             return state;
     }

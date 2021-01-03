@@ -29,7 +29,7 @@ const ModalRecentKeyword = ({ open, onClickClose }) => {
                 });
             })
             .catch((err) => {
-                console.err(err);
+                console.error(err);
             });
     }, []);
 

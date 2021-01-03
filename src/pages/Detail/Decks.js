@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import history from "../../history";
 import api from "../../services/api";
 import { CardListInfinite } from "../../components";
 
-const Decks = () => {
+const Decks = ({ match }) => {
     const [data, setData] = useState({});
-    const pathname = history.location.pathname;
-    const pageId = pathname.split("/")[2];
+    const pageId = match.params.pageId;
 
     useEffect(() => {
         const fetchData = async () => {

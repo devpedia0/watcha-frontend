@@ -42,7 +42,7 @@ const initComment = (pageId, userId) => async (dispatch) => {
             payload: { data, fetchMore, size },
         });
     } catch (err) {
-        console.err(err.response);
+        console.error(err.response);
     }
 };
 

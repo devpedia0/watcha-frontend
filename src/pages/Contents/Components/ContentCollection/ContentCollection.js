@@ -1,19 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { contentActions } from "../../../../redux/actions";
 import { CardListSlick, CardCollection } from "../../../../components";
 import { Divider } from "../../../../styles";
 import history from "../../../../history";
 
 const ContentCollection = () => {
+    const dispatch = useDispatch();
     const { data } = useSelector((state) => state.content);
-    const { count, list } = data.collections;
+    const { count, list, fetchMore } = data.collections;
+
+    const handleFetchMore = () => {
+        dispatch(contentActions.fetchMoreCollection());
+    };
 
     return (
         <Wrapper>
-            <CardListSlick title="이 작품이 담긴 컬렉션" count={count}>
+            <CardListSlick
+                title="이 작품이 담긴 컬렉션"
+                count={count}
+                fetchMore={fetchMore}
+                onClickfetch={handleFetchMore}
+            >
                 {list.map((item, idx) => (
                     <StyledCard
                         key={idx}

@@ -7,6 +7,8 @@ import {
     CONTENT_COMMENT_EDIT,
     CONTENT_STAR,
     CONTENT_STAR_DELETE,
+    CONTENT_FETCH_COLLECTION,
+    CONTENT_FETCH_COMMENT,
 } from "../types";
 import api from "../../services/api";
 import { getPageId } from "../../utils/helperFunc";
@@ -105,6 +107,60 @@ const deleteStar = () => async (dispatch) => {
     }
 };
 
+const fetchMoreComment = () => async (dispatch, getState) => {
+    try {
+        const {
+            page,
+            size,
+            count,
+            list,
+            fetchMore,
+        } = getState().content.data.comments;
+        if (!fetchMore) return;
+        const res = await api.get(
+            `/contents/${getPageId()}/comments?page=${page}&size=${size}`
+        );
+
+        dispatch({
+            type: CONTENT_FETCH_COMMENT,
+            payload: {
+                list: res.data,
+                page: page + 1,
+                fetchMore: list.length + res.data.length < count,
+            },
+        });
+    } catch (err) {
+        console.error(err.response ? err.response : err);
+    }
+};
+
+const fetchMoreCollection = () => async (dispatch, getState) => {
+    try {
+        const {
+            page,
+            size,
+            count,
+            list,
+            fetchMore,
+        } = getState().content.data.collections;
+        if (!fetchMore) return;
+        const res = await api.get(
+            `/contents/${getPageId()}/collections?page=${page}&size=${size}`
+        );
+
+        dispatch({
+            type: CONTENT_FETCH_COLLECTION,
+            payload: {
+                list: res.data,
+                page: page + 1,
+                fetchMore: list.length + res.data.length < count,
+            },
+        });
+    } catch (err) {
+        console.error(err.response ? err.response : err);
+    }
+};
+
 const contentActions = {
     fetch,
     initialize,
@@ -114,6 +170,8 @@ const contentActions = {
     deleteComment,
     setStar,
     deleteStar,
+    fetchMoreComment,
+    fetchMoreCollection,
 };
 
 export default contentActions;
