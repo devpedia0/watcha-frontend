@@ -5,26 +5,23 @@ import api from "../../../../services/api";
 import { CardListSlick, CardPoster } from "../../../../components";
 import history from "../../../../history";
 
-const RatedByScore = ({ match, selected }) => {
-    const { userId, contentType } = match.params;
+const RatedByScore = ({ fetchUrl }) => {
     const [state, setState] = useState({
         data: {},
         isFetching: true,
     });
 
     useEffect(() => {
-        api.get(
-            `/users/${userId}/${contentType.toUpperCase()}/ratings/by_rating?size=20`
-        ).then((res) => {
+        api.get(`${fetchUrl}?size=20`).then((res) => {
             setState({
                 data: res.data,
                 isFetching: false,
             });
         });
-    }, [userId, contentType]);
+    }, [fetchUrl]);
 
     if (state.isFetching) return <Loader height="800px" />;
-
+    console.log(state.data);
     return (
         <Wrapper>
             {Object.keys(state.data)

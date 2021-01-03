@@ -28,13 +28,10 @@ import People from "./pages/Detail/People";
 
 import UserMyPage from "./pages/User/UserMyPage";
 import UserContents from "./pages/User/UserContents";
-import UserContentsRated from "./pages/User/UserContentsRated";
+import UserRated from "./pages/User/UserRated";
 import UserAnalysis from "./pages/User/UserAnalysis";
 
 import Searches from "./pages/Searches/Searches";
-import Wish from "./pages/User/Wish";
-
-
 
 function App() {
     return (
@@ -48,11 +45,10 @@ function App() {
                     <Layout path="/tv_shows" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     {/* User Page */}
-                    <Layout path="/user/:userId" exact component={UserMyPage} />
-                    <Route path="/user/:userId/analysis" exact component={UserAnalysis} />
-                    <LayoutDetail path="/user/:userId/:contentType" exact component={UserContents} />
-                    <Layout path="/user/:userId/:contentType/rated" exact component={UserContentsRated} />
-                    <Route path="/user/:userId/:contentType/wish" exact component={Wish} />
+                    <Layout path="/users/:userId" exact component={UserMyPage} />
+                    <Route path="/users/:userId/analysis" exact component={UserAnalysis} />
+                    <LayoutDetail path="/users/:userId/:contentType" exact component={UserContents} />
+                    <Layout path="/users/:userId/:contentType/:statusId" exact component={UserRated} />
                     {/* Contents Page */}
                     <Layout path="/contents/:pageId" exact component={Contents} />
                     <Layout path="/contents/:pageId/comments" exact component={ContentsComment} />
@@ -64,17 +60,12 @@ function App() {
                     <Layout path="/detail/people/:pageId" component={People} />
                     <LayoutDetail path="/detail/watcha/:pageId" component={Watcha} />
                     {/* Form Page */}
-                    <LayoutForm path="/admin/books" exact component={PageBoard} />
+                    <LayoutForm path="/admin/:pageId" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
-                    <LayoutForm path="/admin/movies" exact component={PageBoard} />
                     <LayoutForm path="/admin/movies/form" component={PageMovie} />
-                    <LayoutForm path="/admin/participants" exact component={PageBoard} />
                     <LayoutForm path="/admin/participants/form" component={PageParticipant} />
-                    <LayoutForm path="/admin/tags" exact component={PageBoard} />
                     <LayoutForm path="/admin/tags/form" component={PageTag} />
-                    <LayoutForm path="/admin/tv_shows" exact component={PageBoard} />
                     <LayoutForm path="/admin/tv_shows/form" component={PageTV} />
-                    <LayoutForm path="/admin/collections" exact component={PageBoard} />
                     <LayoutForm path="/admin/collections/form" component={PageCollection} />
                     <Redirect from="/admin" to="/admin/movies/form" />
                     <Redirect to="/" />

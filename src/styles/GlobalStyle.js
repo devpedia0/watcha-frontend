@@ -42,10 +42,7 @@ ol, ul, li {
 button:focus {outline:0;}
 input:focus{outline: 0;}
 textarea:focus{outline: 0;}
-a, a:hover, a:active { text-decoration: none; color: inherit; }
-a:visited {
-  text-decoration: none; 
-  outline: none;
-}
+a, a:hover, a:active { text-decoration: none; color: inherit; outline: none;}
+a:visited { text-decoration: none;  outline: none; }
 `
 export default GlobalStyle;

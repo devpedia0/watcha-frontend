@@ -34,8 +34,12 @@ export default ContentsCommentsList;
 const Link = styled.a`
     float: right;
     margin: 12px 0;
-
+    font-weight: 500;
     color: #ff2f6e;
+    cursor: pointer;
+    &:hover {
+        color: #ff2f6e;
+    }
 `;
 
 const StyledCard = styled(CardComment)`

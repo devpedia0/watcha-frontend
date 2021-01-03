@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../redux/actions";
-import { HeaderDetail, CardPoster } from "../../components";
+import { HeaderDetail } from "../../components";
 import ModalSelect from "./Components/Modals/ModalSelect";
 import RatedByScore from "./Components/RatedByScore/RatedByScore";
 import RatedTotal from "./Components/RatedTotal/RatedTotal";
@@ -13,9 +13,14 @@ const translateObj = {
     NEW: "개봉일 순",
 };
 
-const UserContentsRated = ({ match }) => {
-    const [page, setPage] = useState("TOTAL");
+const UserRated = ({ match }) => {
+    const { userId, contentType, statusId } = match.params;
+    const [page, setPage] = useState("");
     const [selected, setSelected] = useState("AVG_SCORE");
+
+    useEffect(() => {
+        setPage(statusId);
+    }, [statusId]);
 
     const dispatch = useDispatch();
     const modal = useSelector((state) => state.modal);
@@ -26,21 +31,25 @@ const UserContentsRated = ({ match }) => {
                 title="평가한 작품들"
                 AddComponent={
                     <>
-                        <ButtonsWrapper>
-                            <li
-                                className={page === "TOTAL" ? "on" : ""}
-                                onClick={() => setPage("TOTAL")}
-                            >
-                                전체
-                            </li>
-                            <li
-                                className={page === "RATING" ? "on" : ""}
-                                onClick={() => setPage("RATING")}
-                            >
-                                별점 순
-                            </li>
-                        </ButtonsWrapper>
-                        {page === "TOTAL" && (
+                        {(page === "ratedByScore" || page === "ratings") && (
+                            <ButtonsWrapper>
+                                <li
+                                    className={page === "ratings" ? "on" : ""}
+                                    onClick={() => setPage("ratings")}
+                                >
+                                    전체
+                                </li>
+                                <li
+                                    className={
+                                        page === "ratedByScore" ? "on" : ""
+                                    }
+                                    onClick={() => setPage("ratedByScore")}
+                                >
+                                    별점 순
+                                </li>
+                            </ButtonsWrapper>
+                        )}
+                        {page !== "ratedByScore" && (
                             <SelectWrapper
                                 onClick={() =>
                                     dispatch(modalActions.setModal("select"))
@@ -55,10 +64,12 @@ const UserContentsRated = ({ match }) => {
                     </>
                 }
             />
-            {page === "TOTAL" ? (
-                <RatedTotal match={match} selected={selected} />
+            {page === "ratedByScore" ? (
+                <RatedByScore
+                    fetchUrl={`/users/${userId}/${contentType}/ratings/by_rating`}
+                />
             ) : (
-                <RatedByScore match={match} selected={selected} />
+                <RatedTotal fetchUrl={`${match.url}?order=${selected}`} />
             )}
 
             {modal === "select" && (
@@ -73,7 +84,7 @@ const UserContentsRated = ({ match }) => {
     );
 };
 
-export default UserContentsRated;
+export default UserRated;
 
 const Wrapper = styled.div`
     padding: 0px 20px;

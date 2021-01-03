@@ -7,29 +7,25 @@ import { CardList, CardPoster } from "../../../../components";
 import { Loader } from "../../../../styles";
 import history from "../../../../history";
 
-const RatedTotal = ({ match, selected }) => {
-    const { userId, contentType } = match.params;
-
+const RatedTotal = ({ fetchUrl }) => {
     const dispatch = useDispatch();
     const { data, initFetch, isFetching, fetchMore } = useSelector(
         (state) => state.detail
     );
 
     useEffect(() => {
-        const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
         dispatch(detailActions.initContentRated(fetchUrl, 20));
         return () => dispatch(detailActions.initialize());
-    }, [dispatch, userId, contentType, selected]);
+    }, [dispatch, fetchUrl]);
 
     const loaderRef = useRef();
     const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
-            const fetchUrl = `/users/${userId}/${contentType}/ratings?order=${selected}`;
             dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, fetchMore, dispatch, userId, contentType, selected]);
+    }, [isIntersecting, fetchMore, dispatch, fetchUrl]);
 
     return (
         <Wrapper>

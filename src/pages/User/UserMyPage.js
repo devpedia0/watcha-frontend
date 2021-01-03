@@ -91,7 +91,7 @@ function UserMyPage({ match }) {
                                     <ul>
                                         <Type>
                                             <Link
-                                                to={`/user/${getPageId()}/analysis`}
+                                                to={`/users/${userId}/analysis`}
                                             >
                                                 <A>
                                                     <ChartImage></ChartImage>
@@ -108,7 +108,7 @@ function UserMyPage({ match }) {
                                     <Ul>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/movies`}
+                                                to={`/users/${userId}/movies`}
                                             >
                                                 <Box
                                                     style={{
@@ -147,7 +147,7 @@ function UserMyPage({ match }) {
                                         </Li>
                                         <Li>
                                             <Link
-                                                to={`/user/${getPageId()}/tv_shows`}
+                                                to={`/users/${userId}/tv_shows`}
                                             >
                                                 <Box
                                                     style={{
@@ -187,9 +187,7 @@ function UserMyPage({ match }) {
                                             </Link>
                                         </Li>
                                         <Li>
-                                            <Link
-                                                to={`/user/${getPageId()}/books`}
-                                            >
+                                            <Link to={`/users/${userId}/books`}>
                                                 <Box
                                                     style={{
                                                         background:

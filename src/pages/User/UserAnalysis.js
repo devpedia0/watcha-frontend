@@ -8,19 +8,28 @@ import DirectorSection from "./Components/DirectorSection/DirectorSection";
 import FavCountry from "./Components/FavCountry/FavCountry";
 import FavGenre from "./Components/FavGenre/FavGenre";
 import { BarChart } from "../../components";
-import { Divider } from "../../styles";
-import { getPageId } from "../../utils/helperFunc";
+import { Divider, Loader } from "../../styles";
 
-function UserAnalysis() {
-    const [userInfo, setUserInfo] = useState({});
-
+function UserAnalysis({ match }) {
+    const userId = match.params.userId;
+    const [state, setState] = useState({
+        useName: "",
+        movie: {},
+        book: {},
+        rating: {},
+        isFetching: true,
+    });
+    const { userName, movie, rating, isFetching } = state;
     useEffect(() => {
-        api.get(`/users/${getPageId()}/analysis`).then((res) => {
-            setUserInfo(() => res.data);
+        api.get(`/users/${userId}/analysis`).then((res) => {
+            setState({
+                ...res.data,
+                isFetching: false,
+            });
         });
-    }, []);
+    }, [userId]);
 
-    if (Object.keys(userInfo).length === 0) return null;
+    if (isFetching) return <Loader height="800px" />;
 
     return (
         <NavContainer>
@@ -42,7 +51,7 @@ function UserAnalysis() {
                                             <div className="profileImage"></div>
                                         </div>
                                         <div className="userName">
-                                            {userInfo.userName}
+                                            {userName}
                                         </div>
                                     </h1>
                                 </Margin>
@@ -65,10 +74,7 @@ function UserAnalysis() {
                                             <Ul>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {
-                                                            userInfo.rating
-                                                                .movieCount
-                                                        }
+                                                        {rating.movieCount}
                                                     </div>
                                                     <div className="statSumSubTitle">
                                                         영화
@@ -76,10 +82,7 @@ function UserAnalysis() {
                                                 </li>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {
-                                                            userInfo.rating
-                                                                .tvShowCount
-                                                        }
+                                                        {rating.tvShowCount}
                                                     </div>
                                                     <div className="statSumSubTitle">
                                                         TV프로그램
@@ -87,10 +90,7 @@ function UserAnalysis() {
                                                 </li>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {
-                                                            userInfo.rating
-                                                                .bookCount
-                                                        }
+                                                        {rating.bookCount}
                                                     </div>
                                                     <div className="statSumSubTitle">
                                                         책
@@ -119,14 +119,12 @@ function UserAnalysis() {
                                             대중의 평가에 잘 휘둘리지 않는
                                             '지조파'
                                         </h3>
-                                        <BarChart
-                                            data={userInfo.rating.distribution}
-                                        />
+                                        <BarChart data={rating.distribution} />
                                         <div className="starSumContainer">
                                             <Ul>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {userInfo.rating.average.toFixed(
+                                                        {rating.average.toFixed(
                                                             1
                                                         )}
                                                     </div>
@@ -136,10 +134,7 @@ function UserAnalysis() {
                                                 </li>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {
-                                                            userInfo.rating
-                                                                .totalCount
-                                                        }
+                                                        {rating.totalCount}
                                                     </div>
                                                     <div className="statSumSubTitle">
                                                         별점 개수
@@ -147,10 +142,7 @@ function UserAnalysis() {
                                                 </li>
                                                 <li className="statList">
                                                     <div className="statSumTitle">
-                                                        {
-                                                            userInfo.rating
-                                                                .mostRating
-                                                        }
+                                                        {rating.mostRating}
                                                     </div>
                                                     <div className="statSumSubTitle">
                                                         많이 준 별점
@@ -181,13 +173,11 @@ function UserAnalysis() {
                                                     <div className="tagBox">
                                                         <MyTag
                                                             text={
-                                                                userInfo.movie
-                                                                    .tag
+                                                                movie.tag
                                                                     .description
                                                             }
                                                             value={
-                                                                userInfo.movie
-                                                                    .tag.score
+                                                                movie.tag.score
                                                             }
                                                         />
                                                     </div>
@@ -201,52 +191,34 @@ function UserAnalysis() {
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    {userInfo.movie.actor.length >= 1 ? (
+                                    {movie.actor.length >= 1 ? (
                                         <ActorSection
-                                            data={
-                                                userInfo.movie
-                                                    ? userInfo.movie.actor
-                                                    : []
-                                            }
+                                            data={movie.actor || []}
                                         />
                                     ) : null}
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    {userInfo.movie.director.length >= 1 ? (
+                                    {movie.director.length >= 1 ? (
                                         <DirectorSection
-                                            data={
-                                                userInfo.movie
-                                                    ? userInfo.movie.director
-                                                    : []
-                                            }
+                                            data={movie.director || []}
                                         />
                                     ) : null}
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    {userInfo.movie.country.length >= 1 ? (
+                                    {movie.country.length >= 1 ? (
                                         <FavCountry
-                                            data={
-                                                userInfo.movie
-                                                    ? userInfo.movie.country
-                                                    : []
-                                            }
+                                            data={movie.country || []}
                                         />
                                     ) : null}
                                 </div>
                             </section>
                             <section className="favoriteBox">
                                 <div>
-                                    <FavGenre
-                                        data={
-                                            userInfo.movie
-                                                ? userInfo.movie.category
-                                                : []
-                                        }
-                                    />
+                                    <FavGenre data={movie.category || []} />
                                 </div>
                             </section>
                             <section className="totalRunning">
@@ -262,10 +234,7 @@ function UserAnalysis() {
                                 <div>
                                     <Margin>
                                         <div className="watchingTime">
-                                            {
-                                                userInfo.movie
-                                                    .totalRunningTimeInMinute
-                                            }
+                                            {movie.totalRunningTimeInMinute}
                                             시간
                                         </div>
                                         <div className="analysisSubtitle">

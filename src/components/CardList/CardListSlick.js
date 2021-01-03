@@ -55,7 +55,7 @@ const CardListSlick = ({
                     <div className="title-block">
                         <a
                             className="user-info"
-                            href={`/user/${userId}`}
+                            href={`/users/${userId}`}
                             alt=""
                         >
                             <img className="user-img" src={posterUrl} alt="" />

@@ -153,4 +153,8 @@ const Link = styled.a`
     margin: 12px 0;
     font-weight: 500;
     color: #ff2f6e;
+    cursor: pointer;
+    &:hover {
+        color: #ff2f6e;
+    }
 `;
