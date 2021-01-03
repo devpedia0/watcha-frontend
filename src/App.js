@@ -30,9 +30,11 @@ import UserMyPage from "./pages/User/UserMyPage";
 import UserContents from "./pages/User/UserContents";
 import UserRated from "./pages/User/UserRated";
 import UserAnalysis from "./pages/User/UserAnalysis";
+import UserRatedMore from "./pages/User/UserRatedMore";
 
 import Searches from "./pages/Searches/Searches";
-import UserRatedMore from "./pages/User/UserRatedMore";
+import SearchesMoreContents from "./pages/Searches/SearchesMoreContents";
+import SearchesMorePeople from './pages/Searches/SearchesMorePeople'
 
 function App() {
     return (
@@ -40,7 +42,7 @@ function App() {
             <Router history={history}>
                 <Switch>
                     <Route path="/team" component={Team} />
-                    <Route path="/searches" component={Searches} />
+                    
 
                     <Layout path="/" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
@@ -61,6 +63,10 @@ function App() {
                     <Layout path="/detail/decks/:pageId" component={Decks} />
                     <Layout path="/detail/people/:pageId" component={People} />
                     <Detail path="/detail/watcha/:pageId" component={Watcha} />
+                    {/* Search Page */}
+                    <Layout path="/searches" exact component={Searches} />
+                    <Detail path="/searches/:contentType" exact component={SearchesMoreContents} />
+                    <Detail path="/searches/people/users" component={SearchesMorePeople} />
                     {/* Form Page */}
                     <LayoutForm path="/admin/:pageId" exact component={PageBoard} />
                     <LayoutForm path="/admin/books/form" component={PageBook} />
