@@ -54,3 +54,16 @@ export const makeUrlQuery = (fetchUrl, params) => {
     });
     return result;
 };
+
+export const translate = (key) => {
+    const translateObj = {
+        avg_score: "평점 순",
+        title: "가나다 순",
+        new: "개봉일 순",
+        tv_shows: "TV 프로그램",
+        books: "책",
+        movies: "영화",
+    };
+
+    return translateObj[key.toLowerCase()];
+};

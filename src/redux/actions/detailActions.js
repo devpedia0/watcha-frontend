@@ -61,7 +61,7 @@ const initWatcha = (pageId) => async (dispatch) => {
 const initContentRated = (fetchUrl, size) => async (dispatch) => {
     try {
         let res = await api.get(makeUrlQuery(fetchUrl, { size, page: 1 }));
-
+        console.log(res.data);
         dispatch({
             type: DETAIL_INIT,
             payload: { data: res.data, size },

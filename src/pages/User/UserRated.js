@@ -4,14 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../redux/actions";
 import { HeaderDetail } from "../../components";
 import ModalSelect from "./Components/Modals/ModalSelect";
-import RatedByScore from "./Components/RatedByScore/RatedByScore";
-import RatedTotal from "./Components/RatedTotal/RatedTotal";
-
-const translateObj = {
-    AVG_SCORE: "평점 순",
-    TITLE: "가나다 순",
-    NEW: "개봉일 순",
-};
+import OrderByScore from "./Components/OrderByScore/OrderByScore";
+import OrderByTotal from "./Components/OrderByTotal/OrderByTotal";
+import { translate } from "../../utils/helperFunc";
 
 const UserRated = ({ match }) => {
     const { userId, contentType, statusId } = match.params;
@@ -31,7 +26,7 @@ const UserRated = ({ match }) => {
                 title="평가한 작품들"
                 AddComponent={
                     <>
-                        {(page === "ratedByScore" || page === "ratings") && (
+                        {(page === "orderByScore" || page === "ratings") && (
                             <ButtonsWrapper>
                                 <li
                                     className={page === "ratings" ? "on" : ""}
@@ -41,15 +36,15 @@ const UserRated = ({ match }) => {
                                 </li>
                                 <li
                                     className={
-                                        page === "ratedByScore" ? "on" : ""
+                                        page === "orderByScore" ? "on" : ""
                                     }
-                                    onClick={() => setPage("ratedByScore")}
+                                    onClick={() => setPage("orderByScore")}
                                 >
                                     별점 순
                                 </li>
                             </ButtonsWrapper>
                         )}
-                        {page !== "ratedByScore" && (
+                        {page !== "orderByScore" && (
                             <SelectWrapper
                                 onClick={() =>
                                     dispatch(modalActions.setModal("select"))
@@ -57,19 +52,20 @@ const UserRated = ({ match }) => {
                             >
                                 <span className="dropDown"></span>
                                 <span className="dropTitle">
-                                    {translateObj[selected]}
+                                    {translate[selected]}
                                 </span>
                             </SelectWrapper>
                         )}
                     </>
                 }
             />
-            {page === "ratedByScore" ? (
-                <RatedByScore
-                    fetchUrl={`/users/${userId}/${contentType}/ratings/by_rating`}
+            {page === "orderByScore" ? (
+                <OrderByScore
+                    match={match}
+                    fetchUrl={`/users/${userId}/${contentType}/ratings`}
                 />
             ) : (
-                <RatedTotal fetchUrl={`${match.url}?order=${selected}`} />
+                <OrderByTotal fetchUrl={`${match.url}?order=${selected}`} />
             )}
 
             {modal === "select" && (

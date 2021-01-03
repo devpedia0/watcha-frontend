@@ -5,14 +5,14 @@ import api from "../../../../services/api";
 import { CardListSlick, CardPoster } from "../../../../components";
 import history from "../../../../history";
 
-const RatedByScore = ({ fetchUrl }) => {
+const OrderByScore = ({ fetchUrl }) => {
     const [state, setState] = useState({
         data: {},
         isFetching: true,
     });
 
     useEffect(() => {
-        api.get(`${fetchUrl}?size=20`).then((res) => {
+        api.get(`${fetchUrl}/by_rating?size=20`).then((res) => {
             setState({
                 data: res.data,
                 isFetching: false,
@@ -21,7 +21,7 @@ const RatedByScore = ({ fetchUrl }) => {
     }, [fetchUrl]);
 
     if (state.isFetching) return <Loader height="800px" />;
-    console.log(state.data);
+
     return (
         <Wrapper>
             {Object.keys(state.data)
@@ -30,6 +30,9 @@ const RatedByScore = ({ fetchUrl }) => {
                     <CardListSlick
                         title={`${key} 점 준 영화`}
                         count={state.data[key].count}
+                        addComponent={
+                            <Link href={`${fetchUrl}/${key}`}>더보기</Link>
+                        }
                     >
                         {state.data[key].list.map((item, idx) => (
                             <StyledCard
@@ -47,7 +50,7 @@ const RatedByScore = ({ fetchUrl }) => {
     );
 };
 
-export default RatedByScore;
+export default OrderByScore;
 
 const Wrapper = styled.div`
     padding: 220px 20px;
@@ -79,5 +82,16 @@ const StyledCard = styled(CardPoster)`
     }
     @media only screen and (min-width: 1600px) {
         width: 9.1%;
+    }
+`;
+
+const Link = styled.a`
+    float: right;
+    margin: 12px 0;
+    font-weight: 500;
+    color: #ff2f6e;
+    cursor: pointer;
+    &:hover {
+        color: #ff2f6e;
     }
 `;

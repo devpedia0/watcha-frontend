@@ -32,6 +32,7 @@ import UserRated from "./pages/User/UserRated";
 import UserAnalysis from "./pages/User/UserAnalysis";
 
 import Searches from "./pages/Searches/Searches";
+import UserRatedMore from "./pages/User/UserRatedMore";
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                     <Route path="/users/:userId/analysis" exact component={UserAnalysis} />
                     <LayoutDetail path="/users/:userId/:contentType" exact component={UserContents} />
                     <Layout path="/users/:userId/:contentType/:statusId" exact component={UserRated} />
+                    <LayoutDetail path="/users/:userId/:contentType/ratings/:scoreId" exact component={UserRatedMore} />
                     {/* Contents Page */}
                     <Layout path="/contents/:pageId" exact component={Contents} />
                     <Layout path="/contents/:pageId/comments" exact component={ContentsComment} />
