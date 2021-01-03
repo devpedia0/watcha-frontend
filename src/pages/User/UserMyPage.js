@@ -15,17 +15,17 @@ function UserMyPage({ match }) {
         AuthService.getUserInfo().then((res) => {
             setUserData(res.data);
         });
-        console.log("userData", userData);
 
         AuthService.getUserRating().then((res) => {
             setRate(res.data);
         });
-        console.log("rate", rate);
     }, []);
 
     const settingModal = () => {
         setSettingVisible({ settingVisible: !settingVisible });
     };
+
+    if (Object.keys(rate).length === 0) return null;
 
     return (
         <Content>
