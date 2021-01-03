@@ -20,7 +20,7 @@ const ModalSelect = ({ title, selected, onCloseModal, onClickRow }) => {
                     type="close"
                     w="24px"
                     h="24px"
-                    margin="auto 0"
+                    m="auto 0"
                     onClick={onCloseModal}
                 />
                 <h3>{title}</h3>

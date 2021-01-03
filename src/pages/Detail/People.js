@@ -62,10 +62,16 @@ export default People;
 
 const Wrapper = styled.div`
     padding: 71px 15px 113px 15px;
+    max-width: 1320px;
 
     @media only screen and (min-width: 719px) {
         padding-top: 62px;
         padding-bottom: unset;
+    }
+
+    @media only screen and (min-width: 1440px) {
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .people-header {
@@ -90,7 +96,7 @@ const Wrapper = styled.div`
             font-size: 15px;
             font-weight: 500;
             letter-spacing: -0.2px;
-            line-height: 18px;
+            line-height: 24px;
             margin-top: 2px;
         }
     }

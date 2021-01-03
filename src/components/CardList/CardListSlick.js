@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 const CardListSlick = ({
     title,
@@ -16,7 +16,24 @@ const CardListSlick = ({
         posX: 0,
         left: false,
         right: true,
+        show: true,
     });
+
+    useEffect(() => {
+        if (buttonCtrl.posX !== 0) return;
+        const childNum = slider.current.children.length;
+        const childWidth = slider.current.children[0].clientWidth;
+        const slideWidth = slider.current.offsetWidth;
+        const childTotalWidth = horizon
+            ? Math.ceil(childNum / 3) * childWidth
+            : childNum * childWidth;
+
+        let leftWidth = childTotalWidth - slideWidth;
+        setButtonCtrl((state) => ({
+            ...state,
+            right: leftWidth > 50,
+        }));
+    }, [buttonCtrl.posX, horizon]);
 
     const handleClickButton = (type) => {
         const childNum = slider.current.children.length;
@@ -44,8 +61,14 @@ const CardListSlick = ({
         setButtonCtrl({
             posX: newPosX,
             left: newPosX > 0,
-            right: newPosX < childTotalWidth - slideWidth,
+            right: 50 < leftWidth - slideWidth,
         });
+    };
+
+    const handleMouseOver = () => {
+        if (!buttonCtrl.show) {
+            setButtonCtrl({ ...buttonCtrl, show: true });
+        }
     };
 
     return (
@@ -79,7 +102,12 @@ const CardListSlick = ({
                     </div>
                 )}
             </Header>
-            <Content>
+            <Content
+                onMouseOver={handleMouseOver}
+                onMouseLeave={() =>
+                    setButtonCtrl({ ...buttonCtrl, show: false })
+                }
+            >
                 <div className="slickWrapper">
                     <div
                         className={`slickBlock ${horizon && "horizon"}`}
@@ -92,12 +120,12 @@ const CardListSlick = ({
                     </div>
                     <ArrowButton
                         type="left"
-                        show={buttonCtrl.left}
+                        show={buttonCtrl.show && buttonCtrl.left}
                         onClick={() => handleClickButton("left")}
                     />
                     <ArrowButton
                         type="right"
-                        show={buttonCtrl.right}
+                        show={buttonCtrl.show && buttonCtrl.right}
                         onClick={() => handleClickButton("right")}
                     />
                 </div>

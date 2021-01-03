@@ -70,11 +70,11 @@ const ModalInterest = ({ onCloseModal, onChangeModal }) => {
 
             <ContentButton onClick={() => onChangeModal("comment")}>
                 <span>코멘트 작성하기</span>
-                <Icon type="comment" w="32px" h="32px" margin="12px 0px" />
+                <Icon type="comment" w="32px" h="32px" m="12px 0px" />
             </ContentButton>
             <ContentButton onClick={() => handleChangeInterest(null)}>
                 <span>관심없어요</span>
-                <Icon type="cancel" w="32px" h="32px" margin="12px 0px" />
+                <Icon type="cancel" w="32px" h="32px" m="12px 0px" />
             </ContentButton>
             <ContentFooter onClick={onCloseModal}>취소</ContentFooter>
         </ModalWrapper>

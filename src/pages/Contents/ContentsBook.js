@@ -18,7 +18,6 @@ const ContentsBook = ({ match }) => {
 
         return () => dispatch(contentActions.initialize());
     }, [dispatch]);
-
     const pageObj = {
         contents: "목차",
         description: "출판사 제공 책소개",
@@ -54,9 +53,7 @@ const Content = styled.div`
     font-weight: 500;
     letter-spacing: -0.2px;
     line-height: 24px;
-
     margin: 20px 20px;
-
     padding-top: 88px;
 
     ${(props) =>

@@ -4,7 +4,7 @@ const Icon = styled.i`
     display: inline-block;
     width: ${(props) => (props.w ? props.w : "10px")};
     height: ${(props) => (props.h ? props.h : "10px")};
-    margin: ${(props) => (props.margin ? props.margin : 0)};
+    margin: ${(props) => (props.m ? props.m : 0)};
     background: ${(props) =>
         props.type
             ? `url(${

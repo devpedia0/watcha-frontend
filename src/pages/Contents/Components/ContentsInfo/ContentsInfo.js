@@ -62,9 +62,9 @@ const ContentsInfo = () => {
             {authorDescription && (
                 <>
                     <CardList
-                        title="출판사 제공 책소개"
+                        title="저자소개"
                         addComponent={
-                            <Link href={`/contents/${pageId}/book/elaboration`}>
+                            <Link href={`/detail/people/${authorId}`}>
                                 더보기
                             </Link>
                         }
@@ -81,9 +81,9 @@ const ContentsInfo = () => {
             {elaboration && (
                 <>
                     <CardList
-                        title="저자소개"
+                        title="출판사 제공 책소개"
                         addComponent={
-                            <Link href={`/detail/people/${authorId}`}>
+                            <Link href={`/contents/${pageId}/book/elaboration`}>
                                 더보기
                             </Link>
                         }

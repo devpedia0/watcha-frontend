@@ -26,8 +26,9 @@ const OrderByScore = ({ fetchUrl }) => {
         <Wrapper>
             {Object.keys(state.data)
                 .sort((a, b) => b - a)
-                .map((key) => (
+                .map((key, i) => (
                     <CardListSlick
+                        key={i}
                         title={`${key} 점 준 영화`}
                         count={state.data[key].count}
                         addComponent={

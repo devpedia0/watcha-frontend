@@ -7,7 +7,7 @@ import { contentActions } from "../../redux/actions";
 import { Loader } from "../../styles";
 import { changeDataFormat } from "../../utils/helperFunc";
 
-const ContentsInfo = () => {
+const ContentsOverview = () => {
     const dispatch = useDispatch();
     const {
         data: { contentInfo },
@@ -52,7 +52,7 @@ const ContentsInfo = () => {
     );
 };
 
-export default ContentsInfo;
+export default ContentsOverview;
 
 const Wrapper = styled.div``;
 
