@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useInputs from "../../../Hooks/useInputs";
 import { useDispatch } from "react-redux";
 import authActions from "../../../redux/actions/authActions";
-import ReactFacebookLogin from "../../../services/ReactFacebookLogin";
+import Facebook from "../../Common/Facebook";
 
 const initialValue = {
     name: "",
@@ -130,9 +130,9 @@ const Login = ({ onChangeModal }) => {
                                     </Register>
                                     <Hr />
 
-                                    <Facebook>
-                                        <ReactFacebookLogin />
-                                    </Facebook>
+                                    <FacebookWrapper>
+                                        <Facebook />
+                                    </FacebookWrapper>
                                 </Content>
                             </div>
                         </div>
@@ -457,7 +457,7 @@ const Hr = styled.hr`
     }
 `;
 
-const Facebook = styled.div`
+const FacebookWrapper = styled.div`
     color: rgb(250, 250, 250);
     text-align: center;
     width: 100%;

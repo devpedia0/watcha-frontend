@@ -1,7 +1,7 @@
 import React from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
-const ReactFacebookLogin = (props) => {
+const Facebook = (props) => {
     const componentClicked = () => {
         console.log("Facebook Btn clicked!");
     };
@@ -36,4 +36,4 @@ const ReactFacebookLogin = (props) => {
     );
 };
 
-export default ReactFacebookLogin;
+export default Facebook;
