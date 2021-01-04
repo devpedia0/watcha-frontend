@@ -24,16 +24,15 @@ import { contentActions, modalActions } from "../../redux/actions";
 
 const Contents = () => {
     const dispatch = useDispatch();
+    const modal = useSelector((state) => state.modal);
     const {
         data,
         userData: { interestState, score, isLogin },
         isFetching,
     } = useSelector((state) => state.content);
 
-    const modal = useSelector((state) => state.modal);
     useEffect(() => {
         dispatch(contentActions.fetch());
-
         return () => dispatch(contentActions.initialize());
     }, [dispatch]);
 
@@ -66,7 +65,7 @@ const Contents = () => {
 
                 <ContentsSidebar />
 
-                <div className="bottom">
+                <div className="content-bottom">
                     <ContentCollection />
                     <ContentsPoster />
                 </div>
@@ -168,7 +167,7 @@ const Content = styled.div`
         max-width: 976px;
     }
 
-    .bottom {
+    .content-bottom {
         background: #fff;
         border-color: #e3e3e3 !important;
         overflow: hidden;

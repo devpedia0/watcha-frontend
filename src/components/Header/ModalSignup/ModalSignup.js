@@ -5,7 +5,7 @@ import useInputs from "../../../Hooks/useInputs";
 import AuthService from "../../../services/auth.service";
 import SelectForm from "./SelectForm/SelectForm";
 
-import ReactFacebookLogin from "../../../services/ReactFacebookLogin";
+import Facebook from "../../Common/Facebook";
 
 const initialValue = {
     name: "",
@@ -201,9 +201,9 @@ export default function ModalSignup({ onChangeModal }) {
                                 </Btn>
                             </AlReady>
                             <Hr />
-                            <Facebook>
-                                <ReactFacebookLogin />
-                            </Facebook>
+                            <FacebookWrapper>
+                                <Facebook />
+                            </FacebookWrapper>
                         </Content>
                     </SignUpFormInner>
                 </SignUpForm>
@@ -557,7 +557,7 @@ const Hr = styled.hr`
     }
 `;
 
-const Facebook = styled.div`
+const FacebookWrapper = styled.div`
     color: rgb(250, 250, 250);
     text-align: center;
     width: 100%;

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import useIntersection from "../../../../Hooks/useIntersection";
+import useObserver from "../../../../Hooks/useObserver";
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../../../redux/actions";
 import { CardList, CardPoster } from "../../../../components";
@@ -9,17 +9,14 @@ import history from "../../../../history";
 
 const OrderByTotal = ({ fetchUrl }) => {
     const dispatch = useDispatch();
-    const { data, initFetch, isFetching, fetchMore } = useSelector(
-        (state) => state.detail
-    );
+    const detail = useSelector((state) => state.detail);
+    const { data, initFetch, isFetching, fetchMore } = detail;
+    const [loaderRef, isIntersecting] = useObserver(initFetch);
 
     useEffect(() => {
         dispatch(detailActions.initContentRated(fetchUrl, 20));
         return () => dispatch(detailActions.initialize());
     }, [dispatch, fetchUrl]);
-
-    const loaderRef = useRef();
-    const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {

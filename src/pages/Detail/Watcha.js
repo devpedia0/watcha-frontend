@@ -1,25 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import useIntersection from "../../Hooks/useIntersection";
+import useObserver from "../../Hooks/useObserver";
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../redux/actions";
 import { CardList, HeaderDetail, CardPoster } from "../../components";
 import { Loader } from "../../styles";
 
-const Watcha = ({ match }) => {
-    const pageId = match.params.pageId;
+const Watcha = (props) => {
     const dispatch = useDispatch();
-    const { info, data, initFetch, isFetching, fetchMore } = useSelector(
-        (state) => state.detail
-    );
+    const pageId = props.match.params.pageId;
+    const detail = useSelector((state) => state.detail);
+    const { info, data, initFetch, isFetching, fetchMore } = detail;
+    const [loaderRef, isIntersecting] = useObserver(initFetch);
 
     useEffect(() => {
         dispatch(detailActions.initWatcha(pageId));
         return () => dispatch(detailActions.initialize());
     }, [dispatch, pageId]);
-
-    const loaderRef = useRef();
-    const [isIntersecting] = useIntersection(loaderRef, initFetch);
 
     useEffect(() => {
         if (isIntersecting && fetchMore) {
@@ -30,15 +27,17 @@ const Watcha = ({ match }) => {
 
     return (
         <Wrapper>
-            <HeaderDetail title={info.title} />
             {!initFetch ? (
                 <Loader height="800px" />
             ) : (
-                <CardList>
-                    {data.map((item, idx) => (
-                        <StyledCard key={idx} item={item} />
-                    ))}
-                </CardList>
+                <>
+                    <HeaderDetail title={info.title} />
+                    <CardList>
+                        {data.map((item, idx) => (
+                            <StyledCard key={idx} item={item} />
+                        ))}
+                    </CardList>
+                </>
             )}
 
             <StyledLoader ref={loaderRef}>

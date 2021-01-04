@@ -62,6 +62,7 @@ const ContentsInfo = () => {
                         <button className="btn-right">
                             <Svg
                                 type={interestState ? "arrowGray" : "arrow"}
+                                color={interestState ? "#d9d9d9" : "#FFF"}
                                 w="24px"
                                 h="24px"
                             />

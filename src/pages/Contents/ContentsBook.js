@@ -5,6 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { contentActions } from "../../redux/actions";
 import { Loader } from "../../styles";
 
+const pageObj = {
+    contents: "목차",
+    description: "출판사 제공 책소개",
+};
+
 const ContentsBook = ({ match }) => {
     const contentId = match.params.contentId;
 
@@ -13,15 +18,11 @@ const ContentsBook = ({ match }) => {
         data: { contentInfo },
         isFetching,
     } = useSelector((state) => state.content);
+
     useEffect(() => {
         dispatch(contentActions.fetch());
-
         return () => dispatch(contentActions.initialize());
     }, [dispatch]);
-    const pageObj = {
-        contents: "목차",
-        description: "출판사 제공 책소개",
-    };
 
     if (isFetching) return <Loader height="800px" />;
 
@@ -37,7 +38,6 @@ const ContentsBook = ({ match }) => {
     return (
         <Wrapper>
             <HeaderDetail title={pageObj[contentId]} />
-
             <Content type={contentInfo[contentId]}>{text}</Content>
         </Wrapper>
     );

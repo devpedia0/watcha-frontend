@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import api from "../../services/api";
 import { CardListInfinite } from "../../components";
+import { Loader } from "../../styles";
 
 const Decks = ({ match }) => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState({ isFetching: true });
     const pageId = match.params.pageId;
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await api.get(`/public/collections/${pageId}?size=12`);
-            setData(res.data);
-        };
-        fetchData();
+        const fetchUrl = `/public/collections/${pageId}?size=12`;
+        api.get(fetchUrl).then((res) => {
+            setData({ ...res.data, isFetching: false });
+        });
     }, [pageId]);
 
-    if (Object.keys(data).length === 0) return null;
+    if (data.isFetching) return <Loader height="800px" />;
 
     return (
         <Wrapper>

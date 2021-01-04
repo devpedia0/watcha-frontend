@@ -7,6 +7,15 @@ import { contentActions } from "../../redux/actions";
 import { Loader } from "../../styles";
 import { changeDataFormat } from "../../utils/helperFunc";
 
+const contentList = {
+    originTitle: "원제",
+    productionDate: "제작 연도",
+    countryCode: "국가",
+    category: "장르",
+    runningTime: "상영시간",
+    description: "내용",
+};
+
 const ContentsOverview = () => {
     const dispatch = useDispatch();
     const {
@@ -16,20 +25,11 @@ const ContentsOverview = () => {
 
     useEffect(() => {
         dispatch(contentActions.fetch());
-
         return () => dispatch(contentActions.initialize());
     }, [dispatch]);
 
     if (isFetching) return <Loader height="800px" />;
 
-    const contentList = {
-        originTitle: "원제",
-        productionDate: "제작 연도",
-        countryCode: "국가",
-        category: "장르",
-        runningTime: "상영시간",
-        description: "내용",
-    };
     return (
         <Wrapper>
             <HeaderDetail title="기본 정보" />
