@@ -42,7 +42,7 @@ const ModalComment = ({ title, onCloseModal }) => {
             <SectionSNS>
                 <span>SNS</span>
                 <div className="svg-box">
-                    <Svg type="twitter" w="22px" h="18px" />
+                    <Svg type="twitter" color="#73C8FA" w="22px" h="18px" />
                 </div>
             </SectionSNS>
             <TextArea
