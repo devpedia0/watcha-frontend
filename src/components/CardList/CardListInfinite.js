@@ -8,17 +8,27 @@ import api from "../../services/api";
 import history from "../../history";
 
 const CardListInfinite = ({ posters, fetchUrl }) => {
-    const loaderRef = useRef();
-    const [isIntersecting, setIntersecting] = useInterSection(loaderRef);
     const [data, setData] = useState({
         list: [],
         showMore: true,
         fetchMore: true,
         isFetching: false,
+        initFetch: false,
         page: 2,
         size: 12,
     });
-    const { list, showMore, fetchMore, isFetching, page, size } = data;
+    const {
+        list,
+        showMore,
+        fetchMore,
+        isFetching,
+        initFetch,
+        page,
+        size,
+    } = data;
+
+    const loaderRef = useRef();
+    const [isIntersecting] = useInterSection(loaderRef, initFetch);
 
     const handleClick = () => {
         setData({
@@ -29,6 +39,7 @@ const CardListInfinite = ({ posters, fetchUrl }) => {
     };
 
     const fetchUrlNext = `${fetchUrl}?page=${page}&size=${size}`;
+
     useEffect(() => {
         if (isIntersecting && !showMore && fetchMore) {
             setData((state) => ({ ...state, isFetching: true }));
@@ -41,12 +52,11 @@ const CardListInfinite = ({ posters, fetchUrl }) => {
                     fetchMore: res.data < state.size ? false : true,
                 }));
             });
-            setIntersecting(false);
         }
-    }, [isIntersecting, setIntersecting, showMore, fetchMore, fetchUrlNext]);
+    }, [isIntersecting, showMore, fetchMore, fetchUrlNext]);
 
     useEffect(() => {
-        setData((state) => ({ ...state, list: posters }));
+        setData((state) => ({ ...state, list: posters, initFetch: true }));
     }, [posters]);
 
     return (

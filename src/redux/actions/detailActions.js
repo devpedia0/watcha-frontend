@@ -7,6 +7,17 @@ import {
     DETAIL_FETCH_DATA,
 } from "../types";
 
+const init = (data, size) => async (dispatch) => {
+    try {
+        dispatch({
+            type: DETAIL_INIT,
+            payload: { data, size },
+        });
+    } catch (err) {
+        console.error(err.response ? err.response : err);
+    }
+};
+
 const initPeople = (pageId) => async (dispatch) => {
     try {
         let size = 20;
@@ -18,7 +29,7 @@ const initPeople = (pageId) => async (dispatch) => {
             payload: { info, data: contents, size },
         });
     } catch (err) {
-        console.error(err.response);
+        console.error(err.response ? err.response : err);
     }
 };
 
@@ -42,7 +53,7 @@ const initComment = (pageId, userId) => async (dispatch) => {
             payload: { data, fetchMore, size },
         });
     } catch (err) {
-        console.error(err.response);
+        console.error(err.response ? err.response : err);
     }
 };
 
@@ -57,7 +68,7 @@ const initWatcha = (pageId) => async (dispatch) => {
             payload: { info, data: list, size },
         });
     } catch (err) {
-        console.error(err.response);
+        console.error(err.response ? err.response : err);
     }
 };
 const initContentRated = (fetchUrl, size) => async (dispatch) => {
@@ -68,7 +79,7 @@ const initContentRated = (fetchUrl, size) => async (dispatch) => {
             payload: { data: res.data, size },
         });
     } catch (err) {
-        console.error(err.response);
+        console.error(err.response ? err.response : err);
     }
 };
 
@@ -78,7 +89,7 @@ const initialize = () => async (dispatch) => {
             type: DETAIL_INITIALIZE,
         });
     } catch (err) {
-        console.error(err.response);
+        console.error(err.response ? err.response : err);
     }
 };
 
@@ -95,11 +106,12 @@ const fetchMore = (fetchUrl) => async (dispatch, getState) => {
             payload: res.data,
         });
     } catch (err) {
-        console.error(err.response);
+        console.error(err.response ? err.response : err);
     }
 };
 
 const datailActions = {
+    init,
     initPeople,
     initComment,
     initWatcha,

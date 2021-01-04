@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Divider, Loader } from "../../styles";
-import { CardListSlick, CardPoster, Header, Card } from "../../components";
+import { CardListSlick, CardPoster, Card } from "../../components";
 import api from "../../services/api";
 import history from "../../history";
 import queryString from "query-string";
-function Searches() {
+import { randomUserImg } from "../../utils/helperFunc";
+
+const Searches = ({ match }) => {
     const query = queryString.parse(history.location.search).query;
+    const currentUrl = match.url;
 
     const [state, setState] = useState({
         data: {},
@@ -35,143 +38,153 @@ function Searches() {
     if (state.isFetching) return <Loader height="800px" />;
 
     return (
-        <Page>
-            <Header />
-            <Section>
-                <section className="section">
-                    <Wrapper>
-                        <CardListSlick title="상위 검색 결과" sizeHeader="sm">
-                            {state.data.topResults.map((item) => (
-                                <StyledCard key={item.id} item={item} />
-                            ))}
-                        </CardListSlick>
-                    </Wrapper>
-                    <hr className="divider" />
-                </section>
-                <section className="section">
-                    <Wrapper>
-                        <CardListSlick
-                            title="영화"
-                            sizeHeader="sm"
-                            addComponent={<Link>더보기</Link>}
-                            ratedMovie="ratedMovie"
-                            horizon
-                        >
-                            {state.data.movies.map((item) => (
-                                <Card
-                                    key={item.id}
-                                    radius="4%"
-                                    width="33%"
-                                    imageUrl={item.posterImagePath}
-                                    title={item.mainTitle}
-                                    subTitle={
-                                        item.productionDate?.split("-")[0] +
-                                        (item.countryCode
-                                            ? " • " + item.countryCode
-                                            : "") +
-                                        (item.author ? " • " + item.author : "")
-                                    }
-                                />
-                            ))}
-                        </CardListSlick>
-                        <Divider />
-                    </Wrapper>
-                </section>
-                <section className="section">
-                    <Wrapper>
-                        <CardListSlick
-                            title="TV 프로그램"
-                            sizeHeader="sm"
-                            addComponent={<Link>더보기</Link>}
-                            ratedMovie="ratedMovie"
-                            horizon
-                        >
-                            {state.data.tvShows.map((item) => (
-                                <Card
-                                    key={item.id}
-                                    radius="4%"
-                                    width="33%"
-                                    imageUrl={item.posterImagePath}
-                                    title={item.mainTitle}
-                                    subTitle={
-                                        item.productionDate?.split("-")[0] +
-                                        (item.countryCode
-                                            ? " • " + item.countryCode
-                                            : "") +
-                                        (item.author ? " • " + item.author : "")
-                                    }
-                                />
-                            ))}
-                        </CardListSlick>
-                        <Divider />
-                    </Wrapper>
-                </section>
-                <section className="section">
-                    <Wrapper>
-                        <CardListSlick
-                            title="책"
-                            sizeHeader="sm"
-                            addComponent={<Link>더보기</Link>}
-                            ratedMovie={"ratedMovie"}
-                            horizon
-                        >
-                            {state.data.books.map((item) => (
-                                <Card
-                                    key={item.id}
-                                    radius="4%"
-                                    width="33%"
-                                    imageUrl={item.posterImagePath}
-                                    title={item.mainTitle}
-                                    subTitle={
-                                        item.productionDate?.split("-")[0] +
-                                        (item.countryCode
-                                            ? " • " + item.countryCode
-                                            : "") +
-                                        (item.author ? " • " + item.author : "")
-                                    }
-                                />
-                            ))}
-                        </CardListSlick>
-                        <Divider />
-                    </Wrapper>
-                </section>
-                <section className="section">
-                    <Wrapper>
-                        <CardListSlick
-                            title="사용자"
-                            sizeHeader="sm"
-                            addComponent={<Link>더보기</Link>}
-                            ratedMovie={"ratedMovie"}
-                            horizon
-                        >
-                            {state.data.users.map((item) => (
-                                <Card
-                                    key={item.id}
-                                    radius="4%"
-                                    width="33%"
-                                    imageUrl={item.profileImagePath}
-                                    title={item.name}
-                                    subTitle={
-                                        item.description ? item.description : ""
-                                    }
-                                />
-                            ))}
-                        </CardListSlick>
-                        <Divider />
-                    </Wrapper>
-                </section>
-            </Section>
-        </Page>
+        <Section>
+            <section className="section">
+                <Wrapper>
+                    <CardListSlick title="상위 검색 결과" sizeHeader="sm">
+                        {state.data.topResults.map((item) => (
+                            <StyledCard key={item.id} item={item} />
+                        ))}
+                    </CardListSlick>
+                </Wrapper>
+                <hr className="divider" />
+            </section>
+            <section className="section">
+                <Wrapper>
+                    <CardListSlick
+                        title="영화"
+                        sizeHeader="sm"
+                        addComponent={
+                            <Link href={`${currentUrl}/movies?query=${query}`}>
+                                더보기
+                            </Link>
+                        }
+                        horizon
+                    >
+                        {state.data.movies.map((item) => (
+                            <Card
+                                key={item.id}
+                                radius="4%"
+                                width="33%"
+                                imageUrl={item.posterImagePath}
+                                title={item.mainTitle}
+                                subTitle={
+                                    item.productionDate?.split("-")[0] +
+                                    (item.countryCode
+                                        ? " • " + item.countryCode
+                                        : "") +
+                                    (item.author ? " • " + item.author : "")
+                                }
+                            />
+                        ))}
+                    </CardListSlick>
+                    <Divider />
+                </Wrapper>
+            </section>
+            <section className="section">
+                <Wrapper>
+                    <CardListSlick
+                        title="TV 프로그램"
+                        sizeHeader="sm"
+                        addComponent={
+                            <Link
+                                href={`${currentUrl}/tv_shows?query=${query}`}
+                            >
+                                더보기
+                            </Link>
+                        }
+                        ratedMovie="ratedMovie"
+                        horizon
+                    >
+                        {state.data.tvShows.map((item) => (
+                            <Card
+                                key={item.id}
+                                radius="4%"
+                                width="33%"
+                                imageUrl={item.posterImagePath}
+                                title={item.mainTitle}
+                                subTitle={
+                                    item.productionDate?.split("-")[0] +
+                                    (item.countryCode
+                                        ? " • " + item.countryCode
+                                        : "") +
+                                    (item.author ? " • " + item.author : "")
+                                }
+                            />
+                        ))}
+                    </CardListSlick>
+                    <Divider />
+                </Wrapper>
+            </section>
+            <section className="section">
+                <Wrapper>
+                    <CardListSlick
+                        title="책"
+                        sizeHeader="sm"
+                        addComponent={
+                            <Link href={`${currentUrl}/books?query=${query}`}>
+                                더보기
+                            </Link>
+                        }
+                        ratedMovie={"ratedMovie"}
+                        horizon
+                    >
+                        {state.data.books.map((item) => (
+                            <Card
+                                key={item.id}
+                                radius="4%"
+                                width="33%"
+                                imageUrl={item.posterImagePath}
+                                title={item.mainTitle}
+                                subTitle={
+                                    item.productionDate?.split("-")[0] +
+                                    (item.countryCode
+                                        ? " • " + item.countryCode
+                                        : "") +
+                                    (item.author ? " • " + item.author : "")
+                                }
+                            />
+                        ))}
+                    </CardListSlick>
+                    <Divider />
+                </Wrapper>
+            </section>
+            <section className="section">
+                <Wrapper>
+                    <CardListSlick
+                        title="사용자"
+                        sizeHeader="sm"
+                        addComponent={
+                            <Link
+                                href={`${currentUrl}/people/users?query=${query}`}
+                            >
+                                더보기
+                            </Link>
+                        }
+                        ratedMovie={"ratedMovie"}
+                        horizon
+                    >
+                        {state.data.users.map((item) => (
+                            <Card
+                                key={item.id}
+                                radius="50%"
+                                width="33%"
+                                imageUrl={randomUserImg()}
+                                title={item.name}
+                                subTitle={
+                                    item.description ? item.description : ""
+                                }
+                            />
+                        ))}
+                    </CardListSlick>
+                    <Divider />
+                </Wrapper>
+            </section>
+        </Section>
     );
-}
+};
 
 export default Searches;
-
-const Page = styled.div`
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-`;
 
 const Section = styled.section`
     padding-top: 0px;
