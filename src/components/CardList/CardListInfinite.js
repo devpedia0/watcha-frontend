@@ -1,68 +1,41 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
-import useInterSection from "../../Hooks/useIntersection";
+import useObserver from "../../Hooks/useObserver";
 import { CardList, CardPoster } from "..";
 import { Loader } from "../../styles";
-import api from "../../services/api";
 import history from "../../history";
+import { useSelector, useDispatch } from "react-redux";
+import { detailActions } from "../../redux/actions";
 
 const CardListInfinite = ({ posters, fetchUrl }) => {
-    const [data, setData] = useState({
-        list: [],
-        showMore: true,
-        fetchMore: true,
-        isFetching: false,
-        initFetch: false,
-        page: 2,
-        size: 12,
-    });
-    const {
-        list,
-        showMore,
-        fetchMore,
-        isFetching,
-        initFetch,
-        page,
-        size,
-    } = data;
+    const SIZE = 12;
+    const [showMore, setShowMore] = useState(true);
 
-    const loaderRef = useRef();
-    const [isIntersecting] = useInterSection(loaderRef, initFetch);
+    const dispatch = useDispatch();
+    const detail = useSelector((state) => state.detail);
+    const { data, initFetch, isFetching, fetchMore } = detail;
+    const [ref, isIntersecting] = useObserver(initFetch);
 
     const handleClick = () => {
-        setData({
-            ...data,
-            showMore: false,
-            isFetching: true,
-        });
+        setShowMore(false);
     };
 
-    const fetchUrlNext = `${fetchUrl}?page=${page}&size=${size}`;
+    useEffect(() => {
+        dispatch(detailActions.init(posters, SIZE));
+        return () => dispatch(detailActions.initialize());
+    }, [dispatch, posters]);
 
     useEffect(() => {
         if (isIntersecting && !showMore && fetchMore) {
-            setData((state) => ({ ...state, isFetching: true }));
-            api.get(fetchUrlNext).then((res) => {
-                setData((state) => ({
-                    ...state,
-                    list: [...state.list, ...res.data],
-                    page: state.page + 1,
-                    isFetching: false,
-                    fetchMore: res.data < state.size ? false : true,
-                }));
-            });
+            dispatch(detailActions.fetchMore(fetchUrl));
         }
-    }, [isIntersecting, showMore, fetchMore, fetchUrlNext]);
-
-    useEffect(() => {
-        setData((state) => ({ ...state, list: posters, initFetch: true }));
-    }, [posters]);
+    }, [dispatch, isIntersecting, showMore, fetchMore, fetchUrl]);
 
     return (
         <Wrppaer>
             <CardList title="작품들">
-                {list.map((item, idx) => (
+                {data.map((item, idx) => (
                     <StyledCard
                         key={idx}
                         item={item}
@@ -73,7 +46,7 @@ const CardListInfinite = ({ posters, fetchUrl }) => {
                 ))}
             </CardList>
             {showMore && <Button onClick={handleClick}>더보기</Button>}
-            <StyledLoader ref={loaderRef}>
+            <StyledLoader ref={ref}>
                 {isFetching && <Loader height="800px" />}
             </StyledLoader>
         </Wrppaer>

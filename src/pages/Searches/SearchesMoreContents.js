@@ -1,28 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import useIntersection from "../../Hooks/useIntersection";
+import useObserver from "../../Hooks/useObserver";
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../redux/actions";
 import { CardList, HeaderDetail, Card } from "../../components";
 import { Loader } from "../../styles";
 import api from "../../services/api";
-import history from "../../history";
 import queryString from "query-string";
 import { translate } from "../../utils/helperFunc";
 
-const SearchesMoreContents = ({ match }) => {
+const SearchesMoreContents = (props) => {
     const SIZE = 20;
-    const contentType = match.params.contentType;
-    const query = queryString.parse(history.location.search).query;
+    const contentType = props.match.params.contentType;
+    const query = queryString.parse(props.location.search).query;
     const fetchUrl = `/public/searches/${contentType}?query=${query}&page=1&size=${SIZE}`;
     const fetchMoreUrl = `/public/searches/${contentType}?query=${query}`;
 
     const dispatch = useDispatch();
-    const { data, initFetch, isFetching, fetchMore } = useSelector(
-        (state) => state.detail
-    );
-    const loaderRef = useRef();
-    const [isIntersecting] = useIntersection(loaderRef, initFetch);
+    const detail = useSelector((state) => state.detail);
+    const { data, initFetch, isFetching, fetchMore } = detail;
+    const [loaderRef, isIntersecting] = useObserver(initFetch);
 
     useEffect(() => {
         api.get(fetchUrl)

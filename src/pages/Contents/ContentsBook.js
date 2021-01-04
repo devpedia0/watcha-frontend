@@ -37,7 +37,6 @@ const ContentsBook = ({ match }) => {
     return (
         <Wrapper>
             <HeaderDetail title={pageObj[contentId]} />
-
             <Content type={contentInfo[contentId]}>{text}</Content>
         </Wrapper>
     );

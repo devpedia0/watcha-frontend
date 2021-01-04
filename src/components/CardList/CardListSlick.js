@@ -26,20 +26,25 @@ const CardListSlick = ({
     });
 
     useEffect(() => {
-        const childNum = slider.current.children.length;
-        const childWidth = slider.current.children[0].clientWidth;
-        const slideWidth = slider.current.offsetWidth;
-        const curWidth = buttonCtrl.posX + slideWidth;
-        const childTotalWidth = horizon
-            ? Math.ceil(childNum / 3) * childWidth
-            : childNum * childWidth;
+        try {
+            // console.log(slider.current.children);
+            const childNum = slider.current.children.length;
+            const childWidth = slider.current.children[0].clientWidth;
+            const slideWidth = slider.current.offsetWidth;
+            const curWidth = buttonCtrl.posX + slideWidth;
+            const childTotalWidth = horizon
+                ? Math.ceil(childNum / 3) * childWidth
+                : childNum * childWidth;
 
-        let leftWidth = childTotalWidth - curWidth;
-        setScrollCtrl({ leftWidth, slideWidth });
-        setButtonCtrl((state) => ({
-            ...state,
-            right: fetchMore || 50 < leftWidth,
-        }));
+            let leftWidth = childTotalWidth - curWidth;
+            setScrollCtrl({ leftWidth, slideWidth });
+            setButtonCtrl((state) => ({
+                ...state,
+                right: fetchMore || 50 < leftWidth,
+            }));
+        } catch (err) {
+            console.log(err);
+        }
     }, [buttonCtrl.posX, horizon, fetchMore]);
 
     const handleClickButton = (type) => {

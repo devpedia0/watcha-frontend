@@ -1,25 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CardComment, HeaderDetail } from "../../components";
 import { Loader } from "../../styles";
-import useIntersection from "../../Hooks/useIntersection";
+import useObserver from "../../Hooks/useObserver";
 
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../redux/actions";
 
-const ContentsComment = ({ match }) => {
-    const { pageId, userId } = match.params;
+const ContentsComment = (props) => {
     const dispatch = useDispatch();
-    const { data, initFetch, isFetching, fetchMore } = useSelector(
-        (state) => state.detail
-    );
+    const { pageId, userId } = props.match.params;
+    const detail = useSelector((state) => state.detail);
+    const { data, initFetch, isFetching, fetchMore } = detail;
 
-    const loaderRef = useRef();
-    const [isIntersecting] = useIntersection(loaderRef, initFetch);
+    const [loaderRef, isIntersecting] = useObserver(initFetch);
 
     useEffect(() => {
         dispatch(detailActions.initComment(pageId, userId));
-
         return () => dispatch(detailActions.initialize());
     }, [dispatch, pageId, userId]);
 
@@ -31,28 +28,28 @@ const ContentsComment = ({ match }) => {
     }, [isIntersecting, fetchMore, dispatch, pageId]);
 
     return (
-        <Wrapper>
-            <HeaderDetail title="코멘트" />
+        <>
             {!initFetch ? (
                 <Loader height="800px" />
             ) : (
-                <Content>
-                    {data.map((item, idx) => (
-                        <StyledCard key={idx} item={item} />
-                    ))}
-                </Content>
+                <>
+                    <HeaderDetail title="코멘트" />
+                    <Content>
+                        {data.map((item, idx) => (
+                            <StyledCard key={idx} item={item} />
+                        ))}
+                    </Content>
+                </>
             )}
 
             <StyledLoader ref={loaderRef}>
                 {isFetching && <Loader />}
             </StyledLoader>
-        </Wrapper>
+        </>
     );
 };
 
 export default ContentsComment;
-
-const Wrapper = styled.div``;
 
 const Content = styled.div`
     max-width: 640px;

@@ -29,7 +29,6 @@ const UserContents = ({ match }) => {
             setContents(() => res.data);
         });
     }, [userId, contentType]);
-
     useEffect(() => {
         const apiKey = formatObj[contentType].apiKey;
         const fetchUrl = `/users/${userId}/ratings`;

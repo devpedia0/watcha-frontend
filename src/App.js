@@ -42,8 +42,6 @@ function App() {
             <Router history={history}>
                 <Switch>
                     <Route path="/team" component={Team} />
-                    
-
                     <Layout path="/" exact component={Main} />
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
