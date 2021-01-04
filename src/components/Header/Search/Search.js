@@ -18,6 +18,7 @@ const Search = () => {
             } else {
                 recent = [input, ...recent];
             }
+            setOepn(false);
             localStorage.setItem("recent", JSON.stringify(recent.slice(0, 5)));
             history.push(`/searches?query=${input}`);
         }

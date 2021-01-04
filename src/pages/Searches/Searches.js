@@ -43,7 +43,13 @@ const Searches = ({ match }) => {
                 <Wrapper>
                     <CardListSlick title="상위 검색 결과" sizeHeader="sm">
                         {state.data.topResults.map((item) => (
-                            <StyledCard key={item.id} item={item} />
+                            <StyledCard
+                                key={item.id}
+                                item={item}
+                                onClick={() =>
+                                    history.push(`/contents/${item.id}`)
+                                }
+                            />
                         ))}
                     </CardListSlick>
                 </Wrapper>
