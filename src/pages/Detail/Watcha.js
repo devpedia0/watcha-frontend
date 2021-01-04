@@ -27,15 +27,17 @@ const Watcha = (props) => {
 
     return (
         <Wrapper>
-            <HeaderDetail title={info.title} />
             {!initFetch ? (
                 <Loader height="800px" />
             ) : (
-                <CardList>
-                    {data.map((item, idx) => (
-                        <StyledCard key={idx} item={item} />
-                    ))}
-                </CardList>
+                <>
+                    <HeaderDetail title={info.title} />
+                    <CardList>
+                        {data.map((item, idx) => (
+                            <StyledCard key={idx} item={item} />
+                        ))}
+                    </CardList>
+                </>
             )}
 
             <StyledLoader ref={loaderRef}>

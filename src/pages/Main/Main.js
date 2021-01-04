@@ -71,26 +71,25 @@ const Main = () => {
     }, [getDataAPI, state]);
 
     useEffect(() => {
-        if (!state.isLoading) {
-            window.addEventListener("scroll", infiniteScroll);
-        }
+        if (state.isLoading) return;
+        window.addEventListener("scroll", infiniteScroll);
+
         return () => window.removeEventListener("scroll", infiniteScroll);
     }, [infiniteScroll, state.isLoading]);
 
     useEffect(() => {
-        const fetchAPI = async () => {
-            const baseUrl = `/public/${charType}/rankings`;
-            const res = await api.get(baseUrl);
-            setState((prevState) => ({
-                ...prevState,
-                box_office: res.data[0],
-                mars: res.data[1],
-                netflix: res.data[2],
-                isFetching: false,
-            }));
-        };
-        fetchAPI();
-        // return () => setState(initialState);
+        const baseUrl = `/public/${charType}/rankings`;
+        api.get(baseUrl)
+            .then((res) => {
+                setState((prevState) => ({
+                    ...prevState,
+                    box_office: res.data[0],
+                    mars: res.data[1],
+                    netflix: res.data[2],
+                    isFetching: false,
+                }));
+            })
+            .catch((err) => console.log(err.response ? err.response : err));
     }, [charType]);
 
     if (state.isFetching) return <Loader height="800px" />;
