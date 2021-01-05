@@ -25,10 +25,6 @@ body {
 ol, ul, li {
   list-style: none;
 }
-
-
-
-
 .ReactModal__Body--open {
   overflow-y: hidden;
 }
@@ -44,5 +40,16 @@ input:focus{outline: 0;}
 textarea:focus{outline: 0;}
 a, a:hover, a:active { text-decoration: none; color: inherit; outline: none;}
 a:visited { text-decoration: none;  outline: none; }
+
+/* IE */
+div {
+  -ms-overflow-style: none; 
+}
+
+/* chrome etc */
+div::-webkit-scrollbar { 
+    display: none !important; 
+}
+
 `
 export default GlobalStyle;

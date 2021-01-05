@@ -232,7 +232,7 @@ const Header = styled.div`
 const Content = styled.div`
     position: relative;
     .slickWrapper {
-        overflow: hidden;
+        overflow: scroll;
     }
     .slickBlock {
         width: 100%;
