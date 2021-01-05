@@ -119,19 +119,15 @@ const Wrapper = styled.div`
 
 const Nav = styled.div`
     max-width: 1320px;
-    margin-right: 20px;
-    margin-left: 20px;
     display: flex;
-    @media only screen and (min-width: 600px) {
-        margin-right: 20px;
-        margin-left: 20px;
-    }
-    @media only screen and (min-width: 760px) {
+
+    @media only screen and (min-width: 739px) {
         margin: 0 3.5%;
         li:nth-child(1) {
             display: block;
         }
     }
+
     @media only screen and (min-width: 1100px) {
         margin: 0 60px;
     }
@@ -177,7 +173,7 @@ const LiCtg = styled.li`
 `;
 
 const LiButton = styled.li`
-    display: flex;
+    display: none;
     -webkit-box-align: center;
     align-items: center;
     height: 62px;
@@ -239,18 +235,20 @@ const LiButton = styled.li`
         border: 1px solid rgba(116, 116, 123, 0.5);
         margin: 15px 0px;
     }
-    @media only screen and (min-width: 737px) {
+    @media only screen and (min-width: 800px) {
         display: flex;
-    }
-    @media only screen and (min-width: 860px) {
     }
 `;
 
 const Link = styled(NavLink)`
+    background: none;
     padding: 0px;
+    border: none;
     margin: 0px;
+    cursor: pointer;
     color: rgb(165, 165, 170);
     font-size: 27px;
+    font-weight: bold;
     letter-spacing: -0.3px;
     &.${(props) => props.activeClassName} {
         color: rgb(53, 53, 53);
