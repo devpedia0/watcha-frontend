@@ -40,7 +40,7 @@ const CardListInfinite = ({ posters, fetchUrl }) => {
                         key={idx}
                         item={item}
                         onClick={() =>
-                            history.push(`/detail/watcha/${item.id}`)
+                            (window.location = `/contents/${item.id}`)
                         }
                     />
                 ))}
