@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { changeNumberFormat } from "../../utils/helperFunc";
 import { Svg } from "..";
+import { useSelector } from "react-redux";
 
 export default function Footer({ className }) {
+    const { userId } = useSelector((state) => state.auth);
     const [data, setData] = useState("");
 
     useEffect(() => {
@@ -22,118 +24,149 @@ export default function Footer({ className }) {
     }, []);
 
     return (
-        <Main className={className}>
-            <Section1>
-                <Span>
-                    지금까지 <em>★ {changeNumberFormat(data)} 개의 평가가 </em>
-                    쌓였어요.
-                </Span>
-            </Section1>
-            <Section2>
-                <List>
-                    <Left>
-                        <Ul>
-                            <Li>서비스 이용약관</Li>
-                            <Li>
-                                <Link
-                                    to="/myPage"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "#a5a5a7",
-                                    }}
-                                >
-                                    내 정보보기
-                                </Link>
-                            </Li>
-                            <Li>
-                                <Link
-                                    to="/team"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "#a5a5a7",
-                                    }}
-                                >
-                                    팀원 소개
-                                </Link>
-                            </Li>
-                        </Ul>
-                        <Ul>
-                            <Li>고객센터</Li>
-                            <Li>cs@watchapedia.co.kr, 02-515-9985</Li>
-                        </Ul>
-                        <Ul>
-                            <Li>제휴 및 대외 협력</Li>
-                            <Li>contact@watcha.com, 070-7754-9696</Li>
-                        </Ul>
-                        <Ul>
-                            <Li>주식회사 왓챠</Li>
-                            <Li>대표 박태훈</Li>
-                            <Li>서울특별시 서초구 강남대로 343 신덕빌딩 3층</Li>
-                        </Ul>
-                        <Ul>
-                            <Li>사업자 등록 번호 211-88-66013</Li>
-                        </Ul>
-                        <Ul>
-                            <Svg
-                                type="logo"
-                                w="83px"
-                                h="20px"
-                                color="#ff0558"
-                            />
-                            <Li style={{ paddingLeft: 7 }}>
-                                © 2011 Watcha. Inc
-                            </Li>
-                        </Ul>
-                    </Left>
-                    <Right>
-                        <Lang>
-                            <Btn>한국어</Btn>
-                        </Lang>
-                        <Sns>
-                            <Icon>
-                                <A href="/">
-                                    <Svg
-                                        w="24px"
-                                        h="24px"
-                                        type="facebook"
-                                        color="#848485"
-                                    />
-                                </A>
-                            </Icon>
-                            <Icon>
-                                <A
-                                    href="/"
-                                    style={{
-                                        border: "1px solid #848485",
-                                        borderRadius: "50%",
-                                        width: 26,
-                                        height: 26,
-                                        padding: 1,
-                                    }}
-                                >
-                                    <Svg
-                                        type="twitter"
-                                        w="24px"
-                                        h="18px"
-                                        color="#848485"
-                                    />
-                                </A>
-                            </Icon>
-                            <Icon>
-                                <A href="/">
-                                    <Svg
-                                        type="bb"
-                                        w="24px"
-                                        h="24px"
-                                        color="#848485"
-                                    />
-                                </A>
-                            </Icon>
-                        </Sns>
-                    </Right>
-                </List>
-            </Section2>
-        </Main>
+        <>
+            <Main className={className}>
+                <Section1>
+                    <Span>
+                        지금까지{" "}
+                        <em>★ {changeNumberFormat(data)} 개의 평가가 </em>
+                        쌓였어요.
+                    </Span>
+                </Section1>
+                <Section2>
+                    <List>
+                        <Left>
+                            <Ul>
+                                <Li>서비스 이용약관</Li>
+                                <Li>
+                                    <Link
+                                        to="/myPage"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#a5a5a7",
+                                        }}
+                                    >
+                                        내 정보보기
+                                    </Link>
+                                </Li>
+                                <Li>
+                                    <Link
+                                        to="/team"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#a5a5a7",
+                                        }}
+                                    >
+                                        팀원 소개
+                                    </Link>
+                                </Li>
+                            </Ul>
+                            <Ul>
+                                <Li>고객센터</Li>
+                                <Li>cs@watchapedia.co.kr, 02-515-9985</Li>
+                            </Ul>
+                            <Ul>
+                                <Li>제휴 및 대외 협력</Li>
+                                <Li>contact@watcha.com, 070-7754-9696</Li>
+                            </Ul>
+                            <Ul>
+                                <Li>주식회사 왓챠</Li>
+                                <Li>대표 박태훈</Li>
+                                <Li>
+                                    서울특별시 서초구 강남대로 343 신덕빌딩 3층
+                                </Li>
+                            </Ul>
+                            <Ul>
+                                <Li>사업자 등록 번호 211-88-66013</Li>
+                            </Ul>
+                            <Ul>
+                                <Svg
+                                    type="logo"
+                                    w="83px"
+                                    h="20px"
+                                    color="#ff0558"
+                                />
+                                <Li style={{ paddingLeft: 7 }}>
+                                    © 2011 Watcha. Inc
+                                </Li>
+                            </Ul>
+                        </Left>
+                        <Right>
+                            <Lang>
+                                <Btn>한국어</Btn>
+                            </Lang>
+                            <Sns>
+                                <Icon>
+                                    <A href="/">
+                                        <Svg
+                                            w="24px"
+                                            h="24px"
+                                            type="facebook"
+                                            color="#848485"
+                                        />
+                                    </A>
+                                </Icon>
+                                <Icon>
+                                    <A
+                                        href="/"
+                                        style={{
+                                            border: "1px solid #848485",
+                                            borderRadius: "50%",
+                                            width: 26,
+                                            height: 26,
+                                            padding: 1,
+                                        }}
+                                    >
+                                        <Svg
+                                            type="twitter"
+                                            w="24px"
+                                            h="18px"
+                                            color="#848485"
+                                        />
+                                    </A>
+                                </Icon>
+                                <Icon>
+                                    <A href="/">
+                                        <Svg
+                                            type="bb"
+                                            w="24px"
+                                            h="24px"
+                                            color="#848485"
+                                        />
+                                    </A>
+                                </Icon>
+                            </Sns>
+                        </Right>
+                    </List>
+                </Section2>
+            </Main>
+            <FooterNav>
+                <li>
+                    <a href="/">
+                        <Svg type="home" w="24px" h="24px" color="#babac3" />
+                        <span>홈</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <Svg type="search" w="24px" h="24px" color="#babac3" />
+                        <span>검색</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <Svg type="star" w="24px" h="24px" color="#babac3" />
+                        <span>평가</span>
+                    </a>
+                </li>
+                <li>
+                    <a href={`/users/${userId}`}>
+                        <Svg type="user" w="24px" h="24px" color="#babac3" />
+                        <span>나의왓챠</span>
+                    </a>
+                </li>
+            </FooterNav>
+        </>
     );
 }
 
@@ -301,4 +334,33 @@ const A = styled.a`
     box-sizing: border-box;
     width: 26px;
     height: 24px;
+`;
+
+const FooterNav = styled.div`
+    box-sizing: border-box;
+    height: 56px;
+    padding: 8px 0 4px;
+    display: flex;
+
+    li {
+        flex: 1;
+        text-align: center;
+        height: 100%;
+        margin: 0 10px;
+    }
+
+    svg {
+        display: block;
+        margin: 0 auto;
+    }
+
+    span {
+        color: #babac3;
+        line-height: 17px;
+        white-space: nowrap;
+        padding-top: 3px;
+    }
+    @media (min-width: 719px) {
+        display: none;
+    }
 `;
