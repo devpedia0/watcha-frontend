@@ -46,7 +46,7 @@ function App() {
                     <Layout path="/books" exact component={Main} />
                     <Layout path="/tv_shows" exact component={Main} />
                     {/* User Page */}
-                    <Layout path="/users/:userId" exact component={UserMyPage} />
+                    <Detail path="/users/:userId" exact component={UserMyPage} />
                     <Route  path="/users/:userId/analysis" exact component={UserAnalysis} />
                     <Detail path="/users/:userId/:contentType" exact component={UserContents} />
                     <Layout path="/users/:userId/:contentType/:statusId" exact component={UserRated} />

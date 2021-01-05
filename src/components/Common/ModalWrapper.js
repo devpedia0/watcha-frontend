@@ -1,10 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const ModalWrapper = ({ width, height, onCloseModal, children }) => {
+const ModalWrapper = ({
+    className,
+    full,
+    width,
+    height,
+    onCloseModal,
+    children,
+}) => {
     return (
-        <Wraper onClick={onCloseModal}>
+        <Wraper className={className} onClick={onCloseModal}>
             <InnerWrapper
+                full={full}
                 width={width}
                 height={height}
                 onClick={(e) => e.stopPropagation()}
@@ -45,6 +53,7 @@ const InnerWrapper = styled.div`
     box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
     overflow: hidden;
     position: absolute;
+    top: ${(props) => (props.full ? 0 : "none")};
     bottom: 0px;
     left: 0px;
     height: ${(props) => (props.height ? props.height : "auto")};

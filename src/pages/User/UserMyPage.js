@@ -30,215 +30,193 @@ function UserMyPage({ match }) {
     if (Object.keys(rate).length === 0) return null;
 
     return (
-        <Content>
-            <Section>
-                <Main>
-                    <MaxWidth>
-                        <Outer>
-                            <div>
-                                <Bg>
-                                    {userId === authUserId && (
-                                        <SettingIcon
-                                            onClick={() =>
-                                                setSettingVisible(!settingModal)
-                                            }
-                                        />
-                                    )}
-                                </Bg>
-                                <Profile>
-                                    <ProfileHeader>
-                                        <Image>
-                                            <Portrait
-                                                src={randomUserImg()}
-                                            ></Portrait>
-                                        </Image>
-                                        <NickName>
-                                            <H1>{userData.name}</H1>
-                                        </NickName>
-                                        <Desc>
-                                            <div className="descInner">
-                                                {userData.desc
-                                                    ? userData.desc
-                                                    : "프로필이 없습니다."}
-                                            </div>
-                                        </Desc>
-                                    </ProfileHeader>
-                                    <ul>
-                                        <Type>
-                                            <Link
-                                                to={`/users/${userId}/analysis`}
+        <Section>
+            <Main>
+                <MaxWidth>
+                    <Outer>
+                        <div>
+                            <Bg>
+                                {userId === authUserId && (
+                                    <SettingIcon
+                                        onClick={() =>
+                                            setSettingVisible(!settingModal)
+                                        }
+                                    />
+                                )}
+                            </Bg>
+                            <Profile>
+                                <ProfileHeader>
+                                    <Image>
+                                        <Portrait
+                                            src={randomUserImg()}
+                                        ></Portrait>
+                                    </Image>
+                                    <NickName>
+                                        <H1>{userData.name}</H1>
+                                    </NickName>
+                                    <Desc>
+                                        <div className="descInner">
+                                            {userData.desc
+                                                ? userData.desc
+                                                : "프로필이 없습니다."}
+                                        </div>
+                                    </Desc>
+                                </ProfileHeader>
+                                <ul>
+                                    <Type>
+                                        <Link to={`/users/${userId}/analysis`}>
+                                            <A>
+                                                <ChartImage />
+                                                <span className="analysis">
+                                                    취향분석
+                                                </span>
+                                            </A>
+                                        </Link>
+                                    </Type>
+                                </ul>
+                            </Profile>
+                            <div style={{ margin: "0 20px" }}>
+                                <Ul>
+                                    <Li>
+                                        <Link to={`/users/${userId}/movies`}>
+                                            <Box
+                                                style={{
+                                                    background:
+                                                        "linear-gradient(45deg, #82d957 40%, #bfe874 100%)",
+                                                }}
                                             >
-                                                <A>
-                                                    <ChartImage />
-                                                    <span className="analysis">
-                                                        취향분석
-                                                    </span>
-                                                </A>
-                                            </Link>
-                                        </Type>
-                                    </ul>
-                                </Profile>
-                                <div style={{ margin: "0 20px" }}>
-                                    <Ul>
-                                        <Li>
-                                            <Link
-                                                to={`/users/${userId}/movies`}
-                                            >
-                                                <Box
+                                                <Category
                                                     style={{
-                                                        background:
-                                                            "linear-gradient(45deg, #82d957 40%, #bfe874 100%)",
+                                                        backgroundImage:
+                                                            "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYyIiBoZWlnaHQ9IjE2MiIgdmlld0JveD0iMCAwIDE2MiAxNjIiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMTYydjE2MkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzAwQjUwOSIgZmlsbC1vcGFjaXR5PSIuMyIgZD0iTTEzNy4xNDggMTQ1LjkyMWg4Ljgzdi04LjI4OWgtOC44M3Y4LjI5em0tNTIuNDU4IDBoNDUuODQzVjk3LjUyN0g4NC42OXY0OC4zOTR6bS0xNS40NDUgMGg4Ljgzdi04LjI4OWgtOC44M3Y4LjI5em0wLTEyLjY0M2g4Ljgzdi05LjM3N2gtOC44M3Y5LjM3N3ptMC0xMy43M2g4Ljgzdi05LjM3OGgtOC44M3Y5LjM3N3ptMC0xMy43MzJoOC44M3YtOC4yODloLTguODN2OC4yODl6bTY3LjkwMyAyNy40NjJoOC44M3YtOS4zNzdoLTguODN2OS4zNzd6bTAtMTMuNzNoOC44M3YtOS4zNzhoLTguODN2OS4zNzd6bTAtMTMuNzMyaDguODN2LTguMjg5aC04LjgzdjguMjg5em0xMi4xMzgtMjcuOTc3Yy0xLjgyNyAwLTMuMzA4IDEuNDYyLTMuMzA4IDMuMjY1djkuODkyaC04Ljgzdi05Ljg5MmMwLTEuODAzLTEuNDgtMy4yNjUtMy4zMDgtMy4yNjUtMS44MjYgMC0zLjMwNyAxLjQ2Mi0zLjMwNyAzLjI2NXY5Ljg5Mkg4NC42OXYtOS44OTJjMC0xLjgwMy0xLjQ4LTMuMjY1LTMuMzA4LTMuMjY1LTEuODI2IDAtMy4zMDcgMS40NjItMy4zMDcgMy4yNjV2OS44OTJoLTguODN2LTkuODkyYzAtMS44MDMtMS40ODEtMy4yNjUtMy4zMDgtMy4yNjUtMS44MjcgMC0zLjMwOCAxLjQ2Mi0zLjMwOCAzLjI2NXY4MS4yNGMwIDEuODA0IDEuNDgxIDMuMjY2IDMuMzA4IDMuMjY2IDEuODI3IDAgMy4zMDgtMS40NjIgMy4zMDgtMy4yNjZ2LTkuODkyaDguODN2OS44OTJjMCAxLjgwNCAxLjQ4IDMuMjY2IDMuMzA3IDMuMjY2czMuMzA4LTEuNDYyIDMuMzA4LTMuMjY2di05Ljg5Mmg0NS44NDN2OS44OTJjMCAxLjgwNCAxLjQ4IDMuMjY2IDMuMzA3IDMuMjY2czMuMzA4LTEuNDYyIDMuMzA4LTMuMjY2di05Ljg5Mmg4LjgzdjkuODkyYzAgMS44MDQgMS40ODEgMy4yNjYgMy4zMDggMy4yNjYgMS44MjcgMCAzLjMwOC0xLjQ2MiAzLjMwOC0zLjI2NnYtODEuMjRjMC0xLjgwMy0xLjQ4MS0zLjI2NS0zLjMwOC0zLjI2NXoiIG1hc2s9InVybCgjYikiLz4KICAgIDwvZz4KPC9zdmc+Cg==)",
                                                     }}
                                                 >
-                                                    <Category
+                                                    <Title>영화</Title>
+                                                    <div
                                                         style={{
-                                                            backgroundImage:
-                                                                "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYyIiBoZWlnaHQ9IjE2MiIgdmlld0JveD0iMCAwIDE2MiAxNjIiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMTYydjE2MkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzAwQjUwOSIgZmlsbC1vcGFjaXR5PSIuMyIgZD0iTTEzNy4xNDggMTQ1LjkyMWg4Ljgzdi04LjI4OWgtOC44M3Y4LjI5em0tNTIuNDU4IDBoNDUuODQzVjk3LjUyN0g4NC42OXY0OC4zOTR6bS0xNS40NDUgMGg4Ljgzdi04LjI4OWgtOC44M3Y4LjI5em0wLTEyLjY0M2g4Ljgzdi05LjM3N2gtOC44M3Y5LjM3N3ptMC0xMy43M2g4Ljgzdi05LjM3OGgtOC44M3Y5LjM3N3ptMC0xMy43MzJoOC44M3YtOC4yODloLTguODN2OC4yODl6bTY3LjkwMyAyNy40NjJoOC44M3YtOS4zNzdoLTguODN2OS4zNzd6bTAtMTMuNzNoOC44M3YtOS4zNzhoLTguODN2OS4zNzd6bTAtMTMuNzMyaDguODN2LTguMjg5aC04LjgzdjguMjg5em0xMi4xMzgtMjcuOTc3Yy0xLjgyNyAwLTMuMzA4IDEuNDYyLTMuMzA4IDMuMjY1djkuODkyaC04Ljgzdi05Ljg5MmMwLTEuODAzLTEuNDgtMy4yNjUtMy4zMDgtMy4yNjUtMS44MjYgMC0zLjMwNyAxLjQ2Mi0zLjMwNyAzLjI2NXY5Ljg5Mkg4NC42OXYtOS44OTJjMC0xLjgwMy0xLjQ4LTMuMjY1LTMuMzA4LTMuMjY1LTEuODI2IDAtMy4zMDcgMS40NjItMy4zMDcgMy4yNjV2OS44OTJoLTguODN2LTkuODkyYzAtMS44MDMtMS40ODEtMy4yNjUtMy4zMDgtMy4yNjUtMS44MjcgMC0zLjMwOCAxLjQ2Mi0zLjMwOCAzLjI2NXY4MS4yNGMwIDEuODA0IDEuNDgxIDMuMjY2IDMuMzA4IDMuMjY2IDEuODI3IDAgMy4zMDgtMS40NjIgMy4zMDgtMy4yNjZ2LTkuODkyaDguODN2OS44OTJjMCAxLjgwNCAxLjQ4IDMuMjY2IDMuMzA3IDMuMjY2czMuMzA4LTEuNDYyIDMuMzA4LTMuMjY2di05Ljg5Mmg0NS44NDN2OS44OTJjMCAxLjgwNCAxLjQ4IDMuMjY2IDMuMzA3IDMuMjY2czMuMzA4LTEuNDYyIDMuMzA4LTMuMjY2di05Ljg5Mmg4LjgzdjkuODkyYzAgMS44MDQgMS40ODEgMy4yNjYgMy4zMDggMy4yNjYgMS44MjcgMCAzLjMwOC0xLjQ2MiAzLjMwOC0zLjI2NnYtODEuMjRjMC0xLjgwMy0xLjQ4MS0zLjI2NS0zLjMwOC0zLjI2NXoiIG1hc2s9InVybCgjYikiLz4KICAgIDwvZz4KPC9zdmc+Cg==)",
+                                                            display: "flex",
                                                         }}
                                                     >
-                                                        <Title>영화</Title>
-                                                        <div
-                                                            style={{
-                                                                display: "flex",
-                                                            }}
-                                                        >
-                                                            ★
-                                                            <Star>
+                                                        ★
+                                                        <Star>
+                                                            {
+                                                                rate.movie
+                                                                    .ratingCount
+                                                            }
+                                                        </Star>
+                                                        <Clip>
+                                                            보고싶어요
+                                                            <strong>
                                                                 {
                                                                     rate.movie
-                                                                        .ratingCount
+                                                                        .wishCount
                                                                 }
-                                                            </Star>
-                                                            <Clip>
-                                                                보고싶어요
-                                                                <strong>
-                                                                    {
-                                                                        rate
-                                                                            .movie
-                                                                            .wishCount
-                                                                    }
-                                                                </strong>
-                                                            </Clip>
-                                                        </div>
-                                                    </Category>
-                                                </Box>
-                                            </Link>
-                                        </Li>
-                                        <Li>
-                                            <Link
-                                                to={`/users/${userId}/tv_shows`}
+                                                            </strong>
+                                                        </Clip>
+                                                    </div>
+                                                </Category>
+                                            </Box>
+                                        </Link>
+                                    </Li>
+                                    <Li>
+                                        <Link to={`/users/${userId}/tv_shows`}>
+                                            <Box
+                                                style={{
+                                                    background:
+                                                        "linear-gradient(45deg, #ffbf66 40%, #ffc89e 100%)",
+                                                }}
                                             >
-                                                <Box
+                                                <Category
                                                     style={{
-                                                        background:
-                                                            "linear-gradient(45deg, #ffbf66 40%, #ffc89e 100%)",
+                                                        backgroundImage:
+                                                            "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYyIiBoZWlnaHQ9IjE2MiIgdmlld0JveD0iMCAwIDE2MiAxNjIiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMTYydjE2MkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0EzNzQzMyIgZmlsbC1vcGFjaXR5PSIuMyIgZD0iTTU3LjcxOCAxNDQuNjgyaDg5LjEyOFY4NC43NThINTcuNzE4djU5LjkyNHptOTIuNDg3IDYuNzU4SDU0LjM1OWMtMS44NTUgMC0zLjM1OS0xLjUxMy0zLjM1OS0zLjM4VjgxLjM4YzAtMS44NjcgMS41MDQtMy4zOCAzLjM2LTMuMzhoOTUuODQ1YzEuODU1IDAgMy4zNiAxLjUxMyAzLjM2IDMuMzh2NjYuNjhjMCAxLjg2Ny0xLjUwNSAzLjM4LTMuMzYgMy4zOHptLTMwLjAwOCAxMy41MTdoLTM1LjgzYy0yLjQ3NCAwLTQuNDc5LTIuMDE4LTQuNDc5LTQuNTA2IDAtMi40ODggMi4wMDUtNC41MDYgNC40NzktNC41MDZoMzUuODNjMi40NzQgMCA0LjQ3OSAyLjAxOCA0LjQ3OSA0LjUwNiAwIDIuNDg4LTIuMDA1IDQuNTA2LTQuNDc5IDQuNTA2eiIgbWFzaz0idXJsKCNiKSIvPgogICAgPC9nPgo8L3N2Zz4K)",
                                                     }}
                                                 >
-                                                    <Category
+                                                    <Title>TV 프로그램</Title>
+                                                    <div
                                                         style={{
-                                                            backgroundImage:
-                                                                "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYyIiBoZWlnaHQ9IjE2MiIgdmlld0JveD0iMCAwIDE2MiAxNjIiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMTYydjE2MkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0EzNzQzMyIgZmlsbC1vcGFjaXR5PSIuMyIgZD0iTTU3LjcxOCAxNDQuNjgyaDg5LjEyOFY4NC43NThINTcuNzE4djU5LjkyNHptOTIuNDg3IDYuNzU4SDU0LjM1OWMtMS44NTUgMC0zLjM1OS0xLjUxMy0zLjM1OS0zLjM4VjgxLjM4YzAtMS44NjcgMS41MDQtMy4zOCAzLjM2LTMuMzhoOTUuODQ1YzEuODU1IDAgMy4zNiAxLjUxMyAzLjM2IDMuMzh2NjYuNjhjMCAxLjg2Ny0xLjUwNSAzLjM4LTMuMzYgMy4zOHptLTMwLjAwOCAxMy41MTdoLTM1LjgzYy0yLjQ3NCAwLTQuNDc5LTIuMDE4LTQuNDc5LTQuNTA2IDAtMi40ODggMi4wMDUtNC41MDYgNC40NzktNC41MDZoMzUuODNjMi40NzQgMCA0LjQ3OSAyLjAxOCA0LjQ3OSA0LjUwNiAwIDIuNDg4LTIuMDA1IDQuNTA2LTQuNDc5IDQuNTA2eiIgbWFzaz0idXJsKCNiKSIvPgogICAgPC9nPgo8L3N2Zz4K)",
+                                                            display: "flex",
                                                         }}
                                                     >
-                                                        <Title>
-                                                            TV 프로그램
-                                                        </Title>
-                                                        <div
-                                                            style={{
-                                                                display: "flex",
-                                                            }}
-                                                        >
-                                                            ★
-                                                            <Star>
+                                                        ★
+                                                        <Star>
+                                                            {
+                                                                rate.tvShow
+                                                                    .ratingCount
+                                                            }
+                                                        </Star>
+                                                        <Clip>
+                                                            보고싶어요{" "}
+                                                            <strong>
                                                                 {
                                                                     rate.tvShow
-                                                                        .ratingCount
+                                                                        .wishCount
                                                                 }
-                                                            </Star>
-                                                            <Clip>
-                                                                보고싶어요{" "}
-                                                                <strong>
-                                                                    {
-                                                                        rate
-                                                                            .tvShow
-                                                                            .wishCount
-                                                                    }
-                                                                </strong>
-                                                            </Clip>
-                                                        </div>
-                                                    </Category>
-                                                </Box>
-                                            </Link>
-                                        </Li>
-                                        <Li>
-                                            <Link to={`/users/${userId}/books`}>
-                                                <Box
+                                                            </strong>
+                                                        </Clip>
+                                                    </div>
+                                                </Category>
+                                            </Box>
+                                        </Link>
+                                    </Li>
+                                    <Li>
+                                        <Link to={`/users/${userId}/books`}>
+                                            <Box
+                                                style={{
+                                                    background:
+                                                        "linear-gradient(45deg, #60d1f0 40%, #70e0d3 100%)",
+                                                }}
+                                            >
+                                                <Category
                                                     style={{
-                                                        background:
-                                                            "linear-gradient(45deg, #60d1f0 40%, #70e0d3 100%)",
+                                                        backgroundImage:
+                                                            "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYyIiBoZWlnaHQ9IjE2MiIgdmlld0JveD0iMCAwIDE2MiAxNjIiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMTYydjE2MkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzM1OTNCOCIgZmlsbC1vcGFjaXR5PSIuMyIgZD0iTTE0NS4wODkgMTA5LjkxNHY2My40MThIOTAuMDI1Yy0zLjc0IDAtNy43MzgtMS45OS03LjczOC03LjU4di01OC4xNjhhMTUuNjg2IDE1LjY4NiAwIDAgMCA4LjI0MSAyLjMzaDU0LjU2em03LjQzOC00LjY2M2MuMDEyLjA1MS4wMjUuMTAxLjA4Ni41MDcuMDExLjEyMS4wMTguMjQyLjAxOC4zNjZ2NzAuOTk4YzAgMi4wOTMtMS42ODggMy43OS0zLjc3MSAzLjc5SDkwLjAyNWMtOC45OTggMC0xNS4yODEtNi4yMzQtMTUuMjgxLTE1LjE2Vjk1LjI3N2MtLjAzNC0uNDIzLS4wNTYtLjg1LS4wNTYtMS4yODEgMC04Ljc3NyA3LjEwNi0xNS45MTggMTUuODQtMTUuOTE4aDU4LjMzMmMyLjA4MyAwIDMuNzcxIDEuNjk3IDMuNzcxIDMuNzlzLTEuNjg4IDMuNzktMy43NzEgMy43OUg5MC41MjhjLTQuNTc1IDAtOC4yOTcgMy43NC04LjI5NyA4LjMzOCAwIDQuNTk3IDMuNzIyIDguMzM4IDguMjk3IDguMzM4bDU4LjMzMi0uMDU2LjYzOC4xMWMuMDIuMDAzLjAzNy4wMDkuMjMyLjA1LjA1Ny4wMTUuMTE1LjAzLjM0LjA5OS4wNTcuMDIuMTEzLjA0LjMyNC4xMjYuMDU4LjAyNy4xMTUuMDU1LjMwOC4xNTUuMDYxLjAzNS4xMi4wNzIuMjkzLjE4Mi4wNjcuMDQ3LjEzMS4wOTcuMjc1LjIwOWEzLjg1NyAzLjg1NyAwIDAgMSAuNDg2LjQ4OWMuMDI3LjAzMi4wNTEuMDY2LjIwNy4yNzQuMDI5LjA0Mi4wNTUuMDg1LjE4MS4yOTIuMDI3LjA0OC4wNTEuMDk2LjE1Ni4zMS4wMjIuMDUxLjA0NC4xMDMuMTI4LjMyOS4wMTcuMDUyLjAzNS4xMDQuMDk5LjM0OHpNOTEuNTM0IDkxLjI4aDU3LjMyNmEyLjUyIDIuNTIgMCAwIDEgMi41MTQgMi41MjYgMi41MiAyLjUyIDAgMCAxLTIuNTE0IDIuNTI3SDkxLjUzNGEyLjUyIDIuNTIgMCAwIDEtMi41MTUtMi41MjcgMi41MiAyLjUyIDAgMCAxIDIuNTE1LTIuNTI2em0yNS44OTcgMTguNjN2MjcuNTQ0YzAgLjc5Mi40NiAxLjUxIDEuMTc4IDEuODRhMi4wMDQgMi4wMDQgMCAwIDAgMi4xNTQtLjMxNGw2LjQ3NC01LjY1OSA2LjQ3NCA1LjY1OWEyLjAwNyAyLjAwNyAwIDAgMCAyLjE1NC4zMTMgMi4wMjIgMi4wMjIgMCAwIDAgMS4xNzgtMS44Mzl2LTI3LjU0NUgxMTcuNDN6IiBtYXNrPSJ1cmwoI2IpIi8+CiAgICA8L2c+Cjwvc3ZnPgo=)",
                                                     }}
                                                 >
-                                                    <Category
+                                                    <Title>책</Title>
+                                                    <div
                                                         style={{
-                                                            backgroundImage:
-                                                                "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYyIiBoZWlnaHQ9IjE2MiIgdmlld0JveD0iMCAwIDE2MiAxNjIiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0wIDBoMTYydjE2MkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzM1OTNCOCIgZmlsbC1vcGFjaXR5PSIuMyIgZD0iTTE0NS4wODkgMTA5LjkxNHY2My40MThIOTAuMDI1Yy0zLjc0IDAtNy43MzgtMS45OS03LjczOC03LjU4di01OC4xNjhhMTUuNjg2IDE1LjY4NiAwIDAgMCA4LjI0MSAyLjMzaDU0LjU2em03LjQzOC00LjY2M2MuMDEyLjA1MS4wMjUuMTAxLjA4Ni41MDcuMDExLjEyMS4wMTguMjQyLjAxOC4zNjZ2NzAuOTk4YzAgMi4wOTMtMS42ODggMy43OS0zLjc3MSAzLjc5SDkwLjAyNWMtOC45OTggMC0xNS4yODEtNi4yMzQtMTUuMjgxLTE1LjE2Vjk1LjI3N2MtLjAzNC0uNDIzLS4wNTYtLjg1LS4wNTYtMS4yODEgMC04Ljc3NyA3LjEwNi0xNS45MTggMTUuODQtMTUuOTE4aDU4LjMzMmMyLjA4MyAwIDMuNzcxIDEuNjk3IDMuNzcxIDMuNzlzLTEuNjg4IDMuNzktMy43NzEgMy43OUg5MC41MjhjLTQuNTc1IDAtOC4yOTcgMy43NC04LjI5NyA4LjMzOCAwIDQuNTk3IDMuNzIyIDguMzM4IDguMjk3IDguMzM4bDU4LjMzMi0uMDU2LjYzOC4xMWMuMDIuMDAzLjAzNy4wMDkuMjMyLjA1LjA1Ny4wMTUuMTE1LjAzLjM0LjA5OS4wNTcuMDIuMTEzLjA0LjMyNC4xMjYuMDU4LjAyNy4xMTUuMDU1LjMwOC4xNTUuMDYxLjAzNS4xMi4wNzIuMjkzLjE4Mi4wNjcuMDQ3LjEzMS4wOTcuMjc1LjIwOWEzLjg1NyAzLjg1NyAwIDAgMSAuNDg2LjQ4OWMuMDI3LjAzMi4wNTEuMDY2LjIwNy4yNzQuMDI5LjA0Mi4wNTUuMDg1LjE4MS4yOTIuMDI3LjA0OC4wNTEuMDk2LjE1Ni4zMS4wMjIuMDUxLjA0NC4xMDMuMTI4LjMyOS4wMTcuMDUyLjAzNS4xMDQuMDk5LjM0OHpNOTEuNTM0IDkxLjI4aDU3LjMyNmEyLjUyIDIuNTIgMCAwIDEgMi41MTQgMi41MjYgMi41MiAyLjUyIDAgMCAxLTIuNTE0IDIuNTI3SDkxLjUzNGEyLjUyIDIuNTIgMCAwIDEtMi41MTUtMi41MjcgMi41MiAyLjUyIDAgMCAxIDIuNTE1LTIuNTI2em0yNS44OTcgMTguNjN2MjcuNTQ0YzAgLjc5Mi40NiAxLjUxIDEuMTc4IDEuODRhMi4wMDQgMi4wMDQgMCAwIDAgMi4xNTQtLjMxNGw2LjQ3NC01LjY1OSA2LjQ3NCA1LjY1OWEyLjAwNyAyLjAwNyAwIDAgMCAyLjE1NC4zMTMgMi4wMjIgMi4wMjIgMCAwIDAgMS4xNzgtMS44Mzl2LTI3LjU0NUgxMTcuNDN6IiBtYXNrPSJ1cmwoI2IpIi8+CiAgICA8L2c+Cjwvc3ZnPgo=)",
+                                                            display: "flex",
                                                         }}
                                                     >
-                                                        <Title>책</Title>
-                                                        <div
-                                                            style={{
-                                                                display: "flex",
-                                                            }}
-                                                        >
-                                                            ★
-                                                            <Star>
+                                                        ★
+                                                        <Star>
+                                                            {
+                                                                rate.book
+                                                                    .ratingCount
+                                                            }
+                                                        </Star>
+                                                        <Clip>
+                                                            읽고 싶어요{" "}
+                                                            <strong>
                                                                 {
                                                                     rate.book
-                                                                        .ratingCount
+                                                                        .wishCount
                                                                 }
-                                                            </Star>
-                                                            <Clip>
-                                                                읽고 싶어요{" "}
-                                                                <strong>
-                                                                    {
-                                                                        rate
-                                                                            .book
-                                                                            .wishCount
-                                                                    }
-                                                                </strong>
-                                                            </Clip>
-                                                        </div>
-                                                    </Category>
-                                                </Box>
-                                            </Link>
-                                        </Li>
-                                    </Ul>
-                                </div>
+                                                            </strong>
+                                                        </Clip>
+                                                    </div>
+                                                </Category>
+                                            </Box>
+                                        </Link>
+                                    </Li>
+                                </Ul>
                             </div>
-                        </Outer>
-                    </MaxWidth>
-                </Main>
-            </Section>
-            <>
+                        </div>
+                    </Outer>
+                </MaxWidth>
+            </Main>
+            {!settingVisible && (
                 <Setting
                     settingModal={settingModal}
                     switchModal={settingVisible}
                 />
-            </>
-        </Content>
+            )}
+        </Section>
     );
 }
 
 export default withRouter(UserMyPage);
-
-const Content = styled.div`
-    padding-top: 0;
-    padding-bottom: 56px;
-    @media (min-width: 719px) {
-        padding-top: 62px;
-        padding-bottom: unset;
-    }
-`;
 
 const Section = styled.div`
     background: #f8f8f8;
@@ -247,7 +225,6 @@ const Section = styled.div`
     @media (min-width: 719px) {
         display: flex;
         flex-direction: column;
-        // height: 100vh;
     }
 `;
 

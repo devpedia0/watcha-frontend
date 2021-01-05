@@ -6,6 +6,7 @@ import AuthService from "../../../services/auth.service";
 import SelectForm from "./SelectForm/SelectForm";
 
 import Facebook from "../../Common/Facebook";
+import { ModalWrapper } from "../..";
 
 const initialValue = {
     name: "",
@@ -59,242 +60,143 @@ export default function ModalSignup({ onChangeModal }) {
     };
 
     return (
-        <BackScreen>
-            <Modal>
-                <Background onClick={() => onChangeModal("")} />
-                <SignUpForm>
-                    <SignUpFormInner>
-                        <Header>
-                            <Logo />
-                        </Header>
-                        <H2>회원가입</H2>
+        <ModalWrapper full width="375px" onCloseModal={() => onChangeModal("")}>
+            <SignUpFormInner>
+                <Header>
+                    <Logo />
+                </Header>
+                <H2>회원가입</H2>
 
-                        <Content>
-                            <Form>
-                                <div className="area">
-                                    <NameIdPw
-                                        className={
-                                            errors["name"]
-                                                ? "labelWrong"
-                                                : "label"
-                                        }
-                                    >
-                                        <input
-                                            onChange={handleChange}
-                                            value={inputs.name}
-                                            name="name"
-                                            label="이름"
-                                            placeholder="이름"
-                                            autoComplete="off"
-                                            type="text"
-                                            className={
-                                                inputs.name ? "check" : "none"
-                                            }
-                                        />
+                <Content>
+                    <Form>
+                        <div className="area">
+                            <NameIdPw
+                                className={
+                                    errors["name"] ? "labelWrong" : "label"
+                                }
+                            >
+                                <input
+                                    onChange={handleChange}
+                                    value={inputs.name}
+                                    name="name"
+                                    label="이름"
+                                    placeholder="이름"
+                                    autoComplete="off"
+                                    type="text"
+                                    className={inputs.name ? "check" : "none"}
+                                />
 
-                                        <div className="checkIcon" />
-                                    </NameIdPw>
-                                </div>
-                                <div className="area">
-                                    <NameIdPw
-                                        className={
-                                            errors["email"]
-                                                ? "labelWrong"
-                                                : "label"
-                                        }
-                                    >
-                                        <input
-                                            value={inputs.email}
-                                            onChange={handleChange}
-                                            name="email"
-                                            label="이메일"
-                                            placeholder="이메일"
-                                            autoComplete="off"
-                                            type="email"
-                                            className={
-                                                inputs.email ? "check" : "none"
-                                            }
-                                        />
+                                <div className="checkIcon" />
+                            </NameIdPw>
+                        </div>
+                        <div className="area">
+                            <NameIdPw
+                                className={
+                                    errors["email"] ? "labelWrong" : "label"
+                                }
+                            >
+                                <input
+                                    value={inputs.email}
+                                    onChange={handleChange}
+                                    name="email"
+                                    label="이메일"
+                                    placeholder="이메일"
+                                    autoComplete="off"
+                                    type="email"
+                                    className={inputs.email ? "check" : "none"}
+                                />
 
-                                        <div className="checkIcon" />
-                                    </NameIdPw>
-                                    <div
-                                        style={{
-                                            color: "red",
-                                            fontSize: 12,
-                                        }}
-                                    >
-                                        {errors["email"]}
-                                    </div>
-                                </div>
-                                <div className="area">
-                                    <NameIdPw
-                                        className={
-                                            errors["password"]
-                                                ? "labelWrong"
-                                                : "label"
-                                        }
-                                    >
-                                        <input
-                                            value={inputs.password}
-                                            onChange={handleChange}
-                                            name="password"
-                                            label="비밀번호"
-                                            placeholder="비밀번호"
-                                            autoComplete="off"
-                                            type="password"
-                                            className={
-                                                inputs.password
-                                                    ? "check"
-                                                    : "none"
-                                            }
-                                        />
+                                <div className="checkIcon" />
+                            </NameIdPw>
+                            <div
+                                style={{
+                                    color: "red",
+                                    fontSize: 12,
+                                }}
+                            >
+                                {errors["email"]}
+                            </div>
+                        </div>
+                        <div className="area">
+                            <NameIdPw
+                                className={
+                                    errors["password"] ? "labelWrong" : "label"
+                                }
+                            >
+                                <input
+                                    value={inputs.password}
+                                    onChange={handleChange}
+                                    name="password"
+                                    label="비밀번호"
+                                    placeholder="비밀번호"
+                                    autoComplete="off"
+                                    type="password"
+                                    className={
+                                        inputs.password ? "check" : "none"
+                                    }
+                                />
 
-                                        <div className="checkIcon" />
-                                    </NameIdPw>
-                                    <div
-                                        style={{
-                                            color: "red",
-                                            fontSize: 12,
-                                        }}
-                                    >
-                                        {errors["password"]}
-                                    </div>
-                                </div>
+                                <div className="checkIcon" />
+                            </NameIdPw>
+                            <div
+                                style={{
+                                    color: "red",
+                                    fontSize: 12,
+                                }}
+                            >
+                                {errors["password"]}
+                            </div>
+                        </div>
 
-                                <Language
-                                    type="button"
-                                    onClick={() => setLanVisible(!lanVisible)}
-                                >
-                                    <CountryIcon />
-                                    한국어 (대한민국)
-                                    <LanguageCode
-                                        id="sign_up_languageCode"
-                                        name="languageCode"
-                                        type="hidden"
-                                        label=""
-                                        placeholder=""
-                                        value="ko"
-                                    />
-                                    <CountryCode
-                                        id="sign_up_countryCode"
-                                        name="countryCode"
-                                        type="hidden"
-                                        label=""
-                                        placeholder=""
-                                        value="KR"
-                                    />
-                                    <ArrowIcon />
-                                </Language>
+                        <Language
+                            type="button"
+                            onClick={() => setLanVisible(!lanVisible)}
+                        >
+                            <CountryIcon />
+                            한국어 (대한민국)
+                            <LanguageCode
+                                id="sign_up_languageCode"
+                                name="languageCode"
+                                type="hidden"
+                                label=""
+                                placeholder=""
+                                value="ko"
+                            />
+                            <CountryCode
+                                id="sign_up_countryCode"
+                                name="countryCode"
+                                type="hidden"
+                                label=""
+                                placeholder=""
+                                value="KR"
+                            />
+                            <ArrowIcon />
+                        </Language>
 
-                                <SignUpBtn
-                                    type="button"
-                                    onClick={handleClickSumit}
-                                >
-                                    회원가입
-                                </SignUpBtn>
-                            </Form>
-                            <AlReady>
-                                이미 가입하셨나요?
-                                <Btn onClick={() => onChangeModal("login")}>
-                                    로그인
-                                </Btn>
-                            </AlReady>
-                            <Hr />
-                            <FacebookWrapper>
-                                <Facebook />
-                            </FacebookWrapper>
-                        </Content>
-                    </SignUpFormInner>
-                </SignUpForm>
+                        <SignUpBtn type="button" onClick={handleClickSumit}>
+                            회원가입
+                        </SignUpBtn>
+                    </Form>
+                    <AlReady>
+                        이미 가입하셨나요?
+                        <Btn onClick={() => onChangeModal("login")}>로그인</Btn>
+                    </AlReady>
+                    <Hr />
+                    <FacebookWrapper>
+                        <Facebook />
+                    </FacebookWrapper>
+                </Content>
+            </SignUpFormInner>
 
-                {!lanVisible && (
-                    <SelectForm
-                        languageModal={languageModal}
-                        switchModal={lanVisible}
-                    />
-                )}
-            </Modal>
-        </BackScreen>
+            {!lanVisible && (
+                <SelectForm
+                    languageModal={languageModal}
+                    switchModal={lanVisible}
+                />
+            )}
+        </ModalWrapper>
     );
 }
-
-const BackScreen = styled.div`
-    display: block;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    z-index: 50;
-    background: rgba(0, 0, 0, 0.56);
-    overflow: hidden scroll;
-    &.hideSignUp {
-        display: none;
-    }
-`;
-
-const Modal = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    @media (min-width: 719px) {
-        text-align: center;
-        padding: 20px 0px;
-        overflow: auto;
-        ::after {
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
-            margin-left: -0.25em;
-        }
-    }
-`;
-
-const Background = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: 50;
-    @media (min-width: 719px) {
-        text-align: center;
-        padding: 20px 0px;
-        overflow: auto;
-        ::after {
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
-            margin-left: -0.25em;
-        }
-    }
-`;
-
-const SignUpForm = styled.div`
-    display: relative;
-    background: rgb(255, 255, 255);
-    width: 100%;
-    height: 100%;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
-    overflow: hidden;
-    z-index: 100;
-    @media (min-width: 719px) {
-        display: inline-block;
-        position: relative;
-        vertical-align: middle;
-        text-align: left;
-        width: 375px;
-        height: auto;
-        min-height: 540px;
-        border-radius: 6px;
-        overflow: auto;
-    }
-`;
 
 const SignUpFormInner = styled.div`
     padding: 32px 0px 48px;

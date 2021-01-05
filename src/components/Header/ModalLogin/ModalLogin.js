@@ -4,6 +4,7 @@ import useInputs from "../../../Hooks/useInputs";
 import { useDispatch } from "react-redux";
 import authActions from "../../../redux/actions/authActions";
 import Facebook from "../../Common/Facebook";
+import { ModalWrapper } from "../..";
 
 const initialValue = {
     name: "",
@@ -25,202 +26,114 @@ const Login = ({ onChangeModal }) => {
     };
 
     return (
-        <BackScreen>
-            <Modal>
-                <Background onClick={() => onChangeModal("")} />
-                <LoginForm>
-                    <LoginFormInner>
-                        <Header>
-                            <Logo />
-                        </Header>
-                        <H2>로그인</H2>
-                        <div>
-                            <div>
-                                <Content>
-                                    <form onSubmit={handleSubmit}>
-                                        <Area>
-                                            <IdPw
-                                                className={
-                                                    errors["email"]
-                                                        ? "labelWrong"
-                                                        : "label"
-                                                }
-                                            >
-                                                <input
-                                                    type="text"
-                                                    name="email"
-                                                    value={inputs.email}
-                                                    onChange={onChange}
-                                                    label="이메일"
-                                                    placeholder="이메일"
-                                                    autoComplete="off"
-                                                    className={
-                                                        inputs.email
-                                                            ? "check"
-                                                            : "none"
-                                                    }
-                                                />
-                                                <div className="delBtn">
-                                                    <span className="delIcon" />
-                                                </div>
-
-                                                <div className="checkIcon" />
-                                            </IdPw>
-                                            <div
-                                                style={{
-                                                    color: "red",
-                                                    fontSize: 12,
-                                                }}
-                                            >
-                                                {errors["email"]}
-                                            </div>
-                                        </Area>
-                                        <Area>
-                                            <IdPw
-                                                className={
-                                                    errors["password"]
-                                                        ? "labelWrong"
-                                                        : "label"
-                                                }
-                                            >
-                                                <input
-                                                    value={inputs.password}
-                                                    onChange={onChange}
-                                                    name="password"
-                                                    label="비밀번호"
-                                                    placeholder="비밀번호"
-                                                    autoComplete="off"
-                                                    type="password"
-                                                    className={
-                                                        inputs.password
-                                                            ? "check"
-                                                            : "none"
-                                                    }
-                                                />
-
-                                                <div className="checkIcon" />
-                                            </IdPw>
-                                            <div
-                                                style={{
-                                                    color: "red",
-                                                    fontSize: 12,
-                                                }}
-                                            >
-                                                {errors["password"]}
-                                            </div>
-                                        </Area>
-                                        <LoginBtn onClick={handleSubmit}>
-                                            로그인
-                                        </LoginBtn>
-                                    </form>
-
-                                    <Find>
-                                        <Btn>비밀번호를 잊어버리셨나요?</Btn>
-                                    </Find>
-
-                                    <Register>
-                                        계정이 없으신가요?
-                                        <Btn
-                                            onClick={() =>
-                                                onChangeModal("signup")
+        <ModalWrapper full width="375px" onCloseModal={() => onChangeModal("")}>
+            <LoginFormInner>
+                <Header>
+                    <Logo />
+                </Header>
+                <H2>로그인</H2>
+                <div>
+                    <div>
+                        <Content>
+                            <form onSubmit={handleSubmit}>
+                                <Area>
+                                    <IdPw
+                                        className={
+                                            errors["email"]
+                                                ? "labelWrong"
+                                                : "label"
+                                        }
+                                    >
+                                        <input
+                                            type="text"
+                                            name="email"
+                                            value={inputs.email}
+                                            onChange={onChange}
+                                            label="이메일"
+                                            placeholder="이메일"
+                                            autoComplete="off"
+                                            className={
+                                                inputs.email ? "check" : "none"
                                             }
-                                        >
-                                            회원가입
-                                        </Btn>
-                                    </Register>
-                                    <Hr />
+                                        />
+                                        <div className="delBtn">
+                                            <span className="delIcon" />
+                                        </div>
 
-                                    <FacebookWrapper>
-                                        <Facebook />
-                                    </FacebookWrapper>
-                                </Content>
-                            </div>
-                        </div>
-                    </LoginFormInner>
-                </LoginForm>
-            </Modal>
-        </BackScreen>
+                                        <div className="checkIcon" />
+                                    </IdPw>
+                                    <div
+                                        style={{
+                                            color: "red",
+                                            fontSize: 12,
+                                        }}
+                                    >
+                                        {errors["email"]}
+                                    </div>
+                                </Area>
+                                <Area>
+                                    <IdPw
+                                        className={
+                                            errors["password"]
+                                                ? "labelWrong"
+                                                : "label"
+                                        }
+                                    >
+                                        <input
+                                            value={inputs.password}
+                                            onChange={onChange}
+                                            name="password"
+                                            label="비밀번호"
+                                            placeholder="비밀번호"
+                                            autoComplete="off"
+                                            type="password"
+                                            className={
+                                                inputs.password
+                                                    ? "check"
+                                                    : "none"
+                                            }
+                                        />
+
+                                        <div className="checkIcon" />
+                                    </IdPw>
+                                    <div
+                                        style={{
+                                            color: "red",
+                                            fontSize: 12,
+                                        }}
+                                    >
+                                        {errors["password"]}
+                                    </div>
+                                </Area>
+                                <LoginBtn onClick={handleSubmit}>
+                                    로그인
+                                </LoginBtn>
+                            </form>
+
+                            <Find>
+                                <Btn>비밀번호를 잊어버리셨나요?</Btn>
+                            </Find>
+
+                            <Register>
+                                계정이 없으신가요?
+                                <Btn onClick={() => onChangeModal("signup")}>
+                                    회원가입
+                                </Btn>
+                            </Register>
+                            <Hr />
+
+                            <FacebookWrapper>
+                                <Facebook />
+                            </FacebookWrapper>
+                        </Content>
+                    </div>
+                </div>
+            </LoginFormInner>
+        </ModalWrapper>
     );
 };
 
 export default Login;
-
-const BackScreen = styled.div`
-    display: block;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    z-index: 50;
-    background: rgba(0, 0, 0, 0.56);
-    overflow: hidden scroll;
-    &.hideLogin {
-        display: none;
-    }
-`;
-
-const Modal = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    @media (min-width: 719px) {
-        text-align: center;
-        padding: 20px 0px;
-        overflow: auto;
-        ::after {
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
-            margin-left: -0.25em;
-        }
-    }
-`;
-
-const Background = styled.div`
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: 50;
-    @media (min-width: 719px) {
-        text-align: center;
-        padding: 20px 0px;
-        overflow: auto;
-        ::after {
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
-            margin-left: -0.25em;
-        }
-    }
-`;
-
-const LoginForm = styled.div`
-    display: relative;
-    background: rgb(255, 255, 255);
-    width: 100%;
-    height: 100%;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
-    overflow: hidden;
-    z-index: 100;
-    @media (min-width: 719px) {
-        display: inline-block;
-        position: relative;
-        vertical-align: middle;
-        text-align: left;
-        width: 375px;
-        height: auto;
-        min-height: 540px;
-        border-radius: 6px;
-        overflow: auto;
-    }
-`;
 
 const LoginFormInner = styled.div`
     padding: 32px 0px 48px;
