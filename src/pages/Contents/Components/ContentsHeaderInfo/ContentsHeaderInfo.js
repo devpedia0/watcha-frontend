@@ -42,7 +42,7 @@ const ContentsInfo = () => {
         let country = changeCountryFormat(countryCode);
         result += productionDate ? productionDate.split("-")[0] : "";
         result += category ? " ・ " + category : "";
-        result += country ? " ・ " + category : "";
+        result += country ? " ・ " + country : "";
         result += page ? " ・ " + page + "p" : "";
         return result;
     };
