@@ -64,6 +64,8 @@ export const translate = (key) => {
         tv_shows: "TV 프로그램",
         books: "책",
         movies: "영화",
+        wishes: "보고싶어요",
+        watchings: "보는중",
     };
 
     return translateObj[key.toLowerCase()];

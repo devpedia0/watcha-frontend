@@ -23,7 +23,7 @@ const UserRated = ({ match }) => {
     return (
         <Wrapper>
             <StyledHeader
-                title="평가한 작품들"
+                title={translate(statusId)}
                 AddComponent={
                     <>
                         {(page === "orderByScore" || page === "ratings") && (
@@ -52,7 +52,7 @@ const UserRated = ({ match }) => {
                             >
                                 <span className="dropDown"></span>
                                 <span className="dropTitle">
-                                    {translate[selected]}
+                                    {translate(selected)}
                                 </span>
                             </SelectWrapper>
                         )}

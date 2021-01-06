@@ -33,6 +33,7 @@ const OrderByTotal = ({ fetchUrl }) => {
                         <StyledCard
                             key={idx}
                             item={item}
+                            isRated={true}
                             onClick={() =>
                                 (window.location = `/contents/${item.id}`)
                             }
@@ -51,7 +52,7 @@ const OrderByTotal = ({ fetchUrl }) => {
 export default OrderByTotal;
 
 const Wrapper = styled.div`
-    padding: 200px 20px;
+    padding: 180px 20px;
     background: ${(props) => props.theme.bgGray};
 `;
 
