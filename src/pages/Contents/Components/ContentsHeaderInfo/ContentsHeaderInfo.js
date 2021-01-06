@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { Stars, Svg } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { contentActions, modalActions } from "../../../../redux/actions";
-
+import country from "../../../../utils/countries";
 const ContentsInfo = () => {
     const dispatch = useDispatch();
     const {
@@ -30,16 +30,24 @@ const ContentsInfo = () => {
             : dispatch(contentActions.changeInterestState("WISH"));
     };
 
+    const textInfo = () => {
+        let result = "";
+        result += productionDate ? productionDate.split("-")[0] : "";
+        result += category ? " ・ " + category : "";
+        if (countryCode) {
+            result += country[countryCode]
+                ? " ・ " + country[countryCode].CountryNameKR
+                : "";
+        }
+        result += page ? " ・ " + page + "p" : "";
+        return result;
+    };
+
     return (
         <Wrapper>
             <div className="infoList">
                 <div className="title">{mainTitle}</div>
-                <div className="detail">
-                    {productionDate ? productionDate.split("-")[0] : ""}
-                    {category ? " ・ " + category : ""}
-                    {countryCode ? " ・ " + countryCode : ""}
-                    {page ? " ・ " + page + "p" : ""}
-                </div>
+                <div className="detail">{textInfo()}</div>
                 <div className="rating">
                     평균 ★{average.toFixed(1)} ({totalCount} 명)
                 </div>
