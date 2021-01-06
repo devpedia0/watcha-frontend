@@ -2,6 +2,7 @@ import {
     CONTENT_INIT,
     CONTENT_INITIALIZE,
     CONTENT_INTEREST_STATE,
+    CONTENT_INTEREST_DELETE,
     CONTENT_COMMENT,
     CONTENT_COMMENT_DELETE,
     CONTENT_COMMENT_EDIT,
@@ -62,6 +63,14 @@ const contentReducers = (state = INITIAL_STATE, action = {}) => {
                 },
             };
 
+        case CONTENT_INTEREST_DELETE:
+            return {
+                ...state,
+                userData: {
+                    ...state.userData,
+                    interestState: null,
+                },
+            };
         case CONTENT_COMMENT:
             return {
                 ...state,

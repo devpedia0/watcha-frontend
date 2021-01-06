@@ -2,6 +2,7 @@ import {
     CONTENT_INIT,
     CONTENT_INITIALIZE,
     CONTENT_INTEREST_STATE,
+    CONTENT_INTEREST_DELETE,
     CONTENT_COMMENT,
     CONTENT_COMMENT_DELETE,
     CONTENT_COMMENT_EDIT,
@@ -38,6 +39,17 @@ const changeInterestState = (state) => async (dispatch) => {
         dispatch({
             type: CONTENT_INTEREST_STATE,
             payload: state,
+        });
+    } catch (err) {
+        console.error(err.response);
+    }
+};
+
+const deleteInterestState = () => async (dispatch) => {
+    try {
+        await api.delete(`/contents/${getPageId()}/interests`);
+        dispatch({
+            type: CONTENT_INTEREST_DELETE,
         });
     } catch (err) {
         console.error(err.response);
@@ -165,6 +177,7 @@ const contentActions = {
     fetch,
     initialize,
     changeInterestState,
+    deleteInterestState,
     createComment,
     editComment,
     deleteComment,

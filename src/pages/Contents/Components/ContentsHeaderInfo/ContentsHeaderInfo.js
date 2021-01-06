@@ -20,7 +20,7 @@ const ContentsInfo = () => {
         userData: { interestState, isLogin },
     } = useSelector((state) => state.content);
 
-    const handleClickOpen = () => {
+    const handleClickLeft = () => {
         if (!isLogin) {
             return dispatch(modalActions.setModal("needLoginInterest"));
         }
@@ -28,6 +28,12 @@ const ContentsInfo = () => {
         return interestState
             ? dispatch(modalActions.setModal("interest"))
             : dispatch(contentActions.changeInterestState("WISH"));
+    };
+
+    const handleClickRight = () => {
+        return isLogin
+            ? dispatch(modalActions.setModal("interest"))
+            : dispatch(modalActions.setModal("needLoginInterest"));
     };
 
     const textInfo = () => {
@@ -52,11 +58,8 @@ const ContentsInfo = () => {
                     평균 ★{average.toFixed(1)} ({totalCount} 명)
                 </div>
                 <ButtonContainer>
-                    <ButtonBlock
-                        isClicked={!!interestState}
-                        onClick={handleClickOpen}
-                    >
-                        <button className="btn-left">
+                    <ButtonBlock isClicked={!!interestState}>
+                        <button className="btn-left" onClick={handleClickLeft}>
                             <div className="btn-left-content">
                                 <IconSelector status={interestState} />
 
@@ -67,7 +70,10 @@ const ContentsInfo = () => {
                                 </div>
                             </div>
                         </button>
-                        <button className="btn-right">
+                        <button
+                            className="btn-right"
+                            onClick={handleClickRight}
+                        >
                             <Svg
                                 type={interestState ? "arrowGray" : "arrow"}
                                 color={interestState ? "#d9d9d9" : "#FFF"}

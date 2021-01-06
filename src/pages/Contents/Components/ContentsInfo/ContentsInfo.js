@@ -5,8 +5,10 @@ import { CardList } from "../../../../components";
 import { useSelector } from "react-redux";
 import { Divider } from "../../../../styles";
 import { changeDataFormat } from "../../../../utils/helperFunc";
+import countries from "../../../../utils/countries";
 
 const ContentsInfo = () => {
+    const pageId = useParams().pageId;
     const {
         data: {
             contentInfo: {
@@ -26,7 +28,20 @@ const ContentsInfo = () => {
             },
         },
     } = useSelector((state) => state.content);
-    const pageId = useParams().pageId;
+
+    const textInfo = () => {
+        let result = "";
+        result += productionDate ? productionDate.split("-")[0] : "";
+        result += category ? " ・ " + category : "";
+        if (countryCode) {
+            result += countries[countryCode]
+                ? " ・ " + countries[countryCode].CountryNameKR
+                : "";
+        }
+        result += page ? " ・ " + page + "p" : "";
+        return result;
+    };
+
     return (
         <Wrapper>
             <CardList
@@ -38,12 +53,7 @@ const ContentsInfo = () => {
                 <CardInfo>
                     <div className="summary">
                         {type === "B" ? subtitle : mainTitle}
-                        <p>
-                            {productionDate ? productionDate.split("-")[0] : ""}
-                            {category ? " ・ " + category : ""}
-                            {countryCode ? " ・ " + countryCode : ""}
-                            {page ? " ・ " + page + "p" : ""}
-                        </p>
+                        <p>{textInfo()}</p>
                         <p>
                             {runningTime
                                 ? changeDataFormat("runningTime", runningTime)
