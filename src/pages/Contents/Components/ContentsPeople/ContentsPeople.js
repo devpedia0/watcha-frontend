@@ -9,6 +9,8 @@ const ContentsPeople = () => {
         data: { participants },
     } = useSelector((state) => state.content);
 
+    if (participants.length === 0) return null;
+
     return (
         <>
             <CardListSlick title="출연/제작" horizon>

@@ -8,6 +8,9 @@ import { Divider } from "../../../../styles";
 const ContentsInfo = () => {
     const { data } = useSelector((state) => state.content);
     const { average, totalCount, distribution } = data.scores;
+
+    if (totalCount === 0) return null;
+
     return (
         <>
             <CardList

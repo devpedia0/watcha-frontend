@@ -20,7 +20,7 @@ const Header = ({ className }) => {
         <Wrapper className={className}>
             <Nav>
                 <LiLogo className="navLogo">
-                    <Link to="/">
+                    <Link onClick={() => (window.location = "/")}>
                         <Svg
                             type="headerLogo"
                             w="151px"

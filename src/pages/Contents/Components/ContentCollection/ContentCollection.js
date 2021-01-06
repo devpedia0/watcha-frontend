@@ -16,6 +16,7 @@ const ContentCollection = () => {
         dispatch(contentActions.fetchMoreCollection());
     };
 
+    if (list.length === 0) return null;
     return (
         <Wrapper>
             <CardListSlick

@@ -16,6 +16,8 @@ const ContentsCommentsList = () => {
     const handleFetchMore = () => {
         dispatch(contentActions.fetchMoreComment());
     };
+    if (list.length === 0) return null;
+
     return (
         <>
             <CardListSlick
