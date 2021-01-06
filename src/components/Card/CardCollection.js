@@ -13,7 +13,11 @@ const CardCollection = ({ className, item, onClick }) => {
                 </ImageContainer>
             </WrapperBox>
             <ContentInfo>
-                <div className="contentTitle">{item.title}</div>
+                <div className="contentTitle">
+                    {item.title.length > 15
+                        ? item.title.slice(1, 15) + "..."
+                        : item.title}
+                </div>
             </ContentInfo>
         </Wrapper>
     );

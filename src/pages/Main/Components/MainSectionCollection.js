@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import history from "../../../history";
 
 import { CardListSlick, CardPoster } from "../../../components";
 
@@ -38,7 +37,9 @@ const MainSectionCollection = ({ data }) => {
                     <StyledCard
                         key={idx}
                         item={item}
-                        onClick={() => history.push(`/contents/${item.id}`)}
+                        onClick={() =>
+                            (window.location = `/contents/${item.id}`)
+                        }
                     />
                 ))}
             </CardListSlick>

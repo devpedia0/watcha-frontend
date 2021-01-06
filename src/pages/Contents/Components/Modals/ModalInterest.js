@@ -16,7 +16,9 @@ const ModalInterest = ({ onCloseModal, onChangeModal }) => {
     } = useSelector((state) => state.content);
 
     const handleChangeInterest = (interest) => {
-        dispatch(contentActions.changeInterestState(interest));
+        interestState === interest
+            ? dispatch(contentActions.deleteInterestState())
+            : dispatch(contentActions.changeInterestState(interest));
         onCloseModal();
     };
 
@@ -73,8 +75,13 @@ const ModalInterest = ({ onCloseModal, onChangeModal }) => {
                 <Icon type="comment" w="32px" h="32px" m="12px 0px" />
             </ContentButton>
             <ContentButton onClick={() => handleChangeInterest(null)}>
-                <span>관심없어요</span>
-                <Icon type="cancel" w="32px" h="32px" m="12px 0px" />
+                <span className={!interestState && "on"}>관심없어요</span>
+                <Icon
+                    type={interestState ? "cancel" : "noInterest"}
+                    w="32px"
+                    h="32px"
+                    m="12px 0px"
+                />
             </ContentButton>
             <ContentFooter onClick={onCloseModal}>취소</ContentFooter>
         </ModalWrapper>
@@ -184,6 +191,10 @@ const ContentButton = styled.div`
     span {
         flex: 1 1 0%;
         text-align: left;
+    }
+
+    span.on {
+        color: ${(props) => props.theme.pink};
     }
 `;
 

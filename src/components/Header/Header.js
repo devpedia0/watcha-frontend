@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import ModalSignup from "./ModalSignup/ModalSignup";
 import ModalLogin from "./ModalLogin/ModalLogin";
@@ -8,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import modalActions from "../../redux/actions/modalActions";
 import { Svg } from "..";
 
-export default function Header({ className }) {
+const Header = ({ className }) => {
     const dispatch = useDispatch();
     const modal = useSelector((state) => state.modal);
     const { userId } = useSelector((state) => state.auth);
@@ -21,7 +20,7 @@ export default function Header({ className }) {
         <Wrapper className={className}>
             <Nav>
                 <LiLogo className="navLogo">
-                    <Link to="/">
+                    <Link onClick={() => (window.location = "/")}>
                         <Svg
                             type="headerLogo"
                             w="151px"
@@ -31,17 +30,26 @@ export default function Header({ className }) {
                     </Link>
                 </LiLogo>
                 <LiCtg>
-                    <Link to="/" activeClassName="active">
+                    <Link
+                        activeClassName="active"
+                        onClick={() => (window.location = "/")}
+                    >
                         영화
                     </Link>
                 </LiCtg>
                 <LiCtg>
-                    <Link to="/tv_shows" activeClassName="active">
+                    <Link
+                        activeClassName="active"
+                        onClick={() => (window.location = "/tv_shows")}
+                    >
                         TV 프로그램
                     </Link>
                 </LiCtg>
                 <LiCtg>
-                    <Link to="/books" activeClassName="active">
+                    <Link
+                        activeClassName="active"
+                        onClick={() => (window.location = "/books")}
+                    >
                         책
                     </Link>
                 </LiCtg>
@@ -98,7 +106,9 @@ export default function Header({ className }) {
             )}
         </Wrapper>
     );
-}
+};
+
+export default Header;
 
 const Wrapper = styled.div`
     position: fixed;
@@ -240,7 +250,7 @@ const LiButton = styled.li`
     }
 `;
 
-const Link = styled(NavLink)`
+const Link = styled.div`
     background: none;
     padding: 0px;
     border: none;

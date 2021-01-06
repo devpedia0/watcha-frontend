@@ -7,6 +7,7 @@ import { Button, Icon, BoxImg } from "../../../../styles";
 
 const ContentsWrite = ({ onChangeModal }) => {
     const dispatch = useDispatch();
+    const userName = useSelector((state) => state.auth).name;
     const {
         userData: { commentDescription },
     } = useSelector((state) => state.content);
@@ -24,7 +25,7 @@ const ContentsWrite = ({ onChangeModal }) => {
             {!commentDescription ? (
                 <SectionComment>
                     <h3>
-                        이 작품에 대한 KyungYoonHa 님의 평가를 글로 남겨보세요.
+                        이 작품에 대한 {userName} 님의 평가를 글로 남겨보세요.
                     </h3>
                     <Button
                         basic

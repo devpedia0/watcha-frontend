@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import useObserver from "../../Hooks/useObserver";
+import history from "../../history";
 import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../redux/actions";
 import { CardList, HeaderDetail, CardPoster } from "../../components";
@@ -34,7 +35,13 @@ const Watcha = (props) => {
                     <HeaderDetail title={info.title} />
                     <CardList>
                         {data.map((item, idx) => (
-                            <StyledCard key={idx} item={item} />
+                            <StyledCard
+                                key={idx}
+                                item={item}
+                                onClick={() =>
+                                    history.push(`/contents/${item.id}`)
+                                }
+                            />
                         ))}
                     </CardList>
                 </>

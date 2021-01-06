@@ -46,7 +46,13 @@ const People = (props) => {
             </div>
             <CardList>
                 {data.map((item, idx) => (
-                    <StyledCard key={idx} item={item} />
+                    <StyledCard
+                        key={idx}
+                        item={item}
+                        onClick={() =>
+                            (window.location = `/contents/${item.id}`)
+                        }
+                    />
                 ))}
             </CardList>
             <StyledLoader ref={loaderRef}>

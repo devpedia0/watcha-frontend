@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { detailActions } from "../../../../redux/actions";
 import { CardList, CardPoster } from "../../../../components";
 import { Loader } from "../../../../styles";
-import history from "../../../../history";
 
 const OrderByTotal = ({ fetchUrl }) => {
     const dispatch = useDispatch();
@@ -34,7 +33,10 @@ const OrderByTotal = ({ fetchUrl }) => {
                         <StyledCard
                             key={idx}
                             item={item}
-                            onClick={() => history.push(`/contents/${item.id}`)}
+                            isRated={true}
+                            onClick={() =>
+                                (window.location = `/contents/${item.id}`)
+                            }
                         />
                     ))}
                 </CardList>
@@ -50,7 +52,7 @@ const OrderByTotal = ({ fetchUrl }) => {
 export default OrderByTotal;
 
 const Wrapper = styled.div`
-    padding: 200px 20px;
+    padding: 180px 20px;
     background: ${(props) => props.theme.bgGray};
 `;
 

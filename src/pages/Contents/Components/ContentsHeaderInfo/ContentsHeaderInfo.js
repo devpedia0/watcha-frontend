@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { Stars, Svg } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { contentActions, modalActions } from "../../../../redux/actions";
+import { changeCountryFormat } from "../../../../utils/helperFunc";
 
 const ContentsInfo = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const ContentsInfo = () => {
         userData: { interestState, isLogin },
     } = useSelector((state) => state.content);
 
-    const handleClickOpen = () => {
+    const handleClickLeft = () => {
         if (!isLogin) {
             return dispatch(modalActions.setModal("needLoginInterest"));
         }
@@ -30,25 +31,33 @@ const ContentsInfo = () => {
             : dispatch(contentActions.changeInterestState("WISH"));
     };
 
+    const handleClickRight = () => {
+        return isLogin
+            ? dispatch(modalActions.setModal("interest"))
+            : dispatch(modalActions.setModal("needLoginInterest"));
+    };
+
+    const textInfo = () => {
+        let result = "";
+        let country = changeCountryFormat(countryCode);
+        result += productionDate ? productionDate.split("-")[0] : "";
+        result += category ? " ・ " + category : "";
+        result += country ? " ・ " + category : "";
+        result += page ? " ・ " + page + "p" : "";
+        return result;
+    };
+
     return (
         <Wrapper>
             <div className="infoList">
                 <div className="title">{mainTitle}</div>
-                <div className="detail">
-                    {productionDate ? productionDate.split("-")[0] : ""}
-                    {category ? " ・ " + category : ""}
-                    {countryCode ? " ・ " + countryCode : ""}
-                    {page ? " ・ " + page + "p" : ""}
-                </div>
+                <div className="detail">{textInfo()}</div>
                 <div className="rating">
                     평균 ★{average.toFixed(1)} ({totalCount} 명)
                 </div>
                 <ButtonContainer>
-                    <ButtonBlock
-                        isClicked={!!interestState}
-                        onClick={handleClickOpen}
-                    >
-                        <button className="btn-left">
+                    <ButtonBlock isClicked={!!interestState}>
+                        <button className="btn-left" onClick={handleClickLeft}>
                             <div className="btn-left-content">
                                 <IconSelector status={interestState} />
 
@@ -59,7 +68,10 @@ const ContentsInfo = () => {
                                 </div>
                             </div>
                         </button>
-                        <button className="btn-right">
+                        <button
+                            className="btn-right"
+                            onClick={handleClickRight}
+                        >
                             <Svg
                                 type={interestState ? "arrowGray" : "arrow"}
                                 color={interestState ? "#d9d9d9" : "#FFF"}

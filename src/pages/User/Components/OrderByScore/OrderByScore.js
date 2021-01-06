@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Loader } from "../../../../styles";
+import { Divider, Loader } from "../../../../styles";
 import api from "../../../../services/api";
-import { CardListSlick, CardPoster } from "../../../../components";
+import { CardList, CardPoster } from "../../../../components";
 import history from "../../../../history";
 
 const OrderByScore = ({ fetchUrl }) => {
@@ -27,25 +27,30 @@ const OrderByScore = ({ fetchUrl }) => {
             {Object.keys(state.data)
                 .sort((a, b) => b - a)
                 .map((key, i) => (
-                    <CardListSlick
-                        key={i}
-                        title={`${key} 점 준 영화`}
-                        count={state.data[key].count}
-                        addComponent={
-                            <Link href={`${fetchUrl}/${key}`}>더보기</Link>
-                        }
-                    >
-                        {state.data[key].list.map((item, idx) => (
-                            <StyledCard
-                                key={idx}
-                                item={item}
-                                size="sm"
-                                onClick={() =>
-                                    history.push(`/contents/${item.id}`)
-                                }
-                            />
-                        ))}
-                    </CardListSlick>
+                    <div key={i}>
+                        <CardList
+                            title={`${key} 점 준 영화`}
+                            count={state.data[key].count}
+                            addComponent={
+                                <Link href={`${fetchUrl}/${key}`}>더보기</Link>
+                            }
+                        >
+                            {state.data[key].list.map((item, idx) => {
+                                let { score, ...rest } = item;
+                                return (
+                                    <StyledCard
+                                        key={idx}
+                                        item={rest}
+                                        size="sm"
+                                        onClick={() =>
+                                            history.push(`/contents/${item.id}`)
+                                        }
+                                    />
+                                );
+                            })}
+                        </CardList>
+                        <Divider />
+                    </div>
                 ))}
         </Wrapper>
     );

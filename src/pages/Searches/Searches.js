@@ -81,6 +81,9 @@ const Searches = ({ match }) => {
                                         : "") +
                                     (item.author ? " • " + item.author : "")
                                 }
+                                onClick={() => {
+                                    history.push(`/contents/${item.id}`);
+                                }}
                             />
                         ))}
                     </CardListSlick>
@@ -116,6 +119,9 @@ const Searches = ({ match }) => {
                                         : "") +
                                     (item.author ? " • " + item.author : "")
                                 }
+                                onClick={() => {
+                                    history.push(`/contents/${item.id}`);
+                                }}
                             />
                         ))}
                     </CardListSlick>
@@ -149,6 +155,9 @@ const Searches = ({ match }) => {
                                         : "") +
                                     (item.author ? " • " + item.author : "")
                                 }
+                                onClick={() => {
+                                    history.push(`/contents/${item.id}`);
+                                }}
                             />
                         ))}
                     </CardListSlick>
@@ -180,6 +189,9 @@ const Searches = ({ match }) => {
                                 subTitle={
                                     item.description ? item.description : ""
                                 }
+                                onClick={() => {
+                                    history.push(`/detail/people/${item.id}`);
+                                }}
                             />
                         ))}
                     </CardListSlick>

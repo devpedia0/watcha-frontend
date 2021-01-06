@@ -234,8 +234,11 @@ function UserAnalysis({ match }) {
                                 <div>
                                     <Margin>
                                         <div className="watchingTime">
-                                            {movie.totalRunningTimeInMinute}
-                                            시간
+                                            {Math.floor(
+                                                movie.totalRunningTimeInMinute /
+                                                    60
+                                            )}
+                                            {" 시간"}
                                         </div>
                                         <div className="analysisSubtitle">
                                             이제 자기만의 영화보는 관점이

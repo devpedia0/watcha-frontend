@@ -7,7 +7,7 @@ import { CardList, HeaderDetail, Card } from "../../components";
 import { Loader } from "../../styles";
 import api from "../../services/api";
 import queryString from "query-string";
-import { translate } from "../../utils/helperFunc";
+import { changeCountryFormat, translate } from "../../utils/helperFunc";
 
 const SearchesMoreContents = (props) => {
     const SIZE = 20;
@@ -55,10 +55,14 @@ const SearchesMoreContents = (props) => {
                             title={item.mainTitle}
                             subTitle={
                                 item.productionDate?.split("-")[0] +
-                                (item.countryCode
-                                    ? " • " + item.countryCode
+                                (changeCountryFormat(item.countryCode)
+                                    ? " • " +
+                                      changeCountryFormat(item.countryCode)
                                     : "") +
                                 (item.author ? " • " + item.author : "")
+                            }
+                            onClick={() =>
+                                (window.location = `/contents/${item.id}`)
                             }
                         />
                     ))}

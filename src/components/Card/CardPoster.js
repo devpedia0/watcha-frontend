@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const CardPoster = ({ size, item, rank, className, onClick }) => {
+const CardPoster = ({ size, item, rank, className, isRated, onClick }) => {
     return (
         <Wrapper className={className} size={size} onClick={onClick}>
             <ContentImg>
@@ -14,7 +14,9 @@ const CardPoster = ({ size, item, rank, className, onClick }) => {
                 <div className="title">{item.mainTitle}</div>
                 {item.year && <div className="year-nation">1996 ・ 미국</div>}
                 {item.score && (
-                    <div className="rating">평균★{item.score.toFixed(1)}</div>
+                    <div className={`rating ${isRated ? "on" : ""}`}>
+                        {isRated ? "평기함" : "평균"}★{item.score.toFixed(1)}
+                    </div>
                 )}
                 {item.rate && (
                     <div className="box-office">
@@ -181,6 +183,11 @@ const ContentInfo = styled.div`
         letter-spacing: 0;
         line-height: 14px;
         height: 15px;
+    }
+
+    .rating.on {
+        color: rgb(255, 161, 54);
+        font-weight: 500;
     }
 
     .box-office {
