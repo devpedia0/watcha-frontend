@@ -58,7 +58,13 @@ const UserContents = ({ match }) => {
                                 }
                             >
                                 {contents.map((item) => (
-                                    <StyledCard key={item.id} item={item} />
+                                    <StyledCard
+                                        key={item.id}
+                                        item={item}
+                                        onClick={() =>
+                                            (window.location = `/contents/${item.id}`)
+                                        }
+                                    />
                                 ))}
                             </CardListSlick>
                         </Wrapper>
