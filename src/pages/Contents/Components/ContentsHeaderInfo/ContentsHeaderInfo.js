@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import { Stars, Svg } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { contentActions, modalActions } from "../../../../redux/actions";
-import country from "../../../../utils/countries";
+import { changeCountryFormat } from "../../../../utils/helperFunc";
+
 const ContentsInfo = () => {
     const dispatch = useDispatch();
     const {
@@ -40,11 +41,7 @@ const ContentsInfo = () => {
         let result = "";
         result += productionDate ? productionDate.split("-")[0] : "";
         result += category ? " ・ " + category : "";
-        if (countryCode) {
-            result += country[countryCode]
-                ? " ・ " + country[countryCode].CountryNameKR
-                : "";
-        }
+        result += changeCountryFormat(countryCode);
         result += page ? " ・ " + page + "p" : "";
         return result;
     };

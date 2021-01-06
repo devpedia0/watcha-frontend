@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import { CardList } from "../../../../components";
 import { useSelector } from "react-redux";
 import { Divider } from "../../../../styles";
-import { changeDataFormat } from "../../../../utils/helperFunc";
-import countries from "../../../../utils/countries";
+import {
+    changeCountryFormat,
+    changeDataFormat,
+} from "../../../../utils/helperFunc";
 
 const ContentsInfo = () => {
     const pageId = useParams().pageId;
@@ -33,11 +35,7 @@ const ContentsInfo = () => {
         let result = "";
         result += productionDate ? productionDate.split("-")[0] : "";
         result += category ? " ・ " + category : "";
-        if (countryCode) {
-            result += countries[countryCode]
-                ? " ・ " + countries[countryCode].CountryNameKR
-                : "";
-        }
+        result += changeCountryFormat(countryCode);
         result += page ? " ・ " + page + "p" : "";
         return result;
     };

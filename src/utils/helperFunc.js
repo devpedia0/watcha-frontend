@@ -1,4 +1,5 @@
 import history from "../history";
+import countries from "../utils/countries";
 
 const images = [
     "https://images.watcha.net/user/768238/small/9681b5d769447364bd9cbe78d225acbdc38116dc.jpg",
@@ -66,4 +67,14 @@ export const translate = (key) => {
     };
 
     return translateObj[key.toLowerCase()];
+};
+
+export const changeCountryFormat = (countryCode) => {
+    let result = "";
+    if (countryCode) {
+        result += countries[countryCode]
+            ? " ・ " + countries[countryCode].CountryNameKR
+            : "";
+    }
+    return result;
 };
