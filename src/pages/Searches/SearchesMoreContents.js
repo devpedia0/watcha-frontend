@@ -55,7 +55,10 @@ const SearchesMoreContents = (props) => {
                             title={item.mainTitle}
                             subTitle={
                                 item.productionDate?.split("-")[0] +
-                                changeCountryFormat(item.countryCode) +
+                                (changeCountryFormat(item.countryCode)
+                                    ? " • " +
+                                      changeCountryFormat(item.countryCode)
+                                    : "") +
                                 (item.author ? " • " + item.author : "")
                             }
                             onClick={() =>

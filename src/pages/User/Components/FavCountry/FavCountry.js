@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { changeCountryFormat } from "../../../../utils/helperFunc";
 
 function FavCountry({ data }) {
+    console.log(data);
+    if (data.length < 3) return null;
+
     return (
         <Favorite>
             <header className="tagHeader">
@@ -11,57 +15,30 @@ function FavCountry({ data }) {
                 <div className="margin">
                     <div className="mainContainer">
                         <ul className="sumUl">
-                            <li className="statList">
-                                <div className="statTitle">
-                                    {data[0].description}
-                                </div>
-                                <div className="subTitle">
-                                    {data[0].score.toFixed(1)}점 •{" "}
-                                    {data[0].count}편
-                                </div>
-                            </li>
-                            <li className="statList">
-                                <div className="statTitle">
-                                    {data[1].description}
-                                </div>
-                                <div className="subTitle">
-                                    {data[1].score.toFixed(1)}점 •{" "}
-                                    {data[1].count}편
-                                </div>
-                            </li>
-                            <li className="statList">
-                                <div className="statTitle">
-                                    {data[2].description}
-                                </div>
-                                <div className="subTitle">
-                                    {data[2].score.toFixed(1)}점 •{" "}
-                                    {data[2].count}편
-                                </div>
-                            </li>
+                            {[...new Array(3)].map((_, idx) => (
+                                <li key={idx} className="statList">
+                                    <div className="statTitle">
+                                        {changeCountryFormat(
+                                            data[idx]?.description
+                                        )}
+                                    </div>
+                                    <div className="subTitle">
+                                        {data[idx]?.score.toFixed(1)}점 •{" "}
+                                        {data[idx]?.count}편
+                                    </div>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <ul className="subContainer">
-                        <li className="subList">
-                            {data[3]?.description}
-                            <span>
-                                {data[3]?.score.toFixed(1)}점 • {data[3]?.count}
-                                편
-                            </span>
-                        </li>
-                        <li className="subList">
-                            {data[4]?.description}
-                            <span>
-                                {data[4]?.score.toFixed(1)}점 • {data[4]?.count}
-                                편
-                            </span>
-                        </li>
-                        <li className="subList">
-                            {data[4].description}
-                            <span>
-                                {data[4]?.score.toFixed(1)}점 • {data[4]?.count}
-                                편
-                            </span>
-                        </li>
+                        {data.map((item, idx) => (
+                            <li key={idx} className="subList">
+                                {changeCountryFormat(item.description)}
+                                <span>
+                                    {item.score.toFixed(1)}점 • {item.count}편
+                                </span>
+                            </li>
+                        ))}
                     </ul>
                     <hr className="hr" />
                 </div>

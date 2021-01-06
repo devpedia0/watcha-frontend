@@ -73,7 +73,7 @@ export const changeCountryFormat = (countryCode) => {
     let result = "";
     if (countryCode) {
         result += countries[countryCode]
-            ? " ・ " + countries[countryCode].CountryNameKR
+            ? countries[countryCode].CountryNameKR
             : "";
     }
     return result;

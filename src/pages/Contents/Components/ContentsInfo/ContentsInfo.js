@@ -33,9 +33,10 @@ const ContentsInfo = () => {
 
     const textInfo = () => {
         let result = "";
+        let country = changeCountryFormat(countryCode);
         result += productionDate ? productionDate.split("-")[0] : "";
         result += category ? " ・ " + category : "";
-        result += changeCountryFormat(countryCode);
+        result += country ? " ・ " + category : "";
         result += page ? " ・ " + page + "p" : "";
         return result;
     };

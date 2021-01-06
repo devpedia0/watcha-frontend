@@ -5,6 +5,7 @@ import { Divider } from "../../../../styles";
 import { CardListSlick, Card } from "../../../../components";
 
 const ActorSection = ({ data }) => {
+    console.log(data);
     return (
         <Wrapper>
             <CardListSlick title="선호배우" horizon>
@@ -16,7 +17,7 @@ const ActorSection = ({ data }) => {
                         imageUrl={item.profileImagePath}
                         title={item.name}
                         subTitle={
-                            item.role +
+                            (item.role ? item.role : "") +
                             (item.characterName
                                 ? " | " + item.characterName
                                 : "")
