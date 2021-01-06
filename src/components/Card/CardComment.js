@@ -63,7 +63,7 @@ const CardComment = ({ className, item, onClick }) => {
     return (
         <Wrapper className={className} onClick={onClick}>
             <div className="card-block">
-                <Header onClick={() => history.push(`/user/${userId}`)}>
+                <Header onClick={() => history.push(`/users/${userId}`)}>
                     <div className="title">
                         <img alt="" src={randomUserImg()} />
                         <h2>{userName}</h2>

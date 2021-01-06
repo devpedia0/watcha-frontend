@@ -935,6 +935,14 @@ const countries = {
         CountryNameEN: "KOREA, REPUBLIC OF",
         CountryNameOriginal: "한국",
     },
+    KO: {
+        "2digitCode": "KR",
+        "3digitCode": "KOR",
+        ISONumbericCode: 410,
+        CountryNameKR: "대한민국",
+        CountryNameEN: "KOREA, REPUBLIC OF",
+        CountryNameOriginal: "한국",
+    },
     KW: {
         "2digitCode": "KW",
         "3digitCode": "KWT",

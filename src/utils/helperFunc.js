@@ -35,6 +35,10 @@ export const changeDataFormat = (key, value) => {
 
         case "productionDate":
             return value.split("-")[0];
+
+        case "countryCode":
+            console.log(changeCountryFormat(value));
+            return changeCountryFormat(value);
         default:
             return value;
     }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Divider, Loader } from "../../../../styles";
 import api from "../../../../services/api";
-import { CardList, CardPoster } from "../../../../components";
+import { CardListSlick, CardPoster } from "../../../../components";
 import history from "../../../../history";
 
 const OrderByScore = ({ fetchUrl }) => {
@@ -28,7 +28,7 @@ const OrderByScore = ({ fetchUrl }) => {
                 .sort((a, b) => b - a)
                 .map((key, i) => (
                     <div key={i}>
-                        <CardList
+                        <CardListSlick
                             title={`${key} 점 준 영화`}
                             count={state.data[key].count}
                             addComponent={
@@ -48,7 +48,7 @@ const OrderByScore = ({ fetchUrl }) => {
                                     />
                                 );
                             })}
-                        </CardList>
+                        </CardListSlick>
                         <Divider />
                     </div>
                 ))}
