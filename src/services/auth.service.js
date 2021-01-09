@@ -38,28 +38,6 @@ const login = (email, password) => {
         .catch((error) => alert(error));
 };
 
-// const onRefresh = (Token) => {
-//     const accessToken = localStorage.getItem("accessToken");
-//     const refreshToken = localStorage.getItem("refreshToken");
-
-//     if (accessToken === null && refreshToken !== null) {
-//         return api
-//             .post("auth/token", { params: { refreshToken: refreshToken } })
-//             .then((response) =>
-//                 localStorage.setItem(
-//                     "accessToken",
-//                     JSON.stringify(response.headers.authorization)
-//                 )
-//             );
-//     }
-//     return api
-//         .post("/auth/token", localStorage.getItem("refreshToken"))
-//         .then((response) => {})
-//         .catch((error) => {
-//             console.log("refreshError", error);
-//         });
-// };
-
 const checkEmail = (email) => {
     return api.get("/public/email", {
         params: {

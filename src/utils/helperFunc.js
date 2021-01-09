@@ -37,7 +37,6 @@ export const changeDataFormat = (key, value) => {
             return value.split("-")[0];
 
         case "countryCode":
-            console.log(changeCountryFormat(value));
             return changeCountryFormat(value);
         default:
             return value;

@@ -27,7 +27,6 @@ const CardListSlick = ({
 
     useEffect(() => {
         try {
-            // console.log(slider.current.children);
             const childNum = slider.current.children.length;
             const childWidth = slider.current.children[0].clientWidth;
             const slideWidth = slider.current.offsetWidth;

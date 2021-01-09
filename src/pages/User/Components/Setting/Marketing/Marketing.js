@@ -15,7 +15,6 @@ export default function Marketing(props) {
         const getData = async () => {
             const response = await AuthService.getUserInfo();
             setUserInfo(() => response.data);
-            console.log(response);
         };
         getData();
     }, []);

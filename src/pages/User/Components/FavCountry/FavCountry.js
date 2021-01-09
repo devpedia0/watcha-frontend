@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { changeCountryFormat } from "../../../../utils/helperFunc";
 
 function FavCountry({ data }) {
-    console.log(data);
     if (data.length < 3) return null;
 
     return (

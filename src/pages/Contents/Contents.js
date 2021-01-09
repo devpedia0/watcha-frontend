@@ -30,7 +30,6 @@ const Contents = () => {
         userData: { interestState, score, isLogin },
         isFetching,
     } = useSelector((state) => state.content);
-    console.log(data);
     useEffect(() => {
         dispatch(contentActions.fetch());
         return () => dispatch(contentActions.initialize());

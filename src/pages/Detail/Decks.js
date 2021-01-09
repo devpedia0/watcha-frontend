@@ -5,7 +5,6 @@ import { CardListInfinite } from "../../components";
 import { Loader } from "../../styles";
 
 const Decks = ({ match }) => {
-    console.log(match);
     const [data, setData] = useState({ isFetching: true });
     const pageId = match.params.pageId;
 

@@ -5,7 +5,6 @@ import { Divider } from "../../../../styles";
 import { CardListSlick, Card } from "../../../../components";
 
 const ActorSection = ({ data }) => {
-    console.log(data);
     return (
         <Wrapper>
             <CardListSlick title="선호배우" horizon>
